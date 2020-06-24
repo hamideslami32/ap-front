@@ -30,7 +30,8 @@ export default {
    ** https://nuxtjs.org/guide/plugins
    */
   plugins: [
-    '~plugins/deviceLayout'
+    '~plugins/deviceLayout',
+    '~plugins/svg'
   ],
   server: {
     port: 3000
@@ -39,6 +40,8 @@ export default {
    ** Nuxt.js dev-modules
    */
   buildModules: [
+/*     '@nuxtjs/eslint-module',
+    '@nuxtjs/stylelint-module' */
     // Doc: https://github.com/nuxt-community/eslint-module
     // Doc: https://github.com/nuxt-community/stylelint-module
   ],

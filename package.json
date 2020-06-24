@@ -10,7 +10,8 @@
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore . --fix",
     "lint:style": "stylelint **/*.{vue,css} --ignore-path .gitignore",
     "lint": "npm run lint:js && npm run lint:style",
-    "test": "jest"
+    "test": "jest",
+    "svg": "vsvg -s ./static/svg-icons -t ./assets/images/icons"
   },
   "lint-staged": {
     "*.{js,vue}": "eslint",
@@ -47,6 +48,7 @@
     "sass-loader": "^8.0.2",
     "stylelint": "^13.6.1",
     "stylelint-config-standard": "^20.0.0",
-    "vue-jest": "^3.0.4"
+    "vue-jest": "^3.0.4",
+    "vue-svgicon": "^3.2.5"
   }
 }
