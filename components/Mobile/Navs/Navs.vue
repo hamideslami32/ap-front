@@ -27,11 +27,12 @@ export default {
 .navs {
   padding: 20px 0;
   overflow: auto;
+  text-align: right;
   white-space: nowrap;
   -ms-overflow-style: none;
   scrollbar-width: none;
 
-  &:-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
 }
