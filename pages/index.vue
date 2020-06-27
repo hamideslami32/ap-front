@@ -1,18 +1,16 @@
 <template>
-  <div>
-    <h2>APRO</h2>
-    <h2>{{test}}</h2>
-    <button class="btn btn-primary">Salam</button>
+  <div class="home">
+    <app-navs />
+    <nuxt-child />
   </div>
 </template>
 
 <script>
+import Navs from '~/components/Mobile/Navs/Navs.vue'
 export default {
-  data() {
-    return {
-      test: 'TEST'
-    };
+  components: {
+    appNavs: Navs
   },
   layout: 'MobileLayout'
-};
+}
 </script>

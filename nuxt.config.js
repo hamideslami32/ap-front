@@ -29,10 +29,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [
-    '~plugins/deviceLayout',
-    '~plugins/svg'
-  ],
+  plugins: ['~plugins/deviceLayout', '~plugins/svg'],
   server: {
     port: 3000
   },
@@ -40,7 +37,8 @@ export default {
    ** Nuxt.js dev-modules
    */
   buildModules: [
-/*     '@nuxtjs/eslint-module',
+    '@nuxtjs/style-resources'
+    /*     '@nuxtjs/eslint-module',
     '@nuxtjs/stylelint-module' */
     // Doc: https://github.com/nuxt-community/eslint-module
     // Doc: https://github.com/nuxt-community/stylelint-module
@@ -76,5 +74,8 @@ export default {
   bootstrapVue: {
     bootstrapCSS: false, // Or `css: false`
     bootstrapVueCSS: false // Or `bvCSS: false`
+  },
+  styleResources: {
+    scss: ['assets/styles/_vars.scss']
   }
-};
+}

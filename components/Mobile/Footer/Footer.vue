@@ -1,16 +1,16 @@
 <template>
   <div class="container-fluid footer-wrapper">
     <footer class="footer">
-      <svgicon class="footer__icon" name="user-add" width="30" height="30"></svgicon>
-      <svgicon class="footer__icon" name="home" width="30" height="30"></svgicon>
-      <svgicon class="footer__icon" name="calendar" width="30" height="30" :orginal="false"></svgicon>
+      <svgicon class="footer__icon" name="user-add" width="30" height="30" />
+      <svgicon class="footer__icon" name="home" width="30" height="30" />
+      <svgicon class="footer__icon" name="calendar" width="30" height="30" :orginal="false" />
     </footer>
   </div>
 </template>
 
 <script>
-import 'assets/images/icons';
-export default {};
+import 'assets/images/icons'
+export default {}
 </script>
 
 <style lang="scss" scoped>

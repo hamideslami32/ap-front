@@ -1,13 +1,17 @@
 <template>
   <div class="navs">
-    <app-button v-for="list in lists" :key="list.id" :item="list"></app-button>
+    <app-button v-for="list in lists" :key="list.id" :item="list" />
   </div>
 </template>
 
 
 <script>
-import Button from './Button.vue';
+import Button from './Button.vue'
+
 export default {
+  components: {
+    appButton: Button
+  },
   data() {
     return {
       lists: [
@@ -15,12 +19,9 @@ export default {
         { name: 'جستجوی هتل', icon: 'hotel', url: '/hotels', id: 2 },
         { name: 'جستجوی تور', icon: 'tour', url: '/tours', id: 3 }
       ]
-    };
-  },
-  components: {
-    appButton: Button
+    }
   }
-};
+}
 </script>
 
 <style lang='scss'>
