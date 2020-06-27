@@ -1,16 +1,16 @@
 <template>
   <div class="container-fluid header-wrapper">
     <header class="header">
-      <svgicon name="bars-solid" width="30" height="30" color="black"></svgicon>
-      <svgicon name="logo" width="120" height="33"></svgicon>
-      <svgicon name="notifications" width="30" height="30"></svgicon>
+      <svgicon name="bars-solid" width="30" height="30" color="black" />
+      <svgicon name="logo" width="120" height="33" />
+      <svgicon name="notifications" width="30" height="30" />
     </header>
   </div>
 </template>
 
 <script>
-import 'assets/images/icons';
-export default {};
+import 'assets/images/icons'
+export default {}
 </script>
 
 <style lang='scss' scoped>

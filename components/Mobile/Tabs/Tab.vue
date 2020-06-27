@@ -1,12 +1,8 @@
-<template>
-  <li class="tab" @click="handleClick(item.id)">{{ item.name }}</li>
+<template functional>
+  <li class="tab" :class="[data.class, data.staticClass]" v-on="listeners">
+    {{ props.item.name }}
+  </li>
 </template>
-
-<script>
-export default {
-  props: ['item', 'handleClick']
-};
-</script>
 
 <style lang='scss' scoped>
 .tab {
@@ -15,11 +11,12 @@ export default {
   list-style: none;
   min-width: 100px;
   text-align: center;
+  flex: 1;
 
-  &.actived {
+  &.active {
     font-weight: 600;
     color: #fff;
-    z-index: 1;
+    z-index: 2;
   }
 }
 </style>

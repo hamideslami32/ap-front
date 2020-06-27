@@ -1,11 +1,11 @@
-import Vue from 'vue'
+/* import Vue from 'vue'
 
 class Auth {
     constructor(axios, storage) {
         this.axios = axios
         this.storage = storage
 
-        this.user = Vue.observable({});
+        this.user = Vue.observable({})
     }
 
     login(username, password) {
@@ -26,4 +26,4 @@ export default function (ctx, inject) {
     inject('auth', {
         
     })
-}
+} */

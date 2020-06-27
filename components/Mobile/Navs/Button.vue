@@ -1,14 +1,21 @@
 <template>
-  <nuxt-link class="nav-item" :to='item.url'>
-    <button class="nav-item__button">{{item.name}}</button>
+  <nuxt-link class="nav-item" :to="item.url">
+    <button class="nav-item__button">
+      {{ item.name }}
+    </button>
   </nuxt-link>
 </template>
 
 
 <script>
 export default {
-  props: ['item']
-};
+  props: {
+    item: {
+      type: Object,
+      required: true
+    }
+  }
+}
 </script>
 
 <style lang='scss' scoped>
