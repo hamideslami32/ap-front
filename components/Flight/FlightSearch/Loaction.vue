@@ -36,7 +36,6 @@
   background: $backgroundColor;
   border: 1px solid #ddd;
   box-sizing: border-box;
-  margin-bottom: 20px;
 }
 
 .location {
@@ -44,6 +43,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 20px;
 
   &__origin {
     @include location-card;
@@ -87,6 +87,7 @@
         padding: 3px 5px;
         border-radius: 100px;
         margin-left: 5px;
+        font-weight: 600;
       }
 
       &__name {
@@ -139,6 +140,7 @@
         padding: 3px 5px;
         border-radius: 100px;
         margin-right: 5px;
+        font-weight: 600;
       }
 
       &__name {
