@@ -7,8 +7,8 @@
 
 
 <script>
-import Tabs from '~/components/Mobile/Tabs/Tabs.vue'
-import FlightSearch from '~/components/Mobile/FlightSearch/FlightSearch.vue'
+import Tabs from '~/components/Tabs/Tabs.vue'
+import FlightSearch from '~/components/Flight/FlightSearch/FlightSearch.vue'
 
 export default {
   components: {

@@ -9,12 +9,12 @@
 </template>
 
 <script>
-import Header from '../components/Mobile/Header/Header.vue'
-import Footer from '../components/Mobile/Footer/Footer.vue'
+import Header from '~/components/Header/Header.vue'
+import Footer from '~/components/Footer/Footer.vue'
 export default {
   components: {
     appHeader: Header,
-    appFooter: Footer,
+    appFooter: Footer
   }
 }
 </script>

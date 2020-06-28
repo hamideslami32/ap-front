@@ -9,10 +9,7 @@
         @click="selectTab(i)"
       />
     </ul>
-    <span
-      :style="{'right': `${tabOffset}px`, 'width': `${tabWidth}px`}"
-      class="tabs__active"
-    />
+    <span :style="{'right': `${tabOffset}px`, 'width': `${tabWidth}px`}" class="tabs__active" />
   </div>
 </template>
 
@@ -48,7 +45,10 @@ export default {
       this.$nextTick(() => {
         const tabElement = this.$refs.menu.children[this.activeTab]
         this.tabWidth = tabElement.offsetWidth
-        this.tabOffset = this.$refs.menu.offsetWidth - tabElement.offsetLeft - tabElement.offsetWidth
+        this.tabOffset =
+          this.$refs.menu.offsetWidth -
+          tabElement.offsetLeft -
+          tabElement.offsetWidth
       })
     }
   }
@@ -65,7 +65,7 @@ export default {
     height: 100%;
     align-items: center;
     justify-content: space-evenly;
-    background-color: rgba(17, 17, 17, 0.001);
+    background: $lightGrayColor;
     border: 1px solid #ddd;
     border-radius: 100px;
     padding: 0;
@@ -73,7 +73,7 @@ export default {
   }
 
   &__active {
-    background-color: #444;
+    background-color: $blackColor;
     transition: all 250ms ease;
     position: absolute;
     border-radius: 100px;

@@ -10,22 +10,15 @@
 <script>
 import Location from './Loaction.vue'
 export default {
-    components: {
-        appLocation: Location
-    }
+  components: {
+    appLocation: Location
+  }
 }
 </script>
 
 
 <style lang="scss" scoped>
-  .flightSearch {
-    padding: 20px 0;
-  }
+.flightSearch {
+  padding: 20px 0;
+}
 </style>
-
-
-
-
-
-
-
