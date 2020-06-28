@@ -1,0 +1,120 @@
+<template>
+  <div class="date-picker">
+    <div class="date-picker__start">
+      <svgicon class="date-picker__start--icon" name="calendar" width="30" height="30" />
+      <div class="date-picker__start--input-holder">
+        <label class="date-picker__start--input-holder__title">تاریخ رفت</label>
+        <input
+          class="date-picker__start--input-holder__input"
+          value="‏۲ شهریور ۹۹"
+          type="text"
+          name="start-date"
+        >
+      </div>
+    </div>
+    <div class="date-picker__end">
+      <!-- <svgicon class="date-picker__end--icon" name="calendar" width="30" height="30" /> -->
+      <div class="date-picker__end--input-holder">
+        <label class="date-picker__end--input-holder__title">تاریخ بازگشت</label>
+        <!-- <input
+          class="date-picker__end--input-holder__input"
+          value="‏۲ شهریور ۹۹"
+          type="text"
+          name="end-date"
+        > -->
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import '~/components/icons'
+export default {}
+</script>
+
+<style lang="scss" scoped>
+.date-picker {
+  display: flex;
+  border: 1px solid $borderColor;
+  border-radius: 5px;
+  align-items: center;
+  //   padding: 20px 15px;
+
+  &__start {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background-color: $lightGrayColor;
+    padding: 20px 15px;
+
+    &--icon {
+      color: $grayColor;
+    }
+
+    &--input-holder {
+      margin-right: 10px;
+      display: flex;
+      flex-direction: column;
+
+      &__title {
+        font-size: 13px;
+        line-height: 20px;
+        text-align: right;
+        color: $grayColor;
+      }
+
+      &__input {
+        outline: none;
+        width: 80%;
+        border: none;
+        background: transparent;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 25px;
+        color: $blackColor;
+        text-align: right;
+        height: 25px;
+      }
+    }
+  }
+
+  &__end {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    //   background-color: $lightGrayColor;
+    padding: 20px 15px;
+    justify-content: center;
+
+    &--icon {
+      color: $grayColor;
+    }
+
+    &--input-holder {
+      //   margin-right: 10px;
+      display: flex;
+      flex-direction: column;
+
+      &__title {
+        font-size: 15px;
+        line-height: 32px;
+        text-align: center;
+        color: $grayColor;
+      }
+
+      &__input {
+        outline: none;
+        width: 80%;
+        border: none;
+        background: transparent;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 25px;
+        color: $blackColor;
+        text-align: right;
+        height: 25px;
+      }
+    }
+  }
+}
+</style>

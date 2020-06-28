@@ -13,7 +13,7 @@ import FlightSearch from '~/components/Flight/FlightSearch/FlightSearch.vue'
 export default {
   components: {
     appTabs: Tabs,
-    appFlightSearch: FlightSearch
+    appFlightSearch: FlightSearch,
   }
 }
 </script>
