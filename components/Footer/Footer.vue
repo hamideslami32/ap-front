@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import 'assets/images/icons'
+import '~/components/icons'
 export default {}
 </script>
 

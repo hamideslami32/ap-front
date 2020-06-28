@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Navs from '~/components/Mobile/Navs/Navs.vue'
+import Navs from '~/components/Navs/Navs.vue'
 export default {
   components: {
     appNavs: Navs

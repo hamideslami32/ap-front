@@ -10,7 +10,7 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
     "test": "jest",
-    "svg": "vsvg -s ./static/svg-icons -t ./assets/images/icons --svgo svgo.js"
+    "svg": "vsvg -s ./assets/images/icons -t ./components/icons --svgo svgo.js"
   },
   "lint-staged": {
     "*.{js,vue}": "eslint",
