@@ -1,5 +1,6 @@
 <template>
-  <nuxt-link class="nav-item" :to="item.url">
+  <nuxt-link active-class="active" class="nav-item" :to="item.url">
+    <svgicon class="nav-item__icon" :name="item.icon" width="24" height="24" />
     <button class="nav-item__button">
       {{ item.name }}
     </button>
@@ -8,6 +9,7 @@
 
 
 <script>
+import '~/components/icons'
 export default {
   props: {
     item: {
@@ -20,8 +22,18 @@ export default {
 
 <style lang='scss' scoped>
 .nav-item {
+  position: relative;
+  text-decoration: none;
+
   &:not(:first-child) {
     margin-right: 10px;
+  }
+
+  &__icon {
+    position: absolute;
+    right: 15px;
+    transform: translateY(50%);
+    color: $darkGrayColor;
   }
 
   &__button {
@@ -29,19 +41,33 @@ export default {
     height: 50px;
     left: 205px;
     top: 80px;
-    background: #fff;
+    background: $whiteColor;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
     border-radius: 5px;
     font-size: 13px;
     line-height: 24px;
-    color: #666;
+    color: $darkGrayColor;
     outline: none;
     border: none;
+    padding-right: 30px;
     transition: all ease-out 250ms;
 
     &:hover {
-      color: #fff;
+      color: $whiteColor;
       background: linear-gradient(90deg, #dd418a 0%, #e3629e 100%);
+    }
+  }
+
+  &.active {
+    .nav-item {
+      &__button {
+        background: linear-gradient(90deg, #dd418a 0%, #e3629e 100%);
+        color: $whiteColor;
+      }
+
+      &__icon {
+        color: $whiteColor;
+      }
     }
   }
 }
