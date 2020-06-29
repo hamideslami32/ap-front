@@ -7,7 +7,7 @@
       <span class="passengers__input-holder--before">
         <svgicon class="passengers__input-holder--before__icon" width="24" height="24" name="chair" />
       </span>
-      <input value="3 مسافر، اکونومی" class="passengers__input-holder--input" type="text">
+      <input name="passengers" value="3 مسافر، اکونومی" class="passengers__input-holder--input" type="text">
       <span class="passengers__input-holder--after">
         <svgicon class="passengers__input-holder--after__icon" width="24" height="24" name="arrow-down" />
       </span>

@@ -31,7 +31,6 @@
 
 <style lang="scss" scoped>
 @mixin location-card {
-  min-height: 120px;
   min-width: 49%;
   background: $backgroundColor;
   border: 1px solid #ddd;
@@ -40,6 +39,7 @@
 
 .location {
   position: relative;
+  max-height: 120px;
   display: flex;
   align-items: center;
   justify-content: space-between;
