@@ -2,7 +2,7 @@
   <div class="container-fluid header-wrapper">
     <header class="header">
       <svgicon name="bars-solid" width="30" height="30" color="black" />
-      <svgicon name="logo" width="120" height="33" />
+      <app-logo />
       <svgicon name="notifications" width="30" height="30" />
     </header>
   </div>
@@ -10,7 +10,12 @@
 
 <script>
 import '~/components/icons'
-export default {}
+import Logo from "~/components/Logo/Logo.vue"
+export default {
+  components: {
+    appLogo: Logo
+  }
+}
 </script>
 
 <style lang='scss' scoped>
