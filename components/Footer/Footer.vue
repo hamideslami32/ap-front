@@ -1,9 +1,15 @@
 <template>
   <div class="container-fluid footer-wrapper">
     <footer class="footer">
-      <svgicon class="footer__icon" name="user-add" width="30" height="30" />
-      <svgicon class="footer__icon" name="home" width="30" height="30" />
-      <svgicon class="footer__icon" name="calendar" width="30" height="30" :orginal="false" />
+      <nuxt-link active-class="active" class="footer__item" to="/login">
+        <svgicon class="footer__item--icon" name="user-add" width="30" height="30" />
+      </nuxt-link>
+      <nuxt-link active-class="active" class="footer__item" to="/">
+        <svgicon class="footer__item--icon" name="home" width="30" height="30" />
+      </nuxt-link>
+      <nuxt-link active-class="active" class="footer__item" to="/profile">
+        <svgicon class="footer__item--icon" name="calendar" width="30" height="30" :orginal="false" />
+      </nuxt-link>
     </footer>
   </div>
 </template>
@@ -27,8 +33,39 @@ export default {}
   justify-content: space-around;
   align-items: center;
 
-  &__icon {
-    cursor: pointer;
+  &__item {
+    text-decoration: none;
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    &--icon {
+      cursor: pointer;
+      color: $blackColor;
+
+      &:hover {
+        color: $primary;
+      }
+    }
+
+    &.active {
+      &::before {
+        content: '';
+        width: 4px;
+        height: 4px;
+        background: $primary;
+        position: absolute;
+        bottom: -10px;
+        border-radius: 50%;
+      }
+
+      .footer__item {
+        &--icon {
+          color: $primary;
+          position: relative;
+        }
+      }
+    }
   }
 }
 </style>

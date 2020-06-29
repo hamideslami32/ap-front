@@ -102,6 +102,7 @@ export default {}
         line-height: 32px;
         text-align: center;
         color: $grayColor;
+        margin-bottom: 0;
       }
 
       &__input {

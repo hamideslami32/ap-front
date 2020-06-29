@@ -28,8 +28,9 @@ export default {
     height: 50px;
 
     &__btn {
+      border-radius: 5px;
       width: 100%;
-      border: 1px solid $primary;
+      border: none;
       background: linear-gradient(90deg, $primary 0%, #8958d7 100%);
       color: $whiteColor;
       line-height: 50px;

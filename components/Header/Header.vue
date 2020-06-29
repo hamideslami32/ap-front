@@ -1,9 +1,9 @@
 <template>
   <div class="container-fluid header-wrapper">
     <header class="header">
-      <svgicon name="bars-solid" width="30" height="30" color="black" />
+      <svgicon name="bars-solid" class="header__icon" width="30" height="30" color="black" />
       <app-logo />
-      <svgicon name="notifications" width="30" height="30" />
+      <svgicon name="notifications" width="30" class="header__icon" height="30" />
     </header>
   </div>
 </template>
@@ -29,5 +29,9 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  &__icon {
+    color: $blackColor;
+  }
 }
 </style>
