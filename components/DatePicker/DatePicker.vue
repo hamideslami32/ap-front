@@ -1,7 +1,7 @@
 <template>
   <div class="date-picker">
     <div class="date-picker__start">
-      <svgicon class="date-picker__start--icon" name="calendar" width="30" height="30" />
+      <svgicon class="date-picker__start--icon" name="calendar" width="24" height="24" />
       <div class="date-picker__start--input-holder">
         <label class="date-picker__start--input-holder__title">تاریخ رفت</label>
         <input
@@ -45,16 +45,18 @@ export default {}
     display: flex;
     align-items: center;
     background-color: $lightGrayColor;
-    padding: 20px 15px;
+    padding: 10px 15px 10px 5px;
 
     &--icon {
       color: $grayColor;
+      flex: 1;
     }
 
     &--input-holder {
       margin-right: 10px;
       display: flex;
       flex-direction: column;
+      flex: 4;
 
       &__title {
         font-size: 13px;
@@ -65,7 +67,7 @@ export default {}
 
       &__input {
         outline: none;
-        width: 80%;
+        width: 100%;
         border: none;
         background: transparent;
         font-weight: 500;
@@ -83,7 +85,7 @@ export default {}
     align-items: center;
     flex: 1;
     //   background-color: $lightGrayColor;
-    padding: 20px 15px;
+    padding: 10px 5px 10px 15px;
     justify-content: center;
 
     &--icon {
@@ -104,7 +106,7 @@ export default {}
 
       &__input {
         outline: none;
-        width: 80%;
+        width: 100%;
         border: none;
         background: transparent;
         font-weight: 500;
