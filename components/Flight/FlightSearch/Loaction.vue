@@ -14,9 +14,9 @@
       <p class="location__destination--title">
         مقصد
       </p>
-      <input value="آمستردام" class="location__destination--input">
+      <input value="سنگاپور" class="location__destination--input">
       <div class="location__destination--airport">
-        <span class="location__destination--airport__name">فرودگاه اسخیپول</span>
+        <span class="location__destination--airport__name">فرودگاه چانگی</span>
         <span class="location__destination--airport__code">AMS</span>
       </div>
     </div>
@@ -82,7 +82,9 @@
 
       &__code {
         background: $lightGrayColor;
-        color: $darkGrayColor;
+        background: rgba(71, 32, 134, 0.1);
+        border: 1px solid $primary;
+        color: $primary;
         font-size: 11px;
         padding: 3px 5px;
         border-radius: 100px;
@@ -134,8 +136,9 @@
       flex-direction: row;
 
       &__code {
-        background: $lightGrayColor;
-        color: $darkGrayColor;
+        background: rgba(71, 32, 134, 0.1);
+        border: 1px solid $primary;
+        color: $primary;
         font-size: 11px;
         padding: 3px 5px;
         border-radius: 100px;
@@ -169,7 +172,7 @@
       border-top-right-radius: 90px;
       background: transparent;
       position: absolute;
-      left: 14px;
+      left: 12px;
       transform: rotate(90deg);
       border: 1px solid #ddd;
       border-bottom-style: none;
@@ -184,7 +187,7 @@
       border-top-right-radius: 90px;
       background: transparent;
       position: absolute;
-      right: 14px;
+      right: 12px;
       transform: rotate(-90deg);
       border: 1px solid #ddd;
       border-bottom-style: none;
@@ -204,6 +207,8 @@
 
       &__icon {
         color: $whiteColor;
+        display: inline-block;
+        vertical-align: baseline;
       }
     }
   }
