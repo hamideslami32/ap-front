@@ -4,6 +4,7 @@
       <app-location />
       <app-select-date />
       <app-passengers />
+      <app-search-button />
     </form>
   </div>
 </template>
@@ -13,12 +14,14 @@
 import Location from './Loaction.vue'
 import SelectDate from '~/components/Flight/FlightSearch/SelectDate.vue'
 import Passengers from '~/components/Flight/FlightSearch/Passengers.vue'
+import SearchButton from '~/components/Flight/FlightSearch/SearchButton'
 
 export default {
   components: {
     appLocation: Location,
     appSelectDate: SelectDate,
-    appPassengers: Passengers
+    appPassengers: Passengers,
+    appSearchButton: SearchButton
   }
 }
 </script>
