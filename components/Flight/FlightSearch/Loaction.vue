@@ -79,6 +79,7 @@
     &--airport {
       display: flex;
       flex-direction: row;
+      align-items: center;
 
       &__code {
         background: $lightGrayColor;
@@ -134,6 +135,7 @@
     &--airport {
       display: flex;
       flex-direction: row;
+      align-items: center;
 
       &__code {
         background: rgba(71, 32, 134, 0.1);
