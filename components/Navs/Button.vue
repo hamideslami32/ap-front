@@ -24,6 +24,7 @@ export default {
 .nav-item {
   position: relative;
   text-decoration: none;
+  display: inline-block;
 
   &:not(:first-child) {
     margin-right: 10px;
@@ -34,6 +35,7 @@ export default {
     right: 15px;
     transform: translateY(50%);
     color: $darkGrayColor;
+    transition: all ease-out 250ms;
   }
 
   &__button {
@@ -51,10 +53,18 @@ export default {
     border: none;
     padding-right: 30px;
     transition: all ease-out 250ms;
+  }
 
-    &:hover {
-      color: $whiteColor;
-      background: linear-gradient(90deg, #dd418a 0%, #e3629e 100%);
+  &:hover {
+    .nav-item {
+      &__button {
+        color: $whiteColor;
+        background: linear-gradient(90deg, #dd418a 0%, #e3629e 100%);
+      }
+
+      &__icon {
+        color: $whiteColor;
+      }
     }
   }
 
