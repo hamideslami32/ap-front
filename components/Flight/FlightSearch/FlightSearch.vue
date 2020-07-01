@@ -1,7 +1,7 @@
 <template>
   <div class="flightSearch">
     <form class="flight-search">
-      <app-location />
+      <app-flight-destination-picker />
       <app-select-date />
       <app-passengers />
       <app-search-button />
@@ -11,14 +11,15 @@
 
 
 <script>
-import Location from './Loaction.vue'
+// import Location from './Loaction.vue'
+import FlightDestinationPicker from '~/components/Flight/FlightSearch/FlightDestinationPicker'
 import SelectDate from '~/components/Flight/FlightSearch/SelectDate.vue'
 import Passengers from '~/components/Flight/FlightSearch/Passengers.vue'
 import SearchButton from '~/components/Flight/FlightSearch/SearchButton'
 
 export default {
   components: {
-    appLocation: Location,
+    appFlightDestinationPicker: FlightDestinationPicker,
     appSelectDate: SelectDate,
     appPassengers: Passengers,
     appSearchButton: SearchButton
