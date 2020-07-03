@@ -29,6 +29,8 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/universal-storage": "^0.5.5",
     "bootstrap-vue": "^2.15.0",
+    "dayjs": "^1.8.29",
+    "jalaliday": "^2.3.0",
     "nuxt": "^2.13.0",
     "vee-validate": "^3.3.5"
   },
