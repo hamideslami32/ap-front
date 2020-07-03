@@ -8,7 +8,7 @@
 
 
 <script>
-import FullBtn from '~/components/Ui/Buttons/Fullbtn'
+import FullBtn from '~/components/Ui/Buttons/FullBtn'
 export default {
     components: {
         appFullBtn: FullBtn

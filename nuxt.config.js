@@ -29,7 +29,11 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['~plugins/deviceLayout', '~plugins/svg'],
+  plugins: [
+    '~plugins/deviceLayout',
+    '~plugins/svg',
+    '~plugins/auth'
+  ],
   server: {
     port: 3000
   },
@@ -53,13 +57,16 @@ export default {
     // Doc: https://github.com/nuxt/content
     '@nuxt/content',
     '@nuxtjs/device',
+    '@nuxtjs/universal-storage',
     'bootstrap-vue/nuxt'
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: process.env.API_URL
+  },
   /*
    ** Content module configuration
    ** See https://content.nuxtjs.org/configuration
