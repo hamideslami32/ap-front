@@ -3,7 +3,7 @@
     <app-input-pair @handleClick="openModal($event)">
       <app-reverse-btn />
     </app-input-pair>
-    <app-modal ref="modal" title="مبدا" />
+    <app-modal v-model="showModal" title="مبدا" />
   </div>
 </template>
 
@@ -17,10 +17,16 @@ export default {
         appReverseBtn: ReverseBtn,
         appModal: Modal
     },
+    data(){
+        return{
+            showModal: false
+        }
+    },
     methods:{
         openModal(type){
             console.log({type})
-            this.$refs.modal.openModal()
+            this.showModal= true
+            // this.$refs.modal.openModal()
         },
     }
 }
