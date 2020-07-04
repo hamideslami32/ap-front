@@ -1,8 +1,10 @@
 <template>
   <div class="tabs">
     <ul ref="menu" class="tabs__menu">
-      <li v-for="(tab, i) in tabs" :key="i" :class="{ active: value === (tab.value || i) }" @click="selectTab(tab, i)">
-        {{ tab.name }}
+      <li v-for="(tab, i) in tabs" :key="i" :class="{ active: value === (tab.value || i) }">
+        <a href="#" @click.prevent="selectTab(tab, i)">
+          {{ tab.name }}
+        </a>
       </li>
     </ul>
     <span :style="{ 'right': `${tabOffset}px`, 'width': `${tabWidth}px` }" class="tabs__active" />
@@ -51,11 +53,9 @@ export default {
 <style lang='scss' scoped>
 .tabs {
     position: relative;
-    height: 40px;
 
     &__menu {
         display: flex;
-        height: 100%;
         align-items: center;
         justify-content: space-evenly;
         background: $lightGrayColor;
@@ -63,15 +63,22 @@ export default {
         border-radius: 100px;
         padding: 0;
         margin: 0;
+        list-style: none;
+        text-align: center;
 
         > li {
-            font-size: 13px;
-            line-height: 42px;
-            list-style: none;
             min-width: 100px;
-            text-align: center;
             flex: 1;
             transition: color ease 250ms;
+
+            > a {
+                font-size: 13px;
+                line-height: 42px;
+                display: inline-block;
+                color: inherit;
+                text-decoration: none !important;
+                white-space: nowrap;
+            }
 
             &.active {
                 font-weight: 600;

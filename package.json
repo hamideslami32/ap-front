@@ -14,8 +14,8 @@
     "svg": "vsvg -s ./assets/images/icons -t ./components/icons --svgo svgo.js"
   },
   "lint-staged": {
-    "*.{js,vue}": "eslint",
-    "*.{css,vue}": "stylelint"
+    "*.{js,vue}": "eslint --fix",
+    "*.{css,vue}": "stylelint --fix"
   },
   "husky": {
     "hooks": {

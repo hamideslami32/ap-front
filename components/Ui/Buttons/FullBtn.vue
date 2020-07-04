@@ -1,21 +1,20 @@
-<template>
-  <div class="button-search">
-    <button class="button-search__btn">
+<template functional>
+  <button class="button-search" v-on="listeners">
+    <span>
       <slot />
-    </button>
-    <span class="button-search__icon-holder">
-      <svgicon class="button-search__icon-holder--icon" :name="icon" width="24" height="24" />
     </span>
-  </div>
+    <span class="button-search__icon-holder">
+      <svgicon :name="props.icon" width="24" height="24" />
+    </span>
+  </button>
 </template>
 
 <script>
-import '~/components/icons'
 export default {
+    functional: true,
     props: {
         icon:{
             type: String,
-            required: false,
             default: 'arrow-left'
         }
     }
@@ -26,19 +25,14 @@ export default {
     .button-search {
         position: relative;
         height: 50px;
-
-        &__btn {
-            border-radius: 5px;
-            width: 100%;
-            border: none;
-            background: linear-gradient(90deg, $primary 0%, #8958D7 100%);
-            color: $whiteColor;
-            line-height: 50px;
-            height: 50px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
+        display: block;
+        width: 100%;
+        appearance: none;
+        border: 0;
+        outline: 0;
+        background: linear-gradient(90deg, $primary 0%, #8958D7 100%);
+        border-radius: 5px;
+        color: $whiteColor;
 
         &__icon-holder {
             position: absolute;
@@ -51,10 +45,7 @@ export default {
             align-items: center;
             justify-content: center;
             top: 10%;
-
-            &--icon {
-                color: $whiteColor;
-            }
+            color: $whiteColor;
         }
     }
 

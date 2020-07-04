@@ -1,11 +1,11 @@
 <template>
   <div>
-    <form>
+    <form action="#">
       <tabs v-model="search.type" class="mb-3" :tabs="tabs" />
       <flight-destination-picker />
       <select-date />
       <passengers />
-      <search-button />
+      <search-button @click.prevent="startSearch" />
     </form>
   </div>
 </template>
@@ -44,6 +44,11 @@ export default {
                 infant: 0,
                 class: 'economy'
             }
+        }
+    },
+    methods: {
+        startSearch() {
+            // TODO: redirect to flight available page this.$router.push('/...')
         }
     }
 }
