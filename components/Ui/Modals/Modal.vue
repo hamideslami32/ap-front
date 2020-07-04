@@ -1,5 +1,5 @@
 <template>
-  <b-modal id="modal" hide-footer>
+  <b-modal id="modal" :visible="value" hide-footer @change="$emit('input', $event)">
     <template v-slot:modal-title>
       {{ title }}
     </template>
@@ -17,6 +17,10 @@ export default {
     props: {
         title: {
             type: String,
+            required: true
+        },
+        value : {
+            type: Boolean,
             required: true
         }
     },

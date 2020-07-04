@@ -21,7 +21,7 @@ export default {
         appFlightDestinationPicker: FlightDestinationPicker,
         appSelectDate: SelectDate,
         appPassengers: Passengers,
-        appSearchButton: SearchButton,
+        appSearchButton: SearchButton
     }
 }
 </script>
