@@ -4,19 +4,19 @@
       {{ data.title }}
     </label>
     <input :name="data.type" value="آمستردام" class="input-holder__input">
-    <slot/>
+    <slot />
   </div>
 </template>
 
 <script>
-  export default {
+export default {
     props: {
-      data: {
-        type: Object,
-        required: true
-      }
+        data: {
+            type: Object,
+            required: true
+        }
     }
-  }
+}
 </script>
 
 
