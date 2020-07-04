@@ -54,7 +54,7 @@ class Auth {
     }
 
     get token () {
-        return this.axios.defaults.headers.common.Authorization.slice(7).trim()
+        return this.axios.defaults.headers.common.Authorization ? this.axios.defaults.headers.common.Authorization.slice(7).trim() : null
     }
 }
 
