@@ -49,16 +49,17 @@ class Auth {
         return user
     }
 
-    setToken (token) {
+    setToken(token) {
         this.axios.defaults.headers.common.Authorization = 'Bearer ' + token
     }
 
-    get token () {
-        return this.axios.defaults.headers.common.Authorization ? this.axios.defaults.headers.common.Authorization.slice(7).trim() : null
+    get token() {
+        const { Authorization } = this.axios.defaults.headers.common
+        return Authorization ? Authorization.slice(7).trim() : null
     }
 }
 
-export default async function (ctx, inject) {
+export default async function(ctx, inject) {
     const auth = Vue.observable(new Auth(ctx))
     if (process.server && auth.token) {
         ctx.ssrContext.nuxt.user = await auth.fetchUser().catch(() => null)

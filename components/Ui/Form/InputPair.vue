@@ -1,19 +1,19 @@
 <template>
   <div class="inputPair">
-    <app-input v-for="(data, i) in inputsData" :key="i" :data="data" @click.native="clickInput(data.type)">
-      <app-input-detail :data="data.airport" :type="data.type" />
-    </app-input>
+    <a-input v-for="(data, i) in inputsData" :key="i" :data="data" @click.native="clickInput(data.type)">
+      <input-detail :data="data.airport" :type="data.type" />
+    </a-input>
     <slot />
   </div>
 </template>
 
 <script>
-import Input from '~/components/Ui/Form/Input.vue'
-import inputDetail from '~/components/Ui/Form/InputDetail.vue'
+import AInput from '~/components/Ui/Form/AInput'
+import InputDetail from '~/components/Ui/Form/InputDetail'
 export default {
     components: {
-        appInput: Input,
-        appInputDetail: inputDetail
+        AInput,
+        InputDetail
     },
     data() {
         return {

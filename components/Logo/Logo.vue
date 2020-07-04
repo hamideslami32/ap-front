@@ -59,27 +59,27 @@
 
 <style lang="scss" scoped>
 .logo {
-  width: 120px;
-  height: auto;
-  animation: 1s appear;
-  margin: auto;
+    width: 120px;
+    height: auto;
+    animation: 1s appear;
+    margin: auto;
 
-  @keyframes appear {
-    0% {
-      opacity: 0;
+    @keyframes appear {
+        0% {
+            opacity: 0;
+        }
     }
-  }
 
-  .st0 {
-    fill: #49238c;
-  }
-
-  .st1 {
-    fill: #45c6d4;
-
-    .st2 {
-      fill: #36215c;
+    .st0 {
+        fill: #49238C;
     }
-  }
+
+    .st1 {
+        fill: #45C6D4;
+
+        .st2 {
+            fill: #36215C;
+        }
+    }
 }
 </style>

@@ -27,51 +27,51 @@ export default {}
 
 <style lang="scss" scoped>
 .footer-wrapper {
-  position: fixed;
-  bottom: 0;
-  background-color: #fafafa;
+    position: fixed;
+    bottom: 0;
+    background-color: #FAFAFA;
 }
 
 .footer {
-  padding: 15px 0;
-  height: 60px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-
-  &__item {
-    text-decoration: none;
-    position: relative;
+    padding: 15px 0;
+    height: 60px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
 
-    &--icon {
-      cursor: pointer;
-      color: $blackColor;
+    &__item {
+        text-decoration: none;
+        position: relative;
+        display: flex;
+        justify-content: center;
 
-      &:hover {
-        color: $primary;
-      }
-    }
-
-    &.active {
-      &::before {
-        content: '';
-        width: 4px;
-        height: 4px;
-        background: $primary;
-        position: absolute;
-        bottom: -10px;
-        border-radius: 50%;
-      }
-
-      .footer__item {
         &--icon {
-          color: $primary;
-          position: relative;
+            cursor: pointer;
+            color: $blackColor;
+
+            &:hover {
+                color: $primary;
+            }
         }
-      }
+
+        &.active {
+            &::before {
+                content: '';
+                width: 4px;
+                height: 4px;
+                background: $primary;
+                position: absolute;
+                bottom: -10px;
+                border-radius: 50%;
+            }
+
+            .footer__item {
+                &--icon {
+                    color: $primary;
+                    position: relative;
+                }
+            }
+        }
     }
-  }
 }
 </style>

@@ -529,358 +529,358 @@ export default {
 
 <style lang="scss">
 @keyframes flashing {
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 transparent;
-  }
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 transparent;
+    }
 
-  50% {
-    box-shadow: 0 0 0 5px rgba($primary, 0.5);
-  }
+    50% {
+        box-shadow: 0 0 0 5px rgba($primary, 0.5);
+    }
 }
 
 .btn-today {
-  border: 1px solid  map_get($grays, '200');
-  position: relative;
-  border-radius: 4px;
-  box-shadow: none;
+    border: 1px solid  map_get($grays, '200');
+    position: relative;
+    border-radius: 4px;
+    box-shadow: none;
 
-  &::before {
-    $width: 6px;
+    &::before {
+        $width: 6px;
 
-    content: ' ';
-    display: block;
-    position: absolute;
-    top: -$width;
-    right: -$width;
-    border: $width solid transparent;
-    border-bottom-color: inherit;
-    transform: rotate(45deg);
-  }
+        content: ' ';
+        display: block;
+        position: absolute;
+        top: -$width;
+        right: -$width;
+        border: $width solid transparent;
+        border-bottom-color: inherit;
+        transform: rotate(45deg);
+    }
 
-  &.flashing {
-    animation: flashing 0.4s 3 linear;
-    animation-fill-mode: both;
-  }
+    &.flashing {
+        animation: flashing 0.4s 3 linear;
+        animation-fill-mode: both;
+    }
 }
 
 .btn-clear {
-  padding: 0;
-  appearance: none;
-  border: 0;
-  outline: 0;
-  color: map_get($grays, '200');
-  box-shadow: none;
-  vertical-align: middle;
+    padding: 0;
+    appearance: none;
+    border: 0;
+    outline: 0;
+    color: map_get($grays, '200');
+    box-shadow: none;
+    vertical-align: middle;
 
-  &:hover {
-    color: map_get($grays, '400');
-  }
+    &:hover {
+        color: map_get($grays, '400');
+    }
 }
 
 .a-datepicker-tooltip {
-  z-index: 5000;
+    z-index: 5000;
 
-  .tooltip-inner {
-    background-color: map_get($secondary, '700');
-    padding: 2px 4px;
-  }
+    .tooltip-inner {
+        background-color: map_get($secondary, '700');
+        padding: 2px 4px;
+    }
 }
 </style>
 
 <style lang="scss">
 .a-datepicker {
-  z-index: auto;
-  user-select: none;
-
-  @media (min-width: 768px) {
-    position: relative;
-  }
-
-  .input-group.focus {
-    &::after {
-      content: ' ';
-      display: block;
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      height: 3px;
-      z-index: 5;
-      background-color: $primary;
-    }
-  }
-
-  &__wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: $white;
-    padding: 90px 10px 40px;
-    overflow: auto;
-    z-index: 5000;
-    box-shadow: 0 8px 16px rgba($black, 0.15);
-    border-radius: 4px;
-    color: map_get($grays, '700');
-
-    @media (min-width: 370px) {
-      width: auto;
-      height: auto;
-      right: 0;
-      left: 0;
-      top: 0;
-      bottom: 0;
-    }
+    z-index: auto;
+    user-select: none;
 
     @media (min-width: 768px) {
-      position: absolute;
-      padding: 0 15px 10px;
-      top: 100%;
-      right: 50%;
-      transform: translateX(50%);
-      margin-top: 5px;
-      width: 550px;
-      height: auto;
-      bottom: auto;
-      overflow: hidden;
+        position: relative;
+    }
 
-      &.end {
-        transform: none;
+    .input-group.focus {
+        &::after {
+            content: ' ';
+            display: block;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            height: 3px;
+            z-index: 5;
+            background-color: $primary;
+        }
+    }
+
+    &__wrapper {
+        position: fixed;
+        top: 0;
         left: 0;
-        right: auto;
-      }
+        height: 100%;
+        width: 100%;
+        background-color: $white;
+        padding: 90px 10px 40px;
+        overflow: auto;
+        z-index: 5000;
+        box-shadow: 0 8px 16px rgba($black, 0.15);
+        border-radius: 4px;
+        color: map_get($grays, '700');
 
-      &.start {
-        transform: none;
+        @media (min-width: 370px) {
+            width: auto;
+            height: auto;
+            right: 0;
+            left: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        @media (min-width: 768px) {
+            position: absolute;
+            padding: 0 15px 10px;
+            top: 100%;
+            right: 50%;
+            transform: translateX(50%);
+            margin-top: 5px;
+            width: 550px;
+            height: auto;
+            bottom: auto;
+            overflow: hidden;
+
+            &.end {
+                transform: none;
+                left: 0;
+                right: auto;
+            }
+
+            &.start {
+                transform: none;
+                right: 0;
+                left: auto;
+            }
+        }
+    }
+
+    &__container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        position: absolute;
+        top: 100px;
+        left: 0;
         right: 0;
-        left: auto;
-      }
-    }
-  }
+        bottom: 105px;
+        overflow: auto;
+        padding: 0 10px 20px;
+        outline: none !important;
 
-  &__container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    position: absolute;
-    top: 100px;
-    left: 0;
-    right: 0;
-    bottom: 105px;
-    overflow: auto;
-    padding: 0 10px 20px;
-    outline: none !important;
+        &.slide-left {
+            justify-content: flex-end;
+        }
 
-    &.slide-left {
-      justify-content: flex-end;
-    }
+        .a-datepicker__wrapper[dir=ltr] &.slide-right {
+            justify-content: flex-end;
+        }
 
-    .a-datepicker__wrapper[dir=ltr] &.slide-right {
-      justify-content: flex-end;
-    }
+        .a-datepicker__wrapper[dir=ltr] &.slide-left {
+            justify-content: flex-start;
+        }
 
-    .a-datepicker__wrapper[dir=ltr] &.slide-left {
-      justify-content: flex-start;
-    }
+        > div {
+            flex: 100% 1 1;
+            position: relative;
 
-    > div {
-      flex: 100% 1 1;
-      position: relative;
+            @include transition(transform 240ms ease);
+        }
 
-      @include transition(transform 240ms ease);
-    }
+        .a-datepicker__wrapper[dir=ltr] & > div::after {
+            left: auto;
+            right: 0;
+        }
 
-    .a-datepicker__wrapper[dir=ltr] & > div::after {
-      left: auto;
-      right: 0;
-    }
+        @media (min-width: 768px) {
+            position: static;
+            overflow: hidden;
+            flex-wrap: nowrap;
+            padding: 0;
+            margin: 0 -10px;
 
-    @media (min-width: 768px) {
-      position: static;
-      overflow: hidden;
-      flex-wrap: nowrap;
-      padding: 0;
-      margin: 0 -10px;
-
-      > div {
-        flex: 50% 0 0;
-      }
-    }
-  }
-
-  &__weekdays {
-    background-color: $white;
-    display: flex;
-    color: map_get($grays, '400');
-    padding: 5px 20px 10px;
-    z-index: 10;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    border-bottom: 1px solid map_get($grays, '150');
-
-    > span {
-      flex: 1;
-    }
-  }
-
-  &__arrows {
-    position: absolute;
-    left: 0;
-    right: 0;
-    display: flex;
-    z-index: 8;
-    justify-content: space-between;
-    padding: 0 15px;
-
-    > button {
-      display: inline-block;
-      color: map_get($grays, '500');
-      background-color: map_get($grays, '100');
-      border: 0;
-      padding: 6px;
-      border-radius: 50%;
-      box-shadow: none;
-
-      &:hover,
-      &:active {
-        border-color: $primary;
-        background-color: $primary;
-        color: $white;
-      }
-
-      &:disabled {
-        background-color: map_get($grays, '100');
-        color: map_get($grays, '200');
-        cursor: not-allowed;
-      }
-    }
-  }
-
-  &__header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 12;
-    font-size: 0.875rem;
-
-    > div {
-      display: flex;
-      position: relative;
-      z-index: 14;
-      align-items: center;
-
-      > div,
-      > button {
-        flex: 1;
-      }
+            > div {
+                flex: 50% 0 0;
+            }
+        }
     }
 
-    .close {
-      font-size: 32px;
-      padding: 12px;
-      opacity: 1;
-      color: $primary;
-      position: static;
+    &__weekdays {
+        background-color: $white;
+        display: flex;
+        color: map_get($grays, '400');
+        padding: 5px 20px 10px;
+        z-index: 10;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        border-bottom: 1px solid map_get($grays, '150');
+
+        > span {
+            flex: 1;
+        }
     }
 
-    .form-control.focus {
-      border-color: $primary;
+    &__arrows {
+        position: absolute;
+        left: 0;
+        right: 0;
+        display: flex;
+        z-index: 8;
+        justify-content: space-between;
+        padding: 0 15px;
+
+        > button {
+            display: inline-block;
+            color: map_get($grays, '500');
+            background-color: map_get($grays, '100');
+            border: 0;
+            padding: 6px;
+            border-radius: 50%;
+            box-shadow: none;
+
+            &:hover,
+            &:active {
+                border-color: $primary;
+                background-color: $primary;
+                color: $white;
+            }
+
+            &:disabled {
+                background-color: map_get($grays, '100');
+                color: map_get($grays, '200');
+                cursor: not-allowed;
+            }
+        }
     }
 
-    @media (min-width: 768px) {
-      position: static;
-      border-bottom: 1px solid rgba($black, 0.1);
-      margin-bottom: 15px;
-      font-size: 0.875rem;
+    &__header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 12;
+        font-size: 0.875rem;
+
+        > div {
+            display: flex;
+            position: relative;
+            z-index: 14;
+            align-items: center;
+
+            > div,
+            > button {
+                flex: 1;
+            }
+        }
+
+        .close {
+            font-size: 32px;
+            padding: 12px;
+            opacity: 1;
+            color: $primary;
+            position: static;
+        }
+
+        .form-control.focus {
+            border-color: $primary;
+        }
+
+        @media (min-width: 768px) {
+            position: static;
+            border-bottom: 1px solid rgba($black, 0.1);
+            margin-bottom: 15px;
+            font-size: 0.875rem;
+        }
     }
-  }
-
-  .btn {
-    font-size: inherit;
-  }
-
-  &__footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: $white;
-    padding: 10px;
-    z-index: 12;
-    box-shadow: 0 0 24px -4px rgba($black, 0.15);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: stretch;
-    font-size: 0.875rem;
 
     .btn {
-      font-size: 1.23em;
+        font-size: inherit;
     }
 
-    .a-icon {
-      color: map_get($grays, '300');
+    &__footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: $white;
+        padding: 10px;
+        z-index: 12;
+        box-shadow: 0 0 24px -4px rgba($black, 0.15);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
+        font-size: 0.875rem;
+
+        .btn {
+            font-size: 1.23em;
+        }
+
+        .a-icon {
+            color: map_get($grays, '300');
+        }
+
+        .focus > .a-icon {
+            color: $primary;
+        }
+
+        @media (min-width: 768px) {
+            flex-direction: row;
+            position: static;
+            padding: 0;
+            box-shadow: none;
+
+            .btn {
+                font-size: 1em;
+            }
+        }
     }
 
-    .focus > .a-icon {
-      color: $primary;
+    hr {
+        border-color: rgba($black, 0.1);
     }
 
-    @media (min-width: 768px) {
-      flex-direction: row;
-      position: static;
-      padding: 0;
-      box-shadow: none;
-
-      .btn {
-        font-size: 1em;
-      }
+    .min-width-0 {
+        min-width: 0;
     }
-  }
-
-  hr {
-    border-color: rgba($black, 0.1);
-  }
-
-  .min-width-0 {
-    min-width: 0;
-  }
 }
 
 .separator {
-  display: inline-block;
-  width: 10px;
-  height: 1px;
-  background-color: map_get($grays, '700');
-  vertical-align: middle;
-  margin: 0 10px;
+    display: inline-block;
+    width: 10px;
+    height: 1px;
+    background-color: map_get($grays, '700');
+    vertical-align: middle;
+    margin: 0 10px;
 }
 
 @media (min-width: 768px) {
-  .slide-left {
-    &-enter {
-      transform: translate3d(-100%, 0, 0);
+    .slide-left {
+        &-enter {
+            transform: translate3d(-100%, 0, 0);
+        }
+
+        &-leave-to {
+            transform: translate3d(100%, 0, 0);
+        }
     }
 
-    &-leave-to {
-      transform: translate3d(100%, 0, 0);
-    }
-  }
+    .slide-right {
+        &-enter {
+            transform: translate3d(100%, 0, 0);
+        }
 
-  .slide-right {
-    &-enter {
-      transform: translate3d(100%, 0, 0);
+        &-leave-to {
+            transform: translate3d(-100%, 0, 0);
+        }
     }
-
-    &-leave-to {
-      transform: translate3d(-100%, 0, 0);
-    }
-  }
 }
 </style>
 

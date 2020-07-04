@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .search-btn {
-    margin-bottom: 20px;
-  }
+    .search-btn {
+        margin-bottom: 20px;
+    }
 </style>

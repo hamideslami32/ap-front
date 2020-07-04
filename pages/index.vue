@@ -8,9 +8,9 @@
 <script>
 import Navs from '~/components/Navs/Navs.vue'
 export default {
-  components: {
-    appNavs: Navs
-  },
-  layout: 'MobileLayout'
+    components: {
+        appNavs: Navs
+    },
+    layout: 'MobileLayout'
 }
 </script>

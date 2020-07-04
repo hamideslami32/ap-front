@@ -3,5 +3,5 @@ import SvgIcon from 'vue-svgicon'
 
 Vue.use(SvgIcon, {
     tagName: 'svgicon',
-    isOriginalDefault: true,
+    isOriginalDefault: true
 })

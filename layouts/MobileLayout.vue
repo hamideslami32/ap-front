@@ -12,20 +12,20 @@
 import Header from '~/components/Header/Header.vue'
 import Footer from '~/components/Footer/Footer.vue'
 export default {
-  components: {
-    appHeader: Header,
-    appFooter: Footer
-  }
+    components: {
+        appHeader: Header,
+        appFooter: Footer
+    }
 }
 </script>
 
 <style lang='scss' scoped>
 .mobile-layout {
-  position: relative;
+    position: relative;
 
-  &__main {
-    background: #f5f5f5;
-    min-height: calc(100vh - 120px);
-  }
+    &__main {
+        background: #F5F5F5;
+        min-height: calc(100vh - 120px);
+    }
 }
 </style>

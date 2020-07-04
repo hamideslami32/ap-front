@@ -8,14 +8,14 @@
 <script>
 import DatePicker from '~/components/DatePicker/DatePicker.vue'
 export default {
-  components: {
-    appDatePicker: DatePicker
-  }
+    components: {
+        appDatePicker: DatePicker
+    }
 }
 </script>
 
 <style lang="scss" scoped>
-  .select-date {
-    margin-bottom: 20px;
-  }
+    .select-date {
+        margin-bottom: 20px;
+    }
 </style>

@@ -214,252 +214,248 @@ export default {
 
 <style lang="scss" scoped>
 .calendar {
-  max-width: 340px;
+    max-width: 340px;
 
-  @mixin append {
-    content: ' ';
-    display: block;
-    position: absolute;
-  }
-
-  > h4 {
-    font-size: 13px;
-    text-align: center;
-    font-weight: 400;
-  }
-
-  &__weekdays {
-    display: flex;
-    padding: 10px 0;
-    font-size: 0.8em;
-
-    > span {
-      flex: 1;
-      text-align: center;
-    }
-  }
-
-  &__container {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  &__day {
-    flex: (100% / 7) 0 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-    cursor: pointer;
-    border: 1px solid transparent;
-    background-color: transparent;
-    position: relative;
-    margin: 2px 0;
-    color: map_get($grays, '500');
-    font-weight: 400;
-
-    &__content {
-      position: relative;
-      z-index: 5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
+    @mixin append {
+        content: ' ';
+        display: block;
+        position: absolute;
     }
 
-    &__square {
-      content: ' ';
-      display: block;
-      padding-bottom: 100%;
+    > h4 {
+        font-size: 13px;
+        text-align: center;
+        font-weight: 400;
     }
 
-    &.holiday {
-      color: map_get($danger, '400');
+    &__weekdays {
+        display: flex;
+        padding: 10px 0;
+        font-size: 0.8em;
+
+        > span {
+            flex: 1;
+            text-align: center;
+        }
     }
 
-    &.hover,
-    &:active,
-    &.selected {
-      &::after {
-        @include append;
-
-        top: -1px;
-        left: -1px;
-        right: -1px;
-        bottom: -1px;
-        border: 2px solid $primary;
-        border-radius: 4px;
-        z-index: 3;
-        transition: background-color linear 120ms;
-        background-color: $white;
-      }
+    &__container {
+        display: flex;
+        flex-wrap: wrap;
     }
 
-    @media (max-width: 767px) {
-      &:hover::after {
-        border-color: transparent;
-      }
-    }
+    &__day {
+        flex: (100% / 7) 0 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        cursor: pointer;
+        border: 1px solid transparent;
+        background-color: transparent;
+        position: relative;
+        margin: 2px 0;
+        color: map_get($grays, '500');
+        font-weight: 400;
 
-    &.selected {
-      color: map_get($grays, '500');
-      font-weight: 500;
+        &__content {
+            position: relative;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
 
-      &::after {
-        background-color: $primary;
-      }
-    }
+        &__square {
+            content: ' ';
+            display: block;
+            padding-bottom: 100%;
+        }
 
-    &:active::after {
-      background-color: darken($primary, 10%);
-    }
+        &.holiday {
+            color: map_get($danger, '400');
+        }
 
-    &.highlight {
-      background-color: map_get($warning, '100');
-    }
+        &.hover,
+        &:active,
+        &.selected {
+            &::after {
+                @include append;
 
-    // Selected Trail
+                top: -1px;
+                left: -1px;
+                right: -1px;
+                bottom: -1px;
+                border: 2px solid $primary;
+                border-radius: 4px;
+                z-index: 3;
+                transition: background-color linear 120ms;
+                background-color: $white;
+            }
+        }
 
-    &.highlight.selected-0::before,
-    &.highlight.selected-1::before {
-      @include append;
+        @media (max-width: 767px) {
+            &:hover::after {
+                border-color: transparent;
+            }
+        }
 
-      top: -1px;
-      right: -1px;
-      width: 50%;
-      bottom: -1px;
-      background-color: $white;
-      z-index: 2;
-    }
+        &.selected {
+            color: map_get($grays, '500');
+            font-weight: 500;
 
-    &.highlight.selected-1::before {
-      left: -1px;
-      right: auto;
-    }
+            &::after {
+                background-color: $primary;
+            }
+        }
 
-    &.highlight.selected-0.selected-1 {
-      background-color: transparent;
-    }
+        &:active::after {
+            background-color: darken($primary, 10%);
+        }
 
-    // Continue Trail
+        &.highlight {
+            background-color: map_get($warning, '100');
+        }
 
-    &.highlight.first:not(.selected)::before,
-    &.highlight.last:not(.selected)::before {
-      @include append;
+        // Selected Trail
 
-      right: -1px;
-      top: -1px;
-      bottom: -1px;
-      width: 50%;
-      background:
-        linear-gradient(
-          to left,
-          $white,
-          rgba($white, 0)
-        );
-    }
+        &.highlight.selected-0::before,
+        &.highlight.selected-1::before {
+            @include append;
 
-    &.highlight.last:not(.selected)::before {
-      right: auto;
-      left: -1px;
-      background:
-        linear-gradient(
-          to right,
-          $white,
-          rgba($white, 0)
-        );
-    }
+            top: -1px;
+            right: -1px;
+            width: 50%;
+            bottom: -1px;
+            background-color: $white;
+            z-index: 2;
+        }
 
-    &.before {
-      opacity: 0.44;
-      cursor: default;
-      border-color: transparent;
-      background-color: transparent;
+        &.highlight.selected-1::before {
+            left: -1px;
+            right: auto;
+        }
 
-      &::after {
-        content: none;
-        display: none;
-      }
-    }
+        &.highlight.selected-0.selected-1 {
+            background-color: transparent;
+        }
 
-    .btn-today {
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      bottom: 0;
-    }
-  }
+        // Continue Trail
 
-  &.calendar--range {
-    .calendar__day {
-      &.selected-0::after {
-        border-radius: 0 4px 4px 0;
-      }
+        &.highlight.first:not(.selected)::before,
+        &.highlight.last:not(.selected)::before {
+            @include append;
 
-      &.selected-1::after {
-        border-radius: 4px 0 0 4px;
-      }
+            right: -1px;
+            top: -1px;
+            bottom: -1px;
+            width: 50%;
+            background: linear-gradient(
+                to left,
+                $white,
+                rgba($white, 0)
+            );
+        }
 
-      &.selected-1.selected-0::after {
-        border-radius: 4px;
-      }
-    }
-  }
+        &.highlight.last:not(.selected)::before {
+            right: auto;
+            left: -1px;
+            background: linear-gradient(
+                to right,
+                $white,
+                rgba($white, 0)
+            );
+        }
 
-  &.calendar--gregorian {
-    .calendar__day {
-      &.highlight.selected-0::before {
-        left: -1px;
-        right: auto;
-      }
+        &.before {
+            opacity: 0.44;
+            cursor: default;
+            border-color: transparent;
+            background-color: transparent;
 
-      &.highlight.selected-1::before {
-        right: -1px;
-        left: auto;
-      }
+            &::after {
+                content: none;
+                display: none;
+            }
+        }
 
-      &.highlight.last:not(.selected)::before {
-        left: auto;
-        right: -1px;
-        background:
-          linear-gradient(
-            to left,
-            $white,
-            rgba($white, 0)
-          );
-      }
-
-      &.highlight.first:not(.selected)::before {
-        right: auto;
-        left: -1px;
-        background:
-          linear-gradient(
-            to right,
-            $white,
-            rgba($white, 0)
-          );
-      }
+        .btn-today {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+        }
     }
 
     &.calendar--range {
-      .calendar__day {
-        &.selected-0::after {
-          border-radius: 4px 0 0 4px;
-        }
+        .calendar__day {
+            &.selected-0::after {
+                border-radius: 0 4px 4px 0;
+            }
 
-        &.selected-1::after {
-          border-radius: 0 4px 4px 0;
-        }
+            &.selected-1::after {
+                border-radius: 4px 0 0 4px;
+            }
 
-        &.selected-1.selected-0::after {
-          border-radius: 4px;
+            &.selected-1.selected-0::after {
+                border-radius: 4px;
+            }
         }
-      }
     }
-  }
+
+    &.calendar--gregorian {
+        .calendar__day {
+            &.highlight.selected-0::before {
+                left: -1px;
+                right: auto;
+            }
+
+            &.highlight.selected-1::before {
+                right: -1px;
+                left: auto;
+            }
+
+            &.highlight.last:not(.selected)::before {
+                left: auto;
+                right: -1px;
+                background: linear-gradient(
+                    to left,
+                    $white,
+                    rgba($white, 0)
+                );
+            }
+
+            &.highlight.first:not(.selected)::before {
+                right: auto;
+                left: -1px;
+                background: linear-gradient(
+                    to right,
+                    $white,
+                    rgba($white, 0)
+                );
+            }
+        }
+
+        &.calendar--range {
+            .calendar__day {
+                &.selected-0::after {
+                    border-radius: 4px 0 0 4px;
+                }
+
+                &.selected-1::after {
+                    border-radius: 0 4px 4px 0;
+                }
+
+                &.selected-1.selected-0::after {
+                    border-radius: 4px;
+                }
+            }
+        }
+    }
 }
 </style>
 
