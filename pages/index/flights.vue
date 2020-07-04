@@ -11,6 +11,6 @@ import FlightSearch from '~/components/Flight/FlightSearch/FlightSearch'
 export default {
     components: {
         FlightSearch
-    },
+    }
 }
 </script>

@@ -28,7 +28,7 @@ export default {
         flex-direction: column;
         min-width: 49%;
         background: $backgroundColor;
-        border: 1px solid #ddd;
+        border: 1px solid #DDDDDD;
         box-sizing: border-box;
     }
 

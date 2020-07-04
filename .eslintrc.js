@@ -85,6 +85,7 @@ module.exports = {
         'vue/component-tags-order': ['error', {
             'order': ['template', 'script', 'style']
         }],
-        'no-empty': ['error', { allowEmptyCatch: true }]
+        'no-empty': ['error', { allowEmptyCatch: true }],
+        'space-before-blocks': ['error', 'always']
     }
 }

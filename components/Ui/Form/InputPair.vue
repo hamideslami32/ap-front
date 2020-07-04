@@ -38,7 +38,7 @@ export default {
         }
     },
     methods: {
-        clickInput(type){
+        clickInput(type) {
             this.$emit('handleClick', type)
         }
     }
@@ -46,12 +46,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .inputPair {
-    position: relative;
-    max-height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
+    .inputPair {
+        position: relative;
+        max-height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
 </style>
