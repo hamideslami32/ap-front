@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <form action="#">
-      <tabs v-model="search.type" class="mb-3" :tabs="tabs" />
-      <flight-destination-picker />
-      <select-date />
-      <passengers />
-      <search-button @click.prevent="startSearch" />
-    </form>
-  </div>
+    <div>
+        <form action="#">
+            <tabs v-model="search.type" class="mb-3" :tabs="tabs" />
+            <flight-destination-picker :type="search.name" />
+            <select-date />
+            <passengers />
+            <search-button @click.prevent="startSearch" />
+        </form>
+    </div>
 </template>
 
 
@@ -29,12 +29,12 @@ export default {
     data() {
         return {
             tabs: [
-                { value: 'roundTrip', name: 'رفت و برگشت' },
-                { value: 'oneWay', name: 'یک طرفه' },
-                { value: 'multiDestination', name: 'چند مسیره' }
+                {value: 'roundTrip', name: 'رفت و برگشت'},
+                {value: 'oneWay', name: 'یک طرفه'},
+                {value: 'multiDestination', name: 'چند مسیره'}
             ],
             search: {
-                type: 'roundTrip', // oneWay, roundTrip, multiDestination
+                type: 'roundTrip', // oneWay, roundTrip, multiDestination,
                 origin: null,
                 destination: null,
                 departing: null,

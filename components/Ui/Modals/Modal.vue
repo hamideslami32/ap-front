@@ -1,15 +1,10 @@
 <template>
-  <b-modal id="modal" :visible="value" hide-footer @change="$emit('input', $event)">
-    <template v-slot:modal-title>
-      {{ title }}
-    </template>
-    <div class="d-block text-center">
-      <h3>Hello From This Modal!</h3>
-    </div>
-    <b-button class="mt-3" block @click="closeModal">
-      Close Me
-    </b-button>
-  </b-modal>
+    <b-modal id="modal" :visible="value" hide-footer @change="$emit('input', $event)">
+        <template v-slot:modal-title>
+            {{ title }}
+        </template>
+        <slot />
+    </b-modal>
 </template>
 
 <script>

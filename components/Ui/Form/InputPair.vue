@@ -1,10 +1,10 @@
 <template>
-  <div class="inputPair">
-    <a-input v-for="(data, i) in inputsData" :key="i" :data="data" @click.native="clickInput(data.type)">
-      <input-detail :data="data.airport" :type="data.type" />
-    </a-input>
-    <slot />
-  </div>
+    <div class="inputPair">
+        <a-input v-for="(data, i) in inputsData" :key="i" :data="data" @click.native="clickInput(data)">
+            <input-detail :data="data.airport" :type="data.type" />
+        </a-input>
+        <slot />
+    </div>
 </template>
 
 <script>
