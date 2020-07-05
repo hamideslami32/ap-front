@@ -12,7 +12,6 @@
         <svgicon class="passengers__input-holder--after__icon" width="24" height="24" name="arrow-down" />
       </span>
     </div>
-    <app-modal />
   </div>
 </template>
 

@@ -30,7 +30,7 @@ export default {
         }
     },
     watch: {
-        value: 'updateWidth'
+        // value: '/76'
     },
     mounted() {
         this.updateWidth()
@@ -38,6 +38,7 @@ export default {
     methods: {
         selectTab(tab, i) {
             this.$emit('input', tab.value || i)
+            this.updateWidth()
         },
         updateWidth() {
             this.$nextTick(() => {
