@@ -1,19 +1,15 @@
 <template>
     <div class="inputPair">
-        <a-input v-for="(data, i) in inputsData" :key="i" :data="data" @focus="clickInput(data)">
-            <input-detail :data="data.airport" :type="data.type" />
-        </a-input>
         <slot />
+        <reverse-btn />
     </div>
 </template>
 
 <script>
-import AInput from '~/components/Ui/Form/AInput'
-import InputDetail from '~/components/Ui/Form/InputDetail'
+import ReverseBtn from '~/components/Ui/Buttons/ReverseBtn'
 export default {
     components: {
-        AInput,
-        InputDetail
+        ReverseBtn
     },
     data() {
         return {
