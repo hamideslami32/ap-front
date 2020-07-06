@@ -19,7 +19,7 @@ export default {
     methods: {
         inputFocus() {
             this.$refs.input.blur()
-            this.$emit('focus')
+            this.$emit('focus', this.data)
         }
     }
 }
