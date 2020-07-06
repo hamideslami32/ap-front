@@ -35,14 +35,14 @@ export default {
             ],
             search: {
                 type: 'roundTrip', // oneWay, roundTrip, multiDestination,
-                origin: null,
-                destination: null,
+                origin: null, //object  i, title, value
+                destination: null, //object  i, title, value
                 departing: null,
                 returning: null,
                 adult: 1,
                 child: 0,
                 infant: 0,
-                class: 'economy'
+                class: 'economy' // business first
             }
         }
     },

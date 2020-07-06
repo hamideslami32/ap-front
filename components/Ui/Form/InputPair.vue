@@ -1,6 +1,6 @@
 <template>
     <div class="inputPair">
-        <a-input v-for="(data, i) in inputsData" :key="i" :data="data" @click.native="clickInput(data)">
+        <a-input v-for="(data, i) in inputsData" :key="i" :data="data" @focus="clickInput(data)">
             <input-detail :data="data.airport" :type="data.type" />
         </a-input>
         <slot />
@@ -39,7 +39,7 @@ export default {
     },
     methods: {
         clickInput(type) {
-            this.$emit('handleClick', type)
+            this.$emit('focus', type)
         }
     }
 }

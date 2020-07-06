@@ -1,6 +1,6 @@
 <template>
     <div class="input-modal">
-        <svgicon name="search" width="15" class="input-modal__icon" height="15" />
+        <svgicon name="search" width="15" class="input-modal__icon" height="15" :fill="false" />
         <input type="text" :name="name" :placeholder="`شهر یا فرودگاه ${title}`" class="input-modal__input">
     </div>
 </template>
@@ -41,7 +41,7 @@ export default {
     }
 
     &__icon {
-        color: transparent;
+        color: $grayColor;
         position: absolute;
         top: 0;
         left: 0;

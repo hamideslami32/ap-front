@@ -14,7 +14,7 @@ export default {
             type: String,
             required: true
         },
-        value : {
+        value: {
             type: Boolean,
             required: true
         }
@@ -36,7 +36,7 @@ export default {
         margin: 0;
 
         .modal-content {
-            height: 100vh;
+            height: 100%;
             border-radius: 0;
             border: none;
             background: $backgroundColor;

@@ -1,6 +1,6 @@
 <template>
     <div class="flight-destination">
-        <input-pair @handleClick="openModal($event)">
+        <input-pair @focus="openModal($event)">
             <reverse-btn />
         </input-pair>
         <modal v-model="showModal" :title="title">
@@ -27,7 +27,6 @@ export default {
             showModal: false,
             title: '',
             inputName: ''
-
         }
     },
     methods: {
