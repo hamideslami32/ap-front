@@ -2,7 +2,8 @@ module.exports = {
     plugins: [
         {
             removeAttrs: {
-                fill: true
+                fill: true,
+                stroke: true
             }
         },
         {

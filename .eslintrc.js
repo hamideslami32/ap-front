@@ -65,7 +65,7 @@ module.exports = {
         'vue/camelcase': 'error',
         'vue/html-indent': [
             'error',
-            2,
+            4,
             {
                 attribute: 1,
                 baseIndent: 1,

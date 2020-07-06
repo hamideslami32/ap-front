@@ -1,14 +1,14 @@
 <template>
-  <div class="tabs">
-    <ul ref="menu" class="tabs__menu">
-      <li v-for="(tab, i) in tabs" :key="i" :class="{ active: value === (tab.value || i) }">
-        <a href="#" @click.prevent="selectTab(tab, i)">
-          {{ tab.name }}
-        </a>
-      </li>
-    </ul>
-    <span :style="{ 'right': `${tabOffset}px`, 'width': `${tabWidth}px` }" class="tabs__active" />
-  </div>
+    <div class="tabs">
+        <ul ref="menu" class="tabs__menu">
+            <li v-for="(tab, i) in tabs" :key="i" :class="{ active: value === (tab.value || i) }">
+                <a href="#" @click.prevent="selectTab(tab, i)">
+                    {{ tab.name }}
+                </a>
+            </li>
+        </ul>
+        <span :style="{ 'right': `${tabOffset}px`, 'width': `${tabWidth}px` }" class="tabs__active" />
+    </div>
 </template>
 
 <script>
@@ -30,7 +30,7 @@ export default {
         }
     },
     watch: {
-        // value: '/76'
+        value: 'updateWidth'
     },
     mounted() {
         this.updateWidth()
@@ -38,7 +38,7 @@ export default {
     methods: {
         selectTab(tab, i) {
             this.$emit('input', tab.value || i)
-            this.updateWidth()
+
         },
         updateWidth() {
             this.$nextTick(() => {

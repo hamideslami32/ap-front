@@ -1,15 +1,10 @@
 <template>
-  <b-modal id="modal" :visible="value" hide-footer @change="$emit('input', $event)">
-    <template v-slot:modal-title>
-      {{ title }}
-    </template>
-    <div class="d-block text-center">
-      <h3>Hello From This Modal!</h3>
-    </div>
-    <b-button class="mt-3" block @click="closeModal">
-      Close Me
-    </b-button>
-  </b-modal>
+    <b-modal id="modal" :visible="value" hide-footer @change="$emit('input', $event)">
+        <template v-slot:modal-title>
+            {{ title }}
+        </template>
+        <slot />
+    </b-modal>
 </template>
 
 <script>
@@ -19,7 +14,7 @@ export default {
             type: String,
             required: true
         },
-        value : {
+        value: {
             type: Boolean,
             required: true
         }
@@ -41,7 +36,7 @@ export default {
         margin: 0;
 
         .modal-content {
-            height: 100vh;
+            height: 100%;
             border-radius: 0;
             border: none;
             background: $backgroundColor;
