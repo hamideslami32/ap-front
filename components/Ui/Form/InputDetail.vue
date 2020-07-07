@@ -1,8 +1,8 @@
 <template>
-  <div class="input-detail" :class="type">
-    <flag :data="data.code" />
-    <span class="input-detail__name">{{ data.name }}</span>
-  </div>
+    <div class="input-detail" :class="type">
+        <flag :data="data.code" />
+        <span class="input-detail__name">{{ data.name }}</span>
+    </div>
 </template>
 
 <script>

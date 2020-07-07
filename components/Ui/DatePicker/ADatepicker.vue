@@ -1,224 +1,224 @@
 <template>
-  <a-dropdown ref="dropdown" class="a-datepicker">
-    <template #button>
-      <slot
-        :on="on"
-        :open="open"
-        :focus="focus"
-        :value="value"
-        :clear="clear"
-      />
-    </template>
-    <span
-      v-if="isMobile"
-      class="a-datepicker__backdrop"
-    />
-    <div
-      class="a-datepicker__wrapper"
-      :dir="jalaali ? 'rtl' : 'ltr'"
-      :class="alignment"
-    >
-      <header class="a-datepicker__header" dir="rtl">
-        <div class="px-sm-0 font-weight-normal py-md-2">
-          <div>
-            <a-btn class="text-secondary py-2" flat @click="setJalaali(!jalaali)">
-              <small>{{ jalaali ? 'تغییر به میلادی' : 'تغییر به شمسی' }}</small>
-            </a-btn>
-          </div>
-          <div class="text-center">
-            {{ !jalaali ? 'تقویم میلادی' : 'تقویم شمسی' }}
-          </div>
-          <div>
-            <a-btn
-              class="btn-today d-none d-sm-inline-block float-left py-2"
-              @click="goToday"
-            >
-              برو به امروز
-            </a-btn>
-
-            <button
-              class="d-sm-none text-muted float-left p-2 m-1"
-              @click="close"
-            >
-              <a-icon src="@hydra/icons/dist/components/close" size="24px" />
-            </button>
-          </div>
-        </div>
-        <div
-          v-if="isMobile"
-          class="a-datepicker__weekdays"
-        >
-          <span v-for="i in 7" :key="i" class="text-center">{{ weekday(i - 1) }}</span>
-        </div>
-      </header>
-
-      <div v-if="!isMobile && $slots.before" class="mb-2">
-        <slot name="before" />
-      </div>
-
-      <div v-if="!isMobile" class="a-datepicker__arrows">
-        <a-btn
-          :disabled="disablePreviousMonth"
-          @click="next(-1)"
-        >
-          <a-icon v-if="jalaali" size="18" src="@hydra/icons/dist/components/chevron-right" class="d-block" />
-          <a-icon v-else size="18" src="@hydra/icons/dist/components/chevron-left" class="d-block" />
-        </a-btn>
-        <a-btn
-          :disabled="disableNextMonth"
-          @click="next(1)"
-        >
-          <a-icon v-if="jalaali" size="18" src="@hydra/icons/dist/components/chevron-left" class="d-block" />
-          <a-icon v-else size="18" src="@hydra/icons/dist/components/chevron-right" class="d-block" />
-        </a-btn>
-      </div>
-
-      <transition-group
-        :name="transition"
-        tag="div"
-        class="a-datepicker__container"
-        tabindex="0"
-        :class="transition"
-      >
-        <div
-          v-for="month in months"
-          :key="month.unix()"
-          class="pb-0-md px-2 pb-4"
-        >
-          <a-calendar
-            ref="calendar"
-            class="mx-auto"
-            :date="month"
-            :value="value"
-            :jalaali="jalaali"
-            :range="range"
-            :min-date="minDate"
-            :max-date="maxDate"
-            :day-classes="dayClasses"
-            @input="onDayClick"
-          >
-            <template v-if="$scopedSlots.day" slot-scope="props">
-              <slot
-                name="day"
-                v-bind="props"
+    <a-dropdown ref="dropdown" class="a-datepicker">
+        <template #button>
+            <slot
+                :on="on"
+                :open="open"
                 :focus="focus"
-                :open="isOpen"
-              />
-            </template>
-          </a-calendar>
-        </div>
-      </transition-group>
-
-      <slot v-if="!isMobile" name="after" />
-
-      <hr v-if="!isMobile" class="mt-0 mb-2">
-      <footer class="a-datepicker__footer" dir="rtl">
-        <b-row v-if="isMobile" class="flex-nowrap mb-2" no-gutters>
-          <b-col
-            class="d-flex align-items-center min-width-0"
-            :class="{ 'focus': focus === 0 }"
-            @click="focus = 0"
-          >
-            <a-icon class="flex-shrink-0 mx-1" size="26" src="@hydra/icons/dist/components/check-in" />
-            <div class="flex-grow-1 min-width-0">
-              <div class="text-muted">
-                <slot name="date-text" :index="0">
-                  تاریخ رفت
-                </slot>
-              </div>
-              <div class="font-weight-normal text-ellipsis">
-                {{ value[0] ? value[0].format('D MMMM, dddd') : focus === 0 ? 'انتخاب کنید' : '--' }}
-              </div>
-            </div>
-          </b-col>
-          <b-col
-            v-if="range"
-            class="d-flex align-items-center min-width-0"
-            :class="{ 'focus': focus === 1 }"
-            @click="focus = 1"
-          >
-            <a-icon class="flex-shrink-0 mx-1" size="26" src="@hydra/icons/dist/components/check-out" />
-            <div class="flex-grow-1 min-width-0">
-              <div class="text-muted">
-                <slot name="date-text" :index="1">
-                  تاریخ برگشت
-                </slot>
-              </div>
-              <div class="font-weight-normal text-ellipsis">
-                {{ value[1] ? value[1].format('D MMMM, dddd') : focus === 1 ? 'انتخاب کنید' : '--' }}
-              </div>
-            </div>
-            <button
-              v-if="isRangePropSync"
-              type="button"
-              class="btn btn-clear mr-auto"
-              @click.stop="setRange(false)"
-            >
-              <a-icon src="@hydra/icons/dist/components/close-circle-filled" size="18" />
-            </button>
-          </b-col>
-          <b-col
-            v-else-if="isRangePropSync"
-            class="d-flex align-items-center"
-            @click.stop="setRange(true)"
-          >
-            <b-checkbox :value="false" switch>
-              <strong
-                class="w-500 text-dark"
-              >بلیط برگشت
-              </strong>
-            </b-checkbox>
-          </b-col>
-        </b-row>
-        <div v-else>
-          <p class="font-weight-normal mb-1">
-            روز انتخابی شما:
-          </p>
-          <strong
-            v-if="(value || []).filter(Boolean).length"
-            class="text-ellipsis font-weight-light small"
-          >
-            <span v-for="(d, i) in value" :key="i">
-              <template v-if="d">
-                <span
-                  v-if="i !== 0 && value[0]"
-                  class="separator"
-                />
-                <button
-                  type="button"
-                  class="btn btn-clear ml-1"
-                  @click.stop="clear(i)"
-                >
-                  <a-icon src="@hydra/icons/dist/components/close-circle-filled" size="18" />
-                </button>
-                <slot name="date-text" :index="i">
-                  تاریخ {{ i ? 'برگشت' : 'رفت' }}
-                </slot>
-                <span>
-                  {{ d.format('D MMMM') | localizeNumber }}
-                </span>
-              </template>
-            </span>
-            <slot name="after-date-text" />
-          </strong>
-          <em v-else>---</em>
-        </div>
-
-        <a-btn
-          v-if="!autoClose"
-          variant="secondary"
-          class="py-sm-2 px-6 py-3 my-1"
-          :disabled="(value || []).filter(Boolean).length !== (range ? 2 : 1)"
-          :block="isMobile"
-          @click="close(true)"
+                :value="value"
+                :clear="clear"
+            />
+        </template>
+        <span
+            v-if="isMobile"
+            class="a-datepicker__backdrop"
+        />
+        <div
+            class="a-datepicker__wrapper"
+            :dir="jalaali ? 'rtl' : 'ltr'"
+            :class="alignment"
         >
-          <slot name="confirm-button-caption" :open="isOpen">
-            تائید
-          </slot>
-        </a-btn>
-      </footer>
-    </div>
-  </a-dropdown>
+            <header class="a-datepicker__header" dir="rtl">
+                <div class="px-sm-0 font-weight-normal py-md-2">
+                    <div>
+                        <a-btn class="text-secondary py-2" flat @click="setJalaali(!jalaali)">
+                            <small>{{ jalaali ? 'تغییر به میلادی' : 'تغییر به شمسی' }}</small>
+                        </a-btn>
+                    </div>
+                    <div class="text-center">
+                        {{ !jalaali ? 'تقویم میلادی' : 'تقویم شمسی' }}
+                    </div>
+                    <div>
+                        <a-btn
+                            class="btn-today d-none d-sm-inline-block float-left py-2"
+                            @click="goToday"
+                        >
+                            برو به امروز
+                        </a-btn>
+
+                        <button
+                            class="d-sm-none text-muted float-left p-2 m-1"
+                            @click="close"
+                        >
+                            <a-icon src="@hydra/icons/dist/components/close" size="24px" />
+                        </button>
+                    </div>
+                </div>
+                <div
+                    v-if="isMobile"
+                    class="a-datepicker__weekdays"
+                >
+                    <span v-for="i in 7" :key="i" class="text-center">{{ weekday(i - 1) }}</span>
+                </div>
+            </header>
+
+            <div v-if="!isMobile && $slots.before" class="mb-2">
+                <slot name="before" />
+            </div>
+
+            <div v-if="!isMobile" class="a-datepicker__arrows">
+                <a-btn
+                    :disabled="disablePreviousMonth"
+                    @click="next(-1)"
+                >
+                    <a-icon v-if="jalaali" size="18" src="@hydra/icons/dist/components/chevron-right" class="d-block" />
+                    <a-icon v-else size="18" src="@hydra/icons/dist/components/chevron-left" class="d-block" />
+                </a-btn>
+                <a-btn
+                    :disabled="disableNextMonth"
+                    @click="next(1)"
+                >
+                    <a-icon v-if="jalaali" size="18" src="@hydra/icons/dist/components/chevron-left" class="d-block" />
+                    <a-icon v-else size="18" src="@hydra/icons/dist/components/chevron-right" class="d-block" />
+                </a-btn>
+            </div>
+
+            <transition-group
+                :name="transition"
+                tag="div"
+                class="a-datepicker__container"
+                tabindex="0"
+                :class="transition"
+            >
+                <div
+                    v-for="month in months"
+                    :key="month.unix()"
+                    class="pb-0-md px-2 pb-4"
+                >
+                    <a-calendar
+                        ref="calendar"
+                        class="mx-auto"
+                        :date="month"
+                        :value="value"
+                        :jalaali="jalaali"
+                        :range="range"
+                        :min-date="minDate"
+                        :max-date="maxDate"
+                        :day-classes="dayClasses"
+                        @input="onDayClick"
+                    >
+                        <template v-if="$scopedSlots.day" slot-scope="props">
+                            <slot
+                                name="day"
+                                v-bind="props"
+                                :focus="focus"
+                                :open="isOpen"
+                            />
+                        </template>
+                    </a-calendar>
+                </div>
+            </transition-group>
+
+            <slot v-if="!isMobile" name="after" />
+
+            <hr v-if="!isMobile" class="mt-0 mb-2">
+            <footer class="a-datepicker__footer" dir="rtl">
+                <b-row v-if="isMobile" class="flex-nowrap mb-2" no-gutters>
+                    <b-col
+                        class="d-flex align-items-center min-width-0"
+                        :class="{ 'focus': focus === 0 }"
+                        @click="focus = 0"
+                    >
+                        <a-icon class="flex-shrink-0 mx-1" size="26" src="@hydra/icons/dist/components/check-in" />
+                        <div class="flex-grow-1 min-width-0">
+                            <div class="text-muted">
+                                <slot name="date-text" :index="0">
+                                    تاریخ رفت
+                                </slot>
+                            </div>
+                            <div class="font-weight-normal text-ellipsis">
+                                {{ value[0] ? value[0].format('D MMMM, dddd') : focus === 0 ? 'انتخاب کنید' : '--' }}
+                            </div>
+                        </div>
+                    </b-col>
+                    <b-col
+                        v-if="range"
+                        class="d-flex align-items-center min-width-0"
+                        :class="{ 'focus': focus === 1 }"
+                        @click="focus = 1"
+                    >
+                        <a-icon class="flex-shrink-0 mx-1" size="26" src="@hydra/icons/dist/components/check-out" />
+                        <div class="flex-grow-1 min-width-0">
+                            <div class="text-muted">
+                                <slot name="date-text" :index="1">
+                                    تاریخ برگشت
+                                </slot>
+                            </div>
+                            <div class="font-weight-normal text-ellipsis">
+                                {{ value[1] ? value[1].format('D MMMM, dddd') : focus === 1 ? 'انتخاب کنید' : '--' }}
+                            </div>
+                        </div>
+                        <button
+                            v-if="isRangePropSync"
+                            type="button"
+                            class="btn btn-clear mr-auto"
+                            @click.stop="setRange(false)"
+                        >
+                            <a-icon src="@hydra/icons/dist/components/close-circle-filled" size="18" />
+                        </button>
+                    </b-col>
+                    <b-col
+                        v-else-if="isRangePropSync"
+                        class="d-flex align-items-center"
+                        @click.stop="setRange(true)"
+                    >
+                        <b-checkbox :value="false" switch>
+                            <strong
+                                class="w-500 text-dark"
+                            >بلیط برگشت
+                            </strong>
+                        </b-checkbox>
+                    </b-col>
+                </b-row>
+                <div v-else>
+                    <p class="font-weight-normal mb-1">
+                        روز انتخابی شما:
+                    </p>
+                    <strong
+                        v-if="(value || []).filter(Boolean).length"
+                        class="text-ellipsis font-weight-light small"
+                    >
+                        <span v-for="(d, i) in value" :key="i">
+                            <template v-if="d">
+                                <span
+                                    v-if="i !== 0 && value[0]"
+                                    class="separator"
+                                />
+                                <button
+                                    type="button"
+                                    class="btn btn-clear ml-1"
+                                    @click.stop="clear(i)"
+                                >
+                                    <a-icon src="@hydra/icons/dist/components/close-circle-filled" size="18" />
+                                </button>
+                                <slot name="date-text" :index="i">
+                                    تاریخ {{ i ? 'برگشت' : 'رفت' }}
+                                </slot>
+                                <span>
+                                    {{ d.format('D MMMM') | localizeNumber }}
+                                </span>
+                            </template>
+                        </span>
+                        <slot name="after-date-text" />
+                    </strong>
+                    <em v-else>---</em>
+                </div>
+
+                <a-btn
+                    v-if="!autoClose"
+                    variant="secondary"
+                    class="py-sm-2 px-6 py-3 my-1"
+                    :disabled="(value || []).filter(Boolean).length !== (range ? 2 : 1)"
+                    :block="isMobile"
+                    @click="close(true)"
+                >
+                    <slot name="confirm-button-caption" :open="isOpen">
+                        تائید
+                    </slot>
+                </a-btn>
+            </footer>
+        </div>
+    </a-dropdown>
 </template>
 
 <script>

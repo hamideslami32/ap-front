@@ -1,30 +1,30 @@
 <template>
-  <div class="date-picker">
-    <div class="date-picker__start">
-      <svgicon class="date-picker__start--icon" name="calendar" width="24" height="24" />
-      <div class="date-picker__start--input-holder">
-        <label class="date-picker__start--input-holder__title">تاریخ رفت</label>
-        <input
-          class="date-picker__start--input-holder__input"
-          value="‏۲ شهریور ۹۹"
-          type="text"
-          name="start-date"
-        >
-      </div>
-    </div>
-    <div class="date-picker__end">
-      <!-- <svgicon class="date-picker__end--icon" name="calendar" width="30" height="30" /> -->
-      <div class="date-picker__end--input-holder">
-        <label class="date-picker__end--input-holder__title">تاریخ بازگشت</label>
-        <!-- <input
+    <div class="date-picker">
+        <div class="date-picker__start">
+            <svgicon class="date-picker__start--icon" name="calendar" width="24" height="24" />
+            <div class="date-picker__start--input-holder">
+                <label class="date-picker__start--input-holder__title">تاریخ رفت</label>
+                <input
+                    class="date-picker__start--input-holder__input"
+                    value="‏۲ شهریور ۹۹"
+                    type="text"
+                    name="start-date"
+                >
+            </div>
+        </div>
+        <div class="date-picker__end">
+            <!-- <svgicon class="date-picker__end--icon" name="calendar" width="30" height="30" /> -->
+            <div class="date-picker__end--input-holder">
+                <label class="date-picker__end--input-holder__title">تاریخ بازگشت</label>
+                <!-- <input
           class="date-picker__end--input-holder__input"
           value="‏۲ شهریور ۹۹"
           type="text"
           name="end-date"
         > -->
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>

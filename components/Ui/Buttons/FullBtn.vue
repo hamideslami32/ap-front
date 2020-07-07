@@ -1,12 +1,12 @@
 <template functional>
-  <button class="button-search" v-on="listeners">
-    <span>
-      <slot />
-    </span>
-    <span class="button-search__icon-holder">
-      <svgicon :name="props.icon" width="24" height="24" />
-    </span>
-  </button>
+    <button class="button-search" v-on="listeners">
+        <span>
+            <slot />
+        </span>
+        <span class="button-search__icon-holder">
+            <svgicon :name="props.icon" width="24" height="24" />
+        </span>
+    </button>
 </template>
 
 <script>

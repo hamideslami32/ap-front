@@ -14,7 +14,7 @@
 <script>
 import FlightDestinationPicker from '~/components/Flight/FlightSearch/FlightDestinationPicker'
 import SelectDate from '~/components/Flight/FlightSearch/SelectDate'
-import Passengers from '~/components/Flight/FlightSearch/Passengers'
+import Passengers from '~/components/Flight/FlightSearch/PassengersPicker'
 import SearchButton from '~/components/Flight/FlightSearch/SearchButton'
 import Tabs from '~/components/Ui/Tabs'
 

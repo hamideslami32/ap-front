@@ -1,61 +1,61 @@
 <template>
-  <div
-    class="calendar"
-    :class="[
-      jalaali
-        ? 'calendar--jalaali rtl'
-        : 'ltr font-en calendar--gregorian',
-      range ? 'calendar--range' : ''
-    ]"
-  >
-    <h4 class="mb-3 mb-4-sm mt-2 mt-1-sm w-normal px-2 text-darker">
-      {{ date.format('MMMM') }}
-      <span v-if="!isCurrentYear">{{ date.format(jalaali ? 'YY' : 'YYYY') }}</span>
-    </h4>
-    <div>
-      <div v-if="!isMobile" class="calendar__weekdays">
-        <span
-          v-for="i in 7"
-          :key="i"
-          class="text-center"
-        >{{ weekday(i - 1) }}</span>
-      </div>
-      <div class="calendar__container">
-        <div
-          v-for="i in shiftDays"
-          :key="'s' + i"
-          class="calendar__day before"
-        >
-          <span class="calendar__day__square" />
+    <div
+        class="calendar"
+        :class="[
+            jalaali
+                ? 'calendar--jalaali rtl'
+                : 'ltr font-en calendar--gregorian',
+            range ? 'calendar--range' : ''
+        ]"
+    >
+        <h4 class="mb-3 mb-4-sm mt-2 mt-1-sm w-normal px-2 text-darker">
+            {{ date.format('MMMM') }}
+            <span v-if="!isCurrentYear">{{ date.format(jalaali ? 'YY' : 'YYYY') }}</span>
+        </h4>
+        <div>
+            <div v-if="!isMobile" class="calendar__weekdays">
+                <span
+                    v-for="i in 7"
+                    :key="i"
+                    class="text-center"
+                >{{ weekday(i - 1) }}</span>
+            </div>
+            <div class="calendar__container">
+                <div
+                    v-for="i in shiftDays"
+                    :key="'s' + i"
+                    class="calendar__day before"
+                >
+                    <span class="calendar__day__square" />
+                </div>
+                <div
+                    v-for="{ day, classes } in daysInMonth"
+                    :key="day.unix()"
+                    ref="days"
+                    class="calendar__day"
+                    :class="classes"
+                    @mouseover="hover($event, true)"
+                    @mouseout="hover($event, false)"
+                    @click="onDayClick(day, classes)"
+                >
+                    <slot :day="day" :classes="classes">
+                        <span class="calendar__day__content">{{ day.format('D') | localizeNumber(!jalaali) }}</span>
+                    </slot>
+                    <span class="calendar__day__square" />
+                    <span v-if="classes.today" class="btn-today" />
+                </div>
+                <template v-if="!isMobile">
+                    <div
+                        v-for="i in 7 - shiftDays"
+                        :key="'l' + i"
+                        class="calendar__day before"
+                    >
+                        <span class="calendar__day__square" />
+                    </div>
+                </template>
+            </div>
         </div>
-        <div
-          v-for="{ day, classes } in daysInMonth"
-          :key="day.unix()"
-          ref="days"
-          class="calendar__day"
-          :class="classes"
-          @mouseover="hover($event, true)"
-          @mouseout="hover($event, false)"
-          @click="onDayClick(day, classes)"
-        >
-          <slot :day="day" :classes="classes">
-            <span class="calendar__day__content">{{ day.format('D') | localizeNumber(!jalaali) }}</span>
-          </slot>
-          <span class="calendar__day__square" />
-          <span v-if="classes.today" class="btn-today" />
-        </div>
-        <template v-if="!isMobile">
-          <div
-            v-for="i in 7 - shiftDays"
-            :key="'l' + i"
-            class="calendar__day before"
-          >
-            <span class="calendar__day__square" />
-          </div>
-        </template>
-      </div>
     </div>
-  </div>
 </template>
 
 <script>

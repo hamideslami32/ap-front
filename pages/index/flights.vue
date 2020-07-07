@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <flight-search />
-  </div>
+    <div>
+        <flight-search />
+    </div>
 </template>
 
 
