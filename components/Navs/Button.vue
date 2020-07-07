@@ -1,10 +1,10 @@
 <template>
-  <nuxt-link active-class="active" class="nav-item" :to="item.url">
-    <svgicon class="nav-item__icon" :name="item.icon" width="24" height="24" />
-    <button class="nav-item__button">
-      {{ item.name }}
-    </button>
-  </nuxt-link>
+    <nuxt-link active-class="active" class="nav-item" :to="item.url">
+        <svgicon class="nav-item__icon" :name="item.icon" width="24" height="24" />
+        <button class="nav-item__button">
+            {{ item.name }}
+        </button>
+    </nuxt-link>
 </template>
 
 

@@ -1,9 +1,9 @@
 <template>
-  <div class="reverse-btn">
-    <div class="reverse-btn__holder">
-      <svgicon class="reverse-btn__holder--icon" name="arrows-round" width="30" height="30" />
+    <div class="reverse-btn">
+        <div class="reverse-btn__holder">
+            <svgicon class="reverse-btn__holder--icon" name="arrows-round" width="30" height="30" />
+        </div>
     </div>
-  </div>
 </template>
 
 

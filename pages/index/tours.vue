@@ -1,5 +1,5 @@
 <template>
-  <h1>Tours</h1>
+    <h1>Tours</h1>
 </template>
 
 <script>

@@ -1,7 +1,7 @@
 <template>
-  <div class="select-date">
-    <app-date-picker />
-  </div>
+    <div class="select-date">
+        <app-date-picker />
+    </div>
 </template>
 
 

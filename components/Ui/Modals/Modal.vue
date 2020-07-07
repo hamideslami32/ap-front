@@ -37,6 +37,7 @@ export default {
 
         .modal-content {
             height: 100%;
+            min-height: 100vh;
             border-radius: 0;
             border: none;
             background: $backgroundColor;

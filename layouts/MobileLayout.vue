@@ -1,11 +1,11 @@
 <template>
-  <div class="mobile-layout">
-    <app-header />
-    <main class="container mobile-layout__main">
-      <nuxt />
-    </main>
-    <app-footer />
-  </div>
+    <div class="mobile-layout">
+        <app-header />
+        <main class="container mobile-layout__main">
+            <nuxt />
+        </main>
+        <app-footer />
+    </div>
 </template>
 
 <script>

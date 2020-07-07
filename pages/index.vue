@@ -1,8 +1,8 @@
 <template>
-  <div class="home">
-    <app-navs />
-    <nuxt-child />
-  </div>
+    <div class="home">
+        <app-navs />
+        <nuxt-child />
+    </div>
 </template>
 
 <script>

@@ -1,7 +1,7 @@
 <template>
-  <div class="navs">
-    <app-button v-for="list in lists" :key="list.id" :item="list" />
-  </div>
+    <div class="navs">
+        <app-button v-for="list in lists" :key="list.id" :item="list" />
+    </div>
 </template>
 
 

@@ -1,31 +1,31 @@
 <template>
-  <div class="location">
-    <div class="location__origin">
-      <p class="location__origin--title">
-        مبدا
-      </p>
-      <input value="آمستردام" class="location__origin--input">
-      <div class="location__origin--airport">
-        <span class="location__origin--airport__code">AMS</span>
-        <span class="location__origin--airport__name">فرودگاه اسخیپول</span>
-      </div>
+    <div class="location">
+        <div class="location__origin">
+            <p class="location__origin--title">
+                مبدا
+            </p>
+            <input value="آمستردام" class="location__origin--input">
+            <div class="location__origin--airport">
+                <span class="location__origin--airport__code">AMS</span>
+                <span class="location__origin--airport__name">فرودگاه اسخیپول</span>
+            </div>
+        </div>
+        <div class="location__destination">
+            <p class="location__destination--title">
+                مقصد
+            </p>
+            <input value="سنگاپور" class="location__destination--input">
+            <div class="location__destination--airport">
+                <span class="location__destination--airport__name">فرودگاه چانگی</span>
+                <span class="location__destination--airport__code">AMS</span>
+            </div>
+        </div>
+        <div class="location__reverse">
+            <div class="location__reverse--btn">
+                <svgicon class="location__reverse--btn__icon" name="arrows-round" width="30" height="30" />
+            </div>
+        </div>
     </div>
-    <div class="location__destination">
-      <p class="location__destination--title">
-        مقصد
-      </p>
-      <input value="سنگاپور" class="location__destination--input">
-      <div class="location__destination--airport">
-        <span class="location__destination--airport__name">فرودگاه چانگی</span>
-        <span class="location__destination--airport__code">AMS</span>
-      </div>
-    </div>
-    <div class="location__reverse">
-      <div class="location__reverse--btn">
-        <svgicon class="location__reverse--btn__icon" name="arrows-round" width="30" height="30" />
-      </div>
-    </div>
-  </div>
 </template>
 
 
