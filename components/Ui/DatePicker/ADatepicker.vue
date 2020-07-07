@@ -19,29 +19,19 @@
             :class="alignment"
         >
             <header class="a-datepicker__header" dir="rtl">
-                <div class="px-sm-0 font-weight-normal py-md-2">
-                    <div>
-                        <a-btn class="text-secondary py-2" flat @click="setJalaali(!jalaali)">
-                            <small>{{ jalaali ? 'تغییر به میلادی' : 'تغییر به شمسی' }}</small>
-                        </a-btn>
-                    </div>
+                <div class="px-3 px-sm-0 font-weight-normal py-md-2">
                     <div class="text-center">
-                        {{ !jalaali ? 'تقویم میلادی' : 'تقویم شمسی' }}
+                        انتخاب تاریخ
                     </div>
                     <div>
-                        <a-btn
+                        <b-btn
                             class="btn-today d-none d-sm-inline-block float-left py-2"
                             @click="goToday"
                         >
                             برو به امروز
-                        </a-btn>
+                        </b-btn>
 
-                        <button
-                            class="d-sm-none text-muted float-left p-2 m-1"
-                            @click="close"
-                        >
-                            <a-icon src="@hydra/icons/dist/components/close" size="24px" />
-                        </button>
+                        <b-btn-close class="float-left d-sm-none" @click="close" />
                     </div>
                 </div>
                 <div
@@ -57,20 +47,20 @@
             </div>
 
             <div v-if="!isMobile" class="a-datepicker__arrows">
-                <a-btn
+                <b-btn
                     :disabled="disablePreviousMonth"
                     @click="next(-1)"
                 >
-                    <a-icon v-if="jalaali" size="18" src="@hydra/icons/dist/components/chevron-right" class="d-block" />
-                    <a-icon v-else size="18" src="@hydra/icons/dist/components/chevron-left" class="d-block" />
-                </a-btn>
-                <a-btn
+                    <svgicon v-if="jalaali" size="18" name="arrow-right" class="d-block" />
+                    <svgicon v-else size="18" src="arrow-left" class="d-block" />
+                </b-btn>
+                <b-btn
                     :disabled="disableNextMonth"
                     @click="next(1)"
                 >
-                    <a-icon v-if="jalaali" size="18" src="@hydra/icons/dist/components/chevron-left" class="d-block" />
-                    <a-icon v-else size="18" src="@hydra/icons/dist/components/chevron-right" class="d-block" />
-                </a-btn>
+                    <svgicon v-if="jalaali" size="18" src="arrow-left" class="d-block" />
+                    <svgicon v-else size="18" src="arrow-right" class="d-block" />
+                </b-btn>
             </div>
 
             <transition-group
@@ -119,7 +109,6 @@
                         :class="{ 'focus': focus === 0 }"
                         @click="focus = 0"
                     >
-                        <a-icon class="flex-shrink-0 mx-1" size="26" src="@hydra/icons/dist/components/check-in" />
                         <div class="flex-grow-1 min-width-0">
                             <div class="text-muted">
                                 <slot name="date-text" :index="0">
@@ -137,7 +126,6 @@
                         :class="{ 'focus': focus === 1 }"
                         @click="focus = 1"
                     >
-                        <a-icon class="flex-shrink-0 mx-1" size="26" src="@hydra/icons/dist/components/check-out" />
                         <div class="flex-grow-1 min-width-0">
                             <div class="text-muted">
                                 <slot name="date-text" :index="1">
@@ -154,7 +142,7 @@
                             class="btn btn-clear mr-auto"
                             @click.stop="setRange(false)"
                         >
-                            <a-icon src="@hydra/icons/dist/components/close-circle-filled" size="18" />
+                            <svgicon name="chair" size="18" />
                         </button>
                     </b-col>
                     <b-col
@@ -189,7 +177,7 @@
                                     class="btn btn-clear ml-1"
                                     @click.stop="clear(i)"
                                 >
-                                    <a-icon src="@hydra/icons/dist/components/close-circle-filled" size="18" />
+                                    <svgicon src="chair" size="18" />
                                 </button>
                                 <slot name="date-text" :index="i">
                                     تاریخ {{ i ? 'برگشت' : 'رفت' }}
@@ -204,7 +192,7 @@
                     <em v-else>---</em>
                 </div>
 
-                <a-btn
+                <b-btn
                     v-if="!autoClose"
                     variant="secondary"
                     class="py-sm-2 px-6 py-3 my-1"
@@ -215,18 +203,20 @@
                     <slot name="confirm-button-caption" :open="isOpen">
                         تائید
                     </slot>
-                </a-btn>
+                </b-btn>
             </footer>
         </div>
     </a-dropdown>
 </template>
 
 <script>
+import ADropdown from '../ADropdown'
 import ACalendar from './ACalendar'
 import calendarMixin from './calendarMixin'
 
 export default {
     components: {
+        ADropdown,
         ACalendar
     },
 
@@ -273,8 +263,7 @@ export default {
 
     computed: {
         months() {
-            const process = process || undefined
-            if (process && process.server) return []
+            if (process.server) return []
             const baseMonth = this.currentDate
             if (!this.isMobile) {
                 return [baseMonth, baseMonth.add(1, 'month')]
@@ -540,7 +529,7 @@ export default {
 }
 
 .btn-today {
-    border: 1px solid  map_get($grays, '200');
+    border: 1px solid  $gray-200;
     position: relative;
     border-radius: 4px;
     box-shadow: none;
@@ -569,12 +558,12 @@ export default {
     appearance: none;
     border: 0;
     outline: 0;
-    color: map_get($grays, '200');
+    color: $gray-200;
     box-shadow: none;
     vertical-align: middle;
 
     &:hover {
-        color: map_get($grays, '400');
+        color: $gray-400;
     }
 }
 
@@ -582,7 +571,7 @@ export default {
     z-index: 5000;
 
     .tooltip-inner {
-        background-color: map_get($secondary, '700');
+        background-color: $secondary;
         padding: 2px 4px;
     }
 }
@@ -623,7 +612,7 @@ export default {
         z-index: 5000;
         box-shadow: 0 8px 16px rgba($black, 0.15);
         border-radius: 4px;
-        color: map_get($grays, '700');
+        color: $gray-700;
 
         @media (min-width: 370px) {
             width: auto;
@@ -713,14 +702,14 @@ export default {
     &__weekdays {
         background-color: $white;
         display: flex;
-        color: map_get($grays, '400');
+        color: $gray-400;
         padding: 5px 20px 10px;
         z-index: 10;
         position: absolute;
         top: 100%;
         left: 0;
         right: 0;
-        border-bottom: 1px solid map_get($grays, '150');
+        border-bottom: 1px solid $gray-100;
 
         > span {
             flex: 1;
@@ -738,8 +727,8 @@ export default {
 
         > button {
             display: inline-block;
-            color: map_get($grays, '500');
-            background-color: map_get($grays, '100');
+            color: $gray-500;
+            background-color: $gray-100;
             border: 0;
             padding: 6px;
             border-radius: 50%;
@@ -753,8 +742,8 @@ export default {
             }
 
             &:disabled {
-                background-color: map_get($grays, '100');
-                color: map_get($grays, '200');
+                background-color: $gray-100;
+                color: $gray-200;
                 cursor: not-allowed;
             }
         }
@@ -774,8 +763,7 @@ export default {
             z-index: 14;
             align-items: center;
 
-            > div,
-            > button {
+            > div {
                 flex: 1;
             }
         }
@@ -824,7 +812,7 @@ export default {
         }
 
         .a-icon {
-            color: map_get($grays, '300');
+            color: $gray-300;
         }
 
         .focus > .a-icon {
@@ -856,7 +844,7 @@ export default {
     display: inline-block;
     width: 10px;
     height: 1px;
-    background-color: map_get($grays, '700');
+    background-color: $gray-700;
     vertical-align: middle;
     margin: 0 10px;
 }
@@ -883,48 +871,3 @@ export default {
     }
 }
 </style>
-
-<docs>
-    Datepicker Example:
-    ```vue
-    <template>
-        <a-datepicker
-                v-slot="{ on, value }"
-                v-model="date"
-                alignment="start"
-                :jalaali.sync="jalaali"
-                :range.sync="range"
-        >
-            <b-row style="max-width: 550px;">
-                <b-col>
-                    <a-input
-                            placeholder="از تاریخ"
-                            :value="value[0] ? value[0].format('YYYY/MM/DD') : null"
-                            dir="ltr"
-                            v-on="on"
-                    />
-                </b-col>
-                <b-col>
-                    <a-input
-                            placeholder="تا تاریخ"
-                            :value="value[1] ? value[1].format('YYYY/MM/DD') : null"
-                            data-datepicker="1"
-                            dir="ltr"
-                            v-on="on"
-                    />
-                </b-col>
-            </b-row>
-        </a-datepicker>
-    </template>
-
-    <script>
-    export default {
-        data: () => ({
-            date: [],
-            jalaali: true,
-            range: true,
-        })
-    }
-    </script>
-    ```
-</docs>
