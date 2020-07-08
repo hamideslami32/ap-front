@@ -4,7 +4,19 @@
             <Passenger v-for="passenger in passengers" :key="passenger.name" :data="passenger" />
         </div>
         <div class="passenger-select__class-type">
-            <PassengerClass />
+            <PassengerClass>
+                <b-form-group>
+                    <b-form-radio v-model="selected" name="some-radios" value="economy">
+                        اکونومی کلاس
+                    </b-form-radio>
+                    <b-form-radio v-model="selected" name="some-radios" value="business">
+                        بیزنس کلاس
+                    </b-form-radio>
+                    <b-form-radio v-model="selected" name="some-radios" value="first">
+                        فرست کلاس
+                    </b-form-radio>
+                </b-form-group>
+            </PassengerClass>
         </div>
     </div>
 </template>
@@ -33,7 +45,8 @@ export default {
                     tip: '(10 روز تا 2 سال)',
                     count: 0
                 }
-            ]
+            ],
+            selected: 'economy'
         }
     }
 }

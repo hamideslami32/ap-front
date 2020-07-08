@@ -4,7 +4,7 @@
             <tabs v-model="search.type" class="mb-3" :tabs="tabs" />
             <flight-destination-picker :type="search.name" />
             <select-date />
-            <passengers />
+            <PassengersPicker v-model="search" />
             <search-button @click.prevent="startSearch" />
         </form>
     </div>
@@ -14,7 +14,7 @@
 <script>
 import FlightDestinationPicker from '~/components/Flight/FlightSearch/FlightDestinationPicker'
 import SelectDate from '~/components/Flight/FlightSearch/SelectDate'
-import Passengers from '~/components/Flight/FlightSearch/PassengersPicker'
+import PassengersPicker from '~/components/Flight/FlightSearch/PassengersPicker'
 import SearchButton from '~/components/Flight/FlightSearch/SearchButton'
 import Tabs from '~/components/Ui/Tabs'
 
@@ -22,7 +22,7 @@ export default {
     components: {
         FlightDestinationPicker,
         SelectDate,
-        Passengers,
+        PassengersPicker,
         SearchButton,
         Tabs
     },
