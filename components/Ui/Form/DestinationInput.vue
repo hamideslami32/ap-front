@@ -1,11 +1,10 @@
 <template>
-    <div :class="data.type" class="input-holder" @click="$refs.input.focus()">
-        <label v-if="data.title" class="input-holder__title">
-            {{ data.title }}
+    <div class="input-holder" @click="$refs.input.focus()">
+        <label v-if="title" class="input-holder__title">
+            {{ title }}
         </label>
         <input
             ref="input"
-            :name="data.type"
             value="آمستردام"
             class="input-holder__input"
             @focus="inputFocus"
@@ -17,8 +16,8 @@
 <script>
 export default {
     props: {
-        data: {
-            type: Object,
+        title: {
+            type: String,
             required: true
         }
     },

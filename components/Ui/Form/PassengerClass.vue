@@ -1,27 +1,12 @@
 <template>
     <div class="passenger-class">
-        <b-form-group>
-            <b-form-radio v-model="selected" name="some-radios" value="economy">
-                اکونومی کلاس
-            </b-form-radio>
-            <b-form-radio v-model="selected" name="some-radios" value="business">
-                بیزنس کلاس
-            </b-form-radio>
-            <b-form-radio v-model="selected" name="some-radios" value="first">
-                فرست کلاس
-            </b-form-radio>
-        </b-form-group>
+        <slot />
     </div>
 </template>
 
 <script>
 export default {
-    name: 'PassengerClass',
-    data() {
-        return {
-            selected: 'economy'
-        }
-    }
+    name: 'PassengerClass'
 }
 </script>
 

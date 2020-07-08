@@ -1,20 +1,36 @@
 <template>
     <div class="input-modal">
-        <svgicon name="search" width="15" class="input-modal__icon" height="15" :fill="false" />
-        <input type="text" :name="name" :placeholder="`شهر یا فرودگاه ${title}`" class="input-modal__input">
+        <svgicon
+            name="search"
+            width="15"
+            class="input-modal__icon"
+            height="15"
+            :fill="false"
+        />
+        <input v-model="localValue" type="text" :placeholder="`شهر یا فرودگاه ${title}`" class="input-modal__input" />
     </div>
 </template>
 
 <script>
 export default {
     props: {
-        name: {
-            type: String,
-            required: true
-        },
         title: {
             type: String,
             required: true
+        },
+        value: {
+            type: String,
+            required: true
+        }
+    },
+    computed: {
+        localValue: {
+            get() {
+                return this.value
+            },
+            set(value) {
+                this.$emit('input', value)
+            }
         }
     }
 }

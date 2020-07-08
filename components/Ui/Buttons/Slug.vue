@@ -1,9 +1,11 @@
 <template functional>
-    <span :class="props.className" class="flag">{{ props.data }}</span>
+    <span :class="[data.class, data.staticClass]" class="slug"><slot /></span>
 </template>
 
 <style lang="scss" scoped>
-.flag {
+.slug {
+    display: inline-block;
+    vertical-align: middle;
     background: rgba(71, 32, 134, 0.1);
     border: 1px solid $primary;
     color: $primary;

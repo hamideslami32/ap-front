@@ -1,17 +1,17 @@
 @import 'bootstrap';
-@import 'bootstrap-vue/src/index';
+@import '~bootstrap-vue/src/index';
 @import 'fonts';
 @import 'svg-icons';
 
 body {
-  direction: rtl;
-  font-family: Dana, Tahoma, serif;
-  text-align: right;
+    direction: rtl;
+    font-family: Dana, Tahoma, serif;
+    text-align: right;
 }
 
 .btn-raw {
-  appearance: none;
-  background: none;
-  outline: none !important;
-  border: 0;
+    appearance: none;
+    background: none;
+    outline: none !important;
+    border: 0;
 }
