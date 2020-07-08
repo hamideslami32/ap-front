@@ -1,24 +1,35 @@
 <template>
-    <div class="input-detail" :class="type">
-        <flag :data="data.code" />
-        <span class="input-detail__name">{{ data.name }}</span>
+    <div class="input-detail">
+        <flag v-if="!left" class="mr-1">
+            {{ code }}
+        </flag>
+        <span class="input-detail__name">
+            {{ name }}
+        </span>
+        <flag v-if="left" class="ml-1">
+            {{ code }}
+        </flag>
     </div>
 </template>
 
 <script>
-import Flag from '~/components/Ui/Buttons/Flag'
+import Flag from '~/components/Ui/Buttons/Slug'
 
 export default {
     components: {
         Flag
     },
     props: {
-        data: {
-            type: Object,
+        code: {
+            type: String,
+            default: null
+        },
+        name: {
+            type: String,
             required: true
         },
-        type: {
-            type: String,
+        left: {
+            type: Boolean,
             required: true
         }
     }
@@ -28,23 +39,6 @@ export default {
 
 <style lang="scss" scoped>
 .input-detail {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    &.destination {
-        flex-direction: row-reverse;
-
-        .flag {
-            margin-right: 5px;
-        }
-    }
-
-    &.origin {
-        .flag {
-            margin-left: 5px;
-        }
-    }
 
     &__name {
         font-size: 11px;

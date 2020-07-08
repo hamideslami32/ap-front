@@ -2,7 +2,7 @@
     <div>
         <form action="#">
             <tabs v-model="search.type" class="mb-3" :tabs="tabs" />
-            <flight-destination-picker class="mb-3" :type="search.name" />
+            <flight-destination-picker v-model="originDestination" class="mb-3" />
             <a-datepicker class="date-input-pair mb-3" :jalaali.sync="jalaaliDatepicker">
                 <template v-slot="{ open }">
                     <form-input label="تاریخ رفت" icon="calendar" :value="$dayjs().format('DD MMMM YY')" @focus="open(0)" />
@@ -51,6 +51,17 @@ export default {
                 child: 0,
                 infant: 0,
                 class: 'economy' // business first
+            }
+        }
+    },
+    computed: {
+        originDestination: {
+            get() {
+                return [this.search.origin, this.search.destination]
+            },
+            set([origin, destination]) {
+                this.search.origin = origin
+                this.search.destination = destination
             }
         }
     },

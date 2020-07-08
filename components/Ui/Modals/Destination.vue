@@ -1,9 +1,10 @@
 <template>
     <div class="destination-picker">
         <div class="input-holder">
-            <InputModal :name="name" :title="title" />
+            <InputModal v-model="anotherName" :name="name" :title="title"/>
         </div>
         <div class="destination-picker__result">
+            <span>or: {{ origin }} des: {{ destination }}</span>
             <h3 v-if="mode === 'suggestion'" class="destination-picker__result--title">
                 شهرهای پرتردد
             </h3>
@@ -13,12 +14,9 @@
 </template>
 
 <script>
-import InputModal from '~/components/Ui/Form/InputModal'
-import Item from '~/components/Ui/Suggestions/Item'
 
 export default {
     name: 'Destination',
-    components: {InputModal, Item},
     props: {
         name: {
             type: String,
@@ -31,8 +29,26 @@ export default {
     },
     data() {
         return {
-            mode: 'suggestion'
+            mode: 'suggestion',
+            origin: '',
+            destination: ''
         }
+    },
+    computed: {
+        anotherName: {
+            get() {
+                return this[this.name]
+            },
+            set(value) {
+                this[this.name] = value
+                this.fetchResult(value)
+            }
+        }
+    },
+    methods: {
+        fetchResult: _.debounce((value) => {
+
+        }, 1000)
     }
 }
 </script>

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Flag from '~/components/Ui/Buttons/Flag.vue'
+import Flag from '~/components/Ui/Buttons/Slug.vue'
 
 export default {
     name: 'Item',
@@ -25,8 +25,7 @@ export default {
     props: {
         mode: {
             type: String,
-            require: true,
-            default: ''
+            require: true
         }
     },
     data() {
