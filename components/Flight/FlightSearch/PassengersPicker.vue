@@ -7,8 +7,13 @@
             <span class="passengers__input-holder--before">
                 <svgicon class="passengers__input-holder--before__icon" width="24" height="24" name="chair" />
             </span>
-            <input ref="input" name="passengers" value="3 مسافر، اکونومی" class="passengers__input-holder--input"
-                   type="text" @focus="openModal"
+            <input
+                ref="input"
+                name="passengers"
+                value="3 مسافر، اکونومی"
+                class="passengers__input-holder--input"
+                type="text"
+                @focus="openModal"
             >
             <span class="passengers__input-holder--after">
                 <svgicon class="passengers__input-holder--after__icon" width="24" height="24" name="arrow-down" />

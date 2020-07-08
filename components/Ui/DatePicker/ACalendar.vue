@@ -255,7 +255,7 @@ export default {
         background-color: transparent;
         position: relative;
         margin: 2px 0;
-        color: map_get($grays, '500');
+        color: $gray-500;
         font-weight: 400;
 
         &__content {
@@ -276,7 +276,7 @@ export default {
         }
 
         &.holiday {
-            color: map_get($danger, '400');
+            color: $danger;
         }
 
         &.hover,
@@ -304,7 +304,7 @@ export default {
         }
 
         &.selected {
-            color: map_get($grays, '500');
+            color: $gray-500;
             font-weight: 500;
 
             &::after {
@@ -317,7 +317,7 @@ export default {
         }
 
         &.highlight {
-            background-color: map_get($warning, '100');
+            background-color: $warning;
         }
 
         // Selected Trail
@@ -458,16 +458,3 @@ export default {
     }
 }
 </style>
-
-<docs>
-    ```vue
-    <b-row>
-        <b-col>
-            <a-calendar />
-        </b-col>
-        <b-col>
-            <a-calendar :jalaali="false" />
-        </b-col>
-    </b-row>
-    ```
-</docs>

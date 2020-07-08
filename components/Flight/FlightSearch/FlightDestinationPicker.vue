@@ -1,9 +1,9 @@
 <template>
     <div class="flight-destination">
         <input-pair>
-            <a-input v-for="item in destinations" :key="item.type" :data="item" @focus="openModal($event)">
+            <destination-input v-for="item in destinations" :key="item.type" :data="item" @focus="openModal($event)">
                 <input-detail :data="item.airport" :type="item.type" />
-            </a-input>
+            </destination-input>
         </input-pair>
         <modal v-model="showModal" :title="title">
             <Destination :title="title" :name="inputName" />
@@ -15,7 +15,7 @@
 import InputPair from '~/components/Ui/Form/InputPair.vue'
 import Modal from '~/components/Ui/Modals/Modal.vue'
 import Destination from '~/components/Ui/Modals/Destination'
-import AInput from '~/components/Ui/Form/AInput'
+import DestinationInput from '~/components/Ui/Form/DestinationInput'
 import InputDetail from '~/components/Ui/Form/InputDetail'
 
 export default {
@@ -23,7 +23,7 @@ export default {
         InputPair,
         Modal,
         Destination,
-        AInput,
+        DestinationInput,
         InputDetail
     },
     data() {

@@ -20,7 +20,7 @@ module.exports = {
         'semi': ['error', 'never'],
         'indent': ['error', 4],
         'quotes': ['error', 'single'],
-        'vue/max-attributes-per-line': 'off',
+        'vue/max-attributes-per-line': ['warn', {'singleline': 4}],
         'no-console': 'error',
         'no-debugger': 'error',
         'no-unused-vars': [

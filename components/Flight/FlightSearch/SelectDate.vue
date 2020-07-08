@@ -1,15 +1,15 @@
 <template>
     <div class="select-date">
-        <app-date-picker />
+        <date-picker />
     </div>
 </template>
 
 
 <script>
-import DatePicker from '~/components/DatePicker/DatePicker.vue'
+import DatePicker from '~/components/DatePicker/DateInput.vue'
 export default {
     components: {
-        appDatePicker: DatePicker
+        DatePicker: DatePicker
     }
 }
 </script>

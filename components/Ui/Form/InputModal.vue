@@ -1,6 +1,12 @@
 <template>
     <div class="input-modal">
-        <svgicon name="search" width="15" class="input-modal__icon" height="15" :fill="false" />
+        <svgicon
+            name="search"
+            width="15"
+            class="input-modal__icon"
+            height="15"
+            :fill="false"
+        />
         <input type="text" :name="name" :placeholder="`شهر یا فرودگاه ${title}`" class="input-modal__input">
     </div>
 </template>

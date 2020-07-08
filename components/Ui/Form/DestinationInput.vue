@@ -3,7 +3,13 @@
         <label v-if="data.title" class="input-holder__title">
             {{ data.title }}
         </label>
-        <input ref="input" :name="data.type" value="آمستردام" class="input-holder__input" @focus="inputFocus">
+        <input
+            ref="input"
+            :name="data.type"
+            value="آمستردام"
+            class="input-holder__input"
+            @focus="inputFocus"
+        >
         <slot />
     </div>
 </template>

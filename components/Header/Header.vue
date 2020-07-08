@@ -1,7 +1,13 @@
 <template>
     <div class="container-fluid header-wrapper">
         <header class="header">
-            <svgicon name="bars-solid" class="header__icon" width="30" height="30" color="black" />
+            <svgicon
+                name="bars-solid"
+                class="header__icon"
+                width="30"
+                height="30"
+                color="black"
+            />
             <logo />
             <svgicon name="notifications" width="30" class="header__icon" height="30" />
         </header>

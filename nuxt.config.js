@@ -32,7 +32,8 @@ export default {
     plugins: [
         '~plugins/deviceLayout',
         '~plugins/svg',
-        '~plugins/auth'
+        '~plugins/auth',
+        '~plugins/dayjs'
     ],
     server: {
         port: 3000
