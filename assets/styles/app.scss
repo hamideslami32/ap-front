@@ -9,9 +9,18 @@ body {
     text-align: right;
 }
 
+.en {
+    font-family: Roboto, Tahoma, serif;
+}
+
 .btn-raw {
     appearance: none;
     background: none;
     outline: none !important;
     border: 0;
+}
+
+.link-inherit {
+    color: inherit !important;
+    text-decoration: inherit !important;
 }

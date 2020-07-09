@@ -1,7 +1,7 @@
 <template>
     <b-modal id="modal" :visible="value" hide-footer @change="$emit('input', $event)">
         <template v-slot:modal-title>
-            {{ title }}
+            انتخاب {{ title }}
         </template>
         <slot />
     </b-modal>
