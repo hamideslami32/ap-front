@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Flag from '~/components/Ui/Buttons/Slug'
+import Flag from '~/components/Ui/Buttons/Badge'
 
 export default {
     components: {

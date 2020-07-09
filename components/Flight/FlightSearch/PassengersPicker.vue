@@ -38,7 +38,8 @@ export default {
         value: {
             type: Object,
             require: true
-        }
+        },
+        flightClass: {}
     },
     data() {
         return {
@@ -92,6 +93,7 @@ export default {
     &__input-holder {
         height: 100%;
         position: relative;
+        margin-right: 70px;
 
         &--input {
             height: 100%;

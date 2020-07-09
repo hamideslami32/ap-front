@@ -18,16 +18,22 @@
                 <input-detail code="FAD" name="آمستردام" left />
             </destination-input>
         </input-pair>
-        <modal v-model="showModal" :title="title">
+        <modal v-model="showModal" :title="focus === 'origin' ? 'مبدا' : 'مقصد'">
             <div class="destination-picker">
                 <div class="input-holder">
-                    <InputModal v-model="query" :title="title" @input="fetchResult" />
+                    <InputModal v-model="query" :title="focus === 'origin' ? 'مبدا' : 'مقصد'" @input="dFetchResult" />
                 </div>
                 <div>
-                    <h3 v-if="mode === 'suggestion'" class="destination-picker__title">
+                    <h3 v-if="!query" class="destination-picker__title">
                         شهرهای پرتردد
                     </h3>
-                    <Item v-for="x in 7" :key="x" :mode="mode" @select="onSelect" />
+                    <FlightDestinationPickerItem
+                        v-for="(item,i) in destinations"
+                        :key="i"
+                        :item="item"
+                        :show-airports="!!query"
+                        @select="onSelect"
+                    />
                 </div>
             </div>
         </modal>
@@ -41,7 +47,8 @@ import Modal from '~/components/Ui/Modals/Modal.vue'
 import DestinationInput from '~/components/Ui/Form/DestinationInput'
 import InputDetail from '~/components/Ui/Form/InputDetail'
 import InputModal from '~/components/Ui/Form/InputModal'
-import Item from '~/components/Ui/Suggestions/Item'
+import FlightDestinationPickerItem from '~/components/Flight/FlightSearch/FlightDestinationPickerItem'
+import {flightApi} from '~/api/flight'
 
 export default {
     components: {
@@ -50,7 +57,7 @@ export default {
         DestinationInput,
         InputDetail,
         InputModal,
-        Item
+        FlightDestinationPickerItem
     },
 
     props: {
@@ -63,45 +70,31 @@ export default {
     data() {
         return {
             query: null,
-            destinations: [
-                {
-                    title: 'مبدا',
-                    type: 'origin',
-                    airport: {
-                        code: 'AMS',
-                        name: 'فرودگاه سبیها'
-                    }
-                },
-                {
-                    title: 'مقصد',
-                    type: 'destination',
-                    airport: {
-                        code: 'AMS',
-                        name: 'فرودگاه سبیها'
-                    }
-                }
-            ],
-            mode: 'suggestion',
+            destinations: null,
             showModal: false,
-            title: '',
+            focus: '',
             inputName: ''
         }
     },
 
+    created() {
+        this.dFetchResult = debounce(this.fetchResult, 300)
+    },
     mounted() {
-        this.fetchResultDebounced = debounce(this.fetchResult, 300)
+        this.fetchResult('')
     },
     methods: {
-        openModal(data) {
-            this.title = null
-            this.inputName = null
+        openModal(type) {
+            this.focus = type
             this.showModal = true
         },
-        fetchResult(event) {
-            // console.log(event, 'event =>')
+        async fetchResult(query) {
+            this.destinations = await flightApi.suggest(query)
         },
-        onSelect() {
-
+        onSelect(value) {
+            const newValue = [...this.value]
+            newValue[this.focus === 'origin' ? 0 : 1] = value
+            this.$emit('input', newValue)
         }
     }
 }

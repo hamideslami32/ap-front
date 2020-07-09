@@ -1,5 +1,5 @@
 <template functional>
-    <span :class="[data.class, data.staticClass]" class="slug"><slot /></span>
+    <span :class="[data.class, data.staticClass]" class="slug en" :style="{ width: props.width ? props.width + 'px' : 'auto' }"><slot /></span>
 </template>
 
 <style lang="scss" scoped>
@@ -13,14 +13,6 @@
     padding: 3px 5px;
     border-radius: 100px;
     font-weight: 600;
-
-    &.suggestion-item{
-        width: 55px;
-        text-align: center;
-        background: $modalBorder;
-        border: none;
-        color: $darkGrayColor;
-        margin-left: 10px;
-    }
+    text-align: center;
 }
 </style>

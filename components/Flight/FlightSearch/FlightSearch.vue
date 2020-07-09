@@ -9,7 +9,7 @@
                     <form-input label="تاریخ برگشت" @focus="open(1)" />
                 </template>
             </a-datepicker>
-            <passengers-picker />
+            <passengers-picker :flight-class.sync="search.class" />
             <search-button @click.prevent="startSearch" />
         </form>
     </div>

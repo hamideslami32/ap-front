@@ -33,6 +33,7 @@ export default {
         '~plugins/deviceLayout',
         '~plugins/svg',
         '~plugins/auth',
+        '~plugins/api',
         '~plugins/dayjs'
     ],
     server: {
