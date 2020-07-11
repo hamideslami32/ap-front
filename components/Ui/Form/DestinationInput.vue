@@ -5,7 +5,7 @@
         </label>
         <input
             ref="input"
-            value="آمستردام"
+            :value="value ? value.city.fa.length > 1 ? value.city.fa : value.city.en : ''"
             class="input-holder__input"
             @focus="inputFocus"
         >
@@ -17,6 +17,10 @@
 export default {
     props: {
         title: {
+            type: String,
+            required: true
+        },
+        value: {
             type: String,
             required: true
         }
@@ -45,6 +49,7 @@ export default {
 
 .input-holder {
     padding: 20px 15px 20px 10px;
+    min-height: 130px;
 
     &.origin {
         @include destinationInput;

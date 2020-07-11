@@ -291,13 +291,13 @@ export default {
         on() {
             const self = this
             return {
-                focus({ target }) {
+                focus({target}) {
                     self.open(target.getAttribute('data-datepicker') * 1)
                 },
                 input(value) {
                     self.open(self.focus)
                     if ((value || '').trim().match(/^\d{4}\/\d{2}\/\d{2}$/i)) {
-                        value = self.dayjs(value, { jalali: self.jalaali }).startOf('day')
+                        value = self.dayjs(value, {jalali: self.jalaali}).startOf('day')
                         const newValue = self.value.slice()
                         newValue[self.focus] = value
                         self.$emit('input', newValue, self)
@@ -347,13 +347,13 @@ export default {
         },
         isOpen(t) {
             !this.isMobile &&
-                !t &&
-                this.value[0] &&
-                setTimeout(() => {
-                    this.currentDate = this.value[0]
-                        .startOf('month')
-                        .startOf('day')
-                }, 200)
+            !t &&
+            this.value[0] &&
+            setTimeout(() => {
+                this.currentDate = this.value[0]
+                    .startOf('month')
+                    .startOf('day')
+            }, 200)
 
             // Scroll to month on mobile view;
             this.isMobile && this.$store.commit('setOverflow', t)
@@ -368,7 +368,7 @@ export default {
     },
 
     mounted() {
-        this._clickOutsideListener = ({ target }) => {
+        this._clickOutsideListener = ({target}) => {
             if (
                 (target && this.$el.contains(target)) ||
                 target.hasAttribute('data-dropdown-prevent')
@@ -409,7 +409,7 @@ export default {
 
         onDayClick(day, vm, classes) {
             if (classes.before) return
-            let { focus, minRange } = this
+            let {focus, minRange} = this
             focus = focus != null ? focus : 0
             const value = (this.value || []).slice()
 
@@ -494,7 +494,7 @@ export default {
         scrollIntoView() {
             if (this.isMobile) {
                 this.$nextTick(() => {
-                    const { dropdown } = this.$refs
+                    const {dropdown} = this.$refs
                     let el =
                         dropdown.querySelector('.calendar__day.selected') ||
                         dropdown.querySelector('.calendar__day.today')
@@ -529,7 +529,7 @@ export default {
 }
 
 .btn-today {
-    border: 1px solid  $gray-200;
+    border: 1px solid $gray-200;
     position: relative;
     border-radius: 4px;
     box-shadow: none;

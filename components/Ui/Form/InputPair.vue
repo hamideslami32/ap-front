@@ -1,7 +1,7 @@
 <template>
     <div class="inputPair">
         <slot />
-        <reverse-btn />
+        <reverse-btn @click="$emit('click')" />
     </div>
 </template>
 

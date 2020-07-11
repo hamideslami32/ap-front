@@ -1,13 +1,13 @@
 <template>
     <div class="flight-destination">
-        <input-pair>
+        <input-pair @click="$emit('click')">
             <destination-input
                 title="مبدا"
                 class="origin"
                 :value="value[0]"
                 @focus="openModal('origin')"
             >
-                <input-detail :left="false" code="AMS" name="استانبول" />
+                <input-detail v-if="value[0]" :left="false" :code="value[0] ? value[0].cityCode: ''" :name="value[0] ? value[0].country.fa.length > 1 ? value[0].country.fa : value[0].country.en : ''" />
             </destination-input>
             <destination-input
                 title="مقصد"
@@ -15,7 +15,7 @@
                 :value="value[1]"
                 @focus="openModal('destination')"
             >
-                <input-detail code="FAD" name="آمستردام" left />
+                <input-detail v-if="value[1]" :left="false" :code="value[1] ? value[1].cityCode: ''" :name="value[1] ? value[1].country.fa.length > 1 ? value[1].country.fa : value[1].country.en : ''" />
             </destination-input>
         </input-pair>
         <modal v-model="showModal" :title="focus === 'origin' ? 'مبدا' : 'مقصد'">
@@ -95,6 +95,7 @@ export default {
             const newValue = [...this.value]
             newValue[this.focus === 'origin' ? 0 : 1] = value
             this.$emit('input', newValue)
+            this.showModal = false
         }
     }
 }
