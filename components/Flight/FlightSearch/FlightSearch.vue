@@ -2,13 +2,13 @@
     <div>
         <form action="#">
             <tabs v-model="search.type" class="mb-3" :tabs="tabs" />
-            <flight-destination-picker v-model="originDestination" class="mb-3" />
-            <a-datepicker class="date-input-pair mb-3" :jalaali.sync="jalaaliDatepicker">
+            <flight-destination-picker v-model="originDestination" class="mb-3" @click="reverseDestinations" />
+            <!--<a-datepicker class="date-input-pair mb-3" :jalaali.sync="jalaaliDatepicker">
                 <template v-slot="{ open }">
                     <form-input label="تاریخ رفت" icon="calendar" :value="$dayjs().format('DD MMMM YY')" @focus="open(0)" />
                     <form-input label="تاریخ برگشت" @focus="open(1)" />
                 </template>
-            </a-datepicker>
+            </a-datepicker>-->
             <passengers-picker :flight-class.sync="search.class" />
             <search-button @click.prevent="startSearch" />
         </form>
@@ -20,17 +20,17 @@
 import FlightDestinationPicker from '~/components/Flight/FlightSearch/FlightDestinationPicker'
 import PassengersPicker from '~/components/Flight/FlightSearch/PassengersPicker'
 import SearchButton from '~/components/Flight/FlightSearch/SearchButton'
-import ADatepicker from '~/components/Ui/DatePicker/ADatepicker'
+// import ADatepicker from '~/components/Ui/DatePicker/ADatepicker'
 import Tabs from '~/components/Ui/Tabs'
-import FormInput from '~/components/Ui/Form/FormInput'
+// import FormInput from '~/components/Ui/Form/FormInput'
 
 export default {
     components: {
-        FormInput,
+        // FormInput,
         FlightDestinationPicker,
         PassengersPicker,
         SearchButton,
-        ADatepicker,
+        // ADatepicker,
         Tabs
     },
     data() {
@@ -43,8 +43,8 @@ export default {
             ],
             search: {
                 type: 'roundTrip', // oneWay, roundTrip, multiDestination,
-                origin: null, //object  i, title, value
-                destination: null, //object  i, title, value
+                origin: '', //object  i, title, value
+                destination: '', //object  i, title, value
                 departing: null,
                 returning: null,
                 adult: 1,
@@ -68,6 +68,12 @@ export default {
     methods: {
         startSearch() {
             // TODO: redirect to flight available page this.$router.push('/...')
+        },
+        reverseDestinations() {
+            const locations = [this.search.origin, this.search.destination]
+            const newLocation = locations.reverse()
+            this.search.origin = newLocation[0]
+            this.search.destination = newLocation[1]
         }
     }
 }
