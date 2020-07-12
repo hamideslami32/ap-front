@@ -1,7 +1,7 @@
 <template>
     <div class="inputPair">
         <slot />
-        <reverse-btn @click.native="$emit('click')" />
+        <reverse-btn @click.native="switchInputs" />
     </div>
 </template>
 
@@ -36,6 +36,11 @@ export default {
     methods: {
         clickInput(type) {
             this.$emit('focus', type)
+        },
+        switchInputs() {
+            const [v0, v1] = this.$children.map(el => el.value)
+            this.$children[0].$emit('input', v1)
+            this.$children[1].$emit('input', v0)
         }
     }
 }

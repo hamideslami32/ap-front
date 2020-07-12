@@ -21,8 +21,8 @@ export default {
             required: true
         },
         value: {
-            type: String,
-            required: true
+            type: Object,
+            default: null
         }
     },
     methods: {

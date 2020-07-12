@@ -7,6 +7,7 @@ class Auth {
         this.axios = ctx.app.$axios
         this.storage = ctx.$storage
         this.user = null
+        this.showModal = false
 
         const token = this.storage.getCookie(COOKIE_TOKEN)
         if (token) {
@@ -56,6 +57,17 @@ class Auth {
     get token() {
         const { Authorization } = this.axios.defaults.headers.common
         return Authorization ? Authorization.slice(7).trim() : null
+    }
+
+    authenticate() {
+        return new Promise((resolve, reject) => {
+            if (this.user) {
+                return resolve(this.user)
+            }
+            this.showModal = true
+            this._resolve = resolve
+            this._reject = reject
+        })
     }
 }
 

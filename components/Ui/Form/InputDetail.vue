@@ -38,12 +38,5 @@ export default {
 
 
 <style lang="scss" scoped>
-.input-detail {
 
-    &__name {
-        font-size: 11px;
-        line-height: 20px;
-        color: $darkGrayColor;
-    }
-}
 </style>

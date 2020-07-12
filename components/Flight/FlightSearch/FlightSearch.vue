@@ -43,8 +43,8 @@ export default {
             ],
             search: {
                 type: 'roundTrip', // oneWay, roundTrip, multiDestination,
-                origin: '', //object  i, title, value
-                destination: '', //object  i, title, value
+                origin: null, //object  i, title, value
+                destination: null, //object  i, title, value
                 departing: null,
                 returning: null,
                 adult: 1,
