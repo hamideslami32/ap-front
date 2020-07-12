@@ -6,13 +6,13 @@
         <div class="passenger-select__class-type">
             <PassengerClass>
                 <b-form-group>
-                    <b-form-radio v-model="selected" name="some-radios" value="economy">
+                    <b-form-radio v-model="flightClass" name="some-radios" value="economy">
                         اکونومی کلاس
                     </b-form-radio>
-                    <b-form-radio v-model="selected" name="some-radios" value="business">
+                    <b-form-radio v-model="flightClass" name="some-radios" value="business">
                         بیزنس کلاس
                     </b-form-radio>
-                    <b-form-radio v-model="selected" name="some-radios" value="first">
+                    <b-form-radio v-model="flightClass" name="some-radios" value="first">
                         فرست کلاس
                     </b-form-radio>
                 </b-form-group>
@@ -27,6 +27,12 @@ import PassengerClass from '~/components/Ui/Form/PassengerClass'
 
 export default {
     components: {PassengerClass, Passenger},
+    props: {
+        flightClass: {
+            type: String,
+            required: true
+        }
+    },
     data() {
         return {
             passengers: [
@@ -55,12 +61,13 @@ export default {
 <style lang="scss" scoped>
 .passenger-select {
     padding-top: 20px;
-    &__count{
+
+    &__count {
         padding-bottom: 20px;
         border-bottom: 1px solid $modalBorder;
     }
 
-    &__class-type{
+    &__class-type {
         padding-top: 20px;
     }
 }

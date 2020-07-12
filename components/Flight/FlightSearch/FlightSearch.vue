@@ -9,7 +9,7 @@
                     <form-input label="تاریخ برگشت" @focus="open(1)" />
                 </template>
             </a-datepicker>-->
-            <passengers-picker :flight-class.sync="search.class" />
+            <passengers-picker v-model="passengerCount" :flight-class.sync="search.class" />
             <search-button @click.prevent="startSearch" />
         </form>
     </div>
@@ -62,6 +62,20 @@ export default {
             set([origin, destination]) {
                 this.search.origin = origin
                 this.search.destination = destination
+            }
+        },
+        passengerCount: {
+            get() {
+                return {
+                    adult: this.search.adult,
+                    child: this.search.child,
+                    infant: this.search.infant
+                }
+            },
+            set({adult, child, infant}) {
+                this.search.adult = adult
+                this.search.child = child
+                this.search.infant = infant
             }
         }
     },
