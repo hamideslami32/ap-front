@@ -22,9 +22,6 @@ export default {
     methods: {
         openModal() {
             this.$bvModal.show('modal')
-        },
-        closeModal() {
-            this.$bvModal.hide('modal')
         }
     }
 }

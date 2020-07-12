@@ -2,16 +2,16 @@
     <div class="passenger">
         <div class="passenger__type">
             <span class="passenger__type--name">
-                {{ data.name }}
+                {{ name }}
             </span>
             <span class="passenger__type--info">
-                {{ data.tip }}
+                {{ tip }}
             </span>
         </div>
         <div class="passenger__count">
-            <span class="passenger__count--plus">+</span>
-            <span class="passenger__count--count">{{ data.count }}</span>
-            <span class="passenger__count--mines">-</span>
+            <span class="passenger__count--plus" @click="$emit('increase')">+</span>
+            <span class="passenger__count--count">{{ count }}</span>
+            <span class="passenger__count--mines" @click="$emit('decrease')">-</span>
         </div>
     </div>
 </template>
@@ -20,12 +20,17 @@
 export default {
     name: 'Passenger',
     props: {
-        data: {
-            type: Object,
-            require: true,
-            default: function() {
-                return {}
-            }
+        name: {
+            type: String,
+            required: true
+        },
+        tip: {
+            type: String,
+            required: true
+        },
+        count: {
+            type: Number,
+            required: true
         }
     }
 }
@@ -62,6 +67,7 @@ export default {
     &__type {
         display: flex;
         align-items: center;
+
         &--name {
             color: $blackColor;
             font-size: 1rem;
