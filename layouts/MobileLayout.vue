@@ -5,16 +5,20 @@
             <nuxt />
         </main>
         <app-footer />
+
+        <login-modal />
     </div>
 </template>
 
 <script>
-import Header from '~/components/Header/Header.vue'
-import Footer from '~/components/Footer/Footer.vue'
+import AppHeader from '~/components/Header/Header.vue'
+import AppFooter from '~/components/Footer/Footer.vue'
+import LoginModal from '~/components/Auth/LoginModal'
 export default {
     components: {
-        appHeader: Header,
-        appFooter: Footer
+        AppHeader,
+        AppFooter,
+        LoginModal
     }
 }
 </script>

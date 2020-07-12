@@ -1,21 +1,43 @@
 <template>
     <div class="flight-destination">
-        <input-pair @click="$emit('click')">
+        <input-pair>
             <destination-input
+                :value="value[0]"
                 title="مبدا"
                 class="origin"
-                :value="value[0]"
+                @input="select(0, value[0])"
                 @focus="openModal('origin')"
             >
-                <input-detail v-if="value[0]" :left="false" :code="value[0] ? value[0].cityCode: ''" :name="value[0] ? value[0].country.fa.length > 1 ? value[0].country.fa : value[0].country.en : ''" />
+                <span v-if="value[0]" class="input-detail">
+                    <badge v-if="value[0].id[0] !== '#'" class="mr-1">
+                        {{ value[0].id }}
+                    </badge>
+                    <badge v-else>
+                        All
+                    </badge>
+                    <span class="input-detail__name">
+                        {{ value[0].country.fa }}
+                    </span>
+                </span>
             </destination-input>
             <destination-input
+                :value="value[1]"
                 title="مقصد"
                 class="destination"
-                :value="value[1]"
+                @input="select(1, value[1])"
                 @focus="openModal('destination')"
             >
-                <input-detail v-if="value[1]" :left="false" :code="value[1] ? value[1].cityCode: ''" :name="value[1] ? value[1].country.fa.length > 1 ? value[1].country.fa : value[1].country.en : ''" />
+                <span v-if="value[1]" class="input-detail">
+                    <span class="input-detail__name">
+                        {{ value[1].country.fa }}
+                    </span>
+                    <badge v-if="value[1].id[0] !== '#'" class="mr-1">
+                        {{ value[1].id }}
+                    </badge>
+                    <badge v-else>
+                        All
+                    </badge>
+                </span>
             </destination-input>
         </input-pair>
         <modal v-model="showModal" :title="focus === 'origin' ? 'مبدا' : 'مقصد'">
@@ -23,7 +45,7 @@
                 <div class="input-holder">
                     <InputModal v-model="query" :title="focus === 'origin' ? 'مبدا' : 'مقصد'" @input="dFetchResult" />
                 </div>
-                <div>
+                <div class="destination-result">
                     <h3 v-if="!query" class="destination-picker__title">
                         شهرهای پرتردد
                     </h3>
@@ -48,6 +70,7 @@ import DestinationInput from '~/components/Ui/Form/DestinationInput'
 import InputDetail from '~/components/Ui/Form/InputDetail'
 import InputModal from '~/components/Ui/Form/InputModal'
 import FlightDestinationPickerItem from '~/components/Flight/FlightSearch/FlightDestinationPickerItem'
+import Badge from '~/components/Ui/Buttons/Badge'
 import {flightApi} from '~/api/flight'
 
 export default {
@@ -57,7 +80,8 @@ export default {
         DestinationInput,
         InputDetail,
         InputModal,
-        FlightDestinationPickerItem
+        FlightDestinationPickerItem,
+        Badge
     },
 
     props: {
@@ -69,7 +93,7 @@ export default {
 
     data() {
         return {
-            query: null,
+            query: '',
             destinations: null,
             showModal: false,
             focus: '',
@@ -92,10 +116,13 @@ export default {
             this.destinations = await flightApi.suggest(query)
         },
         onSelect(value) {
-            const newValue = [...this.value]
-            newValue[this.focus === 'origin' ? 0 : 1] = value
-            this.$emit('input', newValue)
+            this.select(this.focus === 'origin' ? 0 : 1, value)
             this.showModal = false
+        },
+        select(i, value) {
+            const newValue = [...this.value]
+            newValue[i] = value
+            this.$emit('input', newValue)
         }
     }
 }
@@ -108,6 +135,26 @@ export default {
         line-height: 30px;
         color: $grayColor;
         text-align: right;
+    }
+
+    .destination-result {
+        overflow: hidden;
+        overflow-y: scroll;
+        height: calc(100vh - 194px);
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .input-detail {
+        &__name {
+            font-size: 11px;
+            line-height: 20px;
+            color: $darkGrayColor;
+        }
     }
 }
 </style>

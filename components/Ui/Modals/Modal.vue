@@ -1,5 +1,5 @@
 <template>
-    <b-modal id="modal" :visible="value" hide-footer @change="$emit('input', $event)">
+    <b-modal id="modal" :visible="value" hide-footer v-on="$listeners">
         <template v-slot:modal-title>
             انتخاب {{ title }}
         </template>
