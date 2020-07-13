@@ -71,7 +71,7 @@
             font-size: 17px;
             line-height: 30px;
             height: 30px;
-            color: $blackColor;
+            color: $black;
             margin-bottom: 5px;
             width: 90%;
         }
@@ -127,7 +127,7 @@
             font-size: 17px;
             line-height: 30px;
             height: 30px;
-            color: $blackColor;
+            color: $black;
             margin-bottom: 5px;
             width: 90%;
         }
@@ -197,7 +197,7 @@
         }
 
         &--btn {
-            background: $blackColor;
+            background: $black;
             border-radius: 50%;
             width: 30px;
             height: 30px;
@@ -208,7 +208,7 @@
             line-height: 30px;
 
             &__icon {
-                color: $whiteColor;
+                color: $white;
                 display: inline-block;
                 vertical-align: baseline;
             }

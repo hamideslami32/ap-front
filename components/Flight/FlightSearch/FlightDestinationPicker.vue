@@ -40,10 +40,10 @@
                 </span>
             </destination-input>
         </input-pair>
-        <modal v-model="showModal" :title="focus === 'origin' ? 'مبدا' : 'مقصد'">
+        <modal v-model="showModal" :title="focus === 'origin' ? 'شهر یا فرودگاه مبدا' : 'شهر یا فرودگاه مقصد'">
             <div class="destination-picker">
                 <div class="input-holder">
-                    <InputModal v-model="query" :title="focus === 'origin' ? 'مبدا' : 'مقصد'" @input="dFetchResult" />
+                    <custom-input v-model="query" icon="search" :title="focus === 'origin' ? 'مبدا' : 'مقصد'" @input="dFetchResult" />
                 </div>
                 <div class="destination-result">
                     <h3 v-if="!query" class="destination-picker__title">
@@ -67,8 +67,7 @@ import debounce from 'lodash/debounce'
 import InputPair from '~/components/Ui/Form/InputPair.vue'
 import Modal from '~/components/Ui/Modals/Modal.vue'
 import DestinationInput from '~/components/Ui/Form/DestinationInput'
-import InputDetail from '~/components/Ui/Form/InputDetail'
-import InputModal from '~/components/Ui/Form/InputModal'
+import CustomInput from '~/components/Ui/Form/CustomInput'
 import FlightDestinationPickerItem from '~/components/Flight/FlightSearch/FlightDestinationPickerItem'
 import Badge from '~/components/Ui/Buttons/Badge'
 import {flightApi} from '~/api/flight'
@@ -78,8 +77,7 @@ export default {
         InputPair,
         Modal,
         DestinationInput,
-        InputDetail,
-        InputModal,
+        CustomInput,
         FlightDestinationPickerItem,
         Badge
     },

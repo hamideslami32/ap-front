@@ -11,6 +11,6 @@ export default {
     components: {
         appNavs: Navs
     },
-    layout: 'MobileLayout'
+    layout: 'Mobile'
 }
 </script>

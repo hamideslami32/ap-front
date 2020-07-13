@@ -43,7 +43,7 @@ export default {
         height: 50px;
         left: 205px;
         top: 80px;
-        background: $whiteColor;
+        background: $white;
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
         border-radius: 5px;
         font-size: 13px;
@@ -58,12 +58,12 @@ export default {
     &:hover {
         .nav-item {
             &__button {
-                color: $whiteColor;
+                color: $white;
                 background: linear-gradient(90deg, #DD418A 0%, #E3629E 100%);
             }
 
             &__icon {
-                color: $whiteColor;
+                color: $white;
             }
         }
     }
@@ -72,11 +72,11 @@ export default {
         .nav-item {
             &__button {
                 background: linear-gradient(90deg, #DD418A 0%, #E3629E 100%);
-                color: $whiteColor;
+                color: $white;
             }
 
             &__icon {
-                color: $whiteColor;
+                color: $white;
             }
         }
     }

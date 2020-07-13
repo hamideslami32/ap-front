@@ -64,7 +64,7 @@ export default {
             font-weight: 500;
             font-size: 15px;
             line-height: 20px;
-            color: $blackColor;
+            color: $black;
 
             &__detail {
                 font-size: 11px;

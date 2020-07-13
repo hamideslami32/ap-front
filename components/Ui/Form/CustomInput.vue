@@ -1,18 +1,27 @@
 <template>
-    <div class="input-modal">
+    <span class="input-modal" :class="{ 'input-modal--icon': icon }">
         <svgicon
-            name="search"
+            v-if="icon"
+            :name="icon"
             width="15"
             class="input-modal__icon"
             height="15"
             :fill="false"
         />
-        <input v-model="localValue" type="text" :placeholder="`شهر یا فرودگاه ${title}`" class="input-modal__input" />
-    </div>
+        <b-input
+            v-model="localValue"
+            :placeholder="title"
+            class="form-control"
+            v-bind="$attrs"
+            :class="inputClass"
+            @keyup="$emit('keyup', $event)"
+        />
+    </span>
 </template>
 
 <script>
 export default {
+    inheritAttrs: false,
     props: {
         title: {
             type: String,
@@ -21,6 +30,14 @@ export default {
         value: {
             type: String,
             required: true
+        },
+        icon: {
+            type: String,
+            default: null
+        },
+        inputClass: {
+            type: [String, Object, Array],
+            default: ''
         }
     },
     computed: {
@@ -42,20 +59,6 @@ export default {
     display: flex;
     position: relative;
 
-    &__input {
-        width: 100%;
-        height: 50px;
-        outline: none;
-        border: none;
-        padding-right: 50px;
-        font-size: 13px;
-        line-height: 52px;
-        color: $blackColor;
-        box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
-        border-radius: 5px;
-        background: $whiteColor;
-    }
-
     &__icon {
         color: $grayColor;
         position: absolute;
@@ -65,6 +68,12 @@ export default {
         right: 17px;
         margin: auto 0;
         z-index: 1;
+    }
+
+    &--icon{
+        .form-control {
+            padding-right: 40px;
+        }
     }
 }
 </style>

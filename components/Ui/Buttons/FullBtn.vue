@@ -3,7 +3,7 @@
         <span>
             <slot />
         </span>
-        <span class="button-search__icon-holder">
+        <span v-if="props.icon" class="button-search__icon-holder">
             <svgicon :name="props.icon" width="24" height="24" />
         </span>
     </button>
@@ -15,7 +15,7 @@ export default {
     props: {
         icon:{
             type: String,
-            default: 'arrow-left'
+            default: ''
         }
     }
 }
@@ -30,9 +30,9 @@ export default {
         appearance: none;
         border: 0;
         outline: 0;
-        background: linear-gradient(90deg, $primary 0%, #8958D7 100%);
+        background: $primary;
         border-radius: 5px;
-        color: $whiteColor;
+        color: $white;
 
         &__icon-holder {
             position: absolute;
@@ -45,7 +45,7 @@ export default {
             align-items: center;
             justify-content: center;
             top: 10%;
-            color: $whiteColor;
+            color: $white;
         }
     }
 

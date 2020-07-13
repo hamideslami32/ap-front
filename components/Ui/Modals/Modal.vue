@@ -19,6 +19,9 @@ export default {
             required: true
         }
     },
+    model: {
+        event: 'change'
+    },
     methods: {
         openModal() {
             this.$bvModal.show('modal')
@@ -48,7 +51,7 @@ export default {
                 border: 1px solid $modalBorder;
 
                 .modal-title {
-                    color: $blackColor;
+                    color: $black;
                     font-weight: 700;
                     font-size: 17px;
                     line-height: 32px;

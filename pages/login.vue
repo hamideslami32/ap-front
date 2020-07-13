@@ -4,6 +4,5 @@
 
 <script>
 export default {
-    layout: 'MobileLayout'
 }
 </script>

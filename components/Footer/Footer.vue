@@ -1,13 +1,13 @@
 <template>
-    <div class="container-fluid footer-wrapper">
+    <b-container class="footer-wrapper" fluid>
         <footer class="footer">
-            <nuxt-link exact-active-class="active" class="footer__item" to="/login">
+            <nuxt-link :is="$auth.user ? 'nuxt-link' : 'a'" href="javascript:void(0)" exact-active-class="active" class="footer__item" to="/login" @click="goToProfile">
                 <svgicon class="footer__item--icon" name="user-add" width="30" height="30" />
             </nuxt-link>
             <nuxt-link exact-active-class="active" class="footer__item" to="/">
                 <svgicon class="footer__item--icon" name="home" width="30" height="30" />
             </nuxt-link>
-            <nuxt-link exact-active-class="active" class="footer__item" to="/profile">
+            <nuxt-link exact-active-class="active" class="footer__item" to="/orders">
                 <svgicon
                     class="footer__item--icon"
                     name="calendar"
@@ -17,12 +17,19 @@
                 />
             </nuxt-link>
         </footer>
-    </div>
+    </b-container>
 </template>
 
 <script>
-import '~/components/icons'
-export default {}
+export default {
+    methods: {
+        goToProfile() {
+            this.$auth.authenticate().then(() => {
+                this.$router.push('/profile')
+            }).catch(err => {})
+        }
+    }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -47,7 +54,7 @@ export default {}
 
         &--icon {
             cursor: pointer;
-            color: $blackColor;
+            color: $black;
 
             &:hover {
                 color: $primary;
