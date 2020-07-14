@@ -81,8 +81,7 @@ export default {
         async verifyOtpRequest() {
             try {
                 this.canSendVerifyCode = false
-                const data = await this.$auth.verifyOtp(this.mobile, this.verifyCode)
-                alert(data)
+                await this.$auth.verifyOtp(this.mobile, this.verifyCode)
             } catch (e) {
                 alert(e.response.data.message)
                 this.$refs.digitInputs.$children.forEach(el => {
