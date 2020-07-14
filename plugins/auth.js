@@ -7,7 +7,7 @@ class Auth {
         this.axios = ctx.app.$axios
         this.storage = ctx.$storage
         this.user = null
-        this.showModal = true
+        this.showModal = false
 
         const token = this.storage.getCookie(COOKIE_TOKEN)
         if (token) {
@@ -36,6 +36,7 @@ class Auth {
         this.setToken(token)
         this.user = user
         this.storage.setCookie(COOKIE_TOKEN, token)
+        this.showModal = false
         return user
     }
 

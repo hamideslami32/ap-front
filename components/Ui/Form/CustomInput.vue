@@ -29,7 +29,7 @@ export default {
         },
         value: {
             type: String,
-            required: true
+            required: true,
         },
         icon: {
             type: String,

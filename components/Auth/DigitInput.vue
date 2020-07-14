@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex flex-nowrap px-2" dir="ltr">
+    <div class="d-flex flex-nowrap" dir="ltr">
         <span
             v-for="(v, i) in value"
             :key="i"
@@ -7,6 +7,7 @@
         >
             <custom-input
                 ref="inputs"
+                title="-"
                 :value="value[i]"
                 maxlength="1"
                 input-class="text-center"

@@ -1,17 +1,18 @@
 <template functional>
-    <button class="button-search" v-on="listeners">
+    <b-button class="button-search" v-bind="data.attrs" v-on="listeners">
         <span>
             <slot />
         </span>
         <span v-if="props.icon" class="button-search__icon-holder">
             <svgicon :name="props.icon" width="24" height="24" />
         </span>
-    </button>
+    </b-button>
 </template>
 
 <script>
 export default {
     functional: true,
+    inheritAttrs: false,
     props: {
         icon:{
             type: String,

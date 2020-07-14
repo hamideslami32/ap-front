@@ -19,3 +19,10 @@
         color: $borderColor;
     }
 }
+
+.btn{
+    &:focus, &:hover, &:active{
+        outline: none;
+        box-shadow: none;
+    }
+}
