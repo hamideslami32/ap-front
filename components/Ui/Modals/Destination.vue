@@ -1,7 +1,7 @@
 <template>
     <div class="destination-picker">
         <div class="input-holder">
-            <InputModal v-model="anotherName" :name="name" :title="title"/>
+            <InputModal v-model="anotherName" :name="name" :title="title" />
         </div>
         <div class="destination-picker__result">
             <span>or: {{ origin }} des: {{ destination }}</span>

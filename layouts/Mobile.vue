@@ -5,7 +5,6 @@
             <nuxt />
         </main>
         <app-footer />
-
         <login-modal />
     </div>
 </template>

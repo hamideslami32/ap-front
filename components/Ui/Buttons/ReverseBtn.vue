@@ -53,7 +53,7 @@ export default {}
     }
 
     &__holder {
-        background: $blackColor;
+        background: $black;
         border-radius: 50%;
         width: 30px;
         height: 30px;
@@ -64,7 +64,7 @@ export default {}
         line-height: 30px;
 
         &--icon {
-            color: $whiteColor;
+            color: $white;
             display: inline-block;
             vertical-align: baseline;
         }

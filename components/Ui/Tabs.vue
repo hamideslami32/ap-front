@@ -90,7 +90,7 @@ export default {
     }
 
     &__active {
-        background-color: $blackColor;
+        background-color: $black;
         transition: all 250ms ease;
         position: absolute;
         border-radius: 100px;
@@ -98,7 +98,7 @@ export default {
         bottom: 0;
         width: 118px;
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
-        color: $whiteColor;
+        color: $white;
         z-index: 1;
     }
 }

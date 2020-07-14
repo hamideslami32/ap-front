@@ -1,9 +1,9 @@
 <template>
-    <h1>profile</h1>
+    <h1>orders</h1>
 </template>
 
 <script>
 export default {
-    layout: 'MobileLayout'
+    layout: 'Mobile'
 }
 </script>

@@ -36,6 +36,7 @@ class Auth {
         this.setToken(token)
         this.user = user
         this.storage.setCookie(COOKIE_TOKEN, token)
+        this.showModal = false
         return user
     }
 

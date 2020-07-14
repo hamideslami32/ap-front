@@ -37,7 +37,7 @@ export default {
     align-items: center;
 
     &__icon {
-        color: $blackColor;
+        color: $black;
     }
 }
 </style>

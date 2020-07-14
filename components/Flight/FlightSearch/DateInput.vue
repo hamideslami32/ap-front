@@ -74,7 +74,7 @@ export default {
                 font-weight: 500;
                 font-size: 14px;
                 line-height: 25px;
-                color: $blackColor;
+                color: $black;
                 text-align: right;
                 height: 25px;
             }
@@ -114,7 +114,7 @@ export default {
                 font-weight: 500;
                 font-size: 14px;
                 line-height: 25px;
-                color: $blackColor;
+                color: $black;
                 text-align: right;
                 height: 25px;
             }

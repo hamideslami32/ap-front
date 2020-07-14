@@ -52,7 +52,7 @@ export default {
 
     &:hover, &:active {
         background: $primary;
-        color: $whiteColor;
+        color: $white;
         transition: all 300ms ease;
     }
 }
@@ -69,7 +69,7 @@ export default {
         align-items: center;
 
         &--name {
-            color: $blackColor;
+            color: $black;
             font-size: 1rem;
         }
 
@@ -93,7 +93,7 @@ export default {
         &--count {
             margin: 0 10px;
             font-size: 1rem;
-            color: $blackColor;
+            color: $black;
         }
 
         &--mines {
