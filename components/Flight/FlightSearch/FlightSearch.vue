@@ -23,6 +23,7 @@ import SearchButton from '~/components/Flight/FlightSearch/SearchButton'
 // import ADatepicker from '~/components/Ui/DatePicker/ADatepicker'
 import Tabs from '~/components/Ui/Tabs'
 // import FormInput from '~/components/Ui/Form/FormInput'
+import {maxPassenger, childrenCheck, minAdult, infantCheck} from '~/utils/helpers'
 
 export default {
     components: {
@@ -73,9 +74,21 @@ export default {
                 }
             },
             set({adult, child, infant}) {
-                this.search.adult = adult
-                this.search.child = child
-                this.search.infant = infant
+                if (!maxPassenger(adult, child, infant)) {
+                    return
+                }
+
+                if (minAdult(adult, child, 'domestic')) {
+                    this.search.adult = adult
+                }
+
+                if (childrenCheck('domestic', adult, child)) {
+                    this.search.child = child
+                }
+
+                if (infantCheck(infant)) {
+                    this.search.infant = infant
+                }
             }
         }
     },
@@ -94,20 +107,22 @@ export default {
 </script>
 
 <style lang="scss">
-    .date-input-pair {
-        display: flex;
-        > div {
-            flex: 50% 1 0;
-            &:first-child {
-                border-top-left-radius: 0;
-                border-bottom-left-radius: 0;
-            }
+.date-input-pair {
+    display: flex;
 
-            &:last-child {
-                border-right: 0;
-                border-top-right-radius: 0;
-                border-bottom-right-radius: 0;
-            }
+    > div {
+        flex: 50% 1 0;
+
+        &:first-child {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        &:last-child {
+            border-right: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
         }
     }
+}
 </style>

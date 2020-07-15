@@ -88,5 +88,11 @@ export default {
         margin-bottom: 5px;
         width: 90%;
     }
+
+    .input__detail{
+        &__name{
+            display: none;
+        }
+    }
 }
 </style>

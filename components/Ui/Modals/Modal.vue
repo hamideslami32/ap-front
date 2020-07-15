@@ -9,6 +9,9 @@
 
 <script>
 export default {
+    model: {
+        event: 'change'
+    },
     props: {
         title: {
             type: String,
@@ -18,9 +21,6 @@ export default {
             type: Boolean,
             required: true
         }
-    },
-    model: {
-        event: 'change'
     },
     methods: {
         openModal() {
@@ -64,6 +64,10 @@ export default {
                     bottom: 0;
                     right: 0;
                     margin: auto;
+
+                    &:focus{
+                        outline: none;
+                    }
                 }
             }
 
