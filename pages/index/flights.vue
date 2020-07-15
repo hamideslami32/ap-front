@@ -6,7 +6,7 @@
 
 
 <script>
-import FlightSearch from '~/components/Flight/FlightSearch/FlightSearch'
+import FlightSearch from '~/components/flight/flight-search/FlightSearch'
 
 export default {
     components: {

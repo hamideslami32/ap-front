@@ -30,7 +30,6 @@ export default {
    ** https://nuxtjs.org/guide/plugins
    */
     plugins: [
-        '~plugins/deviceLayout',
         '~plugins/svg',
         '~plugins/auth',
         '~plugins/api',
@@ -57,7 +56,7 @@ export default {
         '@nuxtjs/axios',
         '@nuxtjs/pwa',
         // Doc: https://github.com/nuxt/content
-        '@nuxt/content',
+        // '@nuxt/content',
         '@nuxtjs/device',
         '@nuxtjs/universal-storage',
         'bootstrap-vue/nuxt'

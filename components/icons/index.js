@@ -1,6 +1,7 @@
 /* eslint-disable */
 require('./arrow-down')
 require('./arrow-left')
+require('./arrow-long-right')
 require('./arrow-right')
 require('./arrow-up')
 require('./arrows-round')

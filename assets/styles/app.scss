@@ -1,13 +1,14 @@
+@import 'vars';
+@import 'reboot';
 @import 'bootstrap';
 @import '~bootstrap-vue/src/index';
 @import 'fonts';
 @import 'svg-icons';
-@import "forms";
+@import 'forms';
+@import 'modal';
 
 body {
-    direction: rtl;
-    font-family: Dana, Tahoma, serif;
-    text-align: right;
+    font-family: Dana, Roboto, Tahoma, serif;
 }
 
 .en {
@@ -24,4 +25,11 @@ body {
 .link-inherit {
     color: inherit !important;
     text-decoration: inherit !important;
+}
+
+
+.text-ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }

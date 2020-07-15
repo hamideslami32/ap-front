@@ -1,0 +1,46 @@
+.modal  {
+    .modal-dialog {
+        margin: 0;
+
+        .modal-content {
+            height: 100%;
+            min-height: 100vh;
+            border-radius: 0;
+            border: none;
+
+            .modal-header {
+                position: relative;
+                text-align: center;
+                justify-content: center;
+                padding: 15px;
+                border-radius: 0;
+                border: 1px solid $modalBorder;
+
+                .modal-title {
+                    color: $black;
+                    font-weight: 700;
+                    font-size: 17px;
+                    line-height: 32px;
+                }
+
+                .close {
+                    position: absolute;
+                    top: 0;
+                    left: auto;
+                    bottom: 0;
+                    right: 0;
+                    margin: auto;
+                    opacity: 1;
+
+                    &:focus{
+                        outline: none;
+                    }
+                }
+            }
+
+            .modal-body {
+                padding: 20px 10px;
+            }
+        }
+    }
+}

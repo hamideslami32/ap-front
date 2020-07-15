@@ -1,15 +1,16 @@
 @import '~bootstrap/scss/functions';
 $primary: #472086;
 $secondary: #666666;
-$info: #DD418A;
+$info: #dd418a;
 $grid-gutter-width: 20px;
-$backgroundColor: #F5F5F5;
 $black: #444444;
 $grayColor: #999999;
-$lightGrayColor: #EEEEEE;
+$lightGrayColor: #eeeeee;
 $darkGrayColor: #666666;
-$borderColor: #DDDDDD;
-$modalBorder: #E6E6E6;
+$borderColor: #dddddd;
+$modalBorder: #e6e6e6;
+
+$body-bg: #f5f5f5;
 
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';

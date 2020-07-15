@@ -14,6 +14,7 @@ ADD . /app/
 ENV HOST 0.0.0.0
 
 ENV NODE_ENV production
+ENV API_URL '
 
 RUN npm run build
 
