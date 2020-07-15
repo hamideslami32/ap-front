@@ -82,8 +82,8 @@ export default {
             try {
                 this.canSendVerifyCode = false
                 await this.$auth.verifyOtp(this.mobile, this.verifyCode)
+                Object.assign(this.$data, this.$options.data())
             } catch (e) {
-                alert(e.response.data.message)
                 this.$refs.digitInputs.$children.forEach(el => {
                     el.$el.querySelector('input').value = ''
                 })
