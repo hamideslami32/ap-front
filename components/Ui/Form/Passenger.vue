@@ -9,9 +9,9 @@
             </span>
         </div>
         <div class="passenger__count">
-            <span class="passenger__count--plus" @click="$emit('increase')">+</span>
-            <span class="passenger__count--count">{{ count }}</span>
-            <span class="passenger__count--mines" @click="$emit('decrease')">-</span>
+            <span class="passenger__count__icon" @click="$emit('increase')">+</span>
+            <span class="passenger__count__text">{{ count }}</span>
+            <span class="passenger__count__icon" @click="$emit('decrease')">-</span>
         </div>
     </div>
 </template>
@@ -86,18 +86,16 @@ export default {
         align-items: center;
         justify-content: space-between;
 
-        &--plus {
+        &__icon {
             @include circle;
         }
 
-        &--count {
+        &__text {
+            width: 15px;
+            text-align: center;
             margin: 0 10px;
             font-size: 1rem;
             color: $black;
-        }
-
-        &--mines {
-            @include circle;
         }
     }
 }

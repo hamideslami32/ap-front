@@ -83,7 +83,7 @@
 import Modal from '~/components/Ui/Modals/Modal.vue'
 import PassengerClass from '~/components/Ui/Form/PassengerClass'
 import Passenger from '~/components/Ui/Form/Passenger'
-import {trasnlateFlightClass} from '~/utils/helpers'
+import {translateFlightClass} from '~/utils/helpers'
 
 export default {
     components: {
@@ -116,7 +116,7 @@ export default {
         },
         passengerCounts() {
             const allPassengerCount = this.value.adult + this.value.child + this.value.infant
-            return `${allPassengerCount} مسافر، ${trasnlateFlightClass(this.flightClass)}`
+            return `${allPassengerCount} مسافر، ${translateFlightClass(this.flightClass)}`
         }
     },
     methods: {

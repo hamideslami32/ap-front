@@ -9,7 +9,7 @@
                 @focus="openModal('origin')"
             >
                 <span v-if="value[0]" class="input-detail">
-                    <badge v-if="value[0].id[0] !== '#'" class="mr-1">
+                    <badge v-if="value[0].id[0] !== '#'" class="ml-1">
                         {{ value[0].id }}
                     </badge>
                     <badge v-else>
@@ -43,7 +43,12 @@
         <modal v-model="showModal" :title="focus === 'origin' ? 'شهر یا فرودگاه مبدا' : 'شهر یا فرودگاه مقصد'">
             <div class="destination-picker">
                 <div class="input-holder">
-                    <custom-input v-model="query" icon="search" :title="focus === 'origin' ? 'مبدا' : 'مقصد'" @input="dFetchResult" />
+                    <custom-input
+                        v-model="query"
+                        icon="search"
+                        :title="focus === 'origin' ? 'مبدا' : 'مقصد'"
+                        @input="dFetchResult"
+                    />
                 </div>
                 <div class="destination-result">
                     <h3 v-if="!query" class="destination-picker__title">
@@ -146,12 +151,20 @@ export default {
             display: none;
         }
     }
+}
 
+.flight-destination {
     .input-detail {
+        display: flex;
+        align-items: center;
         &__name {
+            width: 95px;
             font-size: 11px;
             line-height: 20px;
             color: $darkGrayColor;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 }
