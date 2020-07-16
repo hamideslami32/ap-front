@@ -12,7 +12,6 @@
             ref="input"
             v-model="localValue"
             :placeholder="title"
-
             v-bind="$attrs"
             :class="inputClass"
             @keyup="$emit('keyup', $event)"

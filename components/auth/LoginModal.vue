@@ -3,9 +3,12 @@
         <template v-slot:modal-title>
             ورود یا عضویت
         </template>
+        <template v-slot:modal-header-close>
+            <svgicon name="arrow-long-right" width="20" height="20" />
+        </template>
         <form v-if="step === 'otp'" class="auth-form" action="#">
             <p>لطفا شماره همراه خود را وارد نمایید</p>
-            <custom-input v-model="mobile" maxlength="11" title="شماره موبایل" />
+            <custom-input v-model="mobile" type="tel" maxlength="11" title="شماره موبایل" />
             <full-btn type="submit" @click.prevent="requestOtp">
                 ورود
             </full-btn>
@@ -92,11 +95,7 @@ export default {
             }
         },
         resendRequest() {
-            this.requestOtp()
-                .then(res => {
-                    this.$refs.digitInputs.$el.querySelector('input').focus()
-                    this.resend = false
-                })
+            this.step = 'otp'
         }
     }
 }

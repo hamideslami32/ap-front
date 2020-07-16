@@ -1,4 +1,4 @@
-.modal  {
+.modal {
     .modal-dialog {
         margin: 0;
 
@@ -32,7 +32,7 @@
                     margin: auto;
                     opacity: 1;
 
-                    &:focus{
+                    &:focus {
                         outline: none;
                     }
                 }
@@ -42,5 +42,39 @@
                 padding: 20px 10px;
             }
         }
+    }
+
+    &.fade {
+        transition: all 0.3s;
+        animation: swipe-down 350ms linear;
+    }
+
+    &.show {
+        transition: all 0.3s;
+        animation: swipe-up 350ms linear;
+    }
+}
+
+.modal-backdrop{
+    opacity: 0;
+    transition: all 350ms linear;
+}
+
+@keyframes swipe-up {
+    0% {
+        transform: translateY(1000px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes swipe-down {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(1000px);
     }
 }
