@@ -8,6 +8,7 @@
             <custom-input
                 ref="inputs"
                 title="-"
+                type="tel"
                 :value="value[i]"
                 maxlength="1"
                 input-class="text-center"
