@@ -95,8 +95,7 @@ export default {
                 transform: translate(-50%, -50%);
                 background-color: $body-bg;
                 height: 50px;
-                width: 5px;
-                margin-left: -1px;
+                width: 6px;
             }
 
             > button {
@@ -119,7 +118,7 @@ export default {
             border-radius: 0 3px 3px 0;
             flex: 1;
 
-            /deep/ .badge {
+            .badge {
                 float: right;
                 margin-left: 5px;
                 min-width: 40px;
@@ -131,7 +130,7 @@ export default {
                 margin-right: 3px;
                 border-radius: 3px 0 0 3px;
 
-                /deep/ .badge {
+                .badge {
                     margin-right: 5px;
                     margin-left: 0;
                     float: left;

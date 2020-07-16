@@ -146,7 +146,7 @@ export default {
                 throw new Error(`حداکثر تعداد مسافران ${MAX_PASSENGERS} نفر است.`)
             }
             if (infant < 0 || child < 0) {
-                return new Error('')
+                throw new Error('')
             }
 
             if (child + infant > adult * 3) {
@@ -203,10 +203,10 @@ export default {
             outline: none;
             border: none;
             background: transparent;
-            padding-right: 40px;
-            padding-left: 30px;
+            padding: 0 40px 0 30px;
             font-size: 15px;
             line-height: 52px;
+            background-clip: padding-box;
         }
 
         &--before {

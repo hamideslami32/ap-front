@@ -482,4 +482,7 @@ template {
 
 input {
     text-align: inherit;
+    padding-top: 0;
+    padding-bottom: 0;
+    background-clip: padding-box;
 }

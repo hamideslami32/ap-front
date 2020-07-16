@@ -35,7 +35,9 @@ class Auth {
         const { token, user } = await this.axios.$post('/auth/otp/verify', { phoneNumber, otp })
         this.setToken(token)
         this.user = user
-        this.storage.setCookie(COOKIE_TOKEN, token)
+        this.storage.setCookie(COOKIE_TOKEN, token, {
+            expires: new Date(Date.now())
+        })
         this.showModal = false
         return user
     }

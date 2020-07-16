@@ -59,7 +59,7 @@ export default {
     border: 1px solid #dddddd;
     box-sizing: border-box;
     justify-content: center;
-    font-size: 1.4em;
+    font-size: 1em;
     overflow: hidden;
 
     &__title {
