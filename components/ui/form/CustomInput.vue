@@ -12,7 +12,7 @@
             ref="input"
             v-model="localValue"
             :placeholder="title"
-            class="form-control"
+
             v-bind="$attrs"
             :class="inputClass"
             @keyup="$emit('keyup', $event)"
@@ -62,14 +62,15 @@ export default {
 
 <style lang="scss" scoped>
 .custom-input {
-    padding: 20px 0;
+    margin-bottom: 20px;
     display: flex;
     position: relative;
+    appearance: none;
 
     input {
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
-        font-size: 1rem;
-
+        background-clip: padding-box;
+        padding: 0;
         &::placeholder {
             color: #888888;
         }

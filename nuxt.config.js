@@ -11,15 +11,15 @@ export default {
     head: {
         title: process.env.npm_package_name || '',
         meta: [
-            { charset: 'utf-8' },
-            { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+            {charset: 'utf-8'},
+            {name: 'viewport', content: 'width=device-width, initial-scale=1'},
             {
                 hid: 'description',
                 name: 'description',
                 content: process.env.npm_package_description || ''
             }
         ],
-        link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+        link: [{rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}]
     },
     /*
    ** Global CSS
@@ -36,23 +36,24 @@ export default {
         '~plugins/dayjs'
     ],
     server: {
-        port: 3000
+        port: 3000,
+        host: '0.0.0.0'
     },
     /*
    ** Nuxt.js dev-modules
    */
     buildModules: [
         '@nuxtjs/style-resources'
-    /*     '@nuxtjs/eslint-module',
-    '@nuxtjs/stylelint-module' */
-    // Doc: https://github.com/nuxt-community/eslint-module
-    // Doc: https://github.com/nuxt-community/stylelint-module
+        /*     '@nuxtjs/eslint-module',
+        '@nuxtjs/stylelint-module' */
+        // Doc: https://github.com/nuxt-community/eslint-module
+        // Doc: https://github.com/nuxt-community/stylelint-module
     ],
     /*
    ** Nuxt.js modules
    */
     modules: [
-    // Doc: https://axios.nuxtjs.org/usage
+        // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/axios',
         '@nuxtjs/pwa',
         // Doc: https://github.com/nuxt/content

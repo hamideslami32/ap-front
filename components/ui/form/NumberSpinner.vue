@@ -37,7 +37,8 @@ export default {
             transition: all 250ms ease;
             background-color: transparent;
             outline: none !important;
-
+            appearance: none;
+            padding: 0;
             &:active {
                 background: $primary;
                 color: $white;

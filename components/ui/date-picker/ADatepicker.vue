@@ -196,6 +196,7 @@ export default {
             return {
                 focus({target}) {
                     self.open(target.getAttribute('data-datepicker') * 1)
+                    target.blur && target.blur()
                 },
                 input(value) {
                     self.open(self.focus)

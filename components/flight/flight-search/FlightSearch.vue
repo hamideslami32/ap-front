@@ -7,21 +7,39 @@
                 <flight-destination-picker v-model="search.destination" title="مقصد" />
             </input-pair>
             <a-datepicker v-model="date" class="date-input-pair mb-3" :jalaali.sync="jalaaliDatepicker" :range.sync="isDatepickerRange">
-                <template v-slot:before="{ open, value }">
+                <template v-slot:before="{ on, value }">
                     <span class="date-input-pair" dir="rtl">
                         <form-input
                             label="تاریخ رفت"
                             icon="calendar"
                             :value="value[0] ? value[0].format('DD MMMM YY') : null"
                             readonly
-                            @focus="open(0)"
+                            v-on="on"
                         />
-                        <form-input label="تاریخ برگشت" :value="value[1] ? value[1].format('DD MMMM YY') : null" readonly @focus="open(1)" />
+                        <form-input
+                            label="تاریخ برگشت"
+                            :value="value[1] ? value[1].format('DD MMMM YY') : null"
+                            readonly
+                            data-datepicker="1"
+                            v-on="on"
+                        />
                     </span>
                 </template>
                 <template v-slot="{ open, value }">
-                    <form-input label="تاریخ رفت" icon="calendar" :value="value[0] ? value[0].format('DD MMMM YY') : null" @focus="open(0)" />
-                    <form-input label="تاریخ برگشت" :value="value[1] ? value[1].format('DD MMMM YY') : null" @focus="open(1)" />
+                    <form-input
+                        label="تاریخ رفت"
+                        icon="calendar"
+                        :value="value[0] ? value[0].format('DD MMMM YY') : null"
+                        readonly
+                        @focus="open(0)"
+                    />
+                    <form-input
+                        label="تاریخ برگشت"
+                        :value="value[1] ? value[1].format('DD MMMM YY') : null"
+                        data-datepicker="1"
+                        readonly
+                        @focus="open(1)"
+                    />
                 </template>
             </a-datepicker>
             <passengers-picker v-model="passengers" :flight-class.sync="search.class" :is-international="isInternational" />
