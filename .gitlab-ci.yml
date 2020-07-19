@@ -5,3 +5,7 @@ include:
 variables:
   IMAGE: apro-front
 
+build:
+  stage: build
+  script:
+    - docker build -t $IMAGE:latest --env "API_URL=http://212.33.194.76/api " .
