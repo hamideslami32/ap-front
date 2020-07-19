@@ -33,7 +33,8 @@ export default {
         '~plugins/svg',
         '~plugins/auth',
         '~plugins/api',
-        '~plugins/dayjs'
+        '~plugins/dayjs',
+        '~plugins/toast.js'
     ],
     server: {
         port: 3000,

@@ -8,7 +8,7 @@
             to="/login"
             @click="goToProfile"
         >
-            <svgicon class="footer__item--icon" name="user-add" width="30" height="30" />
+            <svgicon class="footer__item--icon" name="user" width="30" height="30" />
         </nuxt-link>
         <nuxt-link exact-active-class="active" class="footer__item" to="/">
             <svgicon class="footer__item--icon" name="home" width="30" height="30" />

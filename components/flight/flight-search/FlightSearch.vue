@@ -6,7 +6,12 @@
                 <flight-destination-picker v-model="search.origin" title="مبدا" />
                 <flight-destination-picker v-model="search.destination" title="مقصد" />
             </input-pair>
-            <a-datepicker v-model="date" class="date-input-pair mb-3" :jalaali.sync="jalaaliDatepicker" :range.sync="isDatepickerRange">
+            <a-datepicker
+                v-model="date"
+                class="date-input-pair mb-3"
+                :jalaali.sync="jalaaliDatepicker"
+                :range.sync="isDatepickerRange"
+            >
                 <template v-slot:before="{ on, value }">
                     <span class="date-input-pair" dir="rtl">
                         <form-input
@@ -42,7 +47,11 @@
                     />
                 </template>
             </a-datepicker>
-            <passengers-picker v-model="passengers" :flight-class.sync="search.class" :is-international="isInternational" />
+            <passengers-picker
+                v-model="passengers"
+                :flight-class.sync="search.classType"
+                :is-international="isInternational"
+            />
             <search-button @click.prevent="startSearch" />
         </form>
     </div>
@@ -86,13 +95,13 @@ export default {
                 adult: 1,
                 child: 0,
                 infant: 0,
-                class: 'economy' // business first
+                classType: 'economy' // business first
             }
         }
     },
     computed: {
         isInternational() {
-            const { origin, destination } = this.search
+            const {origin, destination} = this.search
             return origin && destination && (!origin.isDomestic || !destination.isDomestic)
         },
         passengers: {
@@ -104,7 +113,7 @@ export default {
                 }
             },
             set(value) {
-                const { adult, child, infant } = value
+                const {adult, child, infant} = value
                 if (!maxPassenger(adult, child, infant)) {
                     return
                 }
@@ -148,13 +157,13 @@ export default {
             }
         },
         'search.origin'(t) {
-            const { destination } = this.search
+            const {destination} = this.search
             if (t && destination && t.id === destination.id) {
                 this.search.destination = null
             }
         },
         'search.destination'(t) {
-            const { origin } = this.search
+            const {origin} = this.search
             if (t && origin && t.id === origin.id) {
                 this.search.origin = null
             }
@@ -162,7 +171,21 @@ export default {
     },
     methods: {
         startSearch() {
-            // TODO: redirect to flight available page this.$router.push('/...')
+            this.$toast('تست', 'success')
+            const {type, origin, destination, departing, returning, adult, child, infant, classType} = this.search
+            const query = {
+                departing: departing.format('YYYY-MM-DD'),
+                returning: type === 'oneWay' ? undefined : returning.format('YYYY-MM-DD'),
+                adult,
+                child: child || undefined,
+                infant: infant || undefined,
+                business: classType === 'business' ? null : undefined,
+                first: classType === 'first' ? null : undefined
+            }
+            this.$router.push({
+                path: '/flight/search/' + [origin.id, destination.id].join('-'),
+                query
+            })
         }
     }
 }
