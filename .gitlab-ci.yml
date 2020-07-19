@@ -1,0 +1,7 @@
+include:
+  - project: 'aproo/devops'
+    file: '/main.yml'
+
+variables:
+  IMAGE: andromeda
+
