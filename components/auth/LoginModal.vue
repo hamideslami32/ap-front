@@ -35,6 +35,7 @@
                 ارسال مجدد
             </b-button>
         </form>
+        <toast />
     </b-modal>
 </template>
 
@@ -44,13 +45,15 @@ import CustomInput from '~/components/ui/form/CustomInput'
 import FullBtn from '~/components/ui/buttons/FullBtn'
 import DigitInput from '~/components/auth/DigitInput'
 import Timer from '~/components/Timer'
+import Toast from '~/components/ui/Toast'
 
 export default {
     components: {
         Timer,
         DigitInput,
         FullBtn,
-        CustomInput
+        CustomInput,
+        Toast
     },
     data() {
         return {
