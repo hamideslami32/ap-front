@@ -3,5 +3,5 @@ include:
     file: '/main.yml'
 
 variables:
-  IMAGE: andromeda
+  IMAGE: apro-front
 
