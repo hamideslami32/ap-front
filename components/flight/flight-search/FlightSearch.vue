@@ -183,7 +183,7 @@ export default {
                 first: classType === 'first' ? null : undefined
             }
             this.$router.push({
-                path: '/flight/search/' + [origin.id, destination.id].join('-'),
+                path: '/flights/search/' + [origin.id, destination.id].join('-'),
                 query
             })
         }

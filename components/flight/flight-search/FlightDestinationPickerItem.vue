@@ -3,7 +3,7 @@
         <div class="item" @click="$emit('select', item)">
             <div class="item__detail">
                 <badge v-if="!showAirports" class="ml-2">
-                    {{ item.id.slice(1) }}
+                    {{ item.id.slice(0, -3) }}
                 </badge>
                 <span class="item__detail--name">
                     {{ item.airports[0].city.fa || item.airports[0].city.en }}
