@@ -15,6 +15,10 @@ ENV HOST 0.0.0.0
 
 ENV NODE_ENV production
 
+ARG API_URL
+
+ENV API_URL=$API_URL
+
 RUN npm run build
 
 EXPOSE 3000
