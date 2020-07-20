@@ -8,7 +8,7 @@
 
 <script>
 import Logo from '~/components/logo/Logo'
-import HamburgerMenu from './HamburgerMenu'
+import HamburgerMenu from '~/components/layouts/HamburgerMenu'
 
 export default {
     components: {

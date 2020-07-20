@@ -1,7 +1,7 @@
 <template>
     <div class="mobile-layout">
-        <app-header />
         <main class="container mobile-layout__main">
+            <app-header />
             <nuxt />
         </main>
         <app-bottom-nav />

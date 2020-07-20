@@ -76,7 +76,6 @@ export default {
         $size: 40px;
         $boder-color: #ddd;
         &__switch {
-
             position: absolute;
             left: 50%;
             top: 50%;
@@ -99,7 +98,7 @@ export default {
             }
 
             > button {
-                background: $black;
+                background: #411f7e;
                 padding: 0;
                 border-radius: 50%;
                 width: 30px;
