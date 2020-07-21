@@ -1,6 +1,6 @@
 <template>
     <div class="container flight-available">
-        <div class="header">
+        <header class="header">
             <div class="header__top mb-4">
                 <hamburger-menu />
                 <div class="flight-available__reverse-section">
@@ -54,8 +54,13 @@
                         />
                     </template>
                 </a-datepicker>
-                <custom-input class="passenger-input passenger-input--passenger" value="اکونومی" />
+                <custom-input class="passenger-input passenger-input--passenger" value="۲ مسافر" />
             </div>
+        </header>
+        <div class="flight-lists">
+            <flight-card>
+                <flight-item />
+            </flight-card>
         </div>
     </div>
 </template>
@@ -66,15 +71,19 @@ import InputPair from '~/components/ui/form/InputPair'
 import CustomInput from '~/components/ui/form/CustomInput'
 import ADatepicker from '~/components/ui/date-picker/ADatepicker'
 import FormInput from '~/components/ui/form/FormInput'
+import FlightCard from '~/components/flight/flight-search/FlightCard'
+import FlightItem from '~/components/flight/flight-search/FlightItem'
 
 export default {
     layout: 'desktop',
     components: {
+        FlightCard,
         CustomInput,
         HamburgerMenu,
         InputPair,
         ADatepicker,
-        FormInput
+        FormInput,
+        FlightItem
     },
     data() {
         return {
@@ -85,151 +94,161 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.flight-available {
-    .header {
-        padding: 15px 10px;
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
-        background: linear-gradient(90deg, $primary 0%, #6d4ea3 100%);
+    .flight-available {
+        .header {
+            padding: 15px 10px;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            background: linear-gradient(90deg, $primary 0%, #6d4ea3 100%);
 
-        &__top {
-            display: flex;
-            align-items: center;
-
-
-            .hamburger-menu {
-                /deep/ span {
-                    background-color: $white;
-                }
-            }
-
-            svg {
-                color: $white;
-                transform: scale(1.5);
-            }
-
-        }
-
-        &__bottom {
-            display: flex;
-
-            .passenger-input {
-                margin-bottom: 0;
-
-                /deep/ input {
-                    text-align: center;
-                    color: $white;
-                    background: #6d4ea3;
-                    height: 30px;
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
-                    width: 80px;
-                }
-
-                &--class {
-                    /deep/ input {
-                        border-radius: 5px 10px 10px 5px;
-                    }
-                }
-
-                &--passenger {
-                    /deep/ input {
-                        border-radius: 10px 5px 5px 10px;
-                    }
-                }
-            }
-
-            /deep/ .date-input-pair{
-                margin: 0 10px;
+            &__top {
                 display: flex;
-                background: #6d4ea3;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                box-sizing: border-box;
-                box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
-                border-radius: 5px;
-                svg{
-                    display: none;
-                }
-                label{
-                    display: none;
-                }
-                input {
-                    background: transparent;
-                    color: $white;
-                    font-size: 13px;
-                    text-align: center;
-                    height: 100%;
+                align-items: center;
+
+
+                .hamburger-menu {
+                    /deep/ span {
+                        background-color: $white;
+                    }
                 }
 
-                .form-input{
-                    padding: 0 !important;
-                    border: none;
-                    background: transparent;
-                    box-shadow: none;
-                    &:first-child{
-                        position: relative;
-                        &::before{
-                            content: '';
-                            width: 1px;
-                            height: 16px;
-                            position: absolute;
-                            top: 50%;
-                            left: 0;
-                            transform: translateY(-50%);
-                            background: rgba(255, 255, 255, 0.15);
+                svg {
+                    color: $white;
+                    transform: scale(1.5);
+                }
+
+            }
+
+            &__bottom {
+                display: flex;
+
+                .passenger-input {
+                    margin-bottom: 0;
+
+                    /deep/ input {
+                        text-align: center;
+                        color: $white;
+                        background: #6d4ea3;
+                        height: 30px;
+                        border: 1px solid rgba(255, 255, 255, 0.1);
+                        box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
+                        width: 80px;
+                    }
+
+                    &--class {
+                        /deep/ input {
+                            border-radius: 5px 10px 10px 5px;
                         }
                     }
-                    > div {
-                        height: 100%;
+
+                    &--passenger {
+                        /deep/ input {
+                            border-radius: 10px 5px 5px 10px;
+                        }
                     }
                 }
 
+                /deep/ .date-input-pair {
+                    margin: 0 10px;
+                    display: flex;
+                    background: #6d4ea3;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    box-sizing: border-box;
+                    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
+                    border-radius: 5px;
+
+                    svg {
+                        display: none;
+                    }
+
+                    label {
+                        display: none;
+                    }
+
+                    input {
+                        background: transparent;
+                        color: $white;
+                        font-size: 13px;
+                        text-align: center;
+                        height: 100%;
+                    }
+
+                    .form-input {
+                        padding: 0 !important;
+                        border: none;
+                        background: transparent;
+                        box-shadow: none;
+
+                        &:first-child {
+                            position: relative;
+
+                            &::before {
+                                content: '';
+                                width: 1px;
+                                height: 16px;
+                                position: absolute;
+                                top: 50%;
+                                left: 0;
+                                transform: translateY(-50%);
+                                background: rgba(255, 255, 255, 0.15);
+                            }
+                        }
+
+                        > div {
+                            height: 100%;
+                        }
+                    }
+
+                }
             }
+
         }
 
-    }
+        &__reverse-section {
+            /deep/ .custom-input {
+                margin-bottom: 0;
 
-    &__reverse-section {
-        /deep/ .custom-input {
-            margin-bottom: 0;
+                input {
+                    background: transparent;
+                    box-shadow: none;
+                    border: none;
+                    height: 30px;
+                    color: $white;
+                    text-align: center;
+                    font-size: 17px;
+                }
+            }
 
-            input {
+            /deep/ .input-pair__switch {
                 background: transparent;
-                box-shadow: none;
                 border: none;
-                height: 30px;
-                color: $white;
-                text-align: center;
-                font-size: 17px;
-            }
-        }
 
-        /deep/ .input-pair__switch {
-            background: transparent;
-            border: none;
-
-            &:before {
-                display: none;
-            }
-        }
-
-        &__input {
-            &--origin {
-                padding-left: 45px;
-
-                /deep/ > input {
-                    text-align: left !important;
+                &:before {
+                    display: none;
                 }
             }
 
-            &--destination {
-                /deep/ > input {
-                    text-align: right !important;
+            &__input {
+                &--origin {
+                    padding-left: 45px;
+
+                    /deep/ > input {
+                        text-align: left !important;
+                    }
+                }
+
+                &--destination {
+                    /deep/ > input {
+                        text-align: right !important;
+                    }
                 }
             }
+        }
+
+        .flight-lists {
+            padding-top: 113px;
         }
     }
-}
 </style>
