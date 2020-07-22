@@ -58,11 +58,14 @@
             </div>
         </header>
         <div class="flight-lists">
-            <flight-card>
+            <flight-card v-for="x in 3" :key="x">
                 <flight-item />
                 <flight-item :reverse="reverse" />
             </flight-card>
         </div>
+        <full-btn>
+            فیلتر و مرتب سازی
+        </full-btn>
     </div>
 </template>
 
@@ -74,10 +77,12 @@ import ADatepicker from '~/components/ui/date-picker/ADatepicker'
 import FormInput from '~/components/ui/form/FormInput'
 import FlightCard from '~/components/flight/flight-search/FlightCard'
 import FlightItem from '~/components/flight/flight-search/FlightItem'
+import FullBtn from '~/components/ui/buttons/FullBtn'
 
 export default {
     layout: 'desktop',
     components: {
+        FullBtn,
         FlightCard,
         CustomInput,
         HamburgerMenu,
@@ -103,6 +108,7 @@ export default {
             top: 0;
             right: 0;
             left: 0;
+            z-index: 1;
             background: linear-gradient(90deg, $primary 0%, #6d4ea3 100%);
 
             &__top {
@@ -251,6 +257,40 @@ export default {
 
         .flight-lists {
             padding-top: 113px;
+            -ms-overflow-style: none;
+            overflow: auto;
+            height: 100vh;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
+        /deep/ .button-search {
+            width: 140px;
+            font-size: 0.8em;
+            height: 40px;
+            text-align: right;
+            padding-right: 15px;
+            position: fixed;
+            bottom: 20px;
+            margin: auto;
+            right: 0;
+            left: 0;
+            border-radius: 10px;
+
+            &:before {
+                content: '';
+                width: 6px;
+                height: 6px;
+                background: red;
+                position: absolute;
+                margin: auto;
+                top: 0;
+                left: 14px;
+                bottom: 0;
+                border-radius: 50%;
+            }
         }
     }
 </style>
