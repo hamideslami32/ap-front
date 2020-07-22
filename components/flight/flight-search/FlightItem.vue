@@ -1,7 +1,8 @@
 <template>
-    <div class="flight-item">
+    <div class="flight-item" :class="{ reverse }">
         <div class="d-flex">
-            <span class="flight-item__title">پرواز رفت</span>
+            <span v-if="!reverse" class="flight-item__title">پرواز رفت</span>
+            <span v-else class="flight-item__title">پرواز برگشت</span>
         </div>
         <div class="flight-item__locations">
             <span>Tehran</span>
@@ -18,7 +19,7 @@
                 19:00
             </span>
         </div>
-        <div class="flight-item__detail">
+        <div class="flight-item__detail mt-2">
             <span>مدت: 2h 30m</span>
             <span class="flight-item__detail--center">۱ توقف در لندن</span>
             <span>+۹ صندلی</span>
@@ -27,7 +28,14 @@
 </template>
 
 <script>
-
+export default {
+    props: {
+        reverse: {
+            type: Boolean,
+            default: false
+        }
+    }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -45,6 +53,11 @@
         background: $white;
         color: #888888;
         padding: 10px;
+
+        &.reverse{
+            background: #f9f9f9;
+            border-radius: 0px 0px 10px 10px;
+        }
 
         &__title {
             font-size: 0.7em;
@@ -72,7 +85,7 @@
 
             &__line {
                 margin: 0 20px;
-                border-bottom: 1px dashed #E6E6E6;
+                border-bottom: 1px dashed #e6e6e6;
                 height: 100%;
                 flex: 5;
                 display: inline-flex;
@@ -112,11 +125,12 @@
             padding: 5px 0;
             align-items: center;
 
-            &--center{
+            &--center {
                 border-left: 1px solid rgba(71, 32, 134, 0.1);
                 border-right: 1px solid rgba(71, 32, 134, 0.1);
             }
-            span{
+
+            span {
                 flex: 1;
             }
         }

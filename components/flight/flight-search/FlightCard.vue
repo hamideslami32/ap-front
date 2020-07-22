@@ -5,6 +5,9 @@
         <div class="my-3">
             <slot />
         </div>
+        <div class="flight-card__footer">
+            <span class="alternative">۲۵ پرواز مشابه</span>
+        </div>
     </div>
 </template>
 
@@ -14,7 +17,7 @@
 
 <style lang="scss" scoped>
     .flight-card{
-        background: #f9f9f9;
+        background: #f5f5f5;
         border-radius: 10px;
         border: 1px solid #dddddd;
         margin: 20px auto;

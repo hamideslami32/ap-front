@@ -60,6 +60,7 @@
         <div class="flight-lists">
             <flight-card>
                 <flight-item />
+                <flight-item :reverse="reverse" />
             </flight-card>
         </div>
     </div>
@@ -87,7 +88,8 @@ export default {
     },
     data() {
         return {
-            jalaaliDatepicker: true
+            jalaaliDatepicker: true,
+            reverse: true
         }
     }
 }
