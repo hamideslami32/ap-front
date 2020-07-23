@@ -1,5 +1,5 @@
 <template>
-    <div class="flight-card">
+    <div class="flight-card clearfix">
         <span class="price">35,500,000</span>
         <span class="price__text">برای هر نفر (تومان)</span>
         <div class="tag">
@@ -36,7 +36,6 @@
         padding: 15px 10px 10px 10px;
         font-weight: 600;
         position: relative;
-        overflow: hidden;
 
         .price {
             font-size: 1.2em;
@@ -67,14 +66,14 @@
                 position: relative;
 
                 .shape {
-                    content: "";
+                    content: '';
                     position: absolute;
                     width: 21px;
                     height: 15px;
                     top: -15px;
                     background: #f5f5f5;
                     border-bottom-right-radius: 30px;
-                    right: -3px;
+                    right: 0;
                 }
 
                 &:before {
@@ -82,7 +81,7 @@
                     width: 17px;
                     height: 10px;
                     position: absolute;
-                    background: #E3469A;
+                    background: #e3469a;
                     right: 0;
                     top: -9px;
                 }
@@ -113,17 +112,20 @@
         .tag {
             position: absolute;
             left: 20px;
-            top: 0;
+            top: -1px;
             height: 24px;
             width: 80px;
             background: transparent;
             border-left: 1px solid #dddddd;
             border-right: 1px solid #dddddd;
             border-bottom: 1px solid #dddddd;
+            border-top: 1px solid #f5f5f5;
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-bottom-left-radius: 30px 60px;
+            border-bottom-right-radius: 30px 60px;
             span{
                 font-size: 0.6em;
                 color: $info;

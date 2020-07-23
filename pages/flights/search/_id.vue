@@ -12,12 +12,18 @@
                 <svgicon name="arrow-left" width="30" class="header__icon" height="30" />
             </div>
             <div class="header__bottom">
-                <custom-input class="passenger-input passenger-input--class" value="اکونومی" />
+                <passengers-picker
+                    v-model="passengers"
+                    :flight-class.sync="search.classType"
+                    :is-international="isInternational"
+                >
+                    <custom-input class="passenger-input passenger-input--class" value="اکونومی" />
+                </passengers-picker>
                 <a-datepicker
                     v-model="date"
                     class="date-input-pair"
                     :jalaali.sync="jalaaliDatepicker"
-                    :range.sync="isDatepickerRange"
+                    :range="isDatepickerRange"
                 >
                     <template v-slot:before="{ on, value }">
                         <span class="date-input-pair" dir="rtl">
@@ -30,7 +36,7 @@
                             />
                             <form-input
                                 label="تاریخ برگشت"
-                                :value="value[1] ? value[1].format('DD MMMM YY') : null"
+                                :value="value[1] ? value[1].format('DD MMMM') : null"
                                 readonly
                                 data-datepicker="1"
                                 v-on="on"
@@ -41,20 +47,26 @@
                         <form-input
                             label="تاریخ رفت"
                             icon="calendar"
-                            :value="value[0] ? value[0].format('DD MMMM YY') : null"
+                            :value="value[0] ? value[0].format('DD MMMM') : null"
                             readonly
                             @focus="open(0)"
                         />
                         <form-input
                             label="تاریخ برگشت"
-                            :value="value[1] ? value[1].format('DD MMMM YY') : null"
+                            :value="value[1] ? value[1].format('DD MMMM') : null"
                             data-datepicker="1"
                             readonly
                             @focus="open(1)"
                         />
                     </template>
                 </a-datepicker>
-                <custom-input class="passenger-input passenger-input--passenger" value="۲ مسافر" />
+                <passengers-picker
+                    v-model="passengers"
+                    :flight-class.sync="search.classType"
+                    :is-international="isInternational"
+                >
+                    <custom-input class="passenger-input passenger-input--passenger" value="۲ مسافر" />
+                </passengers-picker>
             </div>
         </header>
         <div class="flight-lists">
@@ -78,10 +90,13 @@ import FormInput from '~/components/ui/form/FormInput'
 import FlightCard from '~/components/flight/flight-search/FlightCard'
 import FlightItem from '~/components/flight/flight-search/FlightItem'
 import FullBtn from '~/components/ui/buttons/FullBtn'
+import PassengersPicker from '~/components/flight/flight-search/PassengersPicker'
+import {childrenCheck, infantCheck, maxPassenger, minAdult} from '~/utils/flightHelpers'
 
 export default {
-    layout: 'desktop',
+    layout: 'empty',
     components: {
+        PassengersPicker,
         FullBtn,
         FlightCard,
         CustomInput,
@@ -94,13 +109,79 @@ export default {
     data() {
         return {
             jalaaliDatepicker: true,
-            reverse: true
+            reverse: true,
+            date: [null, null],
+            isDatepickerRange: true,
+            search: {
+                type: 'roundTrip', // oneWay, roundTrip, multiDestination,
+                origin: null, //object  i, title, value
+                destination: null, //object  i, title, value
+                departing: null,
+                returning: null,
+                adult: 1,
+                child: 0,
+                infant: 0,
+                classType: 'economy' // business first
+            }
+        }
+    },
+    computed: {
+        passengers: {
+            get() {
+                return {
+                    adult: this.search.adult,
+                    child: this.search.child,
+                    infant: this.search.infant
+                }
+            },
+            set(value) {
+                const {adult, child, infant} = value
+                if (!maxPassenger(adult, child, infant)) {
+                    return
+                }
+
+                if (minAdult(adult, child, 'domestic')) {
+                    this.search.adult = adult
+                }
+
+                if (childrenCheck('domestic', adult, child)) {
+                    this.search.child = child
+                }
+
+                if (infantCheck(infant)) {
+                    this.search.infant = infant
+                }
+                Object.assign(this.search, value)
+            }
+        },
+        isInternational() {
+            const {origin, destination} = this.search
+            return origin && destination && (!origin.isDomestic || !destination.isDomestic)
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
+    .date-input-pair {
+        display: flex;
+
+        > div {
+            flex: 50% 1 0;
+
+            &:first-child {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+
+            &:last-child {
+                border-right: 0;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+    }
+
     .flight-available {
         .header {
             padding: 15px 10px;
@@ -134,6 +215,7 @@ export default {
 
                 .passenger-input {
                     margin-bottom: 0;
+                    pointer-events: none;
 
                     /deep/ input {
                         text-align: center;
@@ -213,7 +295,11 @@ export default {
             }
 
         }
-
+        .passengers{
+            margin: 0;
+            border: none;
+            height: auto;
+        }
         &__reverse-section {
             /deep/ .custom-input {
                 margin-bottom: 0;

@@ -32,11 +32,11 @@ class Auth {
     * Use this method to verify otp response
     */
     async verifyOtp(phoneNumber, otp) {
-        const { token, user } = await this.axios.$post('/auth/otp/verify', { phoneNumber, otp })
+        const { token, user, expiration } = await this.axios.$post('/auth/otp/verify', { phoneNumber, otp })
         this.setToken(token)
         this.user = user
         this.storage.setCookie(COOKIE_TOKEN, token, {
-            expires: new Date(Date.now())
+            expires: new Date(expiration)
         })
         this.showModal = false
         return user
