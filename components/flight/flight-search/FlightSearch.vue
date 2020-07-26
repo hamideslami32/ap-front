@@ -3,8 +3,8 @@
         <form action="#">
             <tabs v-model="search.type" class="mb-3" :tabs="tabs" />
             <input-pair class="mb-3">
-                <flight-destination-picker v-model="search.origin" title="مبدا" />
-                <flight-destination-picker v-model="search.destination" title="مقصد" />
+                <flight-destination-picker v-model="search.origin" place-holder="ازکجا" title="مبدا" />
+                <flight-destination-picker v-model="search.destination" place-holder="به کجا" title="مقصد" />
             </input-pair>
             <a-datepicker
                 v-model="date"
@@ -15,13 +15,22 @@
                 <template v-slot:before="{ on, value }">
                     <span class="date-input-pair" dir="rtl">
                         <form-input
+                            :class-name="search.type === 'oneWay' ? 'one-way' : ''"
                             label="تاریخ رفت"
-                            icon="calendar"
+                            :icon="search.type === 'oneWay' ? 'calendar': ''"
                             :value="value[0] ? value[0].format('dddd DD MMMM YY') : null"
                             readonly
                             v-on="on"
                         />
+                        <svgicon
+                            v-show="search.type !== 'oneWay'"
+                            class="pair-icon"
+                            name="calendar"
+                            width="28"
+                            height="28"
+                        />
                         <form-input
+                            v-show="search.type !== 'oneWay'"
                             label="تاریخ برگشت"
                             :value="value[1] ? value[1].format('dddd DD MMMM YY') : null"
                             readonly
@@ -33,12 +42,21 @@
                 <template v-slot="{ open, value }">
                     <form-input
                         label="تاریخ رفت"
-                        icon="calendar"
+                        :class-name="search.type === 'oneWay' ? 'one-way' : ''"
                         :value="value[0] ? value[0].format('dddd DD MMMM YY') : null"
                         readonly
+                        :icon="search.type === 'oneWay' ? 'calendar': ''"
                         @focus="open(0)"
                     />
+                    <svgicon
+                        v-show="search.type !== 'oneWay'"
+                        class="pair-icon"
+                        name="calendar"
+                        width="28"
+                        height="28"
+                    />
                     <form-input
+                        v-show="search.type !== 'oneWay'"
                         label="تاریخ برگشت"
                         :value="value[1] ? value[1].format('dddd DD MMMM YY') : null"
                         data-datepicker="1"
@@ -179,7 +197,7 @@ export default {
     },
     methods: {
         startSearch() {
-            // this.$toast('تست', 'success')
+        // this.$toast('تست', 'success')
             const {type, origin, destination, departing, returning, adult, child, infant, classType} = this.search
             const query = {
                 departing: departing.format('YYYY-MM-DD'),
@@ -202,9 +220,28 @@ export default {
 <style lang="scss">
     .date-input-pair {
         display: flex;
+        position: relative;
+
+        /deep/ .form-input {
+            background: #f9f9f9;
+        }
+
+        .pair-icon {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            z-index: 1;
+            box-sizing: content-box;
+            padding: 5px 0;
+            background: #f9f9f9;
+        }
 
         > div {
             flex: 50% 1 0;
+            border-radius: 10px;
 
             &:first-child {
                 border-top-left-radius: 0;

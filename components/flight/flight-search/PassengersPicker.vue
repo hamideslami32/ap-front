@@ -145,10 +145,11 @@ export default {
 <style lang="scss" scoped>
     .passengers {
         margin-bottom: 20px;
-        border: 1px solid $borderColor;
-        border-radius: 5px;
+        border: 1px solid #cccccc;
+        border-radius: 10px;
         position: relative;
         height: 50px;
+        background: #f9f9f9;
     }
 
     .passenger-select {

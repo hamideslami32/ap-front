@@ -10,12 +10,13 @@
     >
         <svgicon v-if="icon" :name="icon" width="28" height="28" />
         <div>
-            <label :for="'form_' + _uid"><slot name="label">{{ label }}</slot></label>
+            <label :class="className" :for="'form_' + _uid"><slot name="label">{{ label }}</slot></label>
             <input
                 :id="'form_' + _uid"
                 ref="input"
                 v-model="localValue"
                 v-bind="$attrs"
+                :class="className"
                 @focus="onFocus(true)"
                 @blur="onFocus(false)"
             >
@@ -38,6 +39,11 @@ export default {
         value: {
             type: String,
             default: null
+        },
+        className: {
+            type: String,
+            required: false,
+            default: ''
         }
     },
     data() {
@@ -72,7 +78,8 @@ export default {
     position: relative;
     border: 1px solid $borderColor;
     border-radius: 5px;
-    padding: 10px 56px 10px 20px;
+    background: #f9f9f9;
+    padding: 10px 20px 10px 20px;
 
     > svg {
         position: absolute;
@@ -93,12 +100,22 @@ export default {
         width: 100%;
         min-width: 0;
         display: inline-block;
+        font-size: 0.8em;
+        font-weight: 500;
+        &.one-way{
+            text-align: right;
+            padding-right: 55px;
+        }
     }
 
     label {
         font-size: 13px;
         margin-bottom: 0;
         width: 100%;
+        &.one-way{
+            text-align: right;
+            padding-right: 55px;
+        }
     }
 
     &--blur {
@@ -112,7 +129,10 @@ export default {
     }
 
     &--value {
-        background-color: $lightGrayColor;
+        background-color: #f9f9f9;
+        label{
+            font-size: 0.6rem;
+        }
     }
 }
 </style>
