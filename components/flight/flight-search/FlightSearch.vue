@@ -17,13 +17,13 @@
                         <form-input
                             label="تاریخ رفت"
                             icon="calendar"
-                            :value="value[0] ? value[0].format('DD MMMM YY') : null"
+                            :value="value[0] ? value[0].format('dddd DD MMMM YY') : null"
                             readonly
                             v-on="on"
                         />
                         <form-input
                             label="تاریخ برگشت"
-                            :value="value[1] ? value[1].format('DD MMMM YY') : null"
+                            :value="value[1] ? value[1].format('dddd DD MMMM YY') : null"
                             readonly
                             data-datepicker="1"
                             v-on="on"
@@ -34,13 +34,13 @@
                     <form-input
                         label="تاریخ رفت"
                         icon="calendar"
-                        :value="value[0] ? value[0].format('DD MMMM YY') : null"
+                        :value="value[0] ? value[0].format('dddd DD MMMM YY') : null"
                         readonly
                         @focus="open(0)"
                     />
                     <form-input
                         label="تاریخ برگشت"
-                        :value="value[1] ? value[1].format('DD MMMM YY') : null"
+                        :value="value[1] ? value[1].format('dddd DD MMMM YY') : null"
                         data-datepicker="1"
                         readonly
                         @focus="open(1)"
@@ -51,7 +51,9 @@
                 v-model="passengers"
                 :flight-class.sync="search.classType"
                 :is-international="isInternational"
-            />
+            >
+                <multi-passenger :value="passengerCounts" />
+            </passengers-picker>
             <search-button @click.prevent="startSearch" />
         </form>
     </div>
@@ -65,11 +67,13 @@ import SearchButton from '~/components/flight/flight-search/SearchButton'
 import ADatepicker from '~/components/ui/date-picker/ADatepicker'
 import Tabs from '~/components/ui/Tabs'
 import FormInput from '~/components/ui/form/FormInput'
-import {maxPassenger, childrenCheck, minAdult, infantCheck} from '~/utils/flightHelpers'
+import {maxPassenger, childrenCheck, minAdult, infantCheck, translateFlightClass} from '~/utils/flightHelpers'
 import InputPair from '~/components/ui/form/InputPair'
+import MultiPassenger from '~/components/ui/MultiPassenger'
 
 export default {
     components: {
+        MultiPassenger,
         InputPair,
         FlightDestinationPicker,
         PassengersPicker,
@@ -148,6 +152,10 @@ export default {
             set(x) {
                 this.search.type = x ? 'roundTrip' : 'oneWay'
             }
+        },
+        passengerCounts() {
+            const allPassengerCount = this.search.adult + this.search.child + this.search.infant
+            return `${allPassengerCount} مسافر${this.isInternational ? ', ' + translateFlightClass(this.search.classType) : ''}`
         }
     },
     watch: {
@@ -171,7 +179,7 @@ export default {
     },
     methods: {
         startSearch() {
-            this.$toast('تست', 'success')
+            // this.$toast('تست', 'success')
             const {type, origin, destination, departing, returning, adult, child, infant, classType} = this.search
             const query = {
                 departing: departing.format('YYYY-MM-DD'),
@@ -192,22 +200,22 @@ export default {
 </script>
 
 <style lang="scss">
-.date-input-pair {
-    display: flex;
+    .date-input-pair {
+        display: flex;
 
-    > div {
-        flex: 50% 1 0;
+        > div {
+            flex: 50% 1 0;
 
-        &:first-child {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-        }
+            &:first-child {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
 
-        &:last-child {
-            border-right: 0;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
+            &:last-child {
+                border-right: 0;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
         }
     }
-}
 </style>
