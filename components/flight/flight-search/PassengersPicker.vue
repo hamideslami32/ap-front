@@ -5,21 +5,38 @@
             <template v-slot:modal-header-close>
                 <svgicon name="arrow-long-right" width="20" height="20" />
             </template>
-
-            <div>
-                <div class="d-flex align-items-center mb-3">
-                    <span>بزرگسال</span>
-                    <small class="text-muted mr-2">(12 سال به بالا)</small>
+            <div class="passenger-modal">
+                <p class="passenger-modal__title mb-4">
+                    انتخاب مسافر
+                </p>
+                <div class="d-flex passenger-section-holder align-items-center mb-3">
+                    <div class="passenger-section d-flex">
+                        <div class="icon ml-2" style="width: 40px; height: 40px; background: gray;" />
+                        <div class="d-flex flex-column">
+                            <span class="passenger-section__name">بزرگسال</span>
+                            <small class="passenger-section__tip text-muted">(12 سال به بالا)</small>
+                        </div>
+                    </div>
                     <number-spinner :value="value.adult" class="mr-auto" @input="setValue('adult', $event)" />
                 </div>
                 <div class="d-flex align-items-center mb-3">
-                    <span>کودک</span>
-                    <small class="text-muted mr-2">(2 سال تا 12 سال)</small>
+                    <div class="passenger-section d-flex">
+                        <div class="icon ml-2" style="width: 40px; height: 40px; background: gray;" />
+                        <div class="d-flex flex-column">
+                            <span class="passenger-section__name">کودک</span>
+                            <small class="text-muted">(2 سال تا 12 سال)</small>
+                        </div>
+                    </div>
                     <number-spinner :value="value.child" class="mr-auto" @input="setValue('child', $event)" />
                 </div>
                 <div class="d-flex align-items-center mb-3">
-                    <span>نوزاد</span>
-                    <small class="text-muted mr-2">(10 روز تا 2 سال)</small>
+                    <div class="passenger-section d-flex">
+                        <div class="icon ml-2" style="width: 40px; height: 40px; background: gray;" />
+                        <div class="d-flex flex-column">
+                            <span class="passenger-section__name">نوزاد</span>
+                            <small class="text-muted">(10 روز تا 2 سال)</small>
+                        </div>
+                    </div>
                     <number-spinner :value="value.infant" class="mr-auto" @input="setValue('infant', $event)" />
                 </div>
             </div>
@@ -152,18 +169,30 @@ export default {
         background: #f9f9f9;
     }
 
-    .passenger-select {
-        padding-top: 20px;
-
-        &__count {
-            padding-bottom: 20px;
-            border-bottom: 1px solid $modalBorder;
+    .passenger-section-holder{
+        &:focus, &:active{
+            background: #ffffff;
+            border: 1px solid #dddddd;
+            box-sizing: border-box;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .passenger-section{
+            &__name{
+                color: map_get($gray-colors, 'gray-800');
+                font-size: 0.8em;
+                font-weight: 600;
+            }
         }
 
-        &__class-type {
-            padding-top: 20px;
-        }
     }
 
+    .passenger-modal{
+        &__title{
+            color: map_get($gray-colors, 'gray-700');
+            font-size: 0.9rem;
+        }
+    }
 
 </style>

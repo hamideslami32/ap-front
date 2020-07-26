@@ -12,5 +12,19 @@ $modalBorder: #e6e6e6;
 
 $body-bg: #f5f5f5;
 
+$gray-colors : (
+        "black": #000000,
+        "gray-100": #eeeeee,
+        "gray-200": #f5f5f5,
+        "gray-300": #E5E5E5,
+        "gray-400": #dddddd,
+        "gray-500": #e6e6e6,
+        "gray-700":#888 ,
+        "gray-800":#666,
+        "gray-900": #444,
+        "gray-1000":#222,
+);
+
+
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
