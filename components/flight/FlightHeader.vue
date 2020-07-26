@@ -8,7 +8,9 @@
                     <custom-input value="پاریس" />
                 </input-pair>
             </div>
-            <svgicon name="arrow-left" width="30" height="30" />
+            <button class="btn-raw" @click="$router.push('/flights')">
+                <svgicon name="arrow-left" width="20" height="20" />
+            </button>
         </div>
         <div class="flight-header__bottom">
             <passengers-picker
@@ -16,7 +18,7 @@
                 :flight-class.sync="search.classType"
                 :is-international="isInternational"
             >
-                <custom-input class="passenger-input passenger-input--passenger" value="اکونومی" />
+                <custom-input class="passenger-input" value="اکونومی" />
             </passengers-picker>
             <a-datepicker
                 v-model="date"
@@ -64,55 +66,7 @@
                 :flight-class.sync="search.classType"
                 :is-international="isInternational"
             >
-                <custom-input class="passenger-input passenger-input--class" value="اکونومی" />
-            </passengers-picker>
-            <a-datepicker
-                v-model="date"
-                class="date-input-pair"
-                :jalaali.sync="jalaaliDatepicker"
-                :range="isDatepickerRange"
-            >
-                <template v-slot:before="{ on, value }">
-                    <span class="date-input-pair" dir="rtl">
-                        <form-input
-                            label="تاریخ رفت"
-                            icon="calendar"
-                            value="20 خرداد"
-                            readonly
-                            v-on="on"
-                        />
-                        <form-input
-                            label="تاریخ برگشت"
-                            :value="value[1] ? value[1].format('DD MMMM') : null"
-                            readonly
-                            data-datepicker="1"
-                            v-on="on"
-                        />
-                    </span>
-                </template>
-                <template v-slot="{ open, value }">
-                    <form-input
-                        label="تاریخ رفت"
-                        icon="calendar"
-                        :value="value[0] ? value[0].format('DD MMMM') : null"
-                        readonly
-                        @focus="open(0)"
-                    />
-                    <form-input
-                        label="تاریخ برگشت"
-                        :value="value[1] ? value[1].format('DD MMMM') : null"
-                        data-datepicker="1"
-                        readonly
-                        @focus="open(1)"
-                    />
-                </template>
-            </a-datepicker>
-            <passengers-picker
-                v-model="passengers"
-                :flight-class.sync="search.classType"
-                :is-international="isInternational"
-            >
-                <custom-input class="passenger-input passenger-input--passenger" value="۲ مسافر" />
+                <custom-input class="passenger-input" value="۲ مسافر" />
             </passengers-picker>
         </div>
     </b-container>
@@ -213,30 +167,30 @@ export default {
                 /deep/ input {
                     text-align: center;
                     color: $white;
-                    background: #6d4ea3;
+                    background: rgba($white, 0.1);
                     height: 30px;
                     border: 1px solid rgba(255, 255, 255, 0.1);
                     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
                     width: 80px;
                 }
+            }
 
-                &--class {
-                    /deep/ input {
-                        border-radius: 5px 10px 10px 5px;
-                    }
+            > div:first-child {
+                /deep/ input {
+                    border-radius: 5px 10px 10px 5px;
                 }
+            }
 
-                &--passenger {
-                    /deep/ input {
-                        border-radius: 10px 5px 5px 10px;
-                    }
+            > div:last-child {
+                /deep/ input {
+                    border-radius: 10px 5px 5px 10px;
                 }
             }
 
             /deep/ .date-input-pair {
                 margin: 0 10px;
                 display: flex;
-                background: #6d4ea3;
+                background-color: rgba($white, 0.1);
                 border: 1px solid rgba(255, 255, 255, 0.1);
                 box-sizing: border-box;
                 box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);

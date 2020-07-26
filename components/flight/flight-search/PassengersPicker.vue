@@ -1,5 +1,5 @@
 <template>
-    <div class="passengers" @click="focus">
+    <div class="position-relative" @click="focus">
         <slot />
         <b-modal v-model="showModal" title="انتخاب مسافران" hide-footer>
             <template v-slot:modal-header-close>
@@ -143,15 +143,6 @@ export default {
 
 
 <style lang="scss" scoped>
-    .passengers {
-        margin-bottom: 20px;
-        border: 1px solid #cccccc;
-        border-radius: 10px;
-        position: relative;
-        height: 50px;
-        background: #f9f9f9;
-    }
-
     .passenger-select {
         padding-top: 20px;
 

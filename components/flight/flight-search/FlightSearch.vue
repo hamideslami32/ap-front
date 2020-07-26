@@ -67,6 +67,7 @@
             </a-datepicker>
             <passengers-picker
                 v-model="passengers"
+                class="mb-3"
                 :flight-class.sync="search.classType"
                 :is-international="isInternational"
             >

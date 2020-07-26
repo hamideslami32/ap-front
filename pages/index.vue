@@ -6,10 +6,11 @@
 </template>
 
 <script>
-import Navs from '~/components/navs/Navs.vue'
+import AppNavs from '~/components/navs/Navs'
+
 export default {
     components: {
-        appNavs: Navs
+        AppNavs
     },
     layout: 'Mobile'
 }

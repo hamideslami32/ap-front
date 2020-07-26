@@ -7,6 +7,10 @@
 @import 'forms';
 @import 'modal';
 
+html, body {
+    height: 100%;
+}
+
 body {
     font-family: Dana, Roboto, Tahoma, serif;
 }
@@ -20,6 +24,7 @@ body {
     background: none;
     outline: none !important;
     border: 0;
+    color: inherit;
 }
 
 .link-inherit {

@@ -6,11 +6,11 @@
 
 
 <script>
-import Button from './Button.vue'
+import AppButton from './Button.vue'
 
 export default {
     components: {
-        appButton: Button
+        AppButton
     },
     data() {
         return {
@@ -35,6 +35,14 @@ export default {
 
     &::-webkit-scrollbar {
         display: none;
+    }
+
+    > a:first-child {
+        margin-right: 10px;
+    }
+
+    > a:last-child {
+        margin-left: 10px;
     }
 }
 </style>
