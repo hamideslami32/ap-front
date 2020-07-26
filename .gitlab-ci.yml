@@ -9,4 +9,4 @@ variables:
 build:
   stage: build
   script:
-    - docker build -t $IMAGE:latest --build-arg "API_URL=http://apro-dev.ir/api" .
+    - docker build -t $IMAGE:latest --build-arg "API_URL=https://apro-dev.ir/api" .
