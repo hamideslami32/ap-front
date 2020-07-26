@@ -1,44 +1,63 @@
 <template>
     <div class="flight-card">
-        <span class="price">35,500,000</span>
-        <span class="price__text">برای هر نفر (تومان)</span>
-        <div class="tag">
+        <span class="flight-card__price">{{ available.totalFare | separateNumber }}</span>
+        <span class="flight-card__price__text">برای هر نفر (تومان)</span>
+        <div class="flight-tag">
             <span>ارزان ترین</span>
         </div>
-        <div class="my-3">
-            <slot />
+        <div class="flight-card__items">
+            <flight-item
+                v-for="(route, i) in available.routes"
+                :key="i"
+                :available="available"
+                :flight="route.flights[0]"
+                :title="i === 0 ? 'رفت' : 'برگشت'"
+            />
         </div>
-        <div class="alternative-holder">
-            <div class="alternative">
-                <div class="shape" />
-                <span>۲۵ پرواز مشابه</span>
+        <div class="clearfix">
+            <div class="alternative-holder">
+                <div class="alternative">
+                    <div class="shape" />
+                    <span>۲۵ پرواز مشابه</span>
+                </div>
             </div>
-        </div>
-        <div class="float-left d-flex align-items-center ml-2">
-            <span class="flight-card__select-text ml-2">انتخاب</span>
-            <div class="circle">
-                <svgicon name="arrow-long-right" width="18" class="header__icon" height="20" />
+            <div class="float-left d-flex align-items-center">
+                <span class="flight-card__select-text ml-2">انتخاب</span>
+                <div class="circle">
+                    <svgicon name="arrow-long-right" width="18" height="20" />
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import FlightItem from '~/components/flight/available/FlightItem'
 
+export default {
+    components: {
+        FlightItem
+    },
+    props: {
+        available: {
+            type: Object,
+            required: true
+        }
+    }
+}
 </script>
 
 <style lang="scss" scoped>
     .flight-card {
-        background: #f5f5f5;
         border-radius: 10px;
         border: 1px solid #dddddd;
-        margin: 20px auto;
-        padding: 15px 10px 10px 10px;
+        margin: 0 10px 20px;
+        padding: 15px 10px 10px;
         font-weight: 600;
         position: relative;
-        overflow: hidden;
+        box-shadow: 0 3px 8px rgba($black, 0.1);
 
-        .price {
+        &__price {
             font-size: 1.2em;
             color: $info;
 
@@ -47,6 +66,13 @@
                 color: #888888;
                 font-weight: 400;
             }
+        }
+
+        &__items {
+            background-color: $white;
+            margin: 8px -10px 15px;
+            box-shadow: 0 3px 5px rgba($black, 0.1);
+            border-radius: 0 0 10px 10px;
         }
 
         .alternative-holder {
@@ -67,7 +93,7 @@
                 position: relative;
 
                 .shape {
-                    content: "";
+                    content: '';
                     position: absolute;
                     width: 21px;
                     height: 15px;
@@ -82,7 +108,7 @@
                     width: 17px;
                     height: 10px;
                     position: absolute;
-                    background: #E3469A;
+                    background: #e3469a;
                     right: 0;
                     top: -9px;
                 }
@@ -110,16 +136,17 @@
             }
         }
 
-        .tag {
+        .flight-tag {
             position: absolute;
             left: 20px;
-            top: 0;
+            top: -1px;
             height: 24px;
             width: 80px;
             background: transparent;
-            border-left: 1px solid #dddddd;
-            border-right: 1px solid #dddddd;
-            border-bottom: 1px solid #dddddd;
+            border: 1px solid #dddddd;
+            border-top-color: $body-bg;
+            border-bottom-left-radius: 12px 20px;
+            border-bottom-right-radius: 12px 20px;
             text-align: center;
             display: flex;
             align-items: center;

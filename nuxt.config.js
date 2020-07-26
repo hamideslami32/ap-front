@@ -31,6 +31,7 @@ export default {
    */
     plugins: [
         '~plugins/svg',
+        '~plugins/numbers',
         '~plugins/auth',
         '~plugins/api',
         '~plugins/dayjs',
