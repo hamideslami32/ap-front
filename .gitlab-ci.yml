@@ -4,6 +4,7 @@ include:
 
 variables:
   IMAGE: registry.apro-dev.ir/apro/apro-front
+  SERVICE: "apro-front"
 
 build:
   stage: build
