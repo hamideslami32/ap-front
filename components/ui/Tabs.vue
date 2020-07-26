@@ -43,7 +43,7 @@ export default {
         updateWidth() {
             this.$nextTick(() => {
                 const tabElement = this.$refs.menu.children[this.tabs.findIndex(t => t.value === this.value)]
-                this.tabWidth = tabElement.offsetWidth
+                this.tabWidth = tabElement.offsetWidth - 10
                 this.tabOffset = this.$refs.menu.offsetWidth - tabElement.offsetLeft - tabElement.offsetWidth
             })
         }
@@ -100,6 +100,9 @@ export default {
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
         color: $white;
         z-index: 1;
+        transform: translateY(5px);
+        height: 75%;
+        margin: 0 5px;
     }
 }
 </style>
