@@ -104,7 +104,12 @@
             </transition-group>
 
             <slot v-if="!isMobile" name="after" />
-            <a-datepicker-switch :jalaali="jalaali" @click="setJalaali(!jalaali)" />
+            <div class="a-datepicker__actions text-nowrap">
+                <a-datepicker-switch :jalaali="jalaali" @click="setJalaali(!jalaali)" />
+                <b-btn variant="primary" @click="close(true)">
+                    تایید
+                </b-btn>
+            </div>
         </div>
     </a-dropdown>
 </template>
@@ -700,6 +705,21 @@ export default {
 
     .min-width-0 {
         min-width: 0;
+    }
+
+    &__actions {
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 5;
+        direction: rtl;
+
+        .btn {
+            width: 120px;
+            font-size: 13px;
+            max-width: 100%;
+        }
     }
 }
 
