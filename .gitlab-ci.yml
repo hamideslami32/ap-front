@@ -1,9 +1,9 @@
 include:
-  - project: 'aproo/devops'
+  - project: 'apro/devops'
     file: '/main.yml'
 
 variables:
-  IMAGE: apro-front
+  IMAGE: registry.apro-dev.ir/apro/apro-front
 
 build:
   stage: build
