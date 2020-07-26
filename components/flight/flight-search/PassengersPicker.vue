@@ -1,24 +1,6 @@
 <template>
     <div class="passengers" @click="focus">
-        <span class="passengers__icon-holder">
-            <svgicon class="passengers__icon-holder--icon" width="24" height="24" name="user" />
-        </span>
-        <div class="passengers__input-holder">
-            <span class="passengers__input-holder--before">
-                <svgicon class="passengers__input-holder--before__icon" width="24" height="24" name="chair" />
-            </span>
-            <input
-                ref="input"
-                name="passengers"
-                :value="passengerCounts"
-                class="passengers__input-holder--input"
-                type="text"
-                @focus="openModal"
-            >
-            <span class="passengers__input-holder--after">
-                <svgicon class="passengers__input-holder--after__icon" width="24" height="24" name="arrow-down" />
-            </span>
-        </div>
+        <slot />
         <b-modal v-model="showModal" title="انتخاب مسافران" hide-footer>
             <template v-slot:modal-header-close>
                 <svgicon name="arrow-long-right" width="20" height="20" />
@@ -121,10 +103,9 @@ export default {
     },
     methods: {
         focus() {
-            this.$refs.input.focus()
+            this.open()
         },
-        openModal() {
-            this.$refs.input.blur()
+        open() {
             this.showModal = true
         },
         setValue(type, value) {
@@ -137,7 +118,7 @@ export default {
                 e.message && this.$emit('error', e.message)
             }
         },
-        validate({ adult, child, infant }) {
+        validate({adult, child, infant}) {
             const MAX_PASSENGERS = 9
             if (adult < 1) {
                 throw new Error('تعداد بزرگسالان نمی‌تواند کمتر از ۱ باشد.')
@@ -162,90 +143,27 @@ export default {
 
 
 <style lang="scss" scoped>
-.passengers {
-    margin-bottom: 20px;
-    border: 1px solid $borderColor;
-    border-radius: 5px;
-    position: relative;
-    height: 50px;
-
-    &__icon-holder {
-        position: absolute;
-        right: 15px;
-        display: flex;
-        height: 100%;
-        align-items: center;
-        justify-content: center;
-
-        &::before {
-            content: '';
-            height: 24px;
-            position: absolute;
-            left: -10px;
-            width: 1px;
-            background: $borderColor;
-        }
-
-        &--icon {
-            color: $grayColor;
-            position: relative;
-        }
-    }
-
-    &__input-holder {
-        height: 100%;
+    .passengers {
+        margin-bottom: 20px;
+        border: 1px solid #cccccc;
+        border-radius: 10px;
         position: relative;
-        margin-right: 70px;
-
-        &--input {
-            height: 100%;
-            width: 80%;
-            outline: none;
-            border: none;
-            background: transparent;
-            padding: 0 40px 0 30px;
-            font-size: 15px;
-            line-height: 52px;
-            background-clip: padding-box;
-        }
-
-        &--before {
-            position: absolute;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-
-            &__icon {
-                color: $grayColor;
-            }
-        }
-
-        &--after {
-            position: absolute;
-            left: 15px;
-            transform: translateY(50%);
-            height: 24px;
-
-            &__icon {
-                color: $darkGrayColor;
-            }
-        }
-    }
-}
-
-.passenger-select {
-    padding-top: 20px;
-
-    &__count {
-        padding-bottom: 20px;
-        border-bottom: 1px solid $modalBorder;
+        height: 50px;
+        background: #f9f9f9;
     }
 
-    &__class-type {
+    .passenger-select {
         padding-top: 20px;
+
+        &__count {
+            padding-bottom: 20px;
+            border-bottom: 1px solid $modalBorder;
+        }
+
+        &__class-type {
+            padding-top: 20px;
+        }
     }
-}
 
 
 </style>

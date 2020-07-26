@@ -100,7 +100,7 @@ export default {
                     top: -15px;
                     background: #f5f5f5;
                     border-bottom-right-radius: 30px;
-                    right: -3px;
+                    right: 0;
                 }
 
                 &:before {

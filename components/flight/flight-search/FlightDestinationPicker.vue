@@ -3,6 +3,7 @@
         <destination-input
             :value="value"
             :title="title"
+            :place-holder="placeHolder"
             @input="select"
             @focus="showModal = true"
         />
@@ -31,7 +32,7 @@
                         :key="i"
                         :item="item"
                         :show-airports="!!query"
-                        @select="select(item, true)"
+                        @select="select($event, true)"
                     />
                 </div>
             </div>
@@ -61,6 +62,10 @@ export default {
         title: {
             type: String,
             required: true
+        },
+        placeHolder: {
+            type: String,
+            default: ''
         }
     },
 
@@ -99,24 +104,24 @@ export default {
 </script>
 
 <style lang="scss">
-.destination-picker {
-    &__title {
-        font-size: 15px;
-        line-height: 30px;
-        color: $grayColor;
-        text-align: right;
-    }
+    .destination-picker {
+        &__title {
+            font-size: 15px;
+            line-height: 30px;
+            color: $grayColor;
+            text-align: right;
+        }
 
-    .destination-result {
-        overflow: hidden;
-        overflow-y: scroll;
-        height: calc(100vh - 194px);
-        -ms-overflow-style: none;
-        scrollbar-width: none;
+        .destination-result {
+            overflow: hidden;
+            overflow-y: scroll;
+            height: calc(100vh - 194px);
+            -ms-overflow-style: none;
+            scrollbar-width: none;
 
-        &::-webkit-scrollbar {
-            display: none;
+            &::-webkit-scrollbar {
+                display: none;
+            }
         }
     }
-}
 </style>

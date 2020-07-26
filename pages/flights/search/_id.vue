@@ -40,6 +40,10 @@ export default {
     computed: {
         searchId() {
             return this.$route.query.sid
+        },
+        isInternational() {
+            const {origin, destination} = this.search
+            return origin && destination && (!origin.isDomestic || !destination.isDomestic)
         }
     },
     async mounted() {

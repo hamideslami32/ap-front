@@ -75,6 +75,7 @@ export default {
 
         $size: 40px;
         $boder-color: #ddd;
+
         &__switch {
             position: absolute;
             left: 50%;
@@ -114,13 +115,19 @@ export default {
         /deep/ > div {
             position: relative;
             margin-left: 3px;
-            border-radius: 0 3px 3px 0;
-            flex: 1;
+            flex: 50% 0 1;
+            overflow: hidden;
 
             .badge {
                 float: right;
                 margin-left: 5px;
                 min-width: 40px;
+            }
+
+            .destination-input {
+                border: 1px solid #cccccc;
+                border-radius: 5px 10px 10px 5px;
+                background: #f9f9f9;
             }
 
             &:last-child {
@@ -134,6 +141,10 @@ export default {
                     margin-left: 0;
                     float: left;
                 }
+
+                .destination-input {
+                    border-radius: 10px 5px 5px 10px;
+                }
             }
         }
     }
@@ -142,6 +153,7 @@ export default {
         > div .destination-input__input {
             animation: swipe-left 250ms 1 linear;
         }
+
         > div:last-child .destination-input__input {
             animation: swipe-right 250ms 1 linear;
         }

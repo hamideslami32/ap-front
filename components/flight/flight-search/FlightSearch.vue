@@ -3,8 +3,8 @@
         <form action="#">
             <tabs v-model="search.type" class="mb-3" :tabs="tabs" />
             <input-pair class="mb-3">
-                <flight-destination-picker v-model="search.origin" title="مبدا" />
-                <flight-destination-picker v-model="search.destination" title="مقصد" />
+                <flight-destination-picker v-model="search.origin" place-holder="ازکجا" title="مبدا" />
+                <flight-destination-picker v-model="search.destination" place-holder="به کجا" title="مقصد" />
             </input-pair>
             <a-datepicker
                 v-model="date"
@@ -15,15 +15,24 @@
                 <template v-slot:before="{ on, value }">
                     <span class="date-input-pair" dir="rtl">
                         <form-input
+                            :class-name="search.type === 'oneWay' ? 'one-way' : ''"
                             label="تاریخ رفت"
-                            icon="calendar"
-                            :value="value[0] ? value[0].format('DD MMMM YY') : null"
+                            :icon="search.type === 'oneWay' ? 'calendar': ''"
+                            :value="value[0] ? value[0].format('dddd DD MMMM YY') : null"
                             readonly
                             v-on="on"
                         />
+                        <svgicon
+                            v-show="search.type !== 'oneWay'"
+                            class="pair-icon"
+                            name="calendar"
+                            width="28"
+                            height="28"
+                        />
                         <form-input
+                            v-show="search.type !== 'oneWay'"
                             label="تاریخ برگشت"
-                            :value="value[1] ? value[1].format('DD MMMM YY') : null"
+                            :value="value[1] ? value[1].format('dddd DD MMMM YY') : null"
                             readonly
                             data-datepicker="1"
                             v-on="on"
@@ -33,14 +42,23 @@
                 <template v-slot="{ open, value }">
                     <form-input
                         label="تاریخ رفت"
-                        icon="calendar"
-                        :value="value[0] ? value[0].format('DD MMMM YY') : null"
+                        :class-name="search.type === 'oneWay' ? 'one-way' : ''"
+                        :value="value[0] ? value[0].format('dddd DD MMMM YY') : null"
                         readonly
+                        :icon="search.type === 'oneWay' ? 'calendar': ''"
                         @focus="open(0)"
                     />
+                    <svgicon
+                        v-show="search.type !== 'oneWay'"
+                        class="pair-icon"
+                        name="calendar"
+                        width="28"
+                        height="28"
+                    />
                     <form-input
+                        v-show="search.type !== 'oneWay'"
                         label="تاریخ برگشت"
-                        :value="value[1] ? value[1].format('DD MMMM YY') : null"
+                        :value="value[1] ? value[1].format('dddd DD MMMM YY') : null"
                         data-datepicker="1"
                         readonly
                         @focus="open(1)"
@@ -51,7 +69,9 @@
                 v-model="passengers"
                 :flight-class.sync="search.classType"
                 :is-international="isInternational"
-            />
+            >
+                <multi-passenger :value="passengerCounts" />
+            </passengers-picker>
             <search-button @click.prevent="startSearch" />
         </form>
     </div>
@@ -65,11 +85,13 @@ import SearchButton from '~/components/flight/flight-search/SearchButton'
 import ADatepicker from '~/components/ui/date-picker/ADatepicker'
 import Tabs from '~/components/ui/Tabs'
 import FormInput from '~/components/ui/form/FormInput'
-import {maxPassenger, childrenCheck, minAdult, infantCheck} from '~/utils/flightHelpers'
+import {maxPassenger, childrenCheck, minAdult, infantCheck, translateFlightClass} from '~/utils/flightHelpers'
 import InputPair from '~/components/ui/form/InputPair'
+import MultiPassenger from '~/components/ui/MultiPassenger'
 
 export default {
     components: {
+        MultiPassenger,
         InputPair,
         FlightDestinationPicker,
         PassengersPicker,
@@ -148,6 +170,10 @@ export default {
             set(x) {
                 this.search.type = x ? 'roundTrip' : 'oneWay'
             }
+        },
+        passengerCounts() {
+            const allPassengerCount = this.search.adult + this.search.child + this.search.infant
+            return `${allPassengerCount} مسافر${this.isInternational ? ', ' + translateFlightClass(this.search.classType) : ''}`
         }
     },
     watch: {
@@ -171,7 +197,7 @@ export default {
     },
     methods: {
         startSearch() {
-            this.$toast('تست', 'success')
+        // this.$toast('تست', 'success')
             const {type, origin, destination, departing, returning, adult, child, infant, classType} = this.search
             const query = {
                 departing: departing.format('YYYY-MM-DD'),
@@ -192,22 +218,41 @@ export default {
 </script>
 
 <style lang="scss">
-.date-input-pair {
-    display: flex;
+    .date-input-pair {
+        display: flex;
+        position: relative;
 
-    > div {
-        flex: 50% 1 0;
-
-        &:first-child {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
+        /deep/ .form-input {
+            background: #f9f9f9;
         }
 
-        &:last-child {
-            border-right: 0;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
+        .pair-icon {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            z-index: 1;
+            box-sizing: content-box;
+            padding: 5px 0;
+            background: #f9f9f9;
+        }
+
+        > div {
+            flex: 50% 1 0;
+            border-radius: 10px;
+
+            &:first-child {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+
+            &:last-child {
+                border-right: 0;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
         }
     }
-}
 </style>

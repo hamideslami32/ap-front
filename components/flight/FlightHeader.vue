@@ -11,7 +11,13 @@
             <svgicon name="arrow-left" width="30" height="30" />
         </div>
         <div class="flight-header__bottom">
-            <custom-input class="passenger-input passenger-input--class" value="اکونومی" />
+            <passengers-picker
+                v-model="passengers"
+                :flight-class.sync="search.classType"
+                :is-international="isInternational"
+            >
+                <custom-input class="passenger-input passenger-input--passenger" value="اکونومی" />
+            </passengers-picker>
             <a-datepicker
                 v-model="date"
                 class="date-input-pair"
@@ -53,7 +59,61 @@
                     />
                 </template>
             </a-datepicker>
-            <custom-input class="passenger-input passenger-input--passenger" value="۲ مسافر" />
+            <passengers-picker
+                v-model="passengers"
+                :flight-class.sync="search.classType"
+                :is-international="isInternational"
+            >
+                <custom-input class="passenger-input passenger-input--class" value="اکونومی" />
+            </passengers-picker>
+            <a-datepicker
+                v-model="date"
+                class="date-input-pair"
+                :jalaali.sync="jalaaliDatepicker"
+                :range="isDatepickerRange"
+            >
+                <template v-slot:before="{ on, value }">
+                    <span class="date-input-pair" dir="rtl">
+                        <form-input
+                            label="تاریخ رفت"
+                            icon="calendar"
+                            value="20 خرداد"
+                            readonly
+                            v-on="on"
+                        />
+                        <form-input
+                            label="تاریخ برگشت"
+                            :value="value[1] ? value[1].format('DD MMMM') : null"
+                            readonly
+                            data-datepicker="1"
+                            v-on="on"
+                        />
+                    </span>
+                </template>
+                <template v-slot="{ open, value }">
+                    <form-input
+                        label="تاریخ رفت"
+                        icon="calendar"
+                        :value="value[0] ? value[0].format('DD MMMM') : null"
+                        readonly
+                        @focus="open(0)"
+                    />
+                    <form-input
+                        label="تاریخ برگشت"
+                        :value="value[1] ? value[1].format('DD MMMM') : null"
+                        data-datepicker="1"
+                        readonly
+                        @focus="open(1)"
+                    />
+                </template>
+            </a-datepicker>
+            <passengers-picker
+                v-model="passengers"
+                :flight-class.sync="search.classType"
+                :is-international="isInternational"
+            >
+                <custom-input class="passenger-input passenger-input--passenger" value="۲ مسافر" />
+            </passengers-picker>
         </div>
     </b-container>
 </template>
@@ -64,6 +124,8 @@ import HamburgerMenu from '~/components/layouts/HamburgerMenu'
 import InputPair from '~/components/ui/form/InputPair'
 import ADatepicker from '~/components/ui/date-picker/ADatepicker'
 import FormInput from '~/components/ui/form/FormInput'
+import PassengersPicker from '~/components/flight/flight-search/PassengersPicker'
+import {childrenCheck, infantCheck, maxPassenger, minAdult} from '~/utils/flightHelpers'
 
 export default {
     components: {
@@ -71,13 +133,56 @@ export default {
         HamburgerMenu,
         InputPair,
         ADatepicker,
-        FormInput
+        FormInput,
+        PassengersPicker
     },
 
     data() {
         return {
             jalaaliDatepicker: true,
-            isDatepickerRange: false
+            isDatepickerRange: false,
+            date: [null, null],
+            search: {
+                type: 'roundTrip', // oneWay, roundTrip, multiDestination,
+                origin: null, //object  i, title, value
+                destination: null, //object  i, title, value
+                departing: null,
+                returning: null,
+                adult: 1,
+                child: 0,
+                infant: 0,
+                classType: 'economy' // business first
+            }
+        }
+    },
+    computed: {
+        passengers: {
+            get() {
+                return {
+                    adult: this.search.adult,
+                    child: this.search.child,
+                    infant: this.search.infant
+                }
+            },
+            set(value) {
+                const {adult, child, infant} = value
+                if (!maxPassenger(adult, child, infant)) {
+                    return
+                }
+
+                if (minAdult(adult, child, 'domestic')) {
+                    this.search.adult = adult
+                }
+
+                if (childrenCheck('domestic', adult, child)) {
+                    this.search.child = child
+                }
+
+                if (infantCheck(infant)) {
+                    this.search.infant = infant
+                }
+                Object.assign(this.search, value)
+            }
         }
     }
 }
