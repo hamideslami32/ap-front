@@ -115,7 +115,8 @@ export default {
         /deep/ > div {
             position: relative;
             margin-left: 3px;
-            flex: 1;
+            flex: 50% 0 1;
+            overflow: hidden;
 
             .badge {
                 float: right;

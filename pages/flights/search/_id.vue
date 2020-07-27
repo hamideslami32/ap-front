@@ -1,382 +1,170 @@
 <template>
-    <div class="container flight-available">
-        <header class="header">
-            <div class="header__top mb-4">
-                <hamburger-menu />
-                <div class="flight-available__reverse-section">
-                    <input-pair>
-                        <custom-input value="تهران" class="flight-available__reverse-section__input--origin" />
-                        <custom-input value="پاریس" class="flight-available__reverse-section__input--destination" />
-                    </input-pair>
-                </div>
-                <svgicon name="arrow-left" width="30" class="header__icon" height="30" />
-            </div>
-            <div class="header__bottom">
-                <passengers-picker
-                    v-model="passengers"
-                    :flight-class.sync="search.classType"
-                    :is-international="isInternational"
-                >
-                    <custom-input class="passenger-input passenger-input--class" value="اکونومی" />
-                </passengers-picker>
-                <a-datepicker
-                    v-model="date"
-                    class="date-input-pair"
-                    :jalaali.sync="jalaaliDatepicker"
-                    :range="isDatepickerRange"
-                >
-                    <template v-slot:before="{ on, value }">
-                        <span class="date-input-pair" dir="rtl">
-                            <form-input
-                                label="تاریخ رفت"
-                                icon="calendar"
-                                value="20 خرداد"
-                                readonly
-                                v-on="on"
-                            />
-                            <form-input
-                                label="تاریخ برگشت"
-                                :value="value[1] ? value[1].format('DD MMMM') : null"
-                                readonly
-                                data-datepicker="1"
-                                v-on="on"
-                            />
-                        </span>
-                    </template>
-                    <template v-slot="{ open, value }">
-                        <form-input
-                            label="تاریخ رفت"
-                            icon="calendar"
-                            :value="value[0] ? value[0].format('DD MMMM') : null"
-                            readonly
-                            @focus="open(0)"
-                        />
-                        <form-input
-                            label="تاریخ برگشت"
-                            :value="value[1] ? value[1].format('DD MMMM') : null"
-                            data-datepicker="1"
-                            readonly
-                            @focus="open(1)"
-                        />
-                    </template>
-                </a-datepicker>
-                <passengers-picker
-                    v-model="passengers"
-                    :flight-class.sync="search.classType"
-                    :is-international="isInternational"
-                >
-                    <custom-input class="passenger-input passenger-input--passenger" value="۲ مسافر" />
-                </passengers-picker>
-            </div>
-        </header>
-        <div class="flight-lists">
-            <flight-card v-for="x in 3" :key="x">
-                <flight-item />
-                <flight-item :reverse="reverse" />
-            </flight-card>
+    <div>
+        <flight-header />
+
+        <div v-if="loading" class="flight-container">
+            <flight-placeholder v-for="i in 3" :key="i" />
         </div>
-        <full-btn>
+        <div v-else-if="availables" class="flight-container">
+            <flight-card v-for="x in availables.results" :key="x.id" :available="x" />
+        </div>
+
+        <full-btn class="filter-btn">
             فیلتر و مرتب سازی
         </full-btn>
     </div>
 </template>
 
 <script>
-import HamburgerMenu from '~/components/layouts/HamburgerMenu'
-import InputPair from '~/components/ui/form/InputPair'
-import CustomInput from '~/components/ui/form/CustomInput'
-import ADatepicker from '~/components/ui/date-picker/ADatepicker'
-import FormInput from '~/components/ui/form/FormInput'
-import FlightCard from '~/components/flight/flight-search/FlightCard'
-import FlightItem from '~/components/flight/flight-search/FlightItem'
+import Axios from 'axios'
+import FlightCard from '~/components/flight/available/FlightCard'
+import FlightPlaceholder from '~/components/flight/available/FlightPlaceholder'
 import FullBtn from '~/components/ui/buttons/FullBtn'
-import PassengersPicker from '~/components/flight/flight-search/PassengersPicker'
-import {childrenCheck, infantCheck, maxPassenger, minAdult} from '~/utils/flightHelpers'
+import FlightHeader from '~/components/flight/FlightHeader'
 
 export default {
-    layout: 'empty',
+    layout: 'flight-search',
     components: {
-        PassengersPicker,
         FullBtn,
         FlightCard,
-        CustomInput,
-        HamburgerMenu,
-        InputPair,
-        ADatepicker,
-        FormInput,
-        FlightItem
+        FlightHeader,
+        FlightPlaceholder
     },
     data() {
         return {
-            jalaaliDatepicker: true,
             reverse: true,
-            date: [null, null],
-            isDatepickerRange: true,
-            search: {
-                type: 'roundTrip', // oneWay, roundTrip, multiDestination,
-                origin: null, //object  i, title, value
-                destination: null, //object  i, title, value
-                departing: null,
-                returning: null,
-                adult: 1,
-                child: 0,
-                infant: 0,
-                classType: 'economy' // business first
-            }
+            loading: false,
+            availables: null
         }
     },
     computed: {
-        passengers: {
-            get() {
-                return {
-                    adult: this.search.adult,
-                    child: this.search.child,
-                    infant: this.search.infant
-                }
-            },
-            set(value) {
-                const {adult, child, infant} = value
-                if (!maxPassenger(adult, child, infant)) {
-                    return
-                }
-
-                if (minAdult(adult, child, 'domestic')) {
-                    this.search.adult = adult
-                }
-
-                if (childrenCheck('domestic', adult, child)) {
-                    this.search.child = child
-                }
-
-                if (infantCheck(infant)) {
-                    this.search.infant = infant
-                }
-                Object.assign(this.search, value)
-            }
+        searchId() {
+            return this.$route.query.sid
         },
         isInternational() {
             const {origin, destination} = this.search
             return origin && destination && (!origin.isDomestic || !destination.isDomestic)
+        }
+    },
+    async mounted() {
+        this.loading = true
+        try {
+            let searchId = this.searchId
+            if (!this.searchId) {
+                searchId = await this.search()
+            }
+            const results = await this.startPolling(searchId)
+            this.availables = results
+        } catch (err) {
+        } finally {
+            this.loading = false
+        }
+    },
+
+    beforeDestroy() {
+        this.cancelPolling()
+    },
+
+    methods: {
+        async search() {
+            const toGregory = d => this.$dayjs(d, { jalali: true }).calendar('gregory').format()
+            const { departing, returning, business, first, adult=1, child=0, infant=0 } = this.$route.query
+            const [origin, destination] = this.$route.params.id.split('-')
+            const res = await this.$axios.$post('/flight/search', {
+                routes: [
+                    {
+                        origin,
+                        destination,
+                        date: toGregory(departing)
+                    },
+                    ...(returning ? [
+                        {
+                            origin: destination,
+                            destination: origin,
+                            date: toGregory(returning)
+                        }
+                    ] : [])
+                ],
+                class: first ? 'first' : (business ? 'business' : 'economy'),
+                adult: Number(adult),
+                child: Number(child),
+                infant: Number(infant)
+            })
+            await this.$router.push({
+                query: {
+                    ...this.$route.query,
+                    sid: res.id
+                }
+            })
+            return res.id
+        },
+        startPolling(sid, retry = 1) {
+            return this.$axios.$get('/flight/results/' + sid, {
+                cancelToken: new Axios.CancelToken(canceler => {
+                    this._pollingCanceler = canceler
+                })
+            }).then(res => {
+                if (res.progress < 100) {
+                    return new Promise(resolve => {
+                        this._pollingTimeout = setTimeout(resolve, 3000)
+                    }).then(() => this.startPolling(sid))
+                }
+                return res
+            }).catch(err => {
+                if (Axios.isCancel(err)) {
+                    return null
+                }
+                if (retry > 0) {
+                    return this.startPolling(sid, 0)
+                }
+                throw err
+            })
+        },
+        cancelPolling() {
+            this._pollingCanceler && this._pollingCanceler()
+            clearTimeout(this._pollingTimeout)
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-    .date-input-pair {
-        display: flex;
+    .flight-container {
+        padding-top: 114px + 20px;
+        -ms-overflow-style: none;
+        overflow: auto;
+        height: 100vh;
+        padding-bottom: 80px;
 
-        > div {
-            flex: 50% 1 0;
-
-            &:first-child {
-                border-top-left-radius: 0;
-                border-bottom-left-radius: 0;
-            }
-
-            &:last-child {
-                border-right: 0;
-                border-top-right-radius: 0;
-                border-bottom-right-radius: 0;
-            }
+        &::-webkit-scrollbar {
+            display: none;
         }
     }
 
-    .flight-available {
-        .header {
-            padding: 15px 10px;
-            position: fixed;
-            top: 0;
-            right: 0;
-            left: 0;
-            z-index: 1;
-            background: linear-gradient(90deg, $primary 0%, #6d4ea3 100%);
+    /deep/ .filter-btn {
+        width: 140px;
+        font-size: 0.8em;
+        height: 40px;
+        text-align: right;
+        padding-right: 15px;
+        position: fixed;
+        bottom: 20px;
+        margin: auto;
+        right: 0;
+        left: 0;
+        border-radius: 10px;
 
-            &__top {
-                display: flex;
-                align-items: center;
-
-
-                .hamburger-menu {
-                    /deep/ span {
-                        background-color: $white;
-                    }
-                }
-
-                svg {
-                    color: $white;
-                    transform: scale(1.5);
-                }
-
-            }
-
-            &__bottom {
-                display: flex;
-
-                .passenger-input {
-                    margin-bottom: 0;
-                    pointer-events: none;
-
-                    /deep/ input {
-                        text-align: center;
-                        color: $white;
-                        background: #6d4ea3;
-                        height: 30px;
-                        border: 1px solid rgba(255, 255, 255, 0.1);
-                        box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
-                        width: 80px;
-                    }
-
-                    &--class {
-                        /deep/ input {
-                            border-radius: 5px 10px 10px 5px;
-                        }
-                    }
-
-                    &--passenger {
-                        /deep/ input {
-                            border-radius: 10px 5px 5px 10px;
-                        }
-                    }
-                }
-
-                /deep/ .date-input-pair {
-                    margin: 0 10px;
-                    display: flex;
-                    background: #6d4ea3;
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    box-sizing: border-box;
-                    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
-                    border-radius: 5px;
-
-                    svg {
-                        display: none;
-                    }
-
-                    label {
-                        display: none;
-                    }
-
-                    input {
-                        background: transparent;
-                        color: $white;
-                        font-size: 13px;
-                        text-align: center;
-                        height: 100%;
-                    }
-
-                    .form-input {
-                        padding: 0 !important;
-                        border: none;
-                        background: transparent;
-                        box-shadow: none;
-
-                        &:first-child {
-                            position: relative;
-
-                            &::before {
-                                content: '';
-                                width: 1px;
-                                height: 16px;
-                                position: absolute;
-                                top: 50%;
-                                left: 0;
-                                transform: translateY(-50%);
-                                background: rgba(255, 255, 255, 0.15);
-                            }
-                        }
-
-                        > div {
-                            height: 100%;
-                        }
-                    }
-
-                }
-            }
-
-        }
-        .passengers{
-            margin: 0;
-            border: none;
-            height: auto;
-        }
-        &__reverse-section {
-            /deep/ .custom-input {
-                margin-bottom: 0;
-
-                input {
-                    background: transparent;
-                    box-shadow: none;
-                    border: none;
-                    height: 30px;
-                    color: $white;
-                    text-align: center;
-                    font-size: 17px;
-                }
-            }
-
-            /deep/ .input-pair__switch {
-                background: transparent;
-                border: none;
-
-                &:before {
-                    display: none;
-                }
-            }
-
-            &__input {
-                &--origin {
-                    padding-left: 45px;
-
-                    /deep/ > input {
-                        text-align: left !important;
-                    }
-                }
-
-                &--destination {
-                    /deep/ > input {
-                        text-align: right !important;
-                    }
-                }
-            }
-        }
-
-        .flight-lists {
-            padding-top: 113px;
-            -ms-overflow-style: none;
-            overflow: auto;
-            height: 100vh;
-
-            &::-webkit-scrollbar {
-                display: none;
-            }
-        }
-
-        /deep/ .button-search {
-            width: 140px;
-            font-size: 0.8em;
-            height: 40px;
-            text-align: right;
-            padding-right: 15px;
-            position: fixed;
-            bottom: 20px;
+        &:before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #e3469a;
+            position: absolute;
             margin: auto;
-            right: 0;
-            left: 0;
-            border-radius: 10px;
-
-            &:before {
-                content: '';
-                width: 6px;
-                height: 6px;
-                background: red;
-                position: absolute;
-                margin: auto;
-                top: 0;
-                left: 14px;
-                bottom: 0;
-                border-radius: 50%;
-            }
+            top: 0;
+            left: 14px;
+            bottom: 0;
+            border-radius: 50%;
         }
     }
 </style>

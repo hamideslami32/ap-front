@@ -1,5 +1,5 @@
 <template functional>
-    <b-button class="button-search" v-bind="data.attrs" v-on="listeners">
+    <b-button class="button-search" :class="[data.class, data.staticClass]" v-bind="data.attrs" v-on="listeners">
         <span>
             <slot />
         </span>

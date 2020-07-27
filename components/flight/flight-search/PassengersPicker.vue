@@ -1,5 +1,5 @@
 <template>
-    <div class="passengers" @click="focus">
+    <div class="position-relative" @click="focus">
         <slot />
         <b-modal v-model="showModal" title="انتخاب مسافران" hide-footer>
             <template v-slot:modal-header-close>
@@ -41,35 +41,42 @@
                 </div>
             </div>
 
-            <div v-if="isInternational">
+            <!--            <div v-if="isInternational">-->
+            <div class="passenger-class">
                 <hr class="my-4">
-                <b-form-group>
+                <p class="passenger-class__title mb-4">
+                    کلاس پروازی
+                </p>
+                <b-form-group class="en">
                     <b-form-radio
                         v-model="classSelect"
-                        class="py-2 mb-1"
+                        class="mb-2"
+                        :class="{ active: classSelect === 'economy' }"
                         checked="flightClass"
                         name="flight_class"
                         value="economy"
                     >
-                        اکونومی کلاس
+                        Economy
                     </b-form-radio>
                     <b-form-radio
                         v-model="classSelect"
-                        class="py-2 mb-1"
+                        class="mb-2"
+                        :class="{ active: classSelect === 'business' }"
                         checked="flightClass"
                         name="flight_class"
                         value="business"
                     >
-                        بیزنس کلاس
+                        Business
                     </b-form-radio>
                     <b-form-radio
                         v-model="classSelect"
-                        class="py-2 mb-1"
+                        class="mb-2"
                         checked="flightClass"
                         name="flight_class"
                         value="first"
+                        :class="{ active: classSelect === 'first' }"
                     >
-                        فرست کلاس
+                        First Class
                     </b-form-radio>
                 </b-form-group>
             </div>
@@ -169,27 +176,47 @@ export default {
         background: #f9f9f9;
     }
 
-    .passenger-section-holder{
-        &:focus, &:active{
+    .passenger-section-holder {
+        &:focus, &:active {
             background: #ffffff;
             border: 1px solid #dddddd;
             box-sizing: border-box;
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
             border-radius: 10px;
             padding: 10px;
-        }
-        .passenger-section{
-            &__name{
-                color: map_get($gray-colors, 'gray-800');
-                font-size: 0.8em;
-                font-weight: 600;
+
+
+            .passenger-select {
+                padding-top: 20px;
+
+                &__count {
+                    padding-bottom: 20px;
+                    border-bottom: 1px solid $modalBorder;
+                }
+
+                .passenger-section {
+                    &__name {
+                        color: map_get($gray-colors, 'gray-800');
+                        font-size: 0.8em;
+                        font-weight: 600;
+                    }
+                }
+
             }
         }
-
     }
 
-    .passenger-modal{
-        &__title{
+    .passenger-modal {
+        &__title {
+            color: map_get($gray-colors, 'gray-700');
+            font-size: 0.9rem;
+        }
+    }
+
+    .passenger-class {
+        color: map_get($gray-colors, 'gray-800');
+
+        &__title {
             color: map_get($gray-colors, 'gray-700');
             font-size: 0.9rem;
         }

@@ -1,6 +1,6 @@
 <template>
     <div class="mobile-layout">
-        <main class="container mobile-layout__main">
+        <main class="mobile-layout__main">
             <app-header />
             <nuxt />
         </main>

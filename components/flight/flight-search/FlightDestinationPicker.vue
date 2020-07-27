@@ -32,7 +32,7 @@
                         :key="i"
                         :item="item"
                         :show-airports="!!query"
-                        @select="select(item, true)"
+                        @select="select($event, true)"
                     />
                 </div>
             </div>

@@ -1,9 +1,10 @@
 @import '~bootstrap/scss/functions';
-$primary: #49238C;
+$primary: #49238c;
 $secondary: #666666;
-$info: #E3469A;
+$info: #e3469a;
 $grid-gutter-width: 20px;
 $black: #444444;
+$white: #fff;
 $grayColor: #999999;
 $lightGrayColor: #eeeeee;
 $darkGrayColor: #666666;
@@ -11,6 +12,8 @@ $borderColor: #dddddd;
 $modalBorder: #e6e6e6;
 
 $body-bg: #f5f5f5;
+$btn-border-radius: 10px;
+$btn-box-shadow: 0 3px 5px rgba($black, 0.05);
 
 $gray-colors : (
         "black": #000000,

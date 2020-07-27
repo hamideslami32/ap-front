@@ -1,11 +1,12 @@
 include:
-  - project: 'aproo/devops'
+  - project: 'apro/devops'
     file: '/main.yml'
 
 variables:
-  IMAGE: apro-front
+  IMAGE: registry.apro-dev.ir/apro/apro-front
+  SERVICE: "apro-front"
 
 build:
   stage: build
   script:
-    - docker build -t $IMAGE:latest --build-arg "API_URL=http://212.33.194.76/api" .
+    - docker build -t $IMAGE:latest --build-arg "API_URL=https://apro-dev.ir/api" .

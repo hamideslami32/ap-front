@@ -394,22 +394,6 @@ export default {
         }
     }
 
-    &.calendar--range {
-        .calendar__day {
-            &.selected-0::after {
-                border-radius: 0 4px 4px 0;
-            }
-
-            &.selected-1::after {
-                border-radius: 4px 0 0 4px;
-            }
-
-            &.selected-1.selected-0::after {
-                border-radius: 4px;
-            }
-        }
-    }
-
     &.calendar--gregorian {
         .calendar__day {
             &.highlight.selected-0::before {
@@ -440,22 +424,6 @@ export default {
                     $white,
                     rgba($white, 0)
                 );
-            }
-        }
-
-        &.calendar--range {
-            .calendar__day {
-                &.selected-0::after {
-                    border-radius: 4px 0 0 4px;
-                }
-
-                &.selected-1::after {
-                    border-radius: 0 4px 4px 0;
-                }
-
-                &.selected-1.selected-0::after {
-                    border-radius: 4px;
-                }
             }
         }
     }

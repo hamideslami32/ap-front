@@ -1,5 +1,5 @@
 <template>
-    <span class="passenger">
+    <div class="passenger">
         <span class="passenger__icon-holder">
             <svgicon class="passenger__icon-holder--icon" width="24" height="24" name="user" />
         </span>
@@ -23,7 +23,7 @@
                 />
             </span>
         </div>
-    </span>
+    </div>
 </template>
 
 <script>
@@ -39,6 +39,11 @@ export default {
 
 <style lang="scss" scoped>
     .passenger {
+        border: 1px solid #cccccc;
+        border-radius: 10px;
+        position: relative;
+        height: 50px;
+
         &__icon-holder {
             position: absolute;
             right: 15px;
