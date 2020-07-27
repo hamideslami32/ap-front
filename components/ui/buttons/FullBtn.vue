@@ -32,7 +32,7 @@ export default {
         border: 0;
         outline: 0;
         background: $primary;
-        border-radius: 5px;
+        border-radius: 10px;
         color: $white;
 
         &__icon-holder {
