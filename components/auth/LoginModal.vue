@@ -8,7 +8,13 @@
         </template>
         <form v-if="step === 'otp'" class="auth-form" action="#">
             <p>لطفا شماره همراه خود را وارد نمایید</p>
-            <custom-input v-model="mobile" type="tel" maxlength="11" title="شماره موبایل" />
+            <custom-input
+                v-model="mobile"
+                input-class="auth-form__input"
+                type="tel"
+                maxlength="11"
+                title="شماره موبایل"
+            />
             <full-btn type="submit" @click.prevent="requestOtp">
                 ورود
             </full-btn>
@@ -19,21 +25,28 @@
             <full-btn ref="submitBtn" :disabled="canSendVerifyCode" @click.prevent="verifyOtpRequest">
                 تأیید
             </full-btn>
-            <p class="mt-5 text-right" :class="{ 'invisible': resend }">
-                زمان اعتبار کد ارسالی
-            </p>
-            <span v-if="!resend" class="auth-form__timer-holder float-right">
-                <svgicon class="icon auth-form__timer-holder__icon" name="home" width="30" height="30" />
-                <timer :duration="duration" @finish="finishCounter" />
-            </span>
-            <b-button
-                :disabled="!resend"
-                class="float-left d-inline-block auth-form__resend-otp"
-                variant="outline-info"
-                @click.prevent="resendRequest"
-            >
-                ارسال مجدد
-            </b-button>
+            <div class="mt-5 d-flex justify-content-between align-items-center">
+                <div class="d-flex flex-column align-items-start">
+                    <span class="auth-form__tip">
+                        {{ !resend ? 'زمان اعتبار کد ارسالی به شماره' : 'کد ارسال نشد! مجدد تلاش کنید' }}
+                    </span>
+                    <span class="auth-form__number">
+                        {{ mobile }}
+                    </span>
+                </div>
+                <span v-if="!resend" class="auth-form__timer-holder">
+                    <timer :duration="duration" @finish="finishCounter" />
+                </span>
+                <b-button
+                    v-else
+                    :disabled="!resend"
+                    class="float-left d-inline-block auth-form__resend-otp"
+                    variant="outline-info"
+                    @click.prevent="resendRequest"
+                >
+                    ارسال مجدد
+                </b-button>
+            </div>
         </form>
     </b-modal>
 </template>
@@ -103,32 +116,51 @@ export default {
 
 
 <style lang="scss" scoped>
-.auth-form {
-    font-size: 15px;
-    color: $grayColor;
-    text-align: center;
+    .auth-form {
+        padding-left: 30px;
+        padding-right: 30px;
+        font-size: 15px;
+        color: $grayColor;
+        text-align: center;
 
-    &__input {
-        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
-        border-radius: 3px;
-        height: 50px;
-    }
+        /deep/ &__input {
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            height: 50px;
+            border: 1px solid map_get($gray-colors, 'gray-400');
+        }
 
-    &__resend-otp {
-        height: 38px;
-        font-size: 13px;
-        padding: 5px 20px;
-    }
+        .resend-section{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
 
-    &__timer-holder {
-        color: $darkGrayColor;
+        &__resend-otp {
+            height: 38px;
+            font-size: 0.8em;
+            padding: 5px 20px;
+        }
 
-        &__icon {
-            color: $primary;
-            padding: 5px;
-            box-sizing: content-box;
-            background: rgba(71, 32, 134, 0.1);
+        &__tip{
+            font-size: 0.7em;
+            white-space: nowrap;
+            color: map_get($gray-colors, 'gray-700');
+        }
+
+        &__number {
+            font-size: 0.8em;
+            font-weight: 600;
+            color: map_get($gray-colors, 'gray-800');
+        }
+
+        &__timer-holder {
+            color: $info;
+            border: 1px solid $info;
+            padding: 5px 20px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
         }
     }
-}
 </style>
