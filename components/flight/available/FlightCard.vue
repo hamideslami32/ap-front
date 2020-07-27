@@ -51,7 +51,6 @@ export default {
     .flight-card {
         border-radius: 10px;
         border: 1px solid #dddddd;
-        margin: 0 10px 20px;
         padding: 15px 10px 10px;
         font-weight: 600;
         position: relative;

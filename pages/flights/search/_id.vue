@@ -3,10 +3,10 @@
         <flight-header />
 
         <div v-if="loading" class="flight-container">
-            <flight-placeholder v-for="i in 3" :key="i" />
+            <flight-placeholder v-for="i in 3" :key="i" class="mb-3" />
         </div>
         <div v-else-if="availables" class="flight-container">
-            <flight-card v-for="x in availables.results" :key="x.id" :available="x" />
+            <flight-card v-for="x in availables.results" :key="x.id" class="mb-3" :available="x" />
         </div>
 
         <full-btn class="filter-btn">
@@ -130,11 +130,10 @@ export default {
 
 <style lang="scss" scoped>
     .flight-container {
-        padding-top: 114px + 20px;
+        padding: 114px + 20px 10px 80px;
         -ms-overflow-style: none;
         overflow: auto;
         height: 100vh;
-        padding-bottom: 80px;
 
         &::-webkit-scrollbar {
             display: none;

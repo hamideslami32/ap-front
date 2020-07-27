@@ -8,7 +8,13 @@
         }"
         @click="$refs.input.focus()"
     >
-        <svgicon v-if="icon" :name="icon" width="28" height="28" />
+        <svgicon
+            v-if="icon"
+            class="form-input__icon"
+            :name="icon"
+            width="28"
+            height="28"
+        />
         <div>
             <label :class="className" :for="'form_' + _uid"><slot name="label">{{ label }}</slot></label>
             <input
