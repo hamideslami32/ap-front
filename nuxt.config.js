@@ -69,7 +69,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
     axios: {
-        baseURL: process.env.API_URL
+        baseURL: process.env.API_URL || 'https://apro-dev.ir/api'
     },
     /*
    ** Content module configuration

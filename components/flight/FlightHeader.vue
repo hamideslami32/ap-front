@@ -26,28 +26,9 @@
                 :jalaali.sync="jalaaliDatepicker"
                 :range.sync="isDatepickerRange"
             >
-                <template v-slot:before="{ on, value }">
-                    <span class="date-input-pair" dir="rtl">
-                        <form-input
-                            label="تاریخ رفت"
-                            icon="calendar"
-                            value="20 خرداد"
-                            readonly
-                            v-on="on"
-                        />
-                        <form-input
-                            label="تاریخ برگشت"
-                            :value="value[1] ? value[1].format('DD MMMM YY') : null"
-                            readonly
-                            data-datepicker="1"
-                            v-on="on"
-                        />
-                    </span>
-                </template>
                 <template v-slot="{ open, value }">
                     <form-input
                         label="تاریخ رفت"
-                        icon="calendar"
                         :value="value[0] ? value[0].format('DD MMMM YY') : null"
                         readonly
                         @focus="open(0)"
@@ -110,6 +91,10 @@ export default {
         }
     },
     computed: {
+        isInternational() {
+            const {origin, destination} = this.search
+            return origin && destination && (!origin.isDomestic || !destination.isDomestic)
+        },
         passengers: {
             get() {
                 return {
@@ -195,10 +180,6 @@ export default {
                 box-sizing: border-box;
                 box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
                 border-radius: 5px;
-
-                svg {
-                    display: none;
-                }
 
                 label {
                     display: none;
