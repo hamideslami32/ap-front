@@ -1,5 +1,5 @@
 <template>
-    <span class="number-spinner d-inline-block">
+    <span class="number-spinner">
         <button @click="$emit('input', value + 1)">
             +
         </button>
@@ -23,27 +23,30 @@ export default {
 
 <style lang="scss">
     .number-spinner {
+        background: map_get($gray-colors, 'gray-500');
+        border: 1px solid $borderColor;
+        display: flex;
+        align-items: center;
+        border-radius: 10px;
+        padding: 10px;
         > button {
-            width: 30px;
-            height: 30px;
-            border: 1px solid $primary;
+            width: 20px;
+            height: 20px;
+            border: none;
             border-radius: 50%;
             font-family: sans-serif;
             display: inline-block;
             align-items: center;
+            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
             justify-content: center;
             font-size: 1.1rem;
-            color: $primary;
+            color: map_get($gray-colors, 'gray-800');
             transition: all 250ms ease;
-            background-color: transparent;
+            background-color: $white;
             outline: none !important;
             appearance: none;
+            line-height: 20px;
             padding: 0;
-            &:active {
-                background: $primary;
-                color: $white;
-                transition: all 300ms ease;
-            }
         }
 
         > span {
