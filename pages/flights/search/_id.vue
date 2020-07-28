@@ -9,9 +9,18 @@
             <flight-card v-for="x in availables.results" :key="x.id" class="mb-3" :available="x" />
         </div>
 
-        <full-btn class="filter-btn">
+        <full-btn class="filter-btn" @click="showFilter = true">
             فیلتر و مرتب سازی
         </full-btn>
+        <b-modal v-model="showFilter" hide-footer>
+            <template v-slot:modal-title>
+                فیلتر و مرتب سازی
+            </template>
+            <template v-slot:modal-header-close>
+                <svgicon name="arrow-long-right" width="20" height="20" />
+            </template>
+            <flight-filter />
+        </b-modal>
     </div>
 </template>
 
@@ -21,10 +30,12 @@ import FlightCard from '~/components/flight/available/FlightCard'
 import FlightPlaceholder from '~/components/flight/available/FlightPlaceholder'
 import FullBtn from '~/components/ui/buttons/FullBtn'
 import FlightHeader from '~/components/flight/FlightHeader'
+import FlightFilter from '~/components/flight/available/FlightFilter'
 
 export default {
     layout: 'flight-search',
     components: {
+        FlightFilter,
         FullBtn,
         FlightCard,
         FlightHeader,
@@ -34,7 +45,8 @@ export default {
         return {
             reverse: true,
             loading: false,
-            availables: null
+            availables: null,
+            showFilter: true
         }
     },
     computed: {

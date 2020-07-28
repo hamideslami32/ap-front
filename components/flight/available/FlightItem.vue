@@ -95,7 +95,7 @@ export default {
 
         &.reverse{
             background: #f9f9f9;
-            border-radius: 0px 0px 10px 10px;
+            border-radius: 0 0 10px 10px;
         }
 
         &__title {
