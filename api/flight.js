@@ -8,18 +8,4 @@ export const flightApi = new class FlightApi extends BaseApi {
             }
         })
     }
-
-    createSearch(data) {
-        return this.axios.$post('/flight/search', data)
-    }
-
-    getSearchSession(id) {
-        return this.axios.$get('/flight/search/' + id)
-    }
-
-    getResults(searchId, cancelToken) {
-        return this.axios.$get('/flight/results/' + searchId, {
-            cancelToken
-        })
-    }
 }

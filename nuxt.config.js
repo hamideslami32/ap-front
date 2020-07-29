@@ -30,7 +30,6 @@ export default {
    ** https://nuxtjs.org/guide/plugins
    */
     plugins: [
-        '~plugins/global-components',
         '~plugins/svg',
         '~plugins/numbers',
         '~plugins/auth',

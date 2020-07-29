@@ -1,5 +1,5 @@
 <template>
-    <div class="flight-item">
+    <div class="flight-item" :class="{ reverse }">
         <div class="d-flex">
             <span class="flight-item__title">پرواز {{ title }}</span>
         </div>
@@ -92,6 +92,11 @@ export default {
         color: #888888;
         padding: 10px;
         font-weight: 400;
+
+        &.reverse{
+            background: #f9f9f9;
+            border-radius: 0px 0px 10px 10px;
+        }
 
         &__title {
             font-size: 0.7em;

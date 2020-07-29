@@ -41,7 +41,8 @@
                 </div>
             </div>
 
-            <div v-if="isInternational" class="passenger-class">
+            <!--            <div v-if="isInternational">-->
+            <div class="passenger-class">
                 <hr class="my-4">
                 <p class="passenger-class__title mb-4">
                     کلاس پروازی
@@ -84,6 +85,7 @@
 </template>
 
 <script>
+import {translateFlightClass} from '~/utils/flightHelpers'
 import NumberSpinner from '~/components/ui/form/NumberSpinner'
 
 export default {
@@ -93,7 +95,7 @@ export default {
     props: {
         flightClass: {
             type: String,
-            default: null
+            required: true
         },
         value: {
             type: Object,
@@ -117,6 +119,10 @@ export default {
             set(value) {
                 this.$emit('update:flightClass', value)
             }
+        },
+        passengerCounts() {
+            const allPassengerCount = this.value.adult + this.value.child + this.value.infant
+            return `${allPassengerCount} مسافر${this.isInternational ? ', ' + translateFlightClass(this.flightClass) : ''}`
         }
     },
     methods: {

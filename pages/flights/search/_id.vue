@@ -1,15 +1,17 @@
 <template>
     <div>
+        <flight-header />
+
         <div v-if="loading" class="flight-container">
             <flight-placeholder v-for="i in 3" :key="i" class="mb-3" />
         </div>
         <div v-else-if="availables" class="flight-container">
-            <flight-card v-for="(x, i) in availables.results" :key="i" class="mb-3" :available="x" />
+            <flight-card v-for="x in availables.results" :key="x.id" class="mb-3" :available="x" />
         </div>
 
-        <a-btn wrapper-class="filter-btn" variant="primary">
+        <full-btn class="filter-btn">
             فیلتر و مرتب سازی
-        </a-btn>
+        </full-btn>
     </div>
 </template>
 
@@ -17,12 +19,15 @@
 import Axios from 'axios'
 import FlightCard from '~/components/flight/available/FlightCard'
 import FlightPlaceholder from '~/components/flight/available/FlightPlaceholder'
-import { flightApi } from '~/api/flight'
+import FullBtn from '~/components/ui/buttons/FullBtn'
+import FlightHeader from '~/components/flight/FlightHeader'
 
 export default {
     layout: 'flight-search',
     components: {
+        FullBtn,
         FlightCard,
+        FlightHeader,
         FlightPlaceholder
     },
     data() {
@@ -65,7 +70,7 @@ export default {
             const toGregory = d => this.$dayjs(d, { jalali: true }).calendar('gregory').format()
             const { departing, returning, business, first, adult=1, child=0, infant=0 } = this.$route.query
             const [origin, destination] = this.$route.params.id.split('-')
-            const res = await flightApi.createSearch( {
+            const res = await this.$axios.$post('/flight/search', {
                 routes: [
                     {
                         origin,
@@ -94,9 +99,11 @@ export default {
             return res.id
         },
         startPolling(sid, retry = 1) {
-            return flightApi.getResults( sid, new Axios.CancelToken(canceler => {
-                this._pollingCanceler = canceler
-            })).then(res => {
+            return this.$axios.$get('/flight/results/' + sid, {
+                cancelToken: new Axios.CancelToken(canceler => {
+                    this._pollingCanceler = canceler
+                })
+            }).then(res => {
                 if (res.progress < 100) {
                     return new Promise(resolve => {
                         this._pollingTimeout = setTimeout(resolve, 3000)
@@ -134,26 +141,29 @@ export default {
     }
 
     /deep/ .filter-btn {
+        width: 140px;
         font-size: 0.8em;
+        height: 40px;
+        text-align: right;
+        padding-right: 15px;
         position: fixed;
         bottom: 20px;
         margin: auto;
-        left: 50%;
-        transform: translateX(-50%);
+        right: 0;
+        left: 0;
+        border-radius: 10px;
 
-        .btn {
-            width: 140px;
-            height: 40px;
-            position: relative;
-            &::after {
-                content: '';
-                width: 6px;
-                height: 6px;
-                display: inline-block;
-                background: #e3469a;
-                margin-right: 5px;
-                border-radius: 50%;
-            }
+        &:before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #e3469a;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            left: 14px;
+            bottom: 0;
+            border-radius: 50%;
         }
     }
 </style>
