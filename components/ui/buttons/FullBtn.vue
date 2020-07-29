@@ -1,9 +1,9 @@
 <template functional>
-    <b-button class="button-search" :class="[data.class, data.staticClass]" v-bind="data.attrs" v-on="listeners">
+    <b-button class="full-btn" :class="[data.class, data.staticClass]" v-bind="data.attrs" v-on="listeners">
         <span>
             <slot />
         </span>
-        <span v-if="props.icon" class="button-search__icon-holder">
+        <span v-if="props.icon" class="full-btn__icon-holder">
             <svgicon :name="props.icon" width="24" height="24" />
         </span>
     </b-button>
@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .button-search {
+    .full-btn {
         position: relative;
         height: 50px;
         display: block;
@@ -47,6 +47,19 @@ export default {
             justify-content: center;
             top: 10%;
             color: $white;
+        }
+
+        &::after {
+            $size: 1px;
+            content: ' ';
+            position: absolute;
+            top: -$size;
+            left: -$size;
+            right: -$size;
+            bottom: -$size;
+            background: linear-gradient(180deg, rgba(255,255,255, 0) 57.81%, #e3469a 100%);
+            z-index: -1;
+            border-radius: 10px;
         }
     }
 

@@ -38,7 +38,11 @@ export default {
             this.$emit('focus', type)
         },
         async switchInputs() {
+            this.$emit('switch')
             const vms = this.$children.slice(1)
+            if (vms.length !== 2) {
+                return
+            }
             const [v0, v1] = vms.map(el => el.value)
             vms[0].$emit('input', v1)
             vms[1].$emit('input', v0)

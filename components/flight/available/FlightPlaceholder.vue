@@ -1,5 +1,5 @@
 <template functional>
-    <div class="flight-placeholder d-flex flex-column">
+    <div :key="data.key" class="flight-placeholder d-flex flex-column">
         <div class="py-3 px-2">
             <span style="width: 120px;" />
             <span style="width: 60px; height: 12px;" />
@@ -11,8 +11,8 @@
         </div>
 
         <div class="clearfix py-3">
-            <span class="float-right" style="width: 50px" />
-            <span class="float-left" style="width: 50px" />
+            <span class="float-right" style="width: 50px;" />
+            <span class="float-left" style="width: 50px;" />
         </div>
     </div>
 </template>
