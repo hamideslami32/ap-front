@@ -10,6 +10,7 @@ import {flightApi} from '~/api/flight'
 import FlightHeader from '~/components/flight/FlightHeader'
 
 export default {
+    name: 'FlightSearch',
     components: {
         FlightHeader
     },
