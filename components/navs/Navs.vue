@@ -37,7 +37,6 @@ export default {
     text-align: right;
     white-space: nowrap;
     -ms-overflow-style: none;
-    scrollbar-width: none;
 
     &::-webkit-scrollbar {
         display: none;

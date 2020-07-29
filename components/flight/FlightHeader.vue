@@ -26,19 +26,19 @@
                 :jalaali.sync="jalaaliDatepicker"
                 :range.sync="isDatepickerRange"
             >
-                <template v-slot="{ open, value }">
+                <template v-slot="{ open, value, on }">
                     <input
                         type="text"
                         :value="value[0] ? value[0].format('DD MMMM') : null"
                         readonly
-                        @focus="open(0)"
+                        v-on="on"
                     >
                     <input
                         type="text"
                         :value="value[1] ? value[1].format('DD MMMM') : null"
                         data-datepicker="1"
                         readonly
-                        @focus="open(1)"
+                        v-on="on"
                     >
                 </template>
             </a-datepicker>
@@ -85,8 +85,10 @@ export default {
                     }[x.routes.length] || 'multiDestination', // oneWay, roundTrip, multiDestination,
                     origin: x.routes[0].origin, //object  i, title, value
                     destination: x.routes[0].destination, //object  i, title, value
-                    departing: this.$dayjs(x.departing),
-                    returning: this.$dayjs(x.returning),
+                    departing: this.$dayjs(x.routes[0].date),
+                    ...(x.routes.length === 2 ? {
+                        returning: this.$dayjs(x.routes[1].date)
+                    }: {}),
                     adult: x.adult,
                     child: x.child,
                     infant: x.infant,

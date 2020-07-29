@@ -120,8 +120,8 @@ export default {
             if (!search) {
                 return null
             }
-            search.departing = this.$dayjs(search.departing)
-            search.returning = this.$dayjs(search.returning)
+            search.departing = search.departing && this.$dayjs(search.departing)
+            search.returning = search.returning && this.$dayjs(search.returning)
             return search
         }
     }

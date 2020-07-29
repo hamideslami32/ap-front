@@ -4,7 +4,7 @@ import {BButton} from 'bootstrap-vue'
 Vue.component('a-btn', {
     functional: true,
     render(h, ctx) {
-        const { 'wrapper-class': wrapperClass, ...attrs } = ctx.data.attrs
+        const { 'wrapper-class': wrapperClass, ...attrs } = ctx.data.attrs || {}
         return h('span', {
             staticClass: 'btn-wrapper',
             class: wrapperClass
@@ -17,3 +17,8 @@ Vue.component('a-btn', {
         // return BButton.render(h, ctx)
     }
 })
+
+if (process.browser) {
+    const FastClick = require('fastclick')
+    new FastClick(document.body)
+}

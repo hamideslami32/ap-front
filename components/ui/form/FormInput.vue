@@ -23,8 +23,8 @@
                 v-model="localValue"
                 v-bind="$attrs"
                 :class="className"
-                @focus="onFocus(true)"
-                @blur="onFocus(false)"
+                @focus="onFocus(true, $event)"
+                @blur="onFocus(false, $event)"
             >
         </div>
     </div>
@@ -69,11 +69,11 @@ export default {
     },
 
     methods: {
-        onFocus(focus) {
+        onFocus(focus, e) {
             if (!this.$attrs.readonly) {
                 this.focus = focus
             }
-            this.$emit(focus ? 'focus' : 'blur')
+            this.$emit(focus ? 'focus' : 'blur', e)
         }
     }
 }
