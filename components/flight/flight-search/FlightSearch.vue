@@ -121,7 +121,10 @@ export default {
     },
 
     mounted() {
-        this.search = this.getLastSearch()
+        const lastSearch = this.getLastSearch()
+        if (lastSearch) {
+            this.search = lastSearch
+        }
     }
 }
 </script>
