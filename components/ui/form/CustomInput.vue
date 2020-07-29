@@ -11,6 +11,7 @@
         <input
             ref="input"
             v-model="localValue"
+            class="form-control"
             :placeholder="title"
             v-bind="$attrs"
             :class="inputClass"

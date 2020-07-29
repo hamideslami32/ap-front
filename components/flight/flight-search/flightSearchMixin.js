@@ -5,9 +5,6 @@ const translateFlightClass = (en) => ({
 }[en] || '')
 
 export default {
-
-    inject: ['$session'],
-
     data() {
         return {
             jalaaliDatepicker: true,
@@ -69,27 +66,6 @@ export default {
     },
 
     watch: {
-        '$session.session': {
-            deep: true,
-            immediate: true,
-            handler(x) {
-                if (!x || !x.adult) return
-                this.search = {
-                    type: {
-                        1: 'oneWay',
-                        2: 'roundTrip'
-                    }[x.routes.length] || 'multiDestination', // oneWay, roundTrip, multiDestination,
-                    origin: x.routes[0].origin, //object  i, title, value
-                    destination: x.routes[0].destination, //object  i, title, value
-                    departing: this.$dayjs(x.departing),
-                    returning: this.$dayjs(x.returning),
-                    adult: x.adult,
-                    child: x.child,
-                    infant: x.infant,
-                    classType: x['class'] // business first
-                }
-            }
-        },
         'isInternational': {
             immediate: true,
             handler(x) {
