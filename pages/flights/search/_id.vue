@@ -42,7 +42,7 @@ export default {
             reverse: true,
             loading: false,
             availables: null,
-            showFilter: true
+            showFilter: false
         }
     },
     computed: {

@@ -11,7 +11,8 @@ Vue.component('a-btn', {
         }, [h(BButton, {
             class: [ctx.data.class, ctx.data.staticClass],
             attrs: attrs,
-            props: attrs
+            props: attrs,
+            on: ctx.listeners
         }, ctx.slots().default)])
         // return BButton.render(h, ctx)
     }
