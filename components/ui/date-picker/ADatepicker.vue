@@ -564,7 +564,7 @@ export default {
         flex-wrap: wrap;
         justify-content: flex-start;
         position: absolute;
-        top: 185px;
+        top: 100px;
         left: 0;
         right: 0;
         bottom: 0;

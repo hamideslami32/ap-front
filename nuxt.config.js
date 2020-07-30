@@ -46,7 +46,8 @@ export default {
    ** Nuxt.js dev-modules
    */
     buildModules: [
-        '@nuxtjs/style-resources'
+        '@nuxtjs/style-resources',
+        ['@nuxtjs/pwa', { icon: false }]
         /*     '@nuxtjs/eslint-module',
         '@nuxtjs/stylelint-module' */
         // Doc: https://github.com/nuxt-community/eslint-module
@@ -58,7 +59,6 @@ export default {
     modules: [
         // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/axios',
-        '@nuxtjs/pwa',
         // Doc: https://github.com/nuxt/content
         // '@nuxt/content',
         '@nuxtjs/device',

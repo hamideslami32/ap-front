@@ -8,7 +8,7 @@
             </input-pair>
             <a-datepicker
                 v-model="date"
-                class="date-input-pair mb-3"
+                class="date-input-pair mb-3 a-datepicker--top"
                 :jalaali.sync="jalaaliDatepicker"
                 :range.sync="isDatepickerRange"
             >
@@ -23,14 +23,14 @@
                             v-on="on"
                         />
                         <svgicon
-                            v-show="search.type !== 'oneWay'"
+                            v-if="search.type !== 'oneWay'"
                             class="pair-icon"
                             name="calendar"
                             width="28"
                             height="28"
                         />
                         <form-input
-                            v-show="search.type !== 'oneWay'"
+                            v-if="search.type !== 'oneWay'"
                             label="تاریخ برگشت"
                             :value="value[1] ? value[1].format('dddd DD MMMM YY') : null"
                             readonly
@@ -49,14 +49,14 @@
                         v-on="on"
                     />
                     <svgicon
-                        v-show="search.type !== 'oneWay'"
+                        v-if="search.type !== 'oneWay'"
                         class="pair-icon"
                         name="calendar"
                         width="28"
                         height="28"
                     />
                     <form-input
-                        v-show="search.type !== 'oneWay'"
+                        v-if="search.type !== 'oneWay'"
                         label="تاریخ برگشت"
                         :value="value[1] ? value[1].format('dddd DD MMMM YY') : null"
                         data-datepicker="1"
@@ -153,18 +153,27 @@ export default {
 
         > div {
             flex: 50% 1 0;
-            border-radius: 10px;
+            border-radius: 0;
 
             &:first-child {
-                border-top-left-radius: 0;
-                border-bottom-left-radius: 0;
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px;
             }
 
             &:last-child {
-                border-right: 0;
-                border-top-right-radius: 0;
-                border-bottom-right-radius: 0;
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
             }
+
+            & ~ div {
+                border-right: 0;
+            }
+        }
+    }
+
+    .a-datepicker--top {
+        .a-datepicker__container {
+            top: 185px;
         }
     }
 </style>
