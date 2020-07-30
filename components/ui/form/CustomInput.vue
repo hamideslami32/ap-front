@@ -8,15 +8,16 @@
             height="15"
             :fill="false"
         />
-        <b-input
+        <input
             ref="input"
             v-model="localValue"
+            class="form-control"
             :placeholder="title"
             v-bind="$attrs"
             :class="inputClass"
             @keyup="$emit('keyup', $event)"
             @keypress="$emit('keypress', $event)"
-        />
+        >
     </span>
 </template>
 

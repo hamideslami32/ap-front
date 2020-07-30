@@ -199,9 +199,10 @@ export default {
         on() {
             const self = this
             return {
-                focus({target}) {
-                    self.open(target.getAttribute('data-datepicker') * 1)
-                    target.blur && target.blur()
+                focus(e) {
+                    self.open(e ? e.target.getAttribute('data-datepicker') * 1 : 0)
+                    e && e.target.blur && e.target.blur()
+                    e && e.preventDefault()
                 },
                 input(value) {
                     self.open(self.focus)

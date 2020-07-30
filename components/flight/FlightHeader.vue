@@ -1,14 +1,14 @@
 <template>
     <b-container tag="header" class="flight-header" fluid>
         <div class="flight-header__top mb-4">
-            <hamburger-menu class="white" />
+            <hamburger-menu class="white my-1" />
             <div class="flight-header__destinations">
-                <input-pair>
-                    <custom-input value="تهران" />
-                    <custom-input value="پاریس" />
+                <input-pair @switch="switchDestinations">
+                    <input v-if="search.origin" type="text" :value="search.origin.city.fa">
+                    <input v-if="search.destination" type="text" :value="search.destination.city.fa">
                 </input-pair>
             </div>
-            <button class="btn-raw" @click="$router.push('/flights')">
+            <button class="btn-raw btn-back" @click="$router.push('/flights')">
                 <svgicon name="arrow-left" width="20" height="20" />
             </button>
         </div>
@@ -18,7 +18,7 @@
                 :flight-class.sync="search.classType"
                 :is-international="isInternational"
             >
-                <custom-input class="passenger-input" value="اکونومی" />
+                <input type="text" class="passenger-input" :value="classTypeText">
             </passengers-picker>
             <a-datepicker
                 v-model="date"
@@ -26,20 +26,20 @@
                 :jalaali.sync="jalaaliDatepicker"
                 :range.sync="isDatepickerRange"
             >
-                <template v-slot="{ open, value }">
-                    <form-input
-                        label="تاریخ رفت"
-                        :value="value[0] ? value[0].format('DD MMMM YY') : null"
+                <template v-slot="{ open, value, on }">
+                    <input
+                        type="text"
+                        :value="value[0] ? value[0].format('DD MMMM') : null"
                         readonly
-                        @focus="open(0)"
-                    />
-                    <form-input
-                        label="تاریخ برگشت"
-                        :value="value[1] ? value[1].format('DD MMMM YY') : null"
+                        v-on="on"
+                    >
+                    <input
+                        type="text"
+                        :value="value[1] ? value[1].format('DD MMMM') : null"
                         data-datepicker="1"
                         readonly
-                        @focus="open(1)"
-                    />
+                        v-on="on"
+                    >
                 </template>
             </a-datepicker>
             <passengers-picker
@@ -47,81 +47,76 @@
                 :flight-class.sync="search.classType"
                 :is-international="isInternational"
             >
-                <custom-input class="passenger-input" value="۲ مسافر" />
+                <input type="text" class="passenger-input" :value="passengersCount + ' مسافر'">
             </passengers-picker>
         </div>
     </b-container>
 </template>
 
 <script>
-import CustomInput from '~/components/ui/form/CustomInput'
 import HamburgerMenu from '~/components/layouts/HamburgerMenu'
 import InputPair from '~/components/ui/form/InputPair'
 import ADatepicker from '~/components/ui/date-picker/ADatepicker'
-import FormInput from '~/components/ui/form/FormInput'
 import PassengersPicker from '~/components/flight/flight-search/PassengersPicker'
-import {childrenCheck, infantCheck, maxPassenger, minAdult} from '~/utils/flightHelpers'
+import flightSearchMixin from '~/components/flight/flight-search/flightSearchMixin'
 
 export default {
     components: {
-        CustomInput,
         HamburgerMenu,
         InputPair,
         ADatepicker,
-        FormInput,
         PassengersPicker
     },
 
-    data() {
-        return {
-            jalaaliDatepicker: true,
-            isDatepickerRange: false,
-            date: [null, null],
-            search: {
-                type: 'roundTrip', // oneWay, roundTrip, multiDestination,
-                origin: null, //object  i, title, value
-                destination: null, //object  i, title, value
-                departing: null,
-                returning: null,
-                adult: 1,
-                child: 0,
-                infant: 0,
-                classType: 'economy' // business first
+    inject: ['$session'],
+
+    mixins: [flightSearchMixin],
+
+    watch: {
+        '$session.session': {
+            deep: true,
+            immediate: true,
+            handler(x) {
+                if (!x || !x.adult) return
+                this.search = {
+                    type: {
+                        1: 'oneWay',
+                        2: 'roundTrip'
+                    }[x.routes.length] || 'multiDestination', // oneWay, roundTrip, multiDestination,
+                    origin: x.routes[0].origin, //object  i, title, value
+                    destination: x.routes[0].destination, //object  i, title, value
+                    departing: this.$dayjs(x.routes[0].date),
+                    ...(x.routes.length === 2 ? {
+                        returning: this.$dayjs(x.routes[1].date)
+                    }: {}),
+                    adult: x.adult,
+                    child: x.child,
+                    infant: x.infant,
+                    classType: x['class'] // business first
+                }
             }
         }
     },
-    computed: {
-        isInternational() {
-            const {origin, destination} = this.search
-            return origin && destination && (!origin.isDomestic || !destination.isDomestic)
-        },
-        passengers: {
-            get() {
-                return {
-                    adult: this.search.adult,
-                    child: this.search.child,
-                    infant: this.search.infant
-                }
-            },
-            set(value) {
-                const {adult, child, infant} = value
-                if (!maxPassenger(adult, child, infant)) {
-                    return
-                }
 
-                if (minAdult(adult, child, 'domestic')) {
-                    this.search.adult = adult
-                }
+    mounted() {
+        [...this.$el.querySelectorAll('input')].forEach(el => {
+            el.addEventListener('focus', e => {
+                e.preventDefault()
+                e.target.blur()
+            })
+        })
+    },
 
-                if (childrenCheck('domestic', adult, child)) {
-                    this.search.child = child
+    methods: {
+        switchDestinations() {
+            const { $route } = this
+            this.$router.push({
+                path: $route.params.id.split('-').reverse().join('-'),
+                query: {
+                    ...$route.query,
+                    sid: undefined
                 }
-
-                if (infantCheck(infant)) {
-                    this.search.infant = infant
-                }
-                Object.assign(this.search, value)
-            }
+            })
         }
     }
 }
@@ -136,29 +131,25 @@ export default {
         left: 0;
         z-index: 1;
         background: linear-gradient(90deg, $primary 0%, #6d4ea3 100%);
+        color: $white;
 
-        &__top {
-            display: flex;
-            align-items: center;
+        /deep/ input {
+            background-clip: border-box !important;
+            appearance: none;
+            outline: none;
+            display: inline-block;
+            box-shadow: none;
+            font-size: 0.75rem;
             color: $white;
+            border: 1px solid rgba($white, 0.1);
+            background-color: #6d4ea3;
+            text-align: center;
+            padding: 5px 15px;
+            width: 100%;
         }
 
         &__bottom {
             display: flex;
-
-            .passenger-input {
-                margin-bottom: 0;
-
-                /deep/ input {
-                    text-align: center;
-                    color: $white;
-                    background: rgba($white, 0.1);
-                    height: 30px;
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
-                    width: 80px;
-                }
-            }
 
             > div:first-child {
                 /deep/ input {
@@ -175,48 +166,28 @@ export default {
             /deep/ .date-input-pair {
                 margin: 0 10px;
                 display: flex;
-                background-color: rgba($white, 0.1);
                 border: 1px solid rgba(255, 255, 255, 0.1);
+                background-color: #6d4ea3;
                 box-sizing: border-box;
                 box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
                 border-radius: 5px;
-
-                label {
-                    display: none;
-                }
+                overflow: hidden;
 
                 input {
-                    background: transparent;
-                    color: $white;
-                    font-size: 13px;
-                    text-align: center;
                     height: 100%;
+                    border: 0;
+                    border-radius: 0;
+                    background-color: transparent;
                 }
 
-                .form-input {
-                    padding: 0 !important;
-                    border: none;
-                    background: transparent;
-                    box-shadow: none;
-
-                    &:first-child {
-                        position: relative;
-
-                        &::before {
-                            content: '';
-                            width: 1px;
-                            height: 16px;
-                            position: absolute;
-                            top: 50%;
-                            left: 0;
-                            transform: translateY(-50%);
-                            background: rgba(255, 255, 255, 0.15);
-                        }
-                    }
-
-                    > div {
-                        height: 100%;
-                    }
+                &::before {
+                    content: '';
+                    width: 1px;
+                    position: absolute;
+                    top: 7px;
+                    left: 50%;
+                    bottom: 7px;
+                    background: rgba(255, 255, 255, 0.15);
                 }
 
             }
@@ -224,25 +195,22 @@ export default {
 
 
         &__destinations {
-            /deep/ .custom-input {
-                margin: 0 22px 0;
+            input {
+                background: transparent;
+                border: none;
+                height: 30px;
+                color: $white;
+                font-size: 17px;
+                text-align: left;
+                padding: 10px 35px;
 
-                input {
-                    background: transparent;
-                    box-shadow: none;
-                    border: none;
-                    height: 30px;
-                    color: $white;
-                    font-size: 17px;
-                    text-align: left;
-                }
-
-                &:last-child input {
+                &:last-child {
                     text-align: right;
                 }
             }
 
             /deep/ .input-pair__switch {
+                z-index: 4;
                 background: transparent;
                 border: none;
 
@@ -250,6 +218,17 @@ export default {
                     display: none;
                 }
             }
+        }
+
+        /deep/ .hamburger-menu, .btn-back {
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 18px 15px;
+        }
+        .btn-back {
+            left: 0;
+            right: auto;
         }
     }
 </style>

@@ -1,0 +1,25 @@
+.btn-wrapper {
+    position: relative;
+    display: inline-block;
+
+    &::after {
+        $size: 1px;
+        content: ' ';
+        position: absolute;
+        top: -$size;
+        left: -$size;
+        right: -$size;
+        bottom: -$size;
+        background: linear-gradient(180deg, rgba(255,255,255, 0) 57.81%, #E3469A 100%);
+        z-index: -1;
+        border-radius: 10px;
+    }
+
+    .btn {
+        font-size: inherit;
+    }
+
+    .btn:active {
+        transform: translateY(2px);
+    }
+}

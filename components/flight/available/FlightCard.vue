@@ -18,7 +18,7 @@
             <div class="alternative-holder">
                 <div class="alternative">
                     <div class="shape" />
-                    <span>۲۵ پرواز مشابه</span>
+                    <span>{{ similarFlightsCount }} پرواز مشابه</span>
                 </div>
             </div>
             <div class="float-left d-flex align-items-center">
@@ -42,6 +42,11 @@ export default {
         available: {
             type: Object,
             required: true
+        }
+    },
+    computed: {
+        similarFlightsCount() {
+            return this.available.routes.reduce((carry, item) => Math.max(carry, item.flights.length), 0)
         }
     }
 }

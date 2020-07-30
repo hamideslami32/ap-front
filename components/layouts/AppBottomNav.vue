@@ -49,6 +49,7 @@ export default {
     justify-content: space-around;
     align-items: center;
     border-top: 1px solid #e6e6e6;
+    background-color: $white;
 
     &__item {
         text-decoration: none;

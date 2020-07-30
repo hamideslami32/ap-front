@@ -39,10 +39,11 @@ export default {
 
 <style lang="scss" scoped>
     .passenger {
-        border: 1px solid #cccccc;
+        border: 1px solid #ccc;
         border-radius: 10px;
         position: relative;
         height: 50px;
+        background-color: $white;
 
         &__icon-holder {
             position: absolute;
