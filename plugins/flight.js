@@ -27,5 +27,8 @@ export default async function(ctx, inject) {
     if (process.server && sid) {
         ctx.ssrContext.nuxt.session = await flight.fetchSession(sid).catch(() => null)
     }
+    if (process.browser && sid && !flight.session) {
+        await flight.fetchSession(sid)
+    }
     inject('flight', flight)
 }
