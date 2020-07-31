@@ -1,7 +1,7 @@
 <template>
     <div class="position-relative" @click="focus">
         <slot />
-        <b-modal v-model="showModal" title="انتخاب مسافران" hide-footer>
+        <b-modal v-model="showModal" title="انتخاب مسافران" hide-footer @hide="updateValue">
             <template v-slot:modal-header-close>
                 <svgicon name="arrow-long-right" width="20" height="20" />
             </template>
@@ -17,7 +17,7 @@
                             <small class="passenger-section__tip text-muted">(12 سال به بالا)</small>
                         </div>
                     </div>
-                    <number-spinner :value="value.adult" class="mr-auto" @input="setValue('adult', $event)" />
+                    <number-spinner :value="localValue.adult" class="mr-auto" @input="setValue('adult', $event)" />
                 </div>
                 <div class="d-flex align-items-center mb-3">
                     <div class="passenger-section d-flex">
@@ -27,7 +27,7 @@
                             <small class="text-muted">(2 سال تا 12 سال)</small>
                         </div>
                     </div>
-                    <number-spinner :value="value.child" class="mr-auto" @input="setValue('child', $event)" />
+                    <number-spinner :value="localValue.child" class="mr-auto" @input="setValue('child', $event)" />
                 </div>
                 <div class="d-flex align-items-center mb-3">
                     <div class="passenger-section d-flex">
@@ -37,7 +37,7 @@
                             <small class="text-muted">(10 روز تا 2 سال)</small>
                         </div>
                     </div>
-                    <number-spinner :value="value.infant" class="mr-auto" @input="setValue('infant', $event)" />
+                    <number-spinner :value="localValue.infant" class="mr-auto" @input="setValue('infant', $event)" />
                 </div>
             </div>
 
@@ -46,7 +46,7 @@
                 <p class="passenger-class__title mb-4">
                     کلاس پروازی
                 </p>
-                <b-form-group class="en">
+                <b-form-group class="en font-weight-medium">
                     <b-form-radio
                         v-model="classSelect"
                         class="mb-2"
@@ -85,6 +85,7 @@
 
 <script>
 import NumberSpinner from '~/components/ui/form/NumberSpinner'
+import cloneDeep from 'lodash/cloneDeep'
 
 export default {
     components: {
@@ -106,7 +107,8 @@ export default {
     },
     data() {
         return {
-            showModal: false
+            showModal: false,
+            localValue: cloneDeep(this.value)
         }
     },
     computed: {
@@ -119,6 +121,11 @@ export default {
             }
         }
     },
+    watch: {
+        value(t) {
+            this.localValue = cloneDeep(t)
+        }
+    },
     methods: {
         focus() {
             this.open()
@@ -127,14 +134,17 @@ export default {
             this.showModal = true
         },
         setValue(type, value) {
-            const newValue = {...this.value}
+            const newValue = {...this.localValue}
             newValue[type] = value
             try {
                 this.validate(newValue)
-                this.$emit('input', newValue)
+                this.localValue = newValue
             } catch (e) {
                 e.message && this.$emit('error', e.message)
             }
+        },
+        updateValue() {
+            this.$emit('input', this.localValue)
         },
         validate({adult, child, infant}) {
             const MAX_PASSENGERS = 9
@@ -168,36 +178,6 @@ export default {
         position: relative;
         height: 50px;
         background: #f9f9f9;
-    }
-
-    .passenger-section-holder {
-        &:focus, &:active {
-            background: #ffffff;
-            border: 1px solid #dddddd;
-            box-sizing: border-box;
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
-            border-radius: 10px;
-            padding: 10px;
-
-
-            .passenger-select {
-                padding-top: 20px;
-
-                &__count {
-                    padding-bottom: 20px;
-                    border-bottom: 1px solid $modalBorder;
-                }
-
-                .passenger-section {
-                    &__name {
-                        color: map_get($gray-colors, 'gray-800');
-                        font-size: 0.8em;
-                        font-weight: 600;
-                    }
-                }
-
-            }
-        }
     }
 
     .passenger-modal {

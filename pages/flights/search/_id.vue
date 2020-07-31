@@ -6,20 +6,32 @@
         <div v-else-if="availables" class="flight-container">
             <flight-card v-for="(x, i) in availables.results" :key="i" class="mb-3" :available="x" />
         </div>
+        <div v-else-if="error" class="flight-container">
+            <b-alert variant="danger" show>
+                {{ error.message }}
+            </b-alert>
+            <div class="text-center">
+                <b-btn variant="outline-info" @click="refresh">
+                    تلاش مجدد
+                </b-btn>
+            </div>
+        </div>
 
-        <a-btn wrapper-class="filter-btn" variant="primary" @click="showFilter = true">
-            فیلتر و مرتب سازی
-        </a-btn>
-
-        <b-modal v-model="showFilter" hide-footer>
-            <template v-slot:modal-title>
+        <template v-if="availables && availables.filters">
+            <a-btn wrapper-class="filter-btn" variant="primary" @click="showFilter = true">
                 فیلتر و مرتب سازی
-            </template>
-            <template v-slot:modal-header-close>
-                <svgicon name="arrow-long-right" width="20" height="20" />
-            </template>
-            <flight-filter />
-        </b-modal>
+            </a-btn>
+
+            <b-modal v-model="showFilter" hide-footer>
+                <template v-slot:modal-title>
+                    فیلتر و مرتب سازی
+                </template>
+                <template v-slot:modal-header-close>
+                    <svgicon name="arrow-long-right" width="20" height="20" />
+                </template>
+                <flight-filter v-model="filters" :options="availables.filters" />
+            </b-modal>
+        </template>
     </div>
 </template>
 
@@ -28,7 +40,7 @@ import Axios from 'axios'
 import FlightCard from '~/components/flight/available/FlightCard'
 import FlightPlaceholder from '~/components/flight/available/FlightPlaceholder'
 import { flightApi } from '~/api/flight'
-import FlightFilter from '~/components/flight/available/FlightFilter'
+import FlightFilter from '~/components/flight/available/filter/FlightFilter'
 
 export default {
     layout: 'flight-search',
@@ -42,7 +54,11 @@ export default {
             reverse: true,
             loading: false,
             availables: null,
-            showFilter: false
+            showFilter: false,
+            error: null,
+            filters: {
+                sort: null
+            }
         }
     },
     computed: {
@@ -54,6 +70,18 @@ export default {
             return origin && destination && (!origin.isDomestic || !destination.isDomestic)
         }
     },
+    watch: {
+        '$route.fullPath'(t, f) {
+            !this.$route.query.sid && this.refresh()
+        },
+
+        filters: {
+            deep:true,
+            async handler() {
+                this.availables = await this.startPolling(this.searchId)
+            }
+        }
+    },
     async mounted() {
         this.loading = true
         try {
@@ -61,9 +89,11 @@ export default {
             if (!this.searchId) {
                 searchId = await this.search()
             }
-            const results = await this.startPolling(searchId)
-            this.availables = results
+            this.availables = await this.startPolling(searchId)
         } catch (err) {
+            this.error = {
+                message: 'خطایی در سرور رخ داده است.'
+            }
         } finally {
             this.loading = false
         }
@@ -93,12 +123,13 @@ export default {
                         }
                     ] : [])
                 ],
-                class: first ? 'first' : (business ? 'business' : 'economy'),
+                class: first !== undefined ? 'first' : (business !== undefined ? 'business' : 'economy'),
                 adult: Number(adult),
                 child: Number(child),
                 infant: Number(infant)
             })
-            await this.$router.push({
+            this.$flight.setSession(res)
+            await this.$router.replace({
                 query: {
                     ...this.$route.query,
                     sid: res.id
@@ -107,7 +138,10 @@ export default {
             return res.id
         },
         startPolling(sid, retry = 1) {
-            return flightApi.getResults( sid, new Axios.CancelToken(canceler => {
+            const { filters } = this
+            return flightApi.getResults(sid, {
+                sort: filters.sort
+            }, new Axios.CancelToken(canceler => {
                 this._pollingCanceler = canceler
             })).then(res => {
                 if (res.progress < 100) {
@@ -129,6 +163,16 @@ export default {
         cancelPolling() {
             this._pollingCanceler && this._pollingCanceler()
             clearTimeout(this._pollingTimeout)
+        },
+        async refresh() {
+            this.loading = true
+            this.availables = null
+            try {
+                const searchId = await this.search()
+                this.availables = await this.startPolling(searchId)
+            } finally {
+                this.loading = false
+            }
         }
     }
 }

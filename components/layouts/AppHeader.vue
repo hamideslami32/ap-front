@@ -20,6 +20,12 @@ export default {
 
 <style lang='scss' scoped>
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: $body-bg;
     height: 60px;
     padding: 15px 10px;
     display: flex;

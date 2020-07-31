@@ -35,6 +35,7 @@ export default {
         '~plugins/numbers',
         '~plugins/auth',
         '~plugins/api',
+        '~plugins/flight',
         '~plugins/dayjs',
         '~plugins/toast.js'
     ],

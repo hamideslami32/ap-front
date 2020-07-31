@@ -96,9 +96,9 @@ export default {
     },
 
     methods: {
-        startSearch() {
+        startSearch(cache = true) {
             // this.$toast('تست', 'success')
-            this.$storage.setLocalStorage('lastSearch', this.search)
+            cache && this.$storage.setLocalStorage('lastSearch', this.search)
             const {type, origin, destination, departing, returning, adult, child, infant, classType} = this.search
             const query = {
                 departing: departing.format('YYYY-MM-DD'),
@@ -109,7 +109,7 @@ export default {
                 business: classType === 'business' ? null : undefined,
                 first: classType === 'first' ? null : undefined
             }
-            this.$router.push({
+            return this.$router.push({
                 path: '/flights/search/' + [origin.id, destination.id].join('-'),
                 query
             })

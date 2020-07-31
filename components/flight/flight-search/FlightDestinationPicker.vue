@@ -7,7 +7,7 @@
             @input="select"
             @focus="showModal = true"
         />
-        <b-modal v-model="showModal" :title="`انتخاب ${title}`" hide-footer @shown="$refs.inputModal && $refs.inputModal.focus()">
+        <b-modal v-model="showModal" :title="`انتخاب ${title}`" hide-footer @shown="onModalShow">
             <template v-slot:modal-header-close>
                 <svgicon name="arrow-long-right" width="20" height="20" />
             </template>
@@ -23,7 +23,7 @@
                         @keypress.enter="selectFirst"
                     />
                 </div>
-                <div class="destination-picker__result">
+                <div v-if="destinations" class="destination-picker__result">
                     <h3 v-if="!query" class="destination-picker__title">
                         شهرهای پرتردد
                     </h3>
@@ -34,6 +34,13 @@
                         :show-airports="!!query"
                         @select="select($event, true)"
                     />
+                    <div v-if="destinations.length === 0" class="text-center mt-4">
+                        <h5>اوپس!</h5>
+                        <p>موردی یافت نشد، مجدد تلاش کنید</p>
+                        <b-btn variant="outline-info" @click="(query = '') || fetchResult('')">
+                            بازگشت به صفحه نخست
+                        </b-btn>
+                    </div>
                 </div>
             </div>
         </b-modal>
@@ -82,7 +89,7 @@ export default {
         this.dFetchResult = debounce(this.fetchResult, 300)
     },
     mounted() {
-        this.fetchResult('')
+        // this.fetchResult('')
     },
     methods: {
         async fetchResult(query) {
@@ -97,6 +104,13 @@ export default {
         selectFirst() {
             if (this.destinations.length) {
                 this.select(this.destinations[0], true)
+            }
+        },
+        onModalShow() {
+            const { inputModal } = this.$refs
+            inputModal && inputModal.focus()
+            if (!this.destinations) {
+                this.fetchResult('')
             }
         }
     }

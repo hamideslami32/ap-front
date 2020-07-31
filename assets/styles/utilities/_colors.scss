@@ -1,0 +1,5 @@
+@each $gray, $color in $grays {
+    .text-gray-#{$gray} {
+        color: $color;
+    }
+}

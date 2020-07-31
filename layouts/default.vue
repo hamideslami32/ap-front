@@ -1,7 +1,7 @@
 <template>
-    <div class="mobile-layout">
-        <main class="mobile-layout__main">
-            <app-header />
+    <div>
+        <app-header />
+        <main class="mobile-layout">
             <nuxt />
         </main>
         <app-bottom-nav />
@@ -26,3 +26,9 @@ export default {
     }
 }
 </script>
+
+<style>
+    .mobile-layout {
+        padding: 60px 0;
+    }
+</style>

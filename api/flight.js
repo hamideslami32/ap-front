@@ -1,11 +1,23 @@
 import {BaseApi} from '~/plugins/api'
 
+
 export const flightApi = new class FlightApi extends BaseApi {
+    constructor() {
+        super()
+        this.suggestions = Object.create(null)
+    }
+
     suggest(query) {
+        if (query in this.suggestions) {
+            return Promise.resolve(this.suggestions[query])
+        }
         return this.axios.$get('/flight/suggestions', {
             params: {
                 q: query
             }
+        }).then(res => {
+            this.suggestions[query] = res
+            return res
         })
     }
 
@@ -17,8 +29,9 @@ export const flightApi = new class FlightApi extends BaseApi {
         return this.axios.$get('/flight/search/' + id)
     }
 
-    getResults(searchId, cancelToken) {
+    getResults(searchId, filters, cancelToken) {
         return this.axios.$get('/flight/results/' + searchId, {
+            params: filters,
             cancelToken
         })
     }

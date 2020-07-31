@@ -10,7 +10,7 @@
     border: 1px solid $primary;
     color: $primary;
     font-size: 85%;
-    padding: 4px 7px;
+    padding: 5px 7px 3px;
     border-radius: 100px;
     font-weight: 600;
     text-align: center;

@@ -7,17 +7,10 @@
 @import 'forms';
 @import 'modal';
 @import 'buttons';
+@import 'utilities/index';
 
 html, body {
     height: 100%;
-}
-
-body {
-    font-family: Dana, Roboto, Tahoma, serif;
-}
-
-.en {
-    font-family: Roboto, Tahoma, serif;
 }
 
 .btn-raw {
@@ -47,4 +40,8 @@ body {
             margin-right: auto;
         }
     }
+}
+
+.font-weight-medium {
+    font-weight: 500;
 }

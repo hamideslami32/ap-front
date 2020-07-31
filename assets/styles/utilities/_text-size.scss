@@ -1,0 +1,17 @@
+$font-sizes: (
+    2: 0.75rem,
+    3: 0.875rem,
+    4: 1rem,
+    5: 1.5rem,
+    6: 2rem
+);
+
+@each $sizePrefix, $size in $font-sizes {
+    @each $breakpoint in map_keys($grid-breakpoints) {
+        @include media-breakpoint-up($breakpoint) {
+            .text-#{$sizePrefix}#{if($breakpoint == xs, '', '-' + $breakpoint)} {
+                font-size: $size;
+            }
+        }
+    }
+}

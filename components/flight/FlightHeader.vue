@@ -4,8 +4,8 @@
             <hamburger-menu class="white my-1" />
             <div class="flight-header__destinations">
                 <input-pair @switch="switchDestinations">
-                    <input v-if="search.origin" type="text" :value="search.origin.city.fa">
-                    <input v-if="search.destination" type="text" :value="search.destination.city.fa">
+                    <input type="text" :value="search.origin ? search.origin.city.fa : ' '">
+                    <input type="text" :value="search.destination ? search.destination.city.fa : ' '">
                 </input-pair>
             </div>
             <button class="btn-raw btn-back" @click="$router.push('/flights')">
@@ -59,6 +59,7 @@ import InputPair from '~/components/ui/form/InputPair'
 import ADatepicker from '~/components/ui/date-picker/ADatepicker'
 import PassengersPicker from '~/components/flight/flight-search/PassengersPicker'
 import flightSearchMixin from '~/components/flight/flight-search/flightSearchMixin'
+import isEqual from 'lodash/isEqual'
 
 export default {
     components: {
@@ -68,32 +69,36 @@ export default {
         PassengersPicker
     },
 
-    inject: ['$session'],
-
     mixins: [flightSearchMixin],
 
     watch: {
-        '$session.session': {
+        '$flight.session': {
             deep: true,
             immediate: true,
-            handler(x) {
-                if (!x || !x.adult) return
+            handler(t, f) {
+                if (!t || !t.adult || isEqual(t, f)) return
                 this.search = {
                     type: {
                         1: 'oneWay',
                         2: 'roundTrip'
-                    }[x.routes.length] || 'multiDestination', // oneWay, roundTrip, multiDestination,
-                    origin: x.routes[0].origin, //object  i, title, value
-                    destination: x.routes[0].destination, //object  i, title, value
-                    departing: this.$dayjs(x.routes[0].date),
-                    ...(x.routes.length === 2 ? {
-                        returning: this.$dayjs(x.routes[1].date)
+                    }[t.routes.length] || 'multiDestination', // oneWay, roundTrip, multiDestination,
+                    origin: t.routes[0].origin, //object  i, title, value
+                    destination: t.routes[0].destination, //object  i, title, value
+                    departing: this.$dayjs(t.routes[0].date),
+                    ...(t.routes.length === 2 ? {
+                        returning: this.$dayjs(t.routes[1].date)
                     }: {}),
-                    adult: x.adult,
-                    child: x.child,
-                    infant: x.infant,
-                    classType: x['class'] // business first
+                    adult: t.adult,
+                    child: t.child,
+                    infant: t.infant,
+                    classType: t['class'] // business first
                 }
+            }
+        },
+        'search': {
+            deep: true,
+            handler(t, f) {
+                this.startSearch()
             }
         }
     },
@@ -109,14 +114,9 @@ export default {
 
     methods: {
         switchDestinations() {
-            const { $route } = this
-            this.$router.push({
-                path: $route.params.id.split('-').reverse().join('-'),
-                query: {
-                    ...$route.query,
-                    sid: undefined
-                }
-            })
+            const oldDest = this.search.destination
+            this.search.destination = this.search.origin
+            this.search.origin = oldDest
         }
     }
 }

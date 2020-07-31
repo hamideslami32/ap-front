@@ -1,11 +1,11 @@
 <template>
     <span class="number-spinner">
-        <button @click="$emit('input', value + 1)">
-            +
+        <button class="btn-raw" @click="$emit('input', value + 1)">
+            <span>+</span>
         </button>
         <span>{{ value }}</span>
-        <button @click="$emit('input', value - 1)">
-            -
+        <button class="btn-raw" @click="$emit('input', value - 1)">
+            <span>-</span>
         </button>
     </span>
 </template>
@@ -28,25 +28,28 @@ export default {
         display: flex;
         align-items: center;
         border-radius: 10px;
-        padding: 10px;
+        padding: 0;
         > button {
-            width: 20px;
-            height: 20px;
-            border: none;
-            border-radius: 50%;
-            font-family: sans-serif;
-            display: inline-block;
-            align-items: center;
-            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
-            justify-content: center;
             font-size: 1.1rem;
-            color: map_get($gray-colors, 'gray-800');
-            transition: all 250ms ease;
-            background-color: $white;
-            outline: none !important;
-            appearance: none;
-            line-height: 20px;
-            padding: 0;
+            padding: 10px;
+
+            > span {
+                display: block;
+                border-radius: 50%;
+                font-family: sans-serif;
+                width: 20px;
+                height: 20px;
+                line-height: 20px;
+                color: map_get($gray-colors, 'gray-800');
+                transition: all 150ms ease;
+                background-color: $white;
+                box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
+            }
+
+            &:active > span {
+                background-color: $primary;
+                color: $white;
+            }
         }
 
         > span {
