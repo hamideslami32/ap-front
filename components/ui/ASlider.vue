@@ -1,5 +1,5 @@
 <template>
-    <div class="a-slider" :class="{ disabled, active: focus != null }">
+    <div class="a-slider" :class="{ disabled, active: focus != null, 'a-slider--sticky-tooltip': stickyTooltip }">
         <slot :progress-style="progressStyle" />
         <div ref="bar" class="a-slider__bar">
             <span
@@ -27,7 +27,7 @@
                 ref="startTooltip"
                 class="a-slider__tooltip"
                 data-tooltip="1"
-                :style="{ left: startDotLeft + '%' }"
+                :style="stickyTooltip ? { left: startDotLeft + '%' } : { left: '-12px' }"
             >
                 <slot :value="localValue[0]" :index="0" name="tooltip">
                     {{ localValue[0] }}
@@ -38,7 +38,7 @@
                 ref="endTooltip"
                 class="a-slider__tooltip"
                 data-tooltip="2"
-                :style="{ left: endDotLeft + '%' }"
+                :style="stickyTooltip ? { left: endDotLeft + '%' } : { right: '-12px' }"
             >
                 <slot :value="localValue[1]" :index="1" name="tooltip">
                     {{ localValue[1] }}
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-const addEventListener = (el, handler, ...events) => events.forEach(ev => el.addEventListener(ev, handler))
+const addEventListener = (el, handler, ...events) => events.forEach(ev => el.addEventListener(ev, handler, {passive: false}))
 const removeEventListener = (el, handler, ...events) => events.forEach(ev => el.removeEventListener(ev, handler))
 
 const getPos = (e, elem) => {
@@ -103,6 +103,12 @@ export default {
         tabindex: {
             type: [String, Number],
             default: -1
+        },
+
+        // Stick tooltip to slider dots
+        stickyTooltip: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -137,17 +143,14 @@ export default {
             handler(t) {
                 this.localValue = t.map((el, i) => el != null ? el : [this.min, this.max][i])
             }
-        },
-        localValue: {
-            deep: true,
-            handler(t, f) {
-                this.handleOverlap(t, f)
-            }
         }
     },
     mounted() {
         this.bindEvents()
-        this.$nextTick(this.handleOverlap)
+        if (this.stickyTooltip) {
+            this.$nextTick(this.handleOverlap)
+            this.$watch('localValue', this.handleOverlap, { deep: true })
+        }
     },
     methods: {
         bindEvents() {
@@ -200,8 +203,8 @@ export default {
             if (Array.isArray(value)) {
                 return value.forEach((el, i) => this.setValue(el, i))
             }
-            value = clamp(value, min, max)
             value = round(value, this.step)
+            value = clamp(value, min, max)
 
             // Swap dots if crossed
             if ((focus === 0 && value > localValue[1]) || (focus === 1 && value < localValue[0])) {
@@ -302,13 +305,15 @@ export default {
         &__tooltip {
             position: absolute;
             top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
             margin-top: 20px;
             font-size: 1rem;
             white-space: nowrap;
             text-align: center;
             color: map_get($grays, '800');
+        }
+
+        &--sticky &__tooltip {
+            transform: translateX(-50%);
         }
 
         &.disabled {

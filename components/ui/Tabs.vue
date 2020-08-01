@@ -43,6 +43,12 @@ export default {
         updateWidth() {
             this.$nextTick(() => {
                 const tabElement = this.$refs.menu.children[this.tabs.findIndex(t => t.value === this.value)]
+                if (!tabElement) {
+                    // eslint-disable-next-line no-console
+                    console.warn('Value not defined in tabs')
+                    this.tabWidth = 0
+                    return
+                }
                 this.tabWidth = tabElement.offsetWidth - 10
                 this.tabOffset = this.$refs.menu.offsetWidth - tabElement.offsetLeft - tabElement.offsetWidth
             })

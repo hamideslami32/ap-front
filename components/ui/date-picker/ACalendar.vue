@@ -254,7 +254,8 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 15px;
+        font-size: 14px;
+        line-height: 1.2em;
         cursor: pointer;
         border: 1px solid transparent;
         background-color: transparent;
@@ -272,6 +273,7 @@ export default {
             width: 100%;
             height: 100%;
             pointer-events: none;
+            text-align: center;
         }
 
         &__square {

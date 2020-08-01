@@ -9,6 +9,12 @@ class Flight {
         if (process.browser && ctx.nuxtState.session) {
             this.session = ctx.nuxtState.session
         }
+
+        ctx.app.router.afterEach(to => {
+            if (!to.query.sid) {
+                this.setSession(null)
+            }
+        })
     }
 
     async fetchSession(id) {
@@ -28,7 +34,7 @@ export default async function(ctx, inject) {
         ctx.ssrContext.nuxt.session = await flight.fetchSession(sid).catch(() => null)
     }
     if (process.browser && sid && !flight.session) {
-        await flight.fetchSession(sid)
+        await flight.fetchSession(sid).catch(() => null)
     }
     inject('flight', flight)
 }

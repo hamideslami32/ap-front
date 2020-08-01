@@ -50,7 +50,7 @@ export default {
             this.$el.classList.add('input-pair--switch')
             const onAnimationEnd = function() {
                 this.classList.remove('input-pair--switch')
-                this.removeEventListener('animationend')
+                this.removeEventListener('animationend', onAnimationEnd)
             }
             this.$el.addEventListener('animationend', onAnimationEnd)
         }

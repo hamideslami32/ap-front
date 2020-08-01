@@ -15,22 +15,22 @@
                 <template v-slot:before="{ on, value }">
                     <span class="date-input-pair" dir="rtl">
                         <form-input
-                            :class-name="search.type === 'oneWay' ? 'one-way' : ''"
+                            :class-name="search.type === 'OW' ? 'one-way' : ''"
                             label="تاریخ رفت"
-                            :icon="search.type === 'oneWay' ? 'calendar': ''"
+                            :icon="search.type === 'OW' ? 'calendar': ''"
                             :value="value[0] ? value[0].format('dddd DD MMMM YY') : null"
                             readonly
                             v-on="on"
                         />
                         <svgicon
-                            v-if="search.type !== 'oneWay'"
+                            v-if="search.type !== 'OW'"
                             class="pair-icon"
                             name="calendar"
                             width="28"
                             height="28"
                         />
                         <form-input
-                            v-if="search.type !== 'oneWay'"
+                            v-if="search.type !== 'OW'"
                             label="تاریخ برگشت"
                             :value="value[1] ? value[1].format('dddd DD MMMM YY') : null"
                             readonly
@@ -42,27 +42,40 @@
                 <template v-slot="{ open, value, on }">
                     <form-input
                         label="تاریخ رفت"
-                        :class-name="search.type === 'oneWay' ? 'one-way' : ''"
+                        :class-name="search.type === 'OW' ? 'one-way' : ''"
                         :value="value[0] ? value[0].format('dddd DD MMMM YY') : null"
                         readonly
-                        :icon="search.type === 'oneWay' ? 'calendar': ''"
+                        :icon="search.type === 'OW' ? 'calendar': ''"
                         v-on="on"
                     />
                     <svgicon
-                        v-if="search.type !== 'oneWay'"
+                        v-if="search.type !== 'OW'"
                         class="pair-icon"
                         name="calendar"
                         width="28"
                         height="28"
                     />
                     <form-input
-                        v-if="search.type !== 'oneWay'"
+                        v-if="search.type !== 'OW'"
                         label="تاریخ برگشت"
                         :value="value[1] ? value[1].format('dddd DD MMMM YY') : null"
                         data-datepicker="1"
                         readonly
                         v-on="on"
                     />
+                </template>
+
+                <template #day="{ day }">
+                    <span class="calendar__day__content">
+                        <span v-if="datePrices && datePrices.departing[day.calendar('gregory').format('YYYY-MM-DD')]">
+                            {{ day.format('D') }}
+                            <br>
+                            <small class="text-1">{{ datePrices.departing[day.calendar('gregory').format('YYYY-MM-DD')] / 1000 }}</small>
+                        </span>
+                        <template v-else>
+                            {{ day.format('D') }}
+                        </template>
+                    </span>
                 </template>
             </a-datepicker>
             <passengers-picker
@@ -91,6 +104,7 @@ import FormInput from '~/components/ui/form/FormInput'
 import InputPair from '~/components/ui/form/InputPair'
 import PassengerInput from '~/components/ui/PassengerInput'
 import flightSearchMixin from '~/components/flight/flight-search/flightSearchMixin'
+import {flightApi} from '~/api/flight'
 
 export default {
     components: {
@@ -107,10 +121,12 @@ export default {
     data() {
         return {
             tabs: [
-                {value: 'roundTrip', name: 'رفت و برگشت'},
-                {value: 'oneWay', name: 'یک طرفه'},
-                {value: 'multiDestination', name: 'چند مسیره'}
-            ]
+                {value: 'RT', name: 'رفت و برگشت'},
+                {value: 'OW', name: 'یک طرفه'},
+                {value: 'MD', name: 'چند مسیره'}
+            ],
+
+            datePrices: null
         }
     },
 
@@ -124,6 +140,24 @@ export default {
         const lastSearch = this.getLastSearch()
         if (lastSearch) {
             this.search = lastSearch
+        }
+
+        this.$watch(() => [this.search.origin, this.search.destination], this.fetchDatePrices, {
+            immediate: true
+        })
+    },
+
+    methods: {
+        async fetchDatePrices() {
+            const { search } = this
+            if (!search.origin || !search.destination) return
+            this.datePrices = await flightApi.getDatePrices({
+                origin: search.origin.id,
+                destination: search.destination.id,
+                type: search.type,
+                minDate: this.$dayjs().calendar('gregory').format('YYYY-MM-DD'),
+                maxDate: this.$dayjs().calendar('gregory').add(30, 'day').format('YYYY-MM-DD')
+            }).catch(err => null)
         }
     }
 }

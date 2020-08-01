@@ -29,7 +29,7 @@
                 <template v-slot:modal-header-close>
                     <svgicon name="arrow-long-right" width="20" height="20" />
                 </template>
-                <flight-filter v-model="filters" :options="availables.filters" />
+                <flight-filter v-model="filters" :options="availables.filters" @apply="applyFilters" />
             </b-modal>
         </template>
     </div>
@@ -41,6 +41,9 @@ import FlightCard from '~/components/flight/available/FlightCard'
 import FlightPlaceholder from '~/components/flight/available/FlightPlaceholder'
 import { flightApi } from '~/api/flight'
 import FlightFilter from '~/components/flight/available/filter/FlightFilter'
+import isEqual from 'lodash/isEqual'
+
+const POLLING_INTERVAL = 3000
 
 export default {
     layout: 'flight-search',
@@ -56,18 +59,12 @@ export default {
             availables: null,
             showFilter: false,
             error: null,
-            filters: {
-                sort: null
-            }
+            filters: {}
         }
     },
     computed: {
         searchId() {
             return this.$route.query.sid
-        },
-        isInternational() {
-            const {origin, destination} = this.search
-            return origin && destination && (!origin.isDomestic || !destination.isDomestic)
         }
     },
     watch: {
@@ -77,26 +74,15 @@ export default {
 
         filters: {
             deep:true,
-            async handler() {
+            async handler(t, f) {
+                if (isEqual(t, f)) return
+                this.availables = null
                 this.availables = await this.startPolling(this.searchId)
             }
         }
     },
-    async mounted() {
-        this.loading = true
-        try {
-            let searchId = this.searchId
-            if (!this.searchId) {
-                searchId = await this.search()
-            }
-            this.availables = await this.startPolling(searchId)
-        } catch (err) {
-            this.error = {
-                message: 'خطایی در سرور رخ داده است.'
-            }
-        } finally {
-            this.loading = false
-        }
+    mounted() {
+        this.refresh(!this.searchId)
     },
 
     beforeDestroy() {
@@ -139,14 +125,17 @@ export default {
         },
         startPolling(sid, retry = 1) {
             const { filters } = this
+            const { priceRange = [] } = filters
             return flightApi.getResults(sid, {
-                sort: filters.sort
+                sort: filters.sort,
+                minPrice: priceRange[0] || null,
+                maxPrice: priceRange[1] || null
             }, new Axios.CancelToken(canceler => {
                 this._pollingCanceler = canceler
             })).then(res => {
                 if (res.progress < 100) {
                     return new Promise(resolve => {
-                        this._pollingTimeout = setTimeout(resolve, 3000)
+                        this._pollingTimeout = setTimeout(resolve, POLLING_INTERVAL)
                     }).then(() => this.startPolling(sid))
                 }
                 return res
@@ -164,14 +153,30 @@ export default {
             this._pollingCanceler && this._pollingCanceler()
             clearTimeout(this._pollingTimeout)
         },
-        async refresh() {
+        async refresh(newSearch = true) {
             this.loading = true
             this.availables = null
             try {
-                const searchId = await this.search()
+                const searchId = newSearch ? await this.search() : this.searchId
+                if (newSearch) {
+                    await new Promise(resolve => this._pollingTimeout = setTimeout(resolve, POLLING_INTERVAL / 2))
+                }
                 this.availables = await this.startPolling(searchId)
+            } catch (err) {
+                // eslint-disable-next-line no-console
+                console.error(err)
+                this.error = {
+                    message: 'خطایی در سرور رخ داده است.'
+                }
             } finally {
                 this.loading = false
+            }
+        },
+
+        applyFilters(filters, close) {
+            this.filters = filters
+            if (close) {
+                this.showFilter = false
             }
         }
     }

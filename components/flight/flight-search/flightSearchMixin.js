@@ -10,7 +10,7 @@ export default {
             jalaaliDatepicker: true,
 
             search: {
-                type: 'roundTrip', // oneWay, roundTrip, multiDestination,
+                type: 'RT', // OW, RT, MD,
                 origin: null, //object  i, title, value
                 destination: null, //object  i, title, value
                 departing: null,
@@ -50,10 +50,10 @@ export default {
         },
         isDatepickerRange: {
             get() {
-                return this.search.type === 'roundTrip'
+                return this.search.type === 'RT'
             },
             set(x) {
-                this.search.type = x ? 'roundTrip' : 'oneWay'
+                this.search.type = x ? 'RT' : 'OW'
             }
         },
         passengersCount() {
@@ -77,7 +77,7 @@ export default {
             }
         },
         'search.type'(x) {
-            if (x === 'oneWay') {
+            if (x === 'OW') {
                 this.search.returning = null
             }
         },
@@ -102,7 +102,7 @@ export default {
             const {type, origin, destination, departing, returning, adult, child, infant, classType} = this.search
             const query = {
                 departing: departing.format('YYYY-MM-DD'),
-                returning: type === 'oneWay' ? undefined : returning.format('YYYY-MM-DD'),
+                returning: type === 'OW' || !returning ? undefined : returning.format('YYYY-MM-DD'),
                 adult,
                 child: child || undefined,
                 infant: infant || undefined,
@@ -122,6 +122,18 @@ export default {
             }
             search.departing = search.departing && this.$dayjs(search.departing)
             search.returning = search.returning && this.$dayjs(search.returning)
+
+            try {
+                const { departing, returning } = search
+                if ((departing && !departing.isAfter(new Date())) || (returning && !returning.isAfter(new Date()))) {
+                    search.departing = null
+                    search.returning = null
+                }
+                search.type = search.returning ? 'RT' : 'OW'
+            } catch (e) {
+                this.$storage.removeLocalStorage('lastSearch')
+            }
+
             return search
         }
     }

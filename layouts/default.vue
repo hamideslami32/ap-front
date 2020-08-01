@@ -15,6 +15,7 @@ import AppBottomNav from '~/components/layouts/AppBottomNav'
 import LoginModal from '~/components/auth/LoginModal'
 
 export default {
+    name: 'Default',
     components: {
         AppHeader,
         AppBottomNav,

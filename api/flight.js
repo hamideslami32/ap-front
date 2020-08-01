@@ -35,4 +35,16 @@ export const flightApi = new class FlightApi extends BaseApi {
             cancelToken
         })
     }
+
+    getDatePrices({
+        origin, destination, type, minDate, maxDate
+    }) {
+        return this.axios.$get(`/flight/search/date-prices/${origin}-${destination}`, {
+            params: {
+                type,
+                minDate,
+                maxDate
+            }
+        })
+    }
 }

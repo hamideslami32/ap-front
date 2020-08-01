@@ -79,9 +79,9 @@ export default {
                 if (!t || !t.adult || isEqual(t, f)) return
                 this.search = {
                     type: {
-                        1: 'oneWay',
-                        2: 'roundTrip'
-                    }[t.routes.length] || 'multiDestination', // oneWay, roundTrip, multiDestination,
+                        1: 'OW',
+                        2: 'RT'
+                    }[t.routes.length] || 'MD', // OW, RT, MD,
                     origin: t.routes[0].origin, //object  i, title, value
                     destination: t.routes[0].destination, //object  i, title, value
                     departing: this.$dayjs(t.routes[0].date),
@@ -98,6 +98,7 @@ export default {
         'search': {
             deep: true,
             handler(t, f) {
+                if (!f || !f.origin) return
                 this.startSearch()
             }
         }

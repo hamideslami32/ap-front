@@ -12,7 +12,9 @@ Vue.component('a-btn', {
             class: [ctx.data.class, ctx.data.staticClass],
             attrs: attrs,
             props: attrs,
-            on: ctx.listeners
+            on: ctx.listeners,
+            style: ctx.data.style,
+            staticStyle: ctx.data.staticStyle
         }, ctx.slots().default)])
         // return BButton.render(h, ctx)
     }

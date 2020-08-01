@@ -82,7 +82,13 @@ export default {
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
-    build: {},
+    build: {
+        extend(config) {
+            config.devServer = {
+                inline: false
+            }
+        }
+    },
 
     bootstrapVue: {
         bootstrapCSS: false, // Or `css: false`
