@@ -150,7 +150,10 @@ export default {
     methods: {
         async fetchDatePrices() {
             const { search } = this
-            if (!search.origin || !search.destination) return
+            if (!search.origin || !search.destination) {
+                this.datePrices = null
+                return
+            }
             this.datePrices = await flightApi.getDatePrices({
                 origin: search.origin.id,
                 destination: search.destination.id,
