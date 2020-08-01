@@ -128,7 +128,7 @@ export default {
         },
 
         calcDay(i) {
-            const day = this.date.add(i, 'day').startOf('day')
+            const day = this.date.add(i, 'day').calendar(this.jalaali ? 'jalali' : 'gregory').startOf('day')
             const classes = this.dayClasses(day, this.calcDayClass);
             (classes.selected || classes.highlight) && this.selected.push(i)
             return {

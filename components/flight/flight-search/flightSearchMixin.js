@@ -101,8 +101,8 @@ export default {
             cache && this.$storage.setLocalStorage('lastSearch', this.search)
             const {type, origin, destination, departing, returning, adult, child, infant, classType} = this.search
             const query = {
-                departing: departing.format('YYYY-MM-DD'),
-                returning: type === 'OW' || !returning ? undefined : returning.format('YYYY-MM-DD'),
+                departing: departing.calendar('jalali').format('YYYY-MM-DD'),
+                returning: type === 'OW' || !returning ? undefined : returning.calendar('jalali').format('YYYY-MM-DD'),
                 adult,
                 child: child || undefined,
                 infant: infant || undefined,
