@@ -6,7 +6,7 @@
             <svgicon class="filter-panel__chevron" name="arrow-left" />
         </a>
         <b-collapse v-model="show" accordion="filter">
-            <div class="px-4 pb-3">
+            <div class="px-2 pb-3">
                 <slot />
             </div>
         </b-collapse>
