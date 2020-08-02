@@ -68,7 +68,7 @@ export default {
         margin-right: 10px;
     }
 
-    &.active, &:hover {
+    &.active{
         background: linear-gradient(90deg, #dd418a 0%, #e3629e 100%);
         color: $white;
     }
