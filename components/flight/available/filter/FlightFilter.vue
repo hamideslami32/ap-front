@@ -18,25 +18,31 @@
 
         <filter-panel title="ساعت پرواز">
             <b-card-body class="d-flex justify-content-around px-2">
-                <div v-for="i in 4" :key="i" class="time-item">
+                <div
+                    v-for="item in flightTime"
+                    :key="item.id"
+                    :class="{ 'active': item.id === localValue.flightTime }"
+                    class="time-item"
+                    @click="selectFlightTime(item.id)"
+                >
                     <svgicon name="user" width="30" height="30" />
-                    <span>بعدظهر</span>
-                    <small>(۱۲ ظهر الی ۱۸)</small>
+                    <span>{{ item.time }}</span>
+                    <small>{{ item.tip }}</small>
                 </div>
             </b-card-body>
         </filter-panel>
         <filter-panel title="ایرلاین ها">
-            <group-checkbox v-model="airlines" />
+            <group-checkbox v-model="airlinesSelect" :options="airlines" />
         </filter-panel>
         <filter-panel title="انتخاب فرودگاه">
-            <group-checkbox v-model="airports" />
+            <group-checkbox v-model="airportsSelect" :options="airports" />
         </filter-panel>
         <filter-panel title="کلاس پروازی">
             <b-form-group class="en font-weight-medium">
                 <b-form-radio
-                    v-model="classSelect"
+                    v-model="localValue.flightClass"
                     class="mb-2"
-                    :class="{ active: classSelect === 'economy' }"
+                    :class="{ active: localValue.flightClass === 'economy' }"
                     checked="flightClass"
                     name="flight_class"
                     value="economy"
@@ -44,9 +50,9 @@
                     Economy
                 </b-form-radio>
                 <b-form-radio
-                    v-model="classSelect"
+                    v-model="localValue.flightClass"
                     class="mb-2"
-                    :class="{ active: classSelect === 'business' }"
+                    :class="{ active: localValue.flightClass === 'business' }"
                     checked="flightClass"
                     name="flight_class"
                     value="business"
@@ -54,12 +60,12 @@
                     Business
                 </b-form-radio>
                 <b-form-radio
-                    v-model="classSelect"
+                    v-model="localValue.flightClass"
                     class="mb-2"
                     checked="flightClass"
                     name="flight_class"
                     value="first"
-                    :class="{ active: classSelect === 'first' }"
+                    :class="{ active: localValue.flightClass === 'first' }"
                 >
                     First Class
                 </b-form-radio>
@@ -85,7 +91,11 @@ import GroupCheckbox from '~/components/ui/form/GroupCheckbox'
 
 const initialFilters = () => ({
     sort: 'min_price',
-    priceRange: [null, null]
+    priceRange: [null, null],
+    airlines: [],
+    airports: [],
+    flightTime: 1,
+    flightClass: 'economy'
 })
 
 export default {
@@ -103,8 +113,7 @@ export default {
     },
     data() {
         return {
-            localValue: Object.assign(initialFilters(), cloneDeep(this.value)),
-            selected: [],// Must be an array reference!
+            localValue: Object.assign(initialFilters(), cloneDeep(this.value)), // airlines - airports - flight time
             airlines: [
                 {title: 'آلیتالیا', value: 'alita', price: '3640000'},
                 {title: 'ایرفرانس', value: 'airFrance', price: '3640000'},
@@ -112,17 +121,49 @@ export default {
                 {title: 'ترکیش ایرلاین', value: 'turkishAirlines', price: '3640000'}
             ],
             airports: [
-                {value: 'CDG', title:'شارل دوگل', code: true},
-                {value: 'ORY', title:'اورلی', code: true},
-                {value: 'BVA', title:'باووایس', code: true}
+                {value: 'CDG', title: 'شارل دوگل', code: true},
+                {value: 'ORY', title: 'اورلی', code: true},
+                {value: 'BVA', title: 'باووایس', code: true}
             ],
-            classSelect: 'economy'
+            classSelect: 'economy',
+            flightTime: [
+                {id: 1, time: 'صبح', tip: '(۱۲ صبح الی ۱۸)', icon: 'user'},
+                {id: 2, time: 'بعدظهر', tip: '(۱۲ ظهر الی ۱۸)', icon: 'user'},
+                {id: 3, time: 'عصر', tip: '(۱۲ عصر الی ۱۸)', icon: 'user'},
+                {id: 4, time: 'شب', tip: '(۱۲ شب الی ۱۸)', icon: 'user'}
+            ]
         }
     },
     computed: {
         priceRangeStep() {
             const [min, max] = this.options.priceRange
             return Math.floor((max - min) / 100)
+        },
+        airlinesSelect: {
+            get() {
+                return this.localValue.airlines
+            },
+            set(value) {
+                const index = this.localValue.airlines.indexOf(value)
+                if (index >= 0) {
+                    this.localValue.airlines.splice(index, 1)
+                } else {
+                    return this.localValue.airlines.push(value)
+                }
+            }
+        },
+        airportsSelect: {
+            get() {
+                return this.localValue.airports
+            },
+            set(value) {
+                const index = this.localValue.airports.indexOf(value)
+                if (index >= 0) {
+                    this.localValue.airports.splice(index, 1)
+                } else {
+                    return this.localValue.airports.push(value)
+                }
+            }
         }
     },
 
@@ -134,6 +175,9 @@ export default {
             this.$emit('apply', Object.assign(initialFilters(), {
                 sort: this.localValue.sort
             }), true)
+        },
+        selectFlightTime(id) {
+            this.localValue.flightTime = id
         }
     }
 }
@@ -184,7 +228,7 @@ export default {
                 color: map_get($gray-colors, 'gray-700');
             }
 
-            &:focus, &:hover, &:active {
+            &:focus, &:active , &.active{
                 background: #e7def7;
                 box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
                 border-color: $primary;
