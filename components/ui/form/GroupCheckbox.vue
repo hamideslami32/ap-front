@@ -1,14 +1,13 @@
 <template>
     <div class="group-checkbox">
-        <b-form-checkbox-group id="checkbox-group-2" v-model="selected" class="w-100" name="flavour-2">
+        <b-form-checkbox-group id="checkbox-group-2" class="w-100" name="flavour-2">
             <div
-                v-for="item in value"
+                v-for="item in options"
                 :key="item.value"
-                :class="{ 'select': selected.includes(item.value) }"
                 class="group-checkbox__item pb-3"
                 @click="toggle(item.value)"
             >
-                <b-form-checkbox :id="item.value" :value="item.value" />
+                <b-form-checkbox :id="item.value" :checked="value" :value="item.value" />
                 <span v-show="item.price" class="group-checkbox__label">{{ item.price | separateNumber | localizeNumber }} <span class="text-small">تومان</span></span>
                 <span class="ml-auto">{{ item.title }}</span>
                 <badge v-if="item.code" class="ml-2">
@@ -31,21 +30,26 @@ export default {
         value: {
             type: Array,
             required: true
+        },
+        options: {
+            type: Array,
+            required: true
         }
     },
-    data() {
-        return {
-            selected: []
+    computed: {
+        checkedItem: {
+            get() {
+                return this.value
+            },
+            set(value) {
+                // this.$emit('input', value)
+            }
         }
     },
+  
     methods: {
         toggle(value) {
-            const index = this.selected.indexOf(value)
-            if(index >= 0) {
-                this.selected.splice(index, 1)
-            } else {
-                this.selected.push(value)
-            }
+            this.$emit('input', value)
         }
     }
 }
@@ -88,6 +92,7 @@ export default {
 
             .custom-checkbox {
                 margin-right: 0;
+                pointer-events: none;
             }
 
             svg {
