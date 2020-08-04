@@ -23,6 +23,10 @@ export default {
         icon: {
             type: String,
             default: 'user'
+        },
+        toggleAble: {
+            type: Boolean,
+            default: true
         }
     },
     data() {
@@ -32,35 +36,37 @@ export default {
     },
     methods: {
         toggle() {
-            this.show = !this.show
+            if (this.toggleAble) {
+                this.show = !this.show
+            }
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-.filter-panel {
-    display: block;
-    border-top: 1px solid map_get($gray-colors, 'gray-500');
-    margin: 0 -10px;
-    color: map_get($grays, '800');
-
-    > a {
+    .filter-panel {
         display: block;
-        padding: 20px 10px;
-        font-weight: 500;
+        border-top: 1px solid map_get($gray-colors, 'gray-500');
+        margin: 0 -10px;
+        color: map_get($grays, '800');
 
-        &.show {
-            .filter-panel__chevron {
-                transform: rotate(-90deg);
+        > a {
+            display: block;
+            padding: 20px 10px;
+            font-weight: 500;
+
+            &.show {
+                .filter-panel__chevron {
+                    transform: rotate(-90deg);
+                }
             }
         }
-    }
 
-    &__chevron {
-        float: left;
-        margin: 3px 0;
-        transition: all ease 150ms;
+        &__chevron {
+            float: left;
+            margin: 3px 0;
+            transition: all ease 150ms;
+        }
     }
-}
 </style>
