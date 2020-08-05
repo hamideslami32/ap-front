@@ -3,6 +3,7 @@
         <span class="field__title">{{ props.title }}</span>
         <span class="field__spacer" />
         <span class="field__value">{{ props.value }}
+            <slot />
         </span>
         <span v-show="props.active" class="star">
             <span class="tick" />
@@ -58,32 +59,35 @@ export default {
         .star {
             display: inline-block;
             background: $primary;
-            width: 18px;
-            height: 18px;
+            width: 15px;
+            height: 15px;
             position: relative;
             text-align: center;
             transform: rotate(20deg);
             margin-right: 10px;
+            border-radius: 1px;
 
             &:before {
                 content: '';
                 position: absolute;
                 top: 0;
                 left: 0;
-                height: 18px;
-                width: 18px;
+                height: 15px;
+                width: 15px;
                 background: $primary;
                 transform: rotate(135deg);
+                border-radius: 1px;
             }
 
             .tick{
                 display: inline-block;
                 transform: rotate(25deg);
-                height: 11px;
-                width: 7px;
-                border-bottom: 2px solid $white;
-                border-right: 2px solid $white;
-                margin-right: 2px;
+                height: 9px;
+                width: 5px;
+                border-bottom: 2px solid #fff;
+                border-right: 2px solid #fff;
+                margin-right: 1px;
+                margin-bottom: 2px;
             }
         }
     }
