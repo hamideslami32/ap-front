@@ -66,7 +66,7 @@ export default {
     components: {CustomInput, Field},
     data() {
         return {
-            editAccount: true
+            editAccount: false
         }
     },
     methods: {
