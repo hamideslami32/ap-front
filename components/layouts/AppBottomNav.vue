@@ -5,7 +5,7 @@
             href="javascript:void(0)"
             exact-active-class="active"
             class="footer__item"
-            to="/login"
+            to="/profile"
             @click="goToProfile"
         >
             <svgicon class="footer__item--icon" name="user" width="30" height="30" />
