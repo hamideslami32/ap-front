@@ -14,7 +14,7 @@ build:
       -t $IMAGE:latest
       --build-arg "API_URL=https://apro-dev.ir/api"
       --build-arg "STATIC_URL=https://apro-dev.ir/static"
-      --build-arg "PUBLIC_PATH=https://apro-dev.ir/static" .
+      --build-arg "PUBLIC_PATH=https://apro-dev.ir/static/fr" .
 
 sync-cdn:
   stage: sync-cdn

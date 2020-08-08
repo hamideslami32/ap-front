@@ -5,3 +5,4 @@ node_modules
 .git
 .nuxt
 dist
+.gitlab-ci.yml
