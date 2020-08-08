@@ -53,6 +53,7 @@
 
 <script>
 import flattenDeep from 'lodash/flattenDeep'
+import uniq from 'lodash/uniq'
 
 export default {
     filters: {
@@ -88,7 +89,7 @@ export default {
         },
         airlines() {
             const route = this.available.routes.find(route => route.flights.includes(this.flight))
-            return flattenDeep(route.flights.map(flight => flight.stops.map(stop => stop.airline)))
+            return uniq(flattenDeep(route.flights.map(flight => flight.stops.map(stop => stop.airline)))).sort()
         }
     }
 }
