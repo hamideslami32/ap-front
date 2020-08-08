@@ -88,6 +88,8 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
     build: {
+        publicPath: process.env.PUBLIC_PATH || '/_nuxt/',
+        extractCSS: true,
         extend(config) {
             config.devServer = {
                 inline: false
