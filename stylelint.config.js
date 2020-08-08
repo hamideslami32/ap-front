@@ -28,6 +28,7 @@ module.exports = {
         'at-rule-no-unknown': null,
         'scss/at-rule-no-unknown': true,
         'no-empty-source': null,
-        'no-descending-specificity': null
+        'no-descending-specificity': null,
+        'block-opening-brace-space-before': 'always'
     }
 }

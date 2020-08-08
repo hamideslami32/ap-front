@@ -35,7 +35,8 @@
     "jalaliday": "^2.3.0",
     "lodash": "^4.17.15",
     "nuxt": "^2.13.0",
-    "vee-validate": "^3.3.5"
+    "portal-vue": "^2.1.7",
+    "vee-validate": "^3.3.8"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.0.0",

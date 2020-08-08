@@ -2,6 +2,17 @@
     <div class="flight-item">
         <div class="d-flex">
             <span class="flight-item__title">پرواز {{ title }}</span>
+            <span class="flex-grow-1" />
+            <span>
+                <img
+                    v-for="airline in airlines"
+                    :key="airline"
+                    class="mr-1"
+                    :src="$staticUrl('ad/airlines/logo/' + airline + '.png')"
+                    width="20"
+                    alt=""
+                >
+            </span>
         </div>
         <div dir="ltr" class="flight-item__locations">
             <b>{{ firstStop.departureCityName }}</b>
@@ -41,6 +52,8 @@
 </template>
 
 <script>
+import flattenDeep from 'lodash/flattenDeep'
+
 export default {
     filters: {
         duration: x => {
@@ -72,6 +85,10 @@ export default {
         },
         lastStop() {
             return this.flight.stops[this.flight.stops.length - 1]
+        },
+        airlines() {
+            const route = this.available.routes.find(route => route.flights.includes(this.flight))
+            return flattenDeep(route.flights.map(flight => flight.stops.map(stop => stop.airline)))
         }
     }
 }

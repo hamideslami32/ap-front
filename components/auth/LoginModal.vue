@@ -1,5 +1,5 @@
 <template>
-    <b-modal v-model="$auth.showModal" hide-footer>
+    <b-modal v-model="$auth.showModal" hide-footer @hidden="resolve">
         <template v-slot:modal-title>
             ورود یا عضویت
         </template>
@@ -109,6 +109,13 @@ export default {
         },
         resendRequest() {
             this.step = 'otp'
+        },
+
+        resolve() {
+            const user = this.$auth.user;
+            (this.$auth[user ? '_resolve' : '_reject'] || (() => {}))()
+            this.$auth._resolve = null
+            this.$auth._reject = null
         }
     }
 }
@@ -130,7 +137,7 @@ export default {
             border: 1px solid map_get($gray-colors, 'gray-400');
         }
 
-        .resend-section{
+        .resend-section {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -142,7 +149,7 @@ export default {
             padding: 5px 20px;
         }
 
-        &__tip{
+        &__tip {
             font-size: 0.7em;
             white-space: nowrap;
             color: map_get($gray-colors, 'gray-700');

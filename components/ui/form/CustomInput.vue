@@ -27,12 +27,11 @@ export default {
     props: {
         title: {
             type: String,
-            required: false,
             default: ''
         },
         value: {
             type: String,
-            required: true
+            default: null
         },
         icon: {
             type: String,
@@ -71,7 +70,9 @@ export default {
     input {
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
         background-clip: padding-box;
-        padding: 0;
+        padding: 0 20px;
+        border-radius: 10px;
+
         &::placeholder {
             color: #888888;
         }
@@ -92,6 +93,10 @@ export default {
         .form-control {
             padding-right: 40px;
         }
+    }
+
+    [dir=ltr] {
+        text-align: left;
     }
 }
 </style>

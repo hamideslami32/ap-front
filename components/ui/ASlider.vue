@@ -166,7 +166,7 @@ export default {
             const moveHandler = this.setValueByEvent
             const endHandler = () => {
                 removeEventListener(document, moveHandler, 'mousemove', 'touchmove')
-                removeEventListener(e.target, endHandler, 'mouseup', 'touchend')
+                removeEventListener(document, endHandler, 'mouseup', 'touchend')
                 this.$emit('input', this.localValue.slice())
                 this.focus = null
             }

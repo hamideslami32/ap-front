@@ -22,7 +22,7 @@
                 فیلتر و مرتب سازی
             </a-btn>
 
-            <b-modal v-model="showFilter" hide-footer>
+            <b-modal v-model="showFilter" body-class="px-0" hide-footer>
                 <template v-slot:modal-title>
                     فیلتر و مرتب سازی
                 </template>
@@ -125,11 +125,16 @@ export default {
         },
         startPolling(sid, retry = 1) {
             const { filters } = this
-            const { priceRange = [] } = filters
+            const { priceRange = [], departureFlightTime, returningFlightTime, airlines = [] } = filters
             return flightApi.getResults(sid, {
                 sort: filters.sort,
-                minPrice: priceRange[0] || null,
-                maxPrice: priceRange[1] || null
+                minPrice: priceRange[0] || undefined,
+                maxPrice: priceRange[1] || undefined,
+                flightTimes: departureFlightTime || returningFlightTime ? [
+                    departureFlightTime ? { min: departureFlightTime[0], max: departureFlightTime[1] } : '',
+                    returningFlightTime ? { min: returningFlightTime[0], max: returningFlightTime[1] } : ''
+                ] : undefined,
+                airlines: airlines.length ? airlines : undefined
             }, new Axios.CancelToken(canceler => {
                 this._pollingCanceler = canceler
             })).then(res => {

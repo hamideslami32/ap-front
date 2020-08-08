@@ -48,34 +48,17 @@
                 </p>
                 <b-form-group class="en font-weight-medium">
                     <b-form-radio
+                        v-for="x in classTypes"
+                        :key="x.value"
                         v-model="classSelect"
-                        class="mb-2"
-                        :class="{ active: classSelect === 'economy' }"
+                        class="mb-2 mx-1"
+                        :class="{ active: classSelect === x.value }"
                         checked="flightClass"
                         name="flight_class"
-                        value="economy"
+                        :value="x.value"
+                        inline
                     >
-                        Economy
-                    </b-form-radio>
-                    <b-form-radio
-                        v-model="classSelect"
-                        class="mb-2"
-                        :class="{ active: classSelect === 'business' }"
-                        checked="flightClass"
-                        name="flight_class"
-                        value="business"
-                    >
-                        Business
-                    </b-form-radio>
-                    <b-form-radio
-                        v-model="classSelect"
-                        class="mb-2"
-                        checked="flightClass"
-                        name="flight_class"
-                        value="first"
-                        :class="{ active: classSelect === 'first' }"
-                    >
-                        First Class
+                        {{ x.title }}
                     </b-form-radio>
                 </b-form-group>
             </div>
@@ -108,7 +91,12 @@ export default {
     data() {
         return {
             showModal: false,
-            localValue: cloneDeep(this.value)
+            localValue: cloneDeep(this.value),
+            classTypes: [
+                { value: 'economy', title: 'Economy' },
+                { value: 'business', title: 'Business' },
+                { value: 'first', title: 'First' }
+            ]
         }
     },
     computed: {

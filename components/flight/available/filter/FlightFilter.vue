@@ -1,47 +1,34 @@
 <template>
     <div class="filter text-3 text-gray-600">
-        <flight-sort v-model="localValue.sort" class="mb-4" />
-        <p class="filter__title mt-2 mb-0">
-            بازه قیمت بلیط (تومان)
-        </p>
-        <a-slider
-            v-model="localValue.priceRange"
-            :min="options.priceRange[0]"
-            :max="options.priceRange[1]"
-            :step="priceRangeStep"
-            class="mx-2 mb-2"
-        >
-            <template #tooltip="{ value: tooltip }">
-                {{ tooltip | separateNumber }}
-            </template>
-        </a-slider>
+        <flight-sort v-model="localValue.sort" class="mb-4 px-2" />
+        <div class="px-2">
+            <p class="filter__title mt-2 mb-0">
+                بازه قیمت بلیط (تومان)
+            </p>
+            <a-slider
+                v-model="localValue.priceRange"
+                :min="options.priceRange[0]"
+                :max="options.priceRange[1]"
+                :step="priceRangeStep"
+                class="mx-2 mb-2"
+            >
+                <template #tooltip="{ value: tooltip }">
+                    {{ tooltip | separateNumber }}
+                </template>
+            </a-slider>
+        </div>
 
-        <filter-panel title="ساعت پرواز">
-            <b-card-body class="d-flex justify-content-around px-2">
-                <div
-                    v-for="item in flightTime"
-                    :key="item.id"
-                    :class="{ 'active': item.id === localValue.flightTime }"
-                    class="time-item"
-                    @click="selectFlightTime(item.id)"
-                >
-                    <svgicon name="user" width="30" height="30" />
-                    <span>{{ item.time }}</span>
-                    <small>{{ item.tip }}</small>
-                </div>
-            </b-card-body>
-        </filter-panel>
-        <filter-panel title="ایرلاین ها">
-            <group-checkbox v-model="airlinesSelect" :options="airlines" />
-        </filter-panel>
-        <filter-panel title="انتخاب فرودگاه">
-            <group-checkbox v-model="airportsSelect" :options="airports" />
-        </filter-panel>
-        <filter-panel title="کلاس پروازی">
+        <flight-time-filter v-model="localValue.departureFlightTime" title="پرواز رفت" />
+
+        <flight-time-filter v-if="$flight.session.routes.length === 2" v-model="localValue.returningFlightTime" title="پرواز برگشت" />
+
+        <flight-airline-filter v-model="localValue.airlines" :airlines="options.airlines" />
+
+        <!--<panel title="کلاس پروازی">
             <b-form-group class="en font-weight-medium">
                 <b-form-radio
                     v-model="localValue.flightClass"
-                    class="mb-2"
+                    class="mb-2 mx-1"
                     :class="{ active: localValue.flightClass === 'economy' }"
                     checked="flightClass"
                     name="flight_class"
@@ -51,7 +38,7 @@
                 </b-form-radio>
                 <b-form-radio
                     v-model="localValue.flightClass"
-                    class="mb-2"
+                    class="mb-2 mx-1"
                     :class="{ active: localValue.flightClass === 'business' }"
                     checked="flightClass"
                     name="flight_class"
@@ -61,7 +48,7 @@
                 </b-form-radio>
                 <b-form-radio
                     v-model="localValue.flightClass"
-                    class="mb-2"
+                    class="mb-2 mx-1"
                     checked="flightClass"
                     name="flight_class"
                     value="first"
@@ -70,7 +57,9 @@
                     First Class
                 </b-form-radio>
             </b-form-group>
-        </filter-panel>
+        </panel>-->
+
+        <div class="py-4" />
 
         <div class="filter__actions">
             <a-btn wrapper-class="ml-2" variant="light" @click="clear">
@@ -85,22 +74,22 @@
 <script>
 import FlightSort from '~/components/flight/available/filter/FlightSort'
 import ASlider from '~/components/ui/ASlider'
-import FilterPanel from '~/components/flight/available/filter/FilterPanel'
 import cloneDeep from 'lodash/cloneDeep'
-import GroupCheckbox from '~/components/ui/form/GroupCheckbox'
+import FlightTimeFilter from '~/components/flight/available/filter/FlightTimeFilter'
+import FlightAirlineFilter from '~/components/flight/available/filter/FlightAirlineFilter'
 
 const initialFilters = () => ({
     sort: 'min_price',
     priceRange: [null, null],
     airlines: [],
     airports: [],
-    flightTime: 1,
+    departureFlightTime: null,
+    returningFlightTime: null,
     flightClass: 'economy'
 })
 
 export default {
-    name: 'FlightFilter',
-    components: {GroupCheckbox, FilterPanel, ASlider, FlightSort},
+    components: {FlightAirlineFilter, FlightTimeFilter, ASlider, FlightSort},
     props: {
         options: {
             type: Object,
@@ -114,24 +103,7 @@ export default {
     data() {
         return {
             localValue: Object.assign(initialFilters(), cloneDeep(this.value)), // airlines - airports - flight time
-            airlines: [
-                {title: 'آلیتالیا', value: 'alita', price: '3640000'},
-                {title: 'ایرفرانس', value: 'airFrance', price: '3640000'},
-                {title: 'کاال ام', value: 'klm', price: '3640000'},
-                {title: 'ترکیش ایرلاین', value: 'turkishAirlines', price: '3640000'}
-            ],
-            airports: [
-                {value: 'CDG', title: 'شارل دوگل', code: true},
-                {value: 'ORY', title: 'اورلی', code: true},
-                {value: 'BVA', title: 'باووایس', code: true}
-            ],
-            classSelect: 'economy',
-            flightTime: [
-                {id: 1, time: 'صبح', tip: '(۱۲ صبح الی ۱۸)', icon: 'user'},
-                {id: 2, time: 'بعدظهر', tip: '(۱۲ ظهر الی ۱۸)', icon: 'user'},
-                {id: 3, time: 'عصر', tip: '(۱۲ عصر الی ۱۸)', icon: 'user'},
-                {id: 4, time: 'شب', tip: '(۱۲ شب الی ۱۸)', icon: 'user'}
-            ]
+            classSelect: 'economy'
         }
     },
     computed: {
@@ -175,9 +147,6 @@ export default {
             this.$emit('apply', Object.assign(initialFilters(), {
                 sort: this.localValue.sort
             }), true)
-        },
-        selectFlightTime(id) {
-            this.localValue.flightTime = id
         }
     }
 }
@@ -186,7 +155,7 @@ export default {
 <style lang="scss" scoped>
     .filter {
         &__actions {
-            position: absolute;
+            position: fixed;
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
@@ -199,49 +168,4 @@ export default {
             }
         }
     }
-
-    .card-body {
-        padding: 0;
-
-        .time-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            padding: 15px 10px 10px 10px;
-            background: #f9f9f9;
-            border: 1px solid map_get($gray-colors, 'gray-400');
-            border-radius: 10px;
-            transition: all ease 250ms;
-
-            svg {
-                color: map_get($gray-colors, 'gray-700');
-            }
-
-            span {
-                color: map_get($gray-colors, 'gray-800');
-                font-size: 0.9em;
-            }
-
-            small {
-                font-size: 9px;
-                color: map_get($gray-colors, 'gray-700');
-            }
-
-            &:focus, &:active , &.active{
-                background: #e7def7;
-                box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
-                border-color: $primary;
-
-                span, svg, small {
-                    color: $primary;
-                }
-
-                span {
-                    font-weight: 500;
-                }
-            }
-        }
-    }
-
 </style>

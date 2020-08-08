@@ -42,6 +42,7 @@
 
             .modal-body {
                 padding: 20px 10px;
+                overflow: auto;
             }
         }
     }
@@ -58,7 +59,7 @@
     }
 }
 
-.modal-backdrop{
+.modal-backdrop {
     opacity: 0;
     transition: all 350ms linear;
 }

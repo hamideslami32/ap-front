@@ -6,22 +6,29 @@
                     <p class="text-3">
                         اطلاعات شخصی
                     </p>
-                    <field title="نام و نام خانوادگی" value="سید حسین حسینی" />
-                    <field class="mt-2" title="تاریخ تولد" value="72/04/20" />
+                    <field title="نام و نام خانوادگی" :value="userFullName" />
+                    <field class="mt-2" title="تاریخ تولد">
+                        {{ user.birthdate ? $dayjs(user.birthdate).format('YYYY-MM-DD') : 'نامشخص' }}
+                    </field>
                     <p class="text-3 mt-5">
                         اطلاعات تماس
                     </p>
-                    <field title="نام و نام خانوادگی" value="سید حسین حسینی" :active="true" />
-                    <field class="mt-2" title="تاریخ تولد" value="72/04/20" :active="true" />
+                    <field title="شماره تماس">
+                        <span dir="ltr">{{ user.phone }}</span>
+                        <checked-tick v-if="user.isConfirmed" />
+                    </field>
+                    <field class="mt-2" title="ایمیل" :value="user.email" />
                 </div>
                 <div v-else class="account__edit-section">
                     <p class="text-3 text-center">
                         ویرایش اطلاعات شخصی
                     </p>
-                    <form>
-                        <custom-input title="نام خانوادگی" input-class="input text-3" />
-                        <custom-input title="تاریخ تولد" input-class="input text-3" />
-                        <a-btn variant="primary" class="submit-btn">
+                    <form @submit.prevent="submitInfo">
+                        <custom-input v-model="account.firstName" title="نام" input-class="input text-3" />
+                        <custom-input v-model="account.lastName" title="نام خانوادگی" input-class="input text-3" />
+                        <custom-input v-model="account.email" title="ایمیل" input-class="input text-3" dir="ltr" />
+                        <custom-input v-model="account.birthdate" title="تاریخ تولد" input-class="input text-3" dir="ltr" />
+                        <a-btn variant="primary" class="submit-btn" type="submit">
                             تائید ویرایش
                         </a-btn>
                     </form>
@@ -40,14 +47,17 @@
                     <p class="text-3 text-center">
                         تغییر رمز عبور
                     </p>
-                    <form>
-                        <custom-input type="password" title="رمز عبور فعلی" input-class="input text-3" />
-                        <p class="text-3 mt-4">
-                            رمز عبور جدید
-                        </p>
-                        <custom-input type="password" title="رمز عبور جدید" input-class="input text-3" />
-                        <custom-input type="password" title="تکرار رمز عبور جدید" input-class="input text-3" />
-                        <a-btn variant="primary" class="submit-btn">
+                    <form @submit.prevent="submitPassword">
+                        <template v-if="user.password">
+                            <custom-input v-model="changePassword.currentPassword" type="password" title="رمز عبور فعلی" input-class="input text-3" />
+                            <p class="text-3 mt-4">
+                                رمز عبور جدید
+                            </p>
+                        </template>
+
+                        <custom-input v-model="changePassword.newPassword" type="password" title="رمز عبور جدید" input-class="input text-3" />
+                        <custom-input v-model="changePassword.confirmPassword" type="password" title="تکرار رمز عبور جدید" input-class="input text-3" />
+                        <a-btn variant="primary" class="submit-btn" type="submit">
                             تغییر رمز عبور
                         </a-btn>
                     </form>
@@ -60,18 +70,76 @@
 <script>
 import Field from '~/components/ui/Field'
 import CustomInput from '~/components/ui/form/CustomInput'
+import CheckedTick from '~/components/ui/CheckedTick'
 
 export default {
     name: 'Account',
-    components: {CustomInput, Field},
+    components: {CustomInput, Field, CheckedTick},
     data() {
+        const user = this.$auth.user
         return {
-            editAccount: false
+            editAccount: false,
+            account: {
+                firstName: user.firstName || undefined,
+                lastName: user.lastName || undefined,
+                email: user.email || undefined,
+                birthdate: user.birthdate ? this.$dayjs(user.birthdate).calendar('jalali').format('YYYY-MM-DD') : undefined
+            },
+            changePassword: {
+                currentPassword: null,
+                newPassword: null,
+                confirmPassword: null
+            }
+        }
+    },
+    computed: {
+        user() {
+            return this.$auth.user
+        },
+        userFullName() {
+            const { firstName = '', lastName = '' } = this.user
+            return firstName + ' ' + lastName
+        }
+    },
+    watch: {
+        'account.birthdate'(t, f) {
+            if (t && (!t.match(/^[\d-]+$/) || t.length > 10)) this.account.birthdate = f
+            const [tl, fl] = [t.length, (f || '').length]
+            if (tl - fl === 1) {
+                if (tl === 4 || tl === 7) {
+                    this.account.birthdate += '-'
+                }
+            }
         }
     },
     methods: {
+
         showAccountEdit() {
             this.editAccount = true
+        },
+
+        async submitInfo() {
+            const account = { ...this.account }
+            if (account.birthdate) {
+                const isJalaali = account.birthdate.split(/-|\//)[0] < 1700
+                account.birthdate = this.$dayjs(account.birthdate, { jalali: isJalaali })
+                    .calendar('gregory').format('YYYY-MM-DD')
+            }
+            await this.$auth.patchUser(account)
+            this.editAccount = false
+        },
+
+        async submitPassword() {
+            try {
+                await this.$auth.patchUser({
+                    currentPassword: this.changePassword.currentPassword,
+                    password: this.changePassword.newPassword
+                })
+                this.editAccount = false
+                await this.$auth.logout('/login')
+            } catch (e) {
+
+            }
         }
     }
 }
@@ -79,11 +147,6 @@ export default {
 
 <style lang="scss" scoped>
     .account {
-        margin-top: -20px;
-
-        .tabs {
-            margin: 0 -10px;
-        }
 
         &__show, &__edit-section {
             color: map_get($gray-colors, 'gray-700');
@@ -104,15 +167,6 @@ export default {
 
         /deep/ .custom-input {
             margin-bottom: 10px;
-
-            .input {
-                margin: 0 auto;
-                border-radius: 10px;
-                box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
-                padding-right: 20px;
-                border-color: map_get($gray-colors, 'gray-400');
-                /* max-width: 280px; */
-            }
         }
 
         &__edit-section {

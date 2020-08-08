@@ -1,12 +1,16 @@
 <template>
-    <div class="filter-panel">
+    <div class="panel">
         <a class="link-inherit" :class="{ show }" href="javascript:void(0)" @click="toggle">
             <svgicon class="text-gray-500 ml-2" width="20" height="20" :name="icon" />
-            <span class="align-middle">{{ title }}</span>
-            <svgicon class="filter-panel__chevron" name="arrow-left" />
+            <span class="align-middle">
+                <slot name="title">
+                    {{ title }}
+                </slot>
+            </span>
+            <svgicon class="panel__chevron" name="arrow-left" />
         </a>
-        <b-collapse v-model="show" accordion="filter">
-            <div class="px-2 pb-3">
+        <b-collapse v-model="show" :accordion="accordion">
+            <div class="px-2 pb-3" :class="bodyClass">
                 <slot />
             </div>
         </b-collapse>
@@ -24,9 +28,17 @@ export default {
             type: String,
             default: 'user'
         },
-        toggleAble: {
+        disabled: {
             type: Boolean,
-            default: true
+            default: false
+        },
+        bodyClass: {
+            type: [String, Object, Array],
+            default: ''
+        },
+        accordion: {
+            type: String,
+            default: null
         }
     },
     data() {
@@ -36,19 +48,17 @@ export default {
     },
     methods: {
         toggle() {
-            if (this.toggleAble) {
-                this.show = !this.show
-            }
+            if (this.disabled) return
+            this.show = !this.show
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-    .filter-panel {
+    .panel {
         display: block;
         border-top: 1px solid map_get($gray-colors, 'gray-500');
-        margin: 0 -10px;
         color: map_get($grays, '800');
 
         > a {
@@ -57,7 +67,7 @@ export default {
             font-weight: 500;
 
             &.show {
-                .filter-panel__chevron {
+                .panel__chevron {
                     transform: rotate(-90deg);
                 }
             }

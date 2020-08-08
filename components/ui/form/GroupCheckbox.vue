@@ -1,31 +1,22 @@
 <template>
-    <div class="group-checkbox">
-        <b-form-checkbox-group id="checkbox-group-2" class="w-100" name="flavour-2">
-            <div
-                v-for="item in options"
-                :key="item.value"
-                class="group-checkbox__item pb-3"
-                @click="toggle(item.value)"
-            >
-                <b-form-checkbox :id="item.value" :checked="value" :value="item.value" />
-                <span v-show="item.price" class="group-checkbox__label">{{ item.price | separateNumber | localizeNumber }} <span class="text-small">تومان</span></span>
-                <span class="ml-auto">{{ item.title }}</span>
-                <badge v-if="item.code" class="ml-2">
-                    {{ item.value }}
-                </badge>
-                <svgicon v-else name="user" width="60" height="40" />
+    <b-form-group class="group-checkbox">
+        <b-form-checkbox
+            v-for="item in options"
+            :id="item.value"
+            :key="item.value"
+            v-model="localValue"
+            :value="item.value"
+        >
+            <div class="flex-grow-1 mb-2">
+                <slot :item="item" />
             </div>
-        </b-form-checkbox-group>
-    </div>
+        </b-form-checkbox>
+    </b-form-group>
 </template>
 
 <script>
-import Badge from '~/components/ui/Badge'
 export default {
     name: 'GroupCheckbox',
-    components: {
-        Badge
-    },
     props: {
         value: {
             type: Array,
@@ -36,81 +27,29 @@ export default {
             required: true
         }
     },
+
     computed: {
-        checkedItem: {
+        localValue: {
             get() {
                 return this.value
             },
-            set(value) {
-                // this.$emit('input', value)
+            set(x) {
+                this.$emit('input', x)
             }
-        }
-    },
-  
-    methods: {
-        toggle(value) {
-            this.$emit('input', value)
         }
     }
 }
 </script>
 
-<style lang="scss" scoped>
-    .group-checkbox {
-        font-weight: 500;
-        font-size: 1em;
-        color: map_get($gray-colors, 'gray-800');
+<style lang="scss">
+.group-checkbox {
+    .custom-control-label {
+        width: 100%;
 
-        &__item {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            justify-content: space-between;
-
-            &.select {
-                transition: all ease 250ms;
-
-                .airlines-filter__item__info {
-                    span {
-                        font-weight: 600;
-                        color: $primary;
-                    }
-
-                    svg {
-                        border-color: $primary;
-                    }
-                }
-
-                /deep/ .custom-control-label {
-                    color: $primary;
-
-                    .text-small {
-                        color: $primary;
-                    }
-                }
-            }
-
-            .custom-checkbox {
-                margin-right: 0;
-                pointer-events: none;
-            }
-
-            svg {
-                margin-left: 10px;
-                border: 1px solid map_get($gray-colors, 'gray-500');
-                border-radius: 3px;
-                box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
-            }
-
-            .group-checkbox__label {
-                direction: rtl;
-                .text-small {
-                    font-size: 0.75em;
-                    color: map_get($gray-colors, 'gray-700');
-                }
-            }
+        &::after, &::before {
+            top: 50%;
+            margin-top: -8px;
         }
-
-
     }
+}
 </style>

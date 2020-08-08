@@ -24,3 +24,8 @@ if (process.browser) {
     const FastClick = require('fastclick')
     new FastClick(document.body)
 }
+
+Vue.prototype.$staticUrl = function(url) {
+    const baseURL = process.env.STATIC_URL.replace(/\/+$/, '')
+    return (baseURL + '/' + url.replace(/^\/+/, '')).trim()
+}

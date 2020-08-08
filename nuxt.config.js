@@ -37,7 +37,9 @@ export default {
         '~plugins/api',
         '~plugins/flight',
         '~plugins/dayjs',
-        '~plugins/toast.js'
+        '~plugins/portal',
+        '~plugins/toast.js',
+        '~plugins/veeValidate'
     ],
     server: {
         port: process.env.PORT || 3000,
@@ -72,6 +74,9 @@ export default {
    */
     axios: {
         baseURL: process.env.API_URL || 'https://apro-dev.ir/api'
+    },
+    env: {
+        STATIC_URL: process.env.STATIC_URL
     },
     /*
    ** Content module configuration
