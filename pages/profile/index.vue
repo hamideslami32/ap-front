@@ -88,11 +88,12 @@ export default {
         text-align: center;
         color: $white;
         &__icon-wrapper {
-            width: 71px;
-            height: 71px;
-            background: linear-gradient(180deg,#e3469a 35.42%, #cccccc 100%);
-            margin: 0 auto;
+            display: inline-block;
+            padding: 1px;
+            background: linear-gradient(180deg, #e3469a -10%, #5d3b99 100%);
+            margin: 20px auto;
             border-radius: 50%;
+            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
         }
         &__icon-holder {
             display: flex;
@@ -104,7 +105,6 @@ export default {
             border-radius: 50%;
             background: red;
             background: linear-gradient(180deg, #6d4da3 0%, #5d3b99 100%);
-            margin: 20px auto;
             svg {
                 color: $white;
             }
