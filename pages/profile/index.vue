@@ -9,7 +9,7 @@
                     <svgicon width="40" height="40" name="user" />
                 </span>
             </div>
-            <p class="my-4">
+            <p class="mb-4 mt-1">
                 {{ userFullName }}
             </p>
             <field class="profile-header__info" title="میزان اعتبار">
