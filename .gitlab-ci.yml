@@ -21,7 +21,7 @@ sync-cdn:
   script:
     - docker pull $IMAGE
     - docker container create --name apro $IMAGE
-    - docker container cp apro:/app/.nuxt/dist/client /var/www/static/fr
+    - docker container cp apro:/app/.nuxt/dist/client/. /var/www/static/fr
     - docker container rm -f apro
   tags:
     - asia-tech
