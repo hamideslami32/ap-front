@@ -155,7 +155,7 @@ export default {
             display: flex;
             align-items: center;
             justify-content: center;
-            span{
+            span {
                 font-size: 0.6em;
                 color: $info;
             }
