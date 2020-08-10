@@ -56,6 +56,23 @@
                 <p class="text-3 text-gray-700 text-center mt-4">
                     پر کردن حداقل یک فیلد کافیست
                 </p>
+                <form action="">
+                    <custom-input title="شماره سفارش" />
+                    <custom-input title="نوع سفارش" />
+                    <span class="date-input-pair">
+                        <custom-input title="از تاریخ" />
+                        <svgicon
+                            class="pair-icon text-primary"
+                            name="arrows-round"
+                            width="30"
+                            height="30"
+                        />
+                        <custom-input title="تا تاریخ" />
+                    </span>
+                    <a-btn variant="primary" class="submit-btn" type="submit">
+                        جستجو
+                    </a-btn>
+                </form>
             </div>
         </b-modal>
     </div>
@@ -63,13 +80,14 @@
 
 <script>
 import Card from '~/components/ui/Card'
+import CustomInput from '~/components/ui/form/CustomInput'
 
 export default {
     name: 'Orders',
-    components: {Card},
+    components: {CustomInput, Card},
     data() {
         return {
-            searchModal: true
+            searchModal: false
         }
     }
 }
@@ -122,6 +140,68 @@ export default {
                     margin-right: 5px;
                     border-radius: 50%;
                 }
+            }
+        }
+    }
+
+    .search-orders {
+        padding: 0 40px;
+
+        .date-input-pair {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            .custom-input {
+                margin-bottom: 0;
+                &:first-child {
+                    /deep/ input {
+                        border-bottom-left-radius: 0;
+                        border-bottom-right-radius: 0;
+                    }
+                }
+                &:last-child {
+                    /deep/ input {
+                        border-top-left-radius: 0;
+                        border-top-right-radius: 0;
+                    }
+                }
+            }
+
+            .form-input {
+                background: #f9f9f9;
+            }
+
+            .pair-icon {
+                transform: rotate(90deg);
+                position: absolute;
+                left: 20px;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                z-index: 1;
+                box-sizing: content-box;
+                background: $white;
+                border: 1px solid map_get($gray-colors, 'gray-500');
+                border-radius: 50px;
+            }
+
+        }
+
+
+        .btn-wrapper {
+            width: 100%;
+            display: block;
+            margin-top: 20px;
+            &:after {
+                z-index: 0;
+            }
+
+            button {
+                width: 100%;
+                height: 50px;
+                font-weight: 600;
+                position: relative;
+                z-index: 1;
             }
         }
     }

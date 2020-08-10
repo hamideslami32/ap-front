@@ -18,7 +18,7 @@ export default {
     .custom-card {
         background: map_get($gray-colors, 'gray-200');
         border-radius: 10px;
-        border: 1px solid map_get($gray-colors, 'gray-200');
+        border: 1px solid map_get($gray-colors, 'gray-800');
 
         &__info {
             background: $white;
