@@ -24,7 +24,7 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-between px-2">
                         <span>مبلغ</span>
-                        <span class="tex-gray-800">15,000,000
+                        <span class="text-gray-800">15,000,000
                             <small class="text-gray-700">تومان</small>
                         </span>
                     </div>

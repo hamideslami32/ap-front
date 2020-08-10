@@ -18,6 +18,7 @@
         </div>
         <panel title="حساب کاربری" disabled @click.native="accountModal = true" />
         <panel title="خرید ها" disabled @click.native="orderModal = true" />
+        <panel title="تراکنش ها" disabled @click.native="transactionsModal = true" />
         <panel title="مسافران" disabled @click.native="passengerModal = true" />
         <panel title="صورتحساب ها" disabled />
         <panel disabled @click.native="$auth.logout()">
@@ -43,6 +44,15 @@
             </template>
             <orders />
         </b-modal>
+        <b-modal v-model="transactionsModal" hide-footer>
+            <template v-slot:modal-title>
+                تراکنش ها
+            </template>
+            <template v-slot:modal-header-close>
+                <svgicon name="arrow-long-right" width="20" height="20" />
+            </template>
+            <trans-actions />
+        </b-modal>
         <b-modal v-model="passengerModal" hide-footer>
             <template v-slot:modal-title>
                 مسافران
@@ -61,15 +71,17 @@ import Account from '~/components/profile/Account'
 import Field from '~/components/ui/Field'
 import Orders from '~/components/profile/Orders'
 import Passengers from '~/components/profile/Passengers'
+import TransActions from '~/components/profile/TransActions'
 
 export default {
-    components: {Passengers, Orders, Field, Account, Panel },
+    components: {TransActions, Passengers, Orders, Field, Account, Panel },
     auth: true,
     data() {
         return {
             accountModal: false,
             orderModal:false,
-            passengerModal: false
+            passengerModal: false,
+            transactionsModal: false
         }
     },
     computed: {
