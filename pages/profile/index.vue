@@ -41,18 +41,19 @@
             <template v-slot:modal-header-close>
                 <svgicon name="arrow-long-right" width="20" height="20" />
             </template>
-            <!--            <account />-->
+            <orders />
         </b-modal>
     </div>
 </template>
 
 <script>
 import Panel from '~/components/ui/Panel'
-import Account from '~/components/profile/account'
+import Account from '~/components/profile/Account'
 import Field from '~/components/ui/Field'
+import Orders from '~/components/profile/Orders'
 
 export default {
-    components: { Field, Account, Panel },
+    components: {Orders, Field, Account, Panel },
     auth: true,
     data() {
         return {
@@ -93,7 +94,7 @@ export default {
             background: linear-gradient(180deg, #e3469a -10%, #5d3b99 100%);
             margin: 20px auto;
             border-radius: 50%;
-            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
         }
         &__icon-holder {
             display: flex;

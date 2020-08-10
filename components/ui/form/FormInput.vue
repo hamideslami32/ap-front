@@ -108,7 +108,7 @@ export default {
         display: inline-block;
         font-size: 0.8em;
         font-weight: 500;
-        &.one-way{
+        &.one-way {
             text-align: right;
             padding-right: 55px;
         }
@@ -118,7 +118,7 @@ export default {
         font-size: 13px;
         margin-bottom: 0;
         width: 100%;
-        &.one-way{
+        &.one-way {
             text-align: right;
             padding-right: 55px;
         }
@@ -136,7 +136,7 @@ export default {
 
     &--value {
         background-color: #f9f9f9;
-        label{
+        label {
             font-size: 0.6rem;
         }
     }
