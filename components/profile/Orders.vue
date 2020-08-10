@@ -43,7 +43,7 @@
         </card>
 
         <a-btn wrapper-class="search-btn" variant="primary" @click="searchModal = true">
-            فیلتر و مرتب سازی
+            جستجو
         </a-btn>
         <b-modal v-model="searchModal" body-class="p-0" hide-footer>
             <template v-slot:modal-title>
@@ -130,16 +130,6 @@ export default {
                 width: 140px;
                 height: 40px;
                 position: relative;
-
-                &::after {
-                    content: '';
-                    width: 6px;
-                    height: 6px;
-                    display: inline-block;
-                    background: #e3469a;
-                    margin-right: 5px;
-                    border-radius: 50%;
-                }
             }
         }
     }

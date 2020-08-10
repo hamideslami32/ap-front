@@ -17,8 +17,8 @@
             </field>
         </div>
         <panel title="حساب کاربری" disabled @click.native="accountModal = true" />
-        <panel title="خرید ها" disabled @click.native="ticketModal = true" />
-        <panel title="مسافران" disabled />
+        <panel title="خرید ها" disabled @click.native="orderModal = true" />
+        <panel title="مسافران" disabled @click.native="passengerModal = true" />
         <panel title="صورتحساب ها" disabled />
         <panel disabled @click.native="$auth.logout()">
             <template #title>
@@ -34,7 +34,7 @@
             </template>
             <account @close="accountModal = false" />
         </b-modal>
-        <b-modal v-model="ticketModal" hide-footer>
+        <b-modal v-model="orderModal" hide-footer>
             <template v-slot:modal-title>
                 خریدها
             </template>
@@ -42,6 +42,15 @@
                 <svgicon name="arrow-long-right" width="20" height="20" />
             </template>
             <orders />
+        </b-modal>
+        <b-modal v-model="passengerModal" hide-footer>
+            <template v-slot:modal-title>
+                مسافران
+            </template>
+            <template v-slot:modal-header-close>
+                <svgicon name="arrow-long-right" width="20" height="20" />
+            </template>
+            <passengers />
         </b-modal>
     </div>
 </template>
@@ -51,14 +60,16 @@ import Panel from '~/components/ui/Panel'
 import Account from '~/components/profile/Account'
 import Field from '~/components/ui/Field'
 import Orders from '~/components/profile/Orders'
+import Passengers from '~/components/profile/Passengers'
 
 export default {
-    components: {Orders, Field, Account, Panel },
+    components: {Passengers, Orders, Field, Account, Panel },
     auth: true,
     data() {
         return {
             accountModal: false,
-            ticketModal:false
+            orderModal:false,
+            passengerModal: false
         }
     },
     computed: {
