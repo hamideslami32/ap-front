@@ -1,5 +1,5 @@
 <template>
-    <panel title="ایرلاین ها" body-class="px-3">
+    <panel icon="plane" title="ایرلاین ها" body-class="px-3">
         <group-checkbox :value="value" :options="mappedAirlines" @input="$emit('input', $event)">
             <template v-slot="{ item }">
                 <span class="airline-item">

@@ -16,7 +16,7 @@
         </div>
         <div dir="ltr" class="flight-item__locations">
             <b>{{ firstStop.departureCityName }}</b>
-            <svgicon name="chair" width="30" />
+            <svgicon name="plane-takeoff" width="40" height="20" />
             <b class="text-left">{{ lastStop.arrivalCityName }}</b>
         </div>
         <div class="flight-item__map">
@@ -123,6 +123,10 @@ export default {
             align-items: center;
             justify-content: center;
 
+            svg {
+                transform: scale(-1, 1);
+                color: $borderColor;
+            }
             > b {
                 flex: 50% 1 1;
             }
