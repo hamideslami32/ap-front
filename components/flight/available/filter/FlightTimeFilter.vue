@@ -1,5 +1,5 @@
 <template>
-    <panel :title="title">
+    <panel icon="clock" :title="title">
         <div class="d-flex px-2">
             <div
                 v-for="item in flightTime"
@@ -8,7 +8,7 @@
                 class="time-item"
                 @click="$emit('input', item.value)"
             >
-                <svgicon name="user" width="30" height="30" />
+                <svgicon :name="item.icon" width="30" height="30" />
                 <span>{{ item.title }}</span>
                 <small>{{ item.subtitle }}</small>
             </div>
@@ -35,10 +35,10 @@ export default {
     data() {
         return {
             flightTime: [
-                {value: ['06:00', '12:00'], title: 'صبح', subtitle: '(۶ الی ۱۲)', icon: 'user'},
+                {value: ['06:00', '12:00'], title: 'صبح', subtitle: '(۶ الی ۱۲)', icon: 'sunset'},
                 {value: ['00:00', '06:00'], title: 'بامداد', subtitle: '(۰ الی ۶)', icon: 'user'},
-                {value: ['12:00', '18:00'], title: 'بعدظهر', subtitle: '(۱۲ الی ۱۸)', icon: 'user'},
-                {value: ['18:00', '23:59'], title: 'شب', subtitle: '(۱۸ الی ۲۴)', icon: 'user'}
+                {value: ['12:00', '18:00'], title: 'بعدظهر', subtitle: '(۱۲ الی ۱۸)', icon: 'sun'},
+                {value: ['18:00', '23:59'], title: 'شب', subtitle: '(۱۸ الی ۲۴)', icon: 'moon'}
             ]
         }
     }

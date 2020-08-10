@@ -17,7 +17,7 @@
                         <form-input
                             :class-name="search.type === 'OW' ? 'one-way' : ''"
                             label="تاریخ رفت"
-                            :icon="search.type === 'OW' ? 'calendar': ''"
+                            :icon="search.type === 'OW' ? 'calendar-schedule': ''"
                             :value="value[0] ? value[0].format('dddd DD MMMM YY') : null"
                             readonly
                             v-on="on"
@@ -25,7 +25,7 @@
                         <svgicon
                             v-if="search.type !== 'OW'"
                             class="pair-icon"
-                            name="calendar"
+                            name="calendar-schedule"
                             width="28"
                             height="28"
                         />
@@ -45,13 +45,13 @@
                         :class-name="search.type === 'OW' ? 'one-way' : ''"
                         :value="value[0] ? value[0].format('dddd DD MMMM YY') : null"
                         readonly
-                        :icon="search.type === 'OW' ? 'calendar': ''"
+                        :icon="search.type === 'OW' ? 'calendar-schedule': ''"
                         v-on="on"
                     />
                     <svgicon
                         v-if="search.type !== 'OW'"
                         class="pair-icon"
-                        name="calendar"
+                        name="calendar-schedule"
                         width="28"
                         height="28"
                     />
