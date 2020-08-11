@@ -1,10 +1,10 @@
 $font-sizes: (
-    1: 0.625rem,
-    2: 0.75rem,
-    3: 0.875rem,
+    1: 0.625rem, // 10px
+    2: 0.75rem, // 12px
+    3: 0.875rem, // 14px
     4: 1rem,
-    5: 1.5rem,
-    6: 2rem
+    5: 1.5rem, // 24px
+    6: 2rem // 32px
 );
 
 @each $sizePrefix, $size in $font-sizes {
