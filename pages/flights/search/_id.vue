@@ -69,7 +69,9 @@ export default {
     },
     watch: {
         '$route.fullPath'(t, f) {
-            !this.$route.query.sid && this.refresh()
+            if (!this.$route.query.sid) {
+                this.refresh()
+            }
         },
 
         filters: {

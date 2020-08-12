@@ -14,10 +14,10 @@
                 >
             </span>
         </div>
-        <div dir="ltr" class="flight-item__locations">
-            <b>{{ firstStop.departureCityName }}</b>
+        <div class="flight-item__locations">
+            <b class="text-left">{{ firstStop.departureCityName }}</b>
             <svgicon name="plane-takeoff" width="40" height="20" />
-            <b class="text-left">{{ lastStop.arrivalCityName }}</b>
+            <b class="text-right">{{ lastStop.arrivalCityName }}</b>
         </div>
         <div class="flight-item__map">
             <b class="flight-item__map__time">
@@ -88,8 +88,7 @@ export default {
             return this.flight.stops[this.flight.stops.length - 1]
         },
         airlines() {
-            const route = this.available.routes.find(route => route.flights.includes(this.flight))
-            return uniq(flattenDeep(route.flights.map(flight => flight.stops.map(stop => stop.airline)))).sort()
+            return uniq(flattenDeep(this.flight.stops.map(stop => stop.airline))).sort()
         }
     }
 }

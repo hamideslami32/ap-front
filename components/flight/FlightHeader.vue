@@ -17,6 +17,7 @@
                 v-model="passengers"
                 :flight-class.sync="search.classType"
                 :is-international="isInternational"
+                @input="updateSearch"
             >
                 <input type="text" class="passenger-input" :value="classTypeText">
             </passengers-picker>
@@ -25,6 +26,7 @@
                 class="date-input-pair"
                 :jalaali.sync="jalaaliDatepicker"
                 :range.sync="isDatepickerRange"
+                @input="updateSearch"
             >
                 <template v-slot="{ open, value, on }">
                     <input
@@ -46,6 +48,7 @@
                 v-model="passengers"
                 :flight-class.sync="search.classType"
                 :is-international="isInternational"
+                @input="updateSearch"
             >
                 <input type="text" class="passenger-input" :value="passengersCount + ' مسافر'">
             </passengers-picker>
@@ -94,13 +97,6 @@ export default {
                     classType: t['class'] // business first
                 }
             }
-        },
-        'search': {
-            deep: true,
-            handler(t, f) {
-                if (!f || !f.origin) return
-                this.startSearch()
-            }
         }
     },
 
@@ -118,6 +114,10 @@ export default {
             const oldDest = this.search.destination
             this.search.destination = this.search.origin
             this.search.origin = oldDest
+            this.updateSearch()
+        },
+        updateSearch() {
+            this.startSearch(true)
         }
     }
 }

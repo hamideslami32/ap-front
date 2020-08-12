@@ -97,7 +97,6 @@ export default {
 
     methods: {
         startSearch(cache = true) {
-            // this.$toast('تست', 'success')
             cache && this.$storage.setLocalStorage('lastSearch', this.search)
             const {type, origin, destination, departing, returning, adult, child, infant, classType} = this.search
             const query = {
