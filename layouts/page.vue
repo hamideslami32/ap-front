@@ -17,6 +17,6 @@ export default {
 
 <style scoped>
     .page-layout {
-        padding: 60px 0;
+        padding-top: 60px;
     }
 </style>

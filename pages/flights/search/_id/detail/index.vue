@@ -18,7 +18,14 @@
             <span class="px-3 text-2 text-gray-700">۲ مسافر</span>
         </div>
         <div class="d-flex">
-            <flight-time-picker />
+            <flight-time-picker>
+                <date-card />
+                <date-card />
+                <date-card />
+                <date-card />
+                <date-card />
+                <date-card />
+            </flight-time-picker>
             <flight-time-picker :is-destination="true" />
         </div>
     </div>
@@ -26,15 +33,18 @@
 
 <script>
 import FlightTimePicker from '~/components/flight/available/details/FlightTimePicker'
+import DateCard from '~/components/flight/available/details/DateCard'
+
 export default {
-    name: 'Detail',
-    components: {FlightTimePicker},
+    components: {DateCard, FlightTimePicker},
     layout: 'page'
 }
 </script>
 
 <style lang="scss" scoped>
     .flight-time {
+        overflow: hidden;
+        height: calc(100vh - 60px);
         &__header {
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
 
