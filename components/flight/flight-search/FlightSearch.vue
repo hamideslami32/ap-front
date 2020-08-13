@@ -1,25 +1,52 @@
 <template>
     <div>
-        <form action="#">
-            <tabs v-model="search.type" class="mb-3" :tabs="tabs" />
-            <input-pair class="mb-3">
-                <flight-destination-picker v-model="search.origin" place-holder="ازکجا" title="مبدا" />
-                <flight-destination-picker v-model="search.destination" place-holder="به کجا" title="مقصد" />
-            </input-pair>
-            <a-datepicker
-                v-model="date"
-                class="date-input-pair mb-3 a-datepicker--top"
-                :jalaali.sync="jalaaliDatepicker"
-                :range.sync="isDatepickerRange"
-            >
-                <template v-slot:before="{ on, value }">
-                    <span class="date-input-pair" dir="rtl">
+        <v-observer slim>
+            <form action="#">
+                <tabs v-model="search.type" class="mb-3" :tabs="tabs" />
+                <input-pair class="mb-3">
+                    <flight-destination-picker v-model="search.origin" place-holder="ازکجا" title="مبدا" />
+                    <flight-destination-picker v-model="search.destination" place-holder="به کجا" title="مقصد" />
+                </input-pair>
+                <a-datepicker
+                    v-model="date"
+                    class="date-input-pair mb-3 a-datepicker--top"
+                    :jalaali.sync="jalaaliDatepicker"
+                    :range.sync="isDatepickerRange"
+                >
+                    <template v-slot:before="{ on, value }">
+                        <span class="date-input-pair" dir="rtl">
+                            <form-input
+                                :class-name="search.type === 'OW' ? 'one-way' : ''"
+                                label="تاریخ رفت"
+                                :icon="search.type === 'OW' ? 'calendar-schedule': ''"
+                                :value="value[0] ? value[0].format('dddd DD MMMM YY') : null"
+                                readonly
+                                v-on="on"
+                            />
+                            <svgicon
+                                v-if="search.type !== 'OW'"
+                                class="pair-icon"
+                                name="calendar-schedule"
+                                width="28"
+                                height="28"
+                            />
+                            <form-input
+                                v-if="search.type !== 'OW'"
+                                label="تاریخ برگشت"
+                                :value="value[1] ? value[1].format('dddd DD MMMM YY') : null"
+                                readonly
+                                data-datepicker="1"
+                                v-on="on"
+                            />
+                        </span>
+                    </template>
+                    <template v-slot="{ open, value, on }">
                         <form-input
-                            :class-name="search.type === 'OW' ? 'one-way' : ''"
                             label="تاریخ رفت"
-                            :icon="search.type === 'OW' ? 'calendar-schedule': ''"
+                            :class-name="search.type === 'OW' ? 'one-way' : ''"
                             :value="value[0] ? value[0].format('dddd DD MMMM YY') : null"
                             readonly
+                            :icon="search.type === 'OW' ? 'calendar-schedule': ''"
                             v-on="on"
                         />
                         <svgicon
@@ -33,63 +60,38 @@
                             v-if="search.type !== 'OW'"
                             label="تاریخ برگشت"
                             :value="value[1] ? value[1].format('dddd DD MMMM YY') : null"
-                            readonly
                             data-datepicker="1"
+                            readonly
                             v-on="on"
                         />
-                    </span>
-                </template>
-                <template v-slot="{ open, value, on }">
-                    <form-input
-                        label="تاریخ رفت"
-                        :class-name="search.type === 'OW' ? 'one-way' : ''"
-                        :value="value[0] ? value[0].format('dddd DD MMMM YY') : null"
-                        readonly
-                        :icon="search.type === 'OW' ? 'calendar-schedule': ''"
-                        v-on="on"
-                    />
-                    <svgicon
-                        v-if="search.type !== 'OW'"
-                        class="pair-icon"
-                        name="calendar-schedule"
-                        width="28"
-                        height="28"
-                    />
-                    <form-input
-                        v-if="search.type !== 'OW'"
-                        label="تاریخ برگشت"
-                        :value="value[1] ? value[1].format('dddd DD MMMM YY') : null"
-                        data-datepicker="1"
-                        readonly
-                        v-on="on"
-                    />
-                </template>
+                    </template>
 
-                <template #day="{ day }">
-                    <span class="calendar__day__content">
-                        <span v-if="datePrices && datePrices.departing[day.calendar('gregory').format('YYYY-MM-DD')]">
-                            {{ day.format('D') }}
-                            <br>
-                            <small class="text-1">{{ datePrices.departing[day.calendar('gregory').format('YYYY-MM-DD')] / 1000 }}</small>
+                    <template #day="{ day }">
+                        <span class="calendar__day__content">
+                            <span v-if="datePrices && datePrices.departing[day.calendar('gregory').format('YYYY-MM-DD')]">
+                                {{ day.format('D') }}
+                                <br>
+                                <small class="text-1">{{ datePrices.departing[day.calendar('gregory').format('YYYY-MM-DD')] / 1000 }}</small>
+                            </span>
+                            <template v-else>
+                                {{ day.format('D') }}
+                            </template>
                         </span>
-                        <template v-else>
-                            {{ day.format('D') }}
-                        </template>
-                    </span>
-                </template>
-            </a-datepicker>
-            <passengers-picker
-                v-model="passengers"
-                class="mb-3"
-                :flight-class.sync="search.classType"
-                :is-international="isInternational"
-            >
-                <passenger-input
-                    :value="passengersCountText"
-                />
-            </passengers-picker>
-            <search-button @click.prevent="startSearch" />
-        </form>
+                    </template>
+                </a-datepicker>
+                <passengers-picker
+                    v-model="passengers"
+                    class="mb-3"
+                    :flight-class.sync="search.classType"
+                    :is-international="isInternational"
+                >
+                    <passenger-input
+                        :value="passengersCountText"
+                    />
+                </passengers-picker>
+                <search-button @click.prevent="startSearch" />
+            </form>
+        </v-observer>
     </div>
 </template>
 
