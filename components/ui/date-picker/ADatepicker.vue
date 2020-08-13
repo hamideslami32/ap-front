@@ -521,7 +521,6 @@ export default {
         overflow: auto;
         z-index: 5000;
         box-shadow: 0 8px 16px rgba($black, 0.15);
-        border-radius: 4px;
         color: $gray-700;
 
         @media (min-width: 370px) {
