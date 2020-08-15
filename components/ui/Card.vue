@@ -16,9 +16,9 @@ export default {
 
 <style lang="scss" scoped>
     .custom-card {
-        background: map_get($gray-colors, 'gray-200');
+        background: map_get($grays, '200');
         border-radius: 10px;
-        border: 1px solid map_get($gray-colors, 'gray-800');
+        border: 1px solid map_get($grays, '800');
 
         &__info {
             background: $white;
@@ -26,7 +26,7 @@ export default {
             border-radius: 9px 9px 10px 10px;
             padding: 20px 0;
             font-size: 0.875rem;
-            color: map_get($gray-colors, 'gray-700');
+            color: map_get($grays, '700');
         }
 
         &__actions {

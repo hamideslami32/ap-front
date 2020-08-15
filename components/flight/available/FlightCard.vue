@@ -1,5 +1,5 @@
 <template>
-    <div class="flight-card">
+    <div class="flight-card" @click="$emit('click', $event)">
         <span class="flight-card__price">{{ available.totalFare | separateNumber }}</span>
         <span class="flight-card__price__text">برای هر نفر (تومان)</span>
         <div class="flight-tag">
@@ -48,7 +48,7 @@ export default {
         similarFlightsCount() {
             const { routes, totalFare } = this.available
             if (routes.length === 1) {
-                return routes.flights - 1
+                return routes[0].flights.length - 1
             }
             if (routes.length === 2) {
                 const flightPrice = flight => flight.fare.adult.price + flight.fare.adult.tax

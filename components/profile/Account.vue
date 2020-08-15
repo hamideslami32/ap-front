@@ -149,7 +149,7 @@ export default {
     .account {
 
         &__show, &__edit-section {
-            color: map_get($gray-colors, 'gray-700');
+            color: map_get($grays, '700');
         }
 
         &__edit {

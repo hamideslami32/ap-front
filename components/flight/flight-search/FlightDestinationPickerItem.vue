@@ -6,7 +6,7 @@
                     {{ item.id.slice(0, -3) }}
                 </badge>
                 <span class="item__detail--name font-weight-medium">
-                    {{ item.airports[0].city.fa || item.airports[0].city.en }}
+                    {{ $translate(item.airports[0].city) }}
                     <span class="item__detail--name__detail">(تمام فرودگاه ها)</span>
                 </span>
             </div>
@@ -19,7 +19,7 @@
                 <a href="javascript:void(0)" class="d-block py-2 link-inherit" @click="$emit('select', airport)">
                     <badge class="ml-2" width="55">{{ airport.id }}</badge>
                     <span>
-                        {{ airport.airport.fa || airport.airport.en }}
+                        {{ $translate(airport.airport) }}
                     </span>
                 </a>
             </li>

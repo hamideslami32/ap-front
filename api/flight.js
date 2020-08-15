@@ -47,4 +47,8 @@ export const flightApi = new class FlightApi extends BaseApi {
             }
         })
     }
+
+    getAvailable(searchId, availableId) {
+        return this.axios.$get('/flight/results/' + searchId + '/' + availableId)
+    }
 }

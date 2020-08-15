@@ -79,7 +79,7 @@ export default {
 <style lang="scss" scoped>
     .passengers {
         &__main {
-            border-top: 1px solid map_get($gray-colors, 'gray-500');
+            border-top: 1px solid map_get($grays, '500');
             padding-top: 20px;
         }
 

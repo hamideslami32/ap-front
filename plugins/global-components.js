@@ -29,3 +29,8 @@ Vue.prototype.$staticUrl = function(url) {
     const baseURL = process.env.STATIC_URL.replace(/\/+$/, '')
     return (baseURL + '/' + url.replace(/^\/+/, '')).trim()
 }
+
+Vue.prototype.$translate = function(x) {
+    if (typeof x === 'string') return x
+    return x.fa || x.en || Object.values(x).filter(Boolean)[0] || ''
+}

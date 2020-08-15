@@ -2,10 +2,10 @@
     <b-container tag="header" class="flight-header" fluid>
         <div class="flight-header__top mb-4">
             <hamburger-menu class="white my-1" />
-            <div class="flight-header__destinations">
+            <div v-if="search.origin && search.destination" class="flight-header__destinations">
                 <input-pair @switch="switchDestinations">
-                    <input type="text" :value="search.origin ? search.origin.city.fa : ' '">
-                    <input type="text" :value="search.destination ? search.destination.city.fa : ' '">
+                    <input type="text" :value="$translate(search.origin.city)">
+                    <input type="text" :value="$translate(search.destination.city)">
                 </input-pair>
             </div>
             <button class="btn-raw btn-back" @click="$router.push('/flights')">
@@ -62,7 +62,6 @@ import InputPair from '~/components/ui/form/InputPair'
 import ADatepicker from '~/components/ui/date-picker/ADatepicker'
 import PassengersPicker from '~/components/flight/flight-search/PassengersPicker'
 import flightSearchMixin from '~/components/flight/flight-search/flightSearchMixin'
-import isEqual from 'lodash/isEqual'
 
 export default {
     components: {
@@ -73,32 +72,6 @@ export default {
     },
 
     mixins: [flightSearchMixin],
-
-    watch: {
-        '$flight.session': {
-            deep: true,
-            immediate: true,
-            handler(t, f) {
-                if (!t || !t.adult || isEqual(t, f)) return
-                this.search = {
-                    type: {
-                        1: 'OW',
-                        2: 'RT'
-                    }[t.routes.length] || 'MD', // OW, RT, MD,
-                    origin: t.routes[0].origin, //object  i, title, value
-                    destination: t.routes[0].destination, //object  i, title, value
-                    departing: this.$dayjs(t.routes[0].date),
-                    ...(t.routes.length === 2 ? {
-                        returning: this.$dayjs(t.routes[1].date)
-                    }: {}),
-                    adult: t.adult,
-                    child: t.child,
-                    infant: t.infant,
-                    classType: t['class'] // business first
-                }
-            }
-        }
-    },
 
     mounted() {
         [...this.$el.querySelectorAll('input')].forEach(el => {

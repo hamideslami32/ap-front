@@ -7,9 +7,10 @@
 @import 'forms';
 @import 'modal';
 @import 'buttons';
+@import 'vue-transitions';
 @import 'utilities/index';
 
-html, body {
+html, body, #__nuxt, #__layout {
     height: 100%;
 }
 
@@ -58,7 +59,7 @@ html, body {
             .nav-link {
                 font-size: 0.875em;
                 font-weight: 500;
-                color: map_get($gray-colors, 'gray-800');
+                color: map_get($grays, '800');
                 border: none;
 
                 &:focus, &:active, &:hover, &.active {

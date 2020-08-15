@@ -85,7 +85,7 @@ export default {
 
         &__code {
             font-family: 'Baloo Thambi 2', Dana, Tahoma, serif;
-            color: map_get($gray-colors, 'gray-900');
+            color: map_get($grays, '900');
             font-size: 0.75rem;
             font-weight: 500;
         }

@@ -51,9 +51,9 @@ export default {
             width: 120px;
             height: 40px;
             background-color: map_get($grays, '100');
-            border: 1px solid map_get($gray-colors, 'gray-400');
+            border: 1px solid map_get($grays, '400');
             border-radius: 10px;
-            color: map_get($gray-colors, 'gray-800');
+            color: map_get($grays, '800');
             transition: all ease-out 250ms;
             font-size: inherit;
 

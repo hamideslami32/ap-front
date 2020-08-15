@@ -16,4 +16,8 @@ $grays: (
     .text-gray-#{$gray} {
         color: $color;
     }
+
+    .bg-gray-#{$gray} {
+        background-color: $color;
+    }
 }

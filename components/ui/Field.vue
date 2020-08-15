@@ -33,16 +33,16 @@ export default {
         align-items: center;
         justify-content: space-between;
         background: #f9f9f9;
-        border: 1px solid map_get($gray-colors, 'gray-400');
+        border: 1px solid map_get($grays, '400');
         border-radius: 10px;
         padding: 14px 20px;
 
         &__title {
-            color: map_get($gray-colors, 'gray-700');
+            color: map_get($grays, '700');
         }
 
         &__value {
-            color: map_get($gray-colors, 'gray-900');
+            color: map_get($grays, '900');
             font-weight: 500;
         }
 

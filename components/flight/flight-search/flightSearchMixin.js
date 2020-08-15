@@ -1,3 +1,5 @@
+import isEqual from 'lodash/isEqual'
+
 const translateFlightClass = (en) => ({
     economy: 'اکونومی',
     business: 'بیزنس',
@@ -91,6 +93,30 @@ export default {
             const {origin} = this.search
             if (t && origin && t.id === origin.id) {
                 this.search.origin = null
+            }
+        },
+
+        '$flight.session': {
+            deep: true,
+            immediate: true,
+            handler(t, f) {
+                if (!t || !t.adult || isEqual(t, f)) return
+                this.search = {
+                    type: {
+                        1: 'OW',
+                        2: 'RT'
+                    }[t.routes.length] || 'MD', // OW, RT, MD,
+                    origin: t.routes[0].origin, //object  i, title, value
+                    destination: t.routes[0].destination, //object  i, title, value
+                    departing: this.$dayjs(t.routes[0].date),
+                    ...(t.routes.length === 2 ? {
+                        returning: this.$dayjs(t.routes[1].date)
+                    }: {}),
+                    adult: t.adult,
+                    child: t.child,
+                    infant: t.infant,
+                    classType: t['class'] // business first
+                }
             }
         }
     },

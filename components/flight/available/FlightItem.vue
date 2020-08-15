@@ -52,7 +52,6 @@
 </template>
 
 <script>
-import flattenDeep from 'lodash/flattenDeep'
 import uniq from 'lodash/uniq'
 
 export default {
@@ -88,7 +87,7 @@ export default {
             return this.flight.stops[this.flight.stops.length - 1]
         },
         airlines() {
-            return uniq(flattenDeep(this.flight.stops.map(stop => stop.airline))).sort()
+            return uniq(this.flight.stops.map(stop => stop.airline)).sort()
         }
     }
 }

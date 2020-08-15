@@ -4,7 +4,13 @@
             <flight-placeholder v-for="i in 3" :key="i" class="mb-3" />
         </div>
         <div v-else-if="availables" class="flight-container">
-            <flight-card v-for="(x, i) in availables.results" :key="i" class="mb-3" :available="x" />
+            <flight-card
+                v-for="(x, i) in availables.results"
+                :key="i"
+                class="mb-3"
+                :available="x"
+                @click="onSelectAvailable(x)"
+            />
         </div>
         <div v-else-if="error" class="flight-container">
             <b-alert variant="danger" show>
@@ -185,6 +191,16 @@ export default {
             if (close) {
                 this.showFilter = false
             }
+        },
+
+        onSelectAvailable(available) {
+            this.$flight.selectAvailable(available)
+            this.$router.push({
+                path: this.$route.path + '/detail/' + available._id,
+                query: {
+                    sid: this.searchId
+                }
+            })
         }
     }
 }

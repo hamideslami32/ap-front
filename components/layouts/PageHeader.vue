@@ -1,10 +1,12 @@
 <template>
     <div class="header">
         <span>icon</span>
-        <portal-target name="header-title">
-            <span>name</span>
+        <portal-target name="header">
+            <span />
         </portal-target>
-        <svgicon name="arrow-left" width="20" height="20" />
+        <a href="javascript:void(0)" @click="$router.back()">
+            <svgicon name="arrow-left" width="20" height="20" />
+        </a>
     </div>
 </template>
 
@@ -34,7 +36,7 @@ export default {
         justify-content: space-between;
         align-items: center;
         border-bottom: 1px solid #e6e6e6;
-        color: map_get($gray-colors, 'gray-900');
+        color: map_get($grays, '900');
         font-weight: 600;
     }
 </style>

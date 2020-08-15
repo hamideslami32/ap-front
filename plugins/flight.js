@@ -5,6 +5,7 @@ class Flight {
 
     constructor(ctx) {
         this.session = null
+        this.available = null
 
         if (process.browser && ctx.nuxtState.session) {
             this.session = ctx.nuxtState.session
@@ -22,19 +23,39 @@ class Flight {
         return this.session
     }
 
+    async fetchAvailable(id) {
+        this.available = await flightApi.getAvailable(this.session.id, id)
+        return this.available
+    }
+
     setSession(x) {
         this.session = x
+    }
+
+    selectAvailable(x) {
+        this.available = x
     }
 }
 
 export default async function(ctx, inject) {
     const flight = Vue.observable(new Flight(ctx))
     const { sid } = ctx.route.query
-    if (process.server && sid) {
-        ctx.ssrContext.nuxt.session = await flight.fetchSession(sid).catch(() => null)
+    const { availableId } = ctx.route.params
+    if (process.server) {
+        if (sid) {
+            ctx.ssrContext.nuxt.session = await flight.fetchSession(sid).catch(() => null)
+        }
+        if (availableId) {
+            ctx.ssrContext.nuxt.available = await flight.fetchAvailable(availableId).catch(() => null)
+        }
     }
-    if (process.browser && sid && !flight.session) {
-        await flight.fetchSession(sid).catch(() => null)
+    if (process.browser) {
+        if (sid && !flight.session) {
+            await flight.fetchSession(sid).catch(() => null)
+        }
+        if (availableId && !flight.available) {
+            await flight.fetchAvailable(availableId).catch(() => null)
+        }
     }
     inject('flight', flight)
 }

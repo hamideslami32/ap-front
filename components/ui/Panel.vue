@@ -58,7 +58,7 @@ export default {
 <style lang="scss" scoped>
     .panel {
         display: block;
-        border-top: 1px solid map_get($gray-colors, 'gray-500');
+        border-top: 1px solid map_get($grays, '500');
         color: map_get($grays, '800');
 
         > a {

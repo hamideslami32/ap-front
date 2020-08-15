@@ -170,16 +170,16 @@ export default {
 
     .passenger-modal {
         &__title {
-            color: map_get($gray-colors, 'gray-700');
+            color: map_get($grays, '700');
             font-size: 0.9rem;
         }
     }
 
     .passenger-class {
-        color: map_get($gray-colors, 'gray-800');
+        color: map_get($grays, '800');
 
         &__title {
-            color: map_get($gray-colors, 'gray-700');
+            color: map_get($grays, '700');
             font-size: 0.9rem;
         }
     }

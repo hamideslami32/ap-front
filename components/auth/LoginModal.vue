@@ -134,7 +134,7 @@ export default {
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
             border-radius: 10px;
             height: 50px;
-            border: 1px solid map_get($gray-colors, 'gray-400');
+            border: 1px solid map_get($grays, '400');
         }
 
         .resend-section {
@@ -152,13 +152,13 @@ export default {
         &__tip {
             font-size: 0.7em;
             white-space: nowrap;
-            color: map_get($gray-colors, 'gray-700');
+            color: map_get($grays, '700');
         }
 
         &__number {
             font-size: 0.8em;
             font-weight: 600;
-            color: map_get($gray-colors, 'gray-800');
+            color: map_get($grays, '800');
         }
 
         &__timer-holder {

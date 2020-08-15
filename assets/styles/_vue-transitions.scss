@@ -1,0 +1,28 @@
+.slide-left-enter-active, .slide-right-enter-active, .slide-left-leave-active, .slide-right-leave-active {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: all ease-out 200ms;
+}
+
+.slide-left {
+    &-enter {
+        transform: translateX(100%);
+    }
+
+    &-leave-to {
+        transform: translateX(-100%);
+    }
+}
+
+.slide-right {
+    &-enter {
+        transform: translateX(-100%);
+    }
+
+    &-leave-to {
+        transform: translateX(100%);
+    }
+}

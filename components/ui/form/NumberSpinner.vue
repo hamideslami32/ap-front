@@ -23,7 +23,7 @@ export default {
 
 <style lang="scss">
     .number-spinner {
-        background: map_get($gray-colors, 'gray-500');
+        background: map_get($grays, '500');
         border: 1px solid $borderColor;
         display: flex;
         align-items: center;
@@ -40,7 +40,7 @@ export default {
                 width: 20px;
                 height: 20px;
                 line-height: 20px;
-                color: map_get($gray-colors, 'gray-800');
+                color: map_get($grays, '800');
                 transition: all 150ms ease;
                 background-color: $white;
                 box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);

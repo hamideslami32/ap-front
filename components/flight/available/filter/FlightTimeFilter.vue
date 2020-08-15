@@ -55,22 +55,22 @@ export default {
     margin: 0 5px;
     padding: 15px 10px 10px 10px;
     background: #f9f9f9;
-    border: 1px solid map_get($gray-colors, 'gray-400');
+    border: 1px solid map_get($grays, '400');
     border-radius: 10px;
     transition: all ease 250ms;
 
     svg {
-        color: map_get($gray-colors, 'gray-700');
+        color: map_get($grays, '700');
     }
 
     span {
-        color: map_get($gray-colors, 'gray-800');
+        color: map_get($grays, '800');
         font-size: 0.9em;
     }
 
     small {
         font-size: 9px;
-        color: map_get($gray-colors, 'gray-700');
+        color: map_get($grays, '700');
     }
 
     &:focus, &:active , &.active {

@@ -1,30 +1,45 @@
 <template>
     <div class="date-card mb-2">
         <div class="date-card__header">
-            <span class="text-1 text-gray-700">بدون توقف</span>
-            <span>image</span>
+            <span class="text-1 text-gray-700">
+                {{ flight.stops.length > 1 ? `${flight.stops.length} توقف` : 'بدون توقف' }}
+            </span>
+            <span>
+                <img
+                    v-for="airline in airlines"
+                    :key="airline"
+                    :src="$staticUrl('/ad/airlines/logo/' + airline + '.png')"
+                    width="18"
+                    height="18"
+                    alt=""
+                >
+            </span>
         </div>
         <div class="date-card__time d-flex align-items-center justify-content-between">
-            <span class="text-weight-500 text-3 text-gray-900">09:00</span>
-            <span class="text-weight-500 text-3 text-gray-900">15:20</span>
+            <span class="text-weight-500 text-3 text-gray-900">{{ $dayjs(firstStop.departureTime).format('HH:mm') }}</span>
+            <span class="text-weight-500 text-3 text-gray-900">{{ $dayjs(firstStop.arrivalTime).format('HH:mm') }}</span>
         </div>
         <div class="date-card__line my-2" />
         <p class="text-center text-1 text-weight-500 text-gray-700 mb-1">
-            2h 30m
+            {{ flightDuration | duration }}
         </p>
     </div>
 </template>
 
 <script>
+import FlightItem from '~/components/flight/available/FlightItem'
+
 export default {
-    name: 'DateCard'
+    name: 'FlightDateCard',
+
+    extends: FlightItem
 }
 </script>
 
 <style lang="scss" scoped>
     .date-card {
         background: $white;
-        border: 1px solid map_get($gray-colors, 'gray-400');
+        border: 1px solid map_get($grays, '400');
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
         padding: 5px 10px;
         border-radius: 10px;
@@ -32,7 +47,7 @@ export default {
         &__header {
             margin: 0 -5px;
             padding: 5px;
-            background: map_get($gray-colors, 'gray-200');
+            background: map_get($grays, '200');
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -42,7 +57,7 @@ export default {
 
         &__line {
             width: 100%;
-            border: 1px dashed map_get($gray-colors, 'gray-500');
+            border: 1px dashed map_get($grays, '500');
             position: relative;
             padding: 0 5px;
             &:before , &:after {
@@ -52,7 +67,7 @@ export default {
                 height: 10px;
                 border-radius: 50%;
                 background: $white;
-                border: 1px solid map_get($gray-colors, 'gray-400');
+                border: 1px solid map_get($grays, '400');
                 top: -5px;
                 bottom: 0;
             }

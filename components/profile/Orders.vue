@@ -102,19 +102,19 @@ export default {
 
             p:first-child {
                 font-weight: 500;
-                color: map_get($gray-colors, 'gray-800');
+                color: map_get($grays, '800');
             }
 
             span {
                 font-weight: 500;
-                color: map_get($gray-colors, 'gray-900');
+                color: map_get($grays, '900');
             }
 
         }
 
 
         &__main {
-            border-top: 1px solid map_get($gray-colors, 'gray-500');
+            border-top: 1px solid map_get($grays, '500');
             padding-top: 20px;
         }
 
@@ -171,7 +171,7 @@ export default {
                 z-index: 1;
                 box-sizing: content-box;
                 background: $white;
-                border: 1px solid map_get($gray-colors, 'gray-500');
+                border: 1px solid map_get($grays, '500');
                 border-radius: 50px;
             }
 
