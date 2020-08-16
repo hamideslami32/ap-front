@@ -1,6 +1,6 @@
 <template>
-    <div class="date-card mb-2">
-        <div class="date-card__header">
+    <div class="flight-date-card">
+        <div class="flight-date-card__header">
             <span class="text-1 text-gray-700">
                 {{ flight.stops.length > 1 ? `${flight.stops.length} توقف` : 'بدون توقف' }}
             </span>
@@ -15,11 +15,11 @@
                 >
             </span>
         </div>
-        <div class="date-card__time d-flex align-items-center justify-content-between">
+        <div class="flight-date-card__time d-flex align-items-center justify-content-between">
             <span class="text-weight-500 text-3 text-gray-900">{{ $dayjs(firstStop.departureTime).format('HH:mm') }}</span>
             <span class="text-weight-500 text-3 text-gray-900">{{ $dayjs(firstStop.arrivalTime).format('HH:mm') }}</span>
         </div>
-        <div class="date-card__line my-2" />
+        <div class="flight-date-card__line my-2" />
         <p class="text-center text-1 text-weight-500 text-gray-700 mb-1">
             {{ flightDuration | duration }}
         </p>
@@ -37,7 +37,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .date-card {
+    .flight-date-card {
         background: $white;
         border: 1px solid map_get($grays, '400');
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);

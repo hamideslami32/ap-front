@@ -22,7 +22,11 @@
                 <div class="text-2 text-gray-900 mb-2 text-weight-500 pt-3">
                     <b>پرواز رفت</b>
                     <p class="mt-3">
-                        <span class="text-2 text-primary text-weight-600">{{ available.routes[0].origin }} - CDG</span>
+                        <span class="text-2 text-primary text-weight-600">
+                            {{ available.routes[0].origin }}
+                            -
+                            {{ available.routes[0].destination }}
+                        </span>
                         <span class="text-2 text-gray-800 text-weight-400 float-left">۲۰ تیر ۹۹</span>
                     </p>
                 </div>
@@ -35,7 +39,11 @@
                 <div class="text-2 text-gray-900 mb-2 text-weight-500 pt-3 text-left">
                     <b>پرواز برگشت</b>
                     <p class="mt-3">
-                        <span class="text-2 text-primary text-weight-600 float-right">ICA - CDG</span>
+                        <span class="text-2 text-primary text-weight-600 float-right">
+                            {{ available.routes[1].origin }}
+                            -
+                            {{ available.routes[1].origin }}
+                        </span>
                         <span class="text-2 text-gray-800 text-weight-400">۲۰ تیر ۹۹</span>
                     </p>
                 </div>
@@ -124,6 +132,13 @@ export default {
         }
     }
 
+    /deep/ .flight-date-card {
+        margin-bottom: 15px;
+
+        &:last-child {
+            margin-bottom: 60px;
+        }
+    }
 }
 
 .sticky-bottom {
