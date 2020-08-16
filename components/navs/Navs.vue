@@ -6,6 +6,7 @@
             active-class="active"
             class="nav-item"
             :to="link.url"
+            :class="{ 'disable': link.disable }"
         >
             <svgicon class="align-middle" :name="link.icon" width="24" height="24" />
             <span class="align-middle">
@@ -21,9 +22,9 @@ export default {
     data() {
         return {
             links: [
-                { name: 'جستجوی پرواز', icon: 'flight', url: '/flights' },
-                { name: 'جستجوی هتل', icon: 'hotel', url: '/hotels' },
-                { name: 'جستجوی تور', icon: 'tour', url: '/tours' }
+                { name: 'جستجوی پرواز', icon: 'flight', url: '/flights', disable: false },
+                { name: 'جستجوی هتل', icon: 'hotel', url: '/hotels', disable: true },
+                { name: 'جستجوی تور', icon: 'tour', url: '/tours', disable: true }
             ]
         }
     }
@@ -63,6 +64,13 @@ export default {
     transition: all 200ms ease;
     border: 1px solid #e0e0e0;
     font-size: 13px;
+
+    &.disable {
+        opacity: 0.6;
+        background: map_get($grays, '100');
+
+        pointer-events: none;
+    }
 
     &:not(:first-child) {
         margin-right: 10px;

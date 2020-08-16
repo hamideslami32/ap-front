@@ -43,6 +43,8 @@ export default {
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
         padding: 5px 10px;
         border-radius: 10px;
+        cursor: pointer;
+        transition: all ease 250ms;
 
         &__header {
             margin: 0 -5px;
@@ -60,7 +62,8 @@ export default {
             border: 1px dashed map_get($grays, '500');
             position: relative;
             padding: 0 5px;
-            &:before , &:after {
+
+            &:before, &:after {
                 position: absolute;
                 content: '';
                 width: 10px;
@@ -83,6 +86,20 @@ export default {
 
         p {
             font-family: 'Baloo Thambi 2', Dana, Tahoma, serif;
+        }
+
+        &.active {
+            background: map_get($grays, '200');
+            border-color: map_get($grays, '800');
+
+            .date-card__header {
+                background: $pinkColor;
+            }
+        }
+
+        &.disable {
+            opacity: 0.6;
+            pointer-events: none;
         }
     }
 </style>

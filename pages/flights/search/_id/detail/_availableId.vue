@@ -28,7 +28,12 @@
                 </div>
 
                 <div>
-                    <flight-date-card v-for="flight in available.routes[0].flights" :key="flight._id" :flight="flight" :available="available" />
+                    <flight-date-card
+                        v-for="flight in available.routes[0].flights"
+                        :key="flight._id"
+                        :flight="flight"
+                        :available="available"
+                    />
                 </div>
             </div>
             <div v-if="available.routes[1]" class="bg-gray-500">
@@ -41,25 +46,53 @@
                 </div>
 
                 <div>
-                    <flight-date-card v-for="flight in available.routes[1].flights" :key="flight._id" :flight="flight" :available="available" />
+                    <flight-date-card
+                        v-for="flight in available.routes[1].flights"
+                        :key="flight._id"
+                        :flight="flight"
+                        :available="available"
+                    />
                 </div>
             </div>
         </div>
 
-        <div class="p-2 sticky-bottom">
-            <div class="text-center">
-                <svgicon /> قیمت برای هر نفر ۱،۵۰۰،۰۰۰ تومان
-            </div>
-        </div>
+
+        <portal to="toast">
+            <toast-card variant="light">
+                <div class="text-center">
+                    <svgicon name="arrow-left" width="20" height="20" />
+                    <span>
+                        قیمت برای هر نفر 1,500,000 تومان
+                    </span>
+                </div>
+            </toast-card>
+
+            <toast-card>
+                <div class="d-flex align-items-center justify-content-between p-1">
+                    <div>
+                        <p class="mb-2">
+                            مجموع قیمت برای ۲ نفر (تومان)
+                        </p>
+                        <p class="mb-0 text-4">
+                            34,500,000
+                        </p>
+                    </div>
+                    <b-button class="text-3 py-2 px-4" variant="info">
+                        جز‌ئیات پرواز
+                    </b-button>
+                </div>
+            </toast-card>
+        </portal>
     </div>
 </template>
 
 <script>
 import FlightDateCard from '~/components/flight/available/details/FlightDateCard'
 import flightSearchMixin from '~/components/flight/flight-search/flightSearchMixin'
+import ToastCard from '~/components/ui/ToastCard'
 
 export default {
-    components: {FlightDateCard},
+    components: {ToastCard, FlightDateCard},
     layout: 'page',
 
     mixins: [flightSearchMixin],
@@ -73,64 +106,61 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.flight-time {
-    overflow: hidden;
-    &__header {
-        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+    .flight-time {
+        overflow: hidden;
 
-        > span {
-            &:first-child {
-                border-left: 1px solid map_get($grays, '400');
+        &__header {
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+
+            > span {
+                &:first-child {
+                    border-left: 1px solid map_get($grays, '400');
+                }
+
+                &:last-child {
+                    border-right: 1px solid map_get($grays, '400');
+                }
             }
 
-            &:last-child {
-                border-right: 1px solid map_get($grays, '400');
+            &__places {
+                display: flex;
+                flex-grow: 1;
+                justify-content: space-evenly;
+                padding: 0 15px;
+                align-items: center;
+
+                svg {
+                    border: 1px solid map_get($grays, '400');
+                    border-radius: 50%;
+                    padding: 3px;
+                    box-sizing: content-box;
+                }
+
+                span {
+                    font-weight: 500;
+                }
             }
         }
 
-        &__places {
-            display: flex;
-            flex-grow: 1;
-            justify-content: space-evenly;
-            padding: 0 15px;
-            align-items: center;
+        &__container {
+            position: absolute;
+            top: 126px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            overflow: auto;
 
-            svg {
-                border: 1px solid map_get($grays, '400');
-                border-radius: 50%;
-                padding: 3px;
-                box-sizing: content-box;
-            }
-
-            span {
-                font-weight: 500;
+            > div {
+                flex: 1;
+                overflow-y: scroll;
+                height: 100%;
+                padding: 0 10px;
             }
         }
+
     }
 
-    &__container {
-        position: absolute;
-        top: 126px;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        overflow: auto;
-
-        > div {
-            flex: 1;
-            overflow-y: scroll;
-            height: 100%;
-            padding: 0 10px;
-        }
+    .sticky-toast {
+        margin-bottom: 4.5rem;
     }
-
-}
-
-.sticky-bottom {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    padding: 10px;
-}
 </style>
