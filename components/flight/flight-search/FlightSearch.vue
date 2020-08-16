@@ -123,9 +123,9 @@ export default {
     data() {
         return {
             tabs: [
-                {value: 'RT', name: 'رفت و برگشت'},
-                {value: 'OW', name: 'یک طرفه'},
-                {value: 'MD', name: 'چند مسیره'}
+                {value: 'RT', name: 'رفت و برگشت', disable: false},
+                {value: 'OW', name: 'یک طرفه', disable: false},
+                {value: 'MD', name: 'چند مسیره', disable: true}
             ],
 
             datePrices: null

@@ -4,7 +4,7 @@
         <portal-target name="header">
             <span />
         </portal-target>
-        <a href="javascript:void(0)" @click="$router.back()">
+        <a class="text-gray-900" href="javascript:void(0)" @click="$router.back()">
             <svgicon name="arrow-left" width="20" height="20" />
         </a>
     </div>

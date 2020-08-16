@@ -1,7 +1,7 @@
 <template>
     <div class="tabs">
         <ul ref="menu" class="tabs__menu">
-            <li v-for="(tab, i) in tabs" :key="i" :class="{ active: value === (tab.value || i) }">
+            <li v-for="(tab, i) in tabs" :key="i" :class="{ active: value === (tab.value || i), 'disable': tab.disable }">
                 <a href="#" @click.prevent="selectTab(tab, i)">
                     {{ tab.name }}
                 </a>
@@ -91,6 +91,11 @@ export default {
                 font-weight: 600;
                 color: #ffffff;
                 z-index: 2;
+            }
+
+            &.disable {
+                opacity: 0.5;
+                pointer-events: none;
             }
         }
     }
