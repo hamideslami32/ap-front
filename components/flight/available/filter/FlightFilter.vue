@@ -83,8 +83,8 @@ const initialFilters = () => ({
     priceRange: [null, null],
     airlines: [],
     airports: [],
-    departureFlightTime: null,
-    returningFlightTime: null,
+    departureFlightTime: [],
+    returningFlightTime: [],
     flightClass: 'economy'
 })
 
