@@ -4,9 +4,9 @@
             <div
                 v-for="item in flightTime"
                 :key="item.value.join('-')"
-                :class="{ 'active': item.value && value && item.value.join('-') === value.join('-') }"
+                :class="{ 'active': value.find((x) => x.title === item.title) }"
                 class="time-item"
-                @click="$emit('input', item.value)"
+                @click="onSelect(item)"
             >
                 <svgicon :name="item.icon" width="30" height="30" />
                 <span>{{ item.title }}</span>
@@ -41,50 +41,64 @@ export default {
                 {value: ['18:00', '23:59'], title: 'شب', subtitle: '(۱۸ الی ۲۴)', icon: 'moon'}
             ]
         }
+    },
+    methods: {
+        onSelect(item) {
+            let newArray = [...this.value]
+            let checkedArray = newArray.find((x) => x.title === item.title)
+            if (checkedArray) {
+                const index = newArray.indexOf(item)
+                newArray.splice(index, 1)
+            } else {
+                newArray.push(item)
+            }
+
+            this.$emit('input', newArray)
+        }
     }
 }
 </script>
 
 <style lang="scss">
-.time-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    flex: auto 1;
-    margin: 0 5px;
-    padding: 15px 10px 10px 10px;
-    background: #f9f9f9;
-    border: 1px solid map_get($grays, '400');
-    border-radius: 10px;
-    transition: all ease 250ms;
+    .time-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        flex: auto 1;
+        margin: 0 5px;
+        padding: 15px 10px 10px 10px;
+        background: #f9f9f9;
+        border: 1px solid map_get($grays, '400');
+        border-radius: 10px;
+        transition: all ease 250ms;
 
-    svg {
-        color: map_get($grays, '700');
-    }
-
-    span {
-        color: map_get($grays, '800');
-        font-size: 0.9em;
-    }
-
-    small {
-        font-size: 9px;
-        color: map_get($grays, '700');
-    }
-
-    &:focus, &:active , &.active {
-        background: #e7def7;
-        box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
-        border-color: $primary;
-
-        span, svg, small {
-            color: $primary;
+        svg {
+            color: map_get($grays, '700');
         }
 
         span {
-            font-weight: 500;
+            color: map_get($grays, '800');
+            font-size: 0.9em;
+        }
+
+        small {
+            font-size: 9px;
+            color: map_get($grays, '700');
+        }
+
+        &:focus, &:active, &.active {
+            background: #e7def7;
+            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
+            border-color: $primary;
+
+            span, svg, small {
+                color: $primary;
+            }
+
+            span {
+                font-weight: 500;
+            }
         }
     }
-}
 </style>
