@@ -21,7 +21,7 @@
             <div>
                 <div class="text-2 text-gray-900 mb-2 text-weight-500 pt-3">
                     <b>پرواز رفت</b>
-                    <p class="mt-3">
+                    <p class="mt-3 flight-time__container__info">
                         <span class="text-2 text-primary text-weight-600">
                             {{ available.routes[0].origin }}
                             -
@@ -43,7 +43,7 @@
             <div v-if="available.routes[1]" class="bg-gray-500">
                 <div class="text-2 text-gray-900 mb-2 text-weight-500 pt-3 text-left">
                     <b>پرواز برگشت</b>
-                    <p class="mt-3">
+                    <p class="mt-3 flight-time__container__info flight-time__container__info--back">
                         <span class="text-2 text-primary text-weight-600 float-right">
                             {{ available.routes[1].origin }}
                             -
@@ -115,8 +115,6 @@ export default {
 
 <style lang="scss" scoped>
     .flight-time {
-        overflow: hidden;
-
         &__header {
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
 
@@ -162,7 +160,18 @@ export default {
                 flex: 1;
                 overflow-y: scroll;
                 height: 100%;
-                padding: 0 10px;
+
+                padding: 0 10px 60px;
+            }
+
+            &__info {
+                background: map_get($grays, '500');
+                padding: 10px;
+                border-radius: 10px;
+
+                &--back {
+                    background: $white;
+                }
             }
         }
 
