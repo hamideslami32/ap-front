@@ -69,7 +69,7 @@ export default {
 <style lang="scss" scoped>
     .flight-card {
         border-radius: 10px;
-        border: 1px solid #dddddd;
+        border: 1px solid map_get($grays, '400');
         padding: 15px 10px 10px;
         font-weight: 600;
         position: relative;
