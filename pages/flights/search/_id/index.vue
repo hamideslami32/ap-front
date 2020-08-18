@@ -196,7 +196,7 @@ export default {
         onSelectAvailable(available) {
             this.$flight.selectAvailable(available)
             this.$router.push({
-                path: this.$route.path + '/detail/' + available._id,
+                path: this.$route.path + '/time/' + available._id,
                 query: {
                     sid: this.searchId
                 }

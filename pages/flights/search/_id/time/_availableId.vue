@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import FlightDateCard from '~/components/flight/available/details/FlightDateCard'
+import FlightDateCard from '~/components/flight/available/time/FlightDateCard'
 import flightSearchMixin from '~/components/flight/flight-search/flightSearchMixin'
 import ToastCard from '~/components/ui/ToastCard'
 
