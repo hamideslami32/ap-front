@@ -37,6 +37,8 @@
                         :key="flight._id"
                         :flight="flight"
                         :available="available"
+                        :active="flightTimes[0] === flight._id"
+                        @click="selectFlight(0, flight._id)"
                     />
                 </div>
             </div>
@@ -59,6 +61,8 @@
                         :key="flight._id"
                         :flight="flight"
                         :available="available"
+                        :active="flightTimes[1] === flight._id"
+                        @click="selectFlight(1, flight._id)"
                     />
                 </div>
             </div>
@@ -70,7 +74,7 @@
                 <div class="text-center">
                     <svgicon name="arrow-left" width="20" height="20" />
                     <span>
-                        قیمت برای هر نفر 1,500,000 تومان
+                        قیمت برای هر نفر {{ available.totalFare / passengersCount | separateNumber }} تومان
                     </span>
                 </div>
             </toast-card>
@@ -79,13 +83,13 @@
                 <div class="d-flex align-items-center justify-content-between p-1">
                     <div>
                         <p class="mb-2">
-                            مجموع قیمت برای ۲ نفر (تومان)
+                            مجموع قیمت برای {{ available.passengersCount }} نفر
                         </p>
                         <p class="mb-0 text-4">
-                            34,500,000
+                            {{ available.totalFare | separateNumber }} تومان
                         </p>
                     </div>
-                    <b-button class="text-3 py-2 px-4" variant="info">
+                    <b-button class="text-3 py-2 px-4" variant="info" @click="submit">
                         جز‌ئیات پرواز
                     </b-button>
                 </div>
@@ -105,9 +109,31 @@ export default {
 
     mixins: [flightSearchMixin],
 
+    data() {
+        const { available } = this.$flight
+        return {
+            flightTimes: new Array(available ? available.routes.length : 1).fill(null)
+        }
+    },
+
     computed: {
         available() {
             return this.$flight.available
+        }
+    },
+    methods: {
+        selectFlight(i, flightId) {
+            this.$set(this.flightTimes, i, flightId)
+        },
+        submit() {
+            if (this.flightTimes.filter(Boolean).length < this.available.routes.length) {
+                this.$toast.alert('لطفا ساعت پرواز خود را مشخص کنید.')
+                return
+            }
+            this.$router.push({
+                path: this.$route.path + '/detail',
+                query: this.$route.query
+            })
         }
     }
 }

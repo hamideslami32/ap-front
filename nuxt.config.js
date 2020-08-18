@@ -38,7 +38,7 @@ export default {
         '~plugins/flight',
         '~plugins/dayjs',
         '~plugins/portal',
-        '~plugins/toast.js',
+        { src: '~plugins/toast.js', mode: 'client' },
         '~plugins/veeValidate'
     ],
     server: {
@@ -89,7 +89,7 @@ export default {
    */
     build: {
         publicPath: process.env.PUBLIC_PATH || '/_nuxt/',
-        extractCSS: true,
+        extractCSS: process.env.NODE_ENV === 'production',
         extend(config) {
             config.devServer = {
                 inline: false
@@ -99,7 +99,12 @@ export default {
 
     bootstrapVue: {
         bootstrapCSS: false, // Or `css: false`
-        bootstrapVueCSS: false // Or `bvCSS: false`
+        bootstrapVueCSS: false, // Or `bvCSS: false`
+        config: {
+            BToast: {
+                'toaster': 'b-toaster-bottom-full'
+            }
+        }
     },
     styleResources: {
         scss: ['assets/styles/_vars.scss']

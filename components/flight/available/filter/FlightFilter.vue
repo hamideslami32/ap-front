@@ -147,6 +147,9 @@ export default {
             this.$emit('apply', Object.assign(initialFilters(), {
                 sort: this.localValue.sort
             }), true)
+        },
+        isInitialFilters(value) {
+            return JSON.stringify(initialFilters()) === JSON.stringify(value)
         }
     }
 }

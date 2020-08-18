@@ -24,6 +24,7 @@
             <a-datepicker
                 v-model="date"
                 class="date-input-pair"
+                :class="{ 'date-input-pair--roundtrip': search.type === 'RT' }"
                 :jalaali.sync="jalaaliDatepicker"
                 :range.sync="isDatepickerRange"
                 @input="updateSearch"
@@ -36,6 +37,7 @@
                         v-on="on"
                     >
                     <input
+                        v-if="search.type === 'RT'"
                         type="text"
                         :value="value[1] ? value[1].format('DD MMMM') : null"
                         data-datepicker="1"
@@ -154,16 +156,17 @@ export default {
                     background-color: transparent;
                 }
 
-                &::before {
-                    content: '';
-                    width: 1px;
-                    position: absolute;
-                    top: 7px;
-                    left: 50%;
-                    bottom: 7px;
-                    background: rgba(255, 255, 255, 0.15);
+                &--roundtrip {
+                    &::before {
+                        content: '';
+                        width: 1px;
+                        position: absolute;
+                        top: 7px;
+                        left: 50%;
+                        bottom: 7px;
+                        background: rgba(255, 255, 255, 0.15);
+                    }
                 }
-
             }
         }
 

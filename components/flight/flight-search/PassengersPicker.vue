@@ -62,6 +62,12 @@
                     </b-form-radio>
                 </b-form-group>
             </div>
+
+            <div class="passengers__actions">
+                <a-btn variant="primary" class="px-5" @click="showModal = false">
+                    تائید
+                </a-btn>
+            </div>
         </b-modal>
     </div>
 </template>
@@ -166,6 +172,15 @@ export default {
         position: relative;
         height: 50px;
         background: #f9f9f9;
+
+        &__actions {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding: 15px;
+        }
     }
 
     .passenger-modal {

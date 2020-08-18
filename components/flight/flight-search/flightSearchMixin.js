@@ -124,6 +124,15 @@ export default {
     methods: {
         startSearch(cache = true) {
             cache && this.$storage.setLocalStorage('lastSearch', this.search)
+            try {
+                this.validate()
+            } catch (e) {
+                this.$toast.alert(this.$createElement('span', {}, e.message), {
+                    solid: false,
+                    autoHideDelay: 10000
+                })
+                return
+            }
             const {type, origin, destination, departing, returning, adult, child, infant, classType} = this.search
             const query = {
                 departing: departing.calendar('jalali').format('YYYY-MM-DD'),
@@ -138,6 +147,22 @@ export default {
                 path: '/flights/search/' + [origin.id, destination.id].join('-'),
                 query
             })
+        },
+
+        validate() {
+            const {origin, destination, departing, adult} = this.search
+            if (!origin) {
+                throw new Error('لطفا مبدا را مشخص نمایید')
+            }
+            if (!destination) {
+                throw new Error('لطفا مقصد را مشخص نمایید')
+            }
+            if (!departing) {
+                throw new Error('لطفا تاریخ رفت را مشخص نمایید')
+            }
+            if (!adult) {
+                throw new Error('تعداد بزرگسال باید بیشتر از ۱ باشد')
+            }
         },
 
         getLastSearch() {

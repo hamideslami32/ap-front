@@ -11,12 +11,14 @@
         right: -$size;
         bottom: -$size;
         background: linear-gradient(180deg, rgba(255,255,255, 0) 57.81%, #e3469a 100%);
-        z-index: -1;
+        z-index: 1;
         border-radius: 10px;
     }
 
     .btn {
         font-size: inherit;
+        position: relative;
+        z-index: 2;
     }
 
     .btn:active {

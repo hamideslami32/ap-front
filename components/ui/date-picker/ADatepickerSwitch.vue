@@ -1,7 +1,13 @@
 <template functional>
-    <button type="button" class="btn a-datepicker-switch btn-raw" :class="{ 'a-datepicker-switch--gregory': !props.jalaali }" v-on="listeners">
+    <a-btn
+        variant="light"
+        type="button"
+        class="btn a-datepicker-switch btn-raw"
+        :class="{ 'a-datepicker-switch--gregory': !props.jalaali }"
+        v-on="listeners"
+    >
         <span>تاریخ {{ props.jalaali ? 'میلادی' : 'شمسی' }}</span>
-    </button>
+    </a-btn>
 </template>
 
 <style lang="scss">

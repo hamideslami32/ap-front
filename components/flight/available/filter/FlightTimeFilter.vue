@@ -3,8 +3,8 @@
         <div class="d-flex px-2">
             <div
                 v-for="item in flightTime"
-                :key="item.value.join('-')"
-                :class="{ 'active': value.find((x) => x.title === item.title) }"
+                :key="item.value"
+                :class="{ 'active': value.includes(item.value) }"
                 class="time-item"
                 @click="onSelect(item)"
             >
@@ -35,25 +35,23 @@ export default {
     data() {
         return {
             flightTime: [
-                {value: ['06:00', '12:00'], title: 'صبح', subtitle: '(۶ الی ۱۲)', icon: 'sunset'},
-                {value: ['00:00', '06:00'], title: 'بامداد', subtitle: '(۰ الی ۶)', icon: 'user'},
-                {value: ['12:00', '18:00'], title: 'بعدظهر', subtitle: '(۱۲ الی ۱۸)', icon: 'sun'},
-                {value: ['18:00', '23:59'], title: 'شب', subtitle: '(۱۸ الی ۲۴)', icon: 'moon'}
+                {value: '06:00-12:00', title: 'صبح', subtitle: '(۶ الی ۱۲)', icon: 'sunset'},
+                {value: '00:00-06:00', title: 'بامداد', subtitle: '(۰ الی ۶)', icon: 'user'},
+                {value: '12:00-18:00', title: 'بعدظهر', subtitle: '(۱۲ الی ۱۸)', icon: 'sun'},
+                {value: '18:00-23:59', title: 'شب', subtitle: '(۱۸ الی ۲۴)', icon: 'moon'}
             ]
         }
     },
     methods: {
         onSelect(item) {
-            let newArray = [...this.value]
-            let checkedArray = newArray.find((x) => x.title === item.title)
-            if (checkedArray) {
-                const index = newArray.indexOf(item)
-                newArray.splice(index, 1)
+            const newValue = [...this.value]
+            const index = newValue.indexOf(item.value)
+            if (index >= 0) {
+                newValue.splice(index, 1)
             } else {
-                newArray.push(item)
+                newValue.push(item.value)
             }
-
-            this.$emit('input', newArray)
+            this.$emit('input', newValue)
         }
     }
 }

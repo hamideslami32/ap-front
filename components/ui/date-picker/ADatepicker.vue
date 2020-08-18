@@ -106,9 +106,9 @@
             <slot v-if="!isMobile" name="after" />
             <div class="a-datepicker__actions text-nowrap">
                 <a-datepicker-switch :jalaali="jalaali" @click="setJalaali(!jalaali)" />
-                <b-btn variant="primary" @click="close(true)">
+                <a-btn variant="primary" @click="close(true)">
                     تایید
-                </b-btn>
+                </a-btn>
             </div>
         </div>
     </a-dropdown>

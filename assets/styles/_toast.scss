@@ -1,0 +1,12 @@
+.toast--no-header {
+    .toast-header {
+        display: none !important;
+    }
+}
+
+.b-toast .toast-alert {
+    background-color: rgba(34, 34, 34, 0.8);
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    color: $white;
+}

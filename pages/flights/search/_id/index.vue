@@ -4,13 +4,25 @@
             <flight-placeholder v-for="i in 3" :key="i" class="mb-3" />
         </div>
         <div v-else-if="availables" class="flight-container">
-            <flight-card
-                v-for="(x, i) in availables.results"
-                :key="i"
-                class="mb-3"
-                :available="x"
-                @click="onSelectAvailable(x)"
-            />
+            <template v-if="availables.results.length">
+                <flight-card
+                    v-for="(x, i) in availables.results"
+                    :key="i"
+                    class="mb-3"
+                    :available="x"
+                    @click="onSelectAvailable(x)"
+                />
+            </template>
+            <template v-else>
+                <b-alert variant="danger" show>
+                    موردی یافت نشد.
+                </b-alert>
+                <div v-if="!isInitialFilters" class="text-center">
+                    <b-btn variant="outline-info" @click="applyFilters({})">
+                        حذف فیلترها
+                    </b-btn>
+                </div>
+            </template>
         </div>
         <div v-else-if="error" class="flight-container">
             <b-alert variant="danger" show>
@@ -71,6 +83,9 @@ export default {
     computed: {
         searchId() {
             return this.$route.query.sid
+        },
+        isInitialFilters() {
+            return FlightFilter.methods.isInitialFilters.call(null, this.filters) || JSON.stringify(this.filters) === '{}'
         }
     },
     watch: {
@@ -138,9 +153,9 @@ export default {
                 sort: filters.sort,
                 minPrice: priceRange[0] || undefined,
                 maxPrice: priceRange[1] || undefined,
-                flightTimes: departureFlightTime || returningFlightTime ? [
-                    departureFlightTime ? { min: departureFlightTime[0], max: departureFlightTime[1] } : '',
-                    returningFlightTime ? { min: returningFlightTime[0], max: returningFlightTime[1] } : ''
+                flightTimes: (departureFlightTime || []).concat(returningFlightTime || []).length ? [
+                    departureFlightTime ? departureFlightTime : '',
+                    returningFlightTime ? returningFlightTime : ''
                 ] : undefined,
                 airlines: airlines.length ? airlines : undefined
             }, new Axios.CancelToken(canceler => {

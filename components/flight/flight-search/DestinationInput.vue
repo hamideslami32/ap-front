@@ -6,7 +6,7 @@
         <input
             ref="input"
             :placeHolder="placeHolder"
-            :value="value ? value.city.fa.length > 1 ? value.city.fa : value.city.en : ''"
+            :value="value ? $translate(value.city) : ''"
             class="destination-input__input"
             @focus="inputFocus"
         >

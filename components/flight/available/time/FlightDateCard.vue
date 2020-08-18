@@ -1,5 +1,5 @@
 <template>
-    <div class="flight-date-card">
+    <div class="flight-date-card" :class="{ active }" @click="$emit('click')">
         <div class="flight-date-card__header">
             <span class="text-1 text-gray-700">
                 {{ flight.stops.length > 1 ? `${flight.stops.length} توقف` : 'بدون توقف' }}
@@ -32,7 +32,14 @@ import FlightItem from '~/components/flight/available/FlightItem'
 export default {
     name: 'FlightDateCard',
 
-    extends: FlightItem
+    extends: FlightItem,
+
+    props: {
+        active: {
+            type: Boolean,
+            default: false
+        }
+    }
 }
 </script>
 
@@ -44,12 +51,22 @@ export default {
         padding: 5px 10px;
         border-radius: 10px;
         cursor: pointer;
-        transition: all ease 250ms;
+
+        &.active {
+            border-color: map_get($grays, '800');
+            .flight-date-card__header {
+                background-color: $pinkColor;
+            }
+        }
+
+        &, &__header {
+            transition: all ease 250ms;
+        }
 
         &__header {
             margin: 0 -5px;
             padding: 5px;
-            background: map_get($grays, '200');
+            background-color: map_get($grays, '200');
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -86,15 +103,6 @@ export default {
 
         p {
             font-family: 'Baloo Thambi 2', Dana, Tahoma, serif;
-        }
-
-        &.active {
-            background: map_get($grays, '200');
-            border-color: map_get($grays, '800');
-
-            .date-card__header {
-                background: $pinkColor;
-            }
         }
 
         &.disable {
