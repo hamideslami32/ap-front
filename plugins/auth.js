@@ -34,7 +34,7 @@ class Auth {
                 await this.fetchUser()
             }
             this.router.beforeResolve((t, f, next) => {
-                next(this.shouldRedirect(t) ? '/login' : undefined)
+                next(this.shouldRedirect(t) ? UNAUTH_REDIRECT : undefined)
             })
         }
 
@@ -87,7 +87,7 @@ class Auth {
     async fetchUser(full) {
         const user = await this.axios.$get('/auth/user', {
             params: {
-                full: full * 1
+                full: full ? 1 : 0
             }
         })
         this.user = user
@@ -124,6 +124,6 @@ class Auth {
 
 export default async function(ctx, inject) {
     const auth = Vue.observable(new Auth(ctx))
-    await auth.init(ctx)
+    await auth.init(ctx).catch(() => {})
     inject('auth', auth)
 }
