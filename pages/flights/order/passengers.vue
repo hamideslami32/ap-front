@@ -47,8 +47,7 @@
                 وارد کردن اطلاعات مسافرین
             </p>
 
-            <passenger-field />
-            <passenger-field />
+            <passenger-field v-for="(passenger, i) in passengers" :key="i" v-model="passengers[i]" :index="i + 1" />
 
             <p class="my-3 text-center text-gray-700 text-3">
                 اطلاعات خریدار
@@ -102,9 +101,33 @@
 
 import PassengerField from '~/components/order/PassengerField'
 import ToastCard from '~/components/ui/ToastCard'
+
+const passengerFactory = (type = 'adult') => ({
+    name: '',
+    type,
+    lastName: null,
+    gender: null,
+    nationalCode: null,
+    birthdate: null,
+    passportCode: null,
+    passportDate: null,
+    passportCity: null
+})
+
 export default {
-    components: {ToastCard, PassengerField},
-    layout: 'page'
+    components: { ToastCard, PassengerField},
+    layout: 'page',
+    data() {
+        const { adult, child, infant } = this.$flight.session
+        return {
+            nationalPassenger: true,
+            passengers: [
+                ...new Array(adult || 0).fill(1).map(() => passengerFactory('adult')),
+                ...new Array(child || 0).fill(1).map(() => passengerFactory('child')),
+                ...new Array(infant || 0).fill(1).map(() => passengerFactory('infant'))
+            ]
+        }
+    }
 }
 </script>
 
