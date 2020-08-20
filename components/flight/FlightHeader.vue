@@ -2,10 +2,10 @@
     <b-container tag="header" class="flight-header" fluid>
         <div class="flight-header__top mb-4">
             <hamburger-menu class="white my-1" />
-            <div v-if="search.origin && search.destination" class="flight-header__destinations">
+            <div class="flight-header__destinations">
                 <input-pair @switch="switchDestinations">
-                    <input type="text" :value="$translate(search.origin.city)">
-                    <input type="text" :value="$translate(search.destination.city)">
+                    <input type="text" :value="search.origin ? $translate(search.origin.city) : null">
+                    <input type="text" :value="search.destination ? $translate(search.destination.city) : null">
                 </input-pair>
             </div>
             <button class="btn-raw btn-back" @click="$router.push('/flights')">

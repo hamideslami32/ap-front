@@ -20,10 +20,6 @@ export default {
         AppHeader,
         AppBottomNav,
         LoginModal
-    },
-    head: {
-        title: 'خرید بلیط هواپیما',
-        titleTemplate: 'Apro | %s'
     }
 }
 </script>

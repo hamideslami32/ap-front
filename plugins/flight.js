@@ -37,8 +37,13 @@ class Flight {
     }
 
     get passengersCount() {
-        const { adult, child, infant } = this.session
+        const {adult, child, infant} = this.session
         return adult + child + infant
+    }
+
+    flightPrice(flight) {
+        const { fare } = flight
+        return ['adult', 'child', 'infant'].reduce((carry, item) => carry + (fare[item].price + fare[item].tax) * this.session[item], 0)
     }
 }
 

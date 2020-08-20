@@ -311,6 +311,7 @@ export default {
 
             &::after {
                 background-color: $primary;
+                border-color: $primary;
             }
         }
 
@@ -321,7 +322,8 @@ export default {
         &.highlight {
             color: $primary;
             &::after {
-                background-color: rgba($primary, 0.1);
+                background-color: $pinkColor;
+                border-color: $primary;
             }
         }
 
