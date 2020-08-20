@@ -35,6 +35,11 @@ class Flight {
     selectAvailable(x) {
         this.available = x
     }
+
+    get passengersCount() {
+        const { adult, child, infant } = this.session
+        return adult + child + infant
+    }
 }
 
 export default async function(ctx, inject) {
