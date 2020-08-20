@@ -15,23 +15,25 @@
             <span class="px-1">-</span>
             <span class="font-en text-weight-500">Economy(H)</span>
         </div>
-        <div class="flight-detail__card-holder mt-3">
+        <div class="flight-detail__card-holder mt-3 mb-3">
             <detail-card />
         </div>
+        <risk-free-card />
     </div>
 </template>
 
 <script>
-import DetailCard from '~/components/flight/available/detail/DetailCard'
+import DetailCard from '~/components/flight/detail/DetailCard'
+import RiskFreeCard from '~/components/ui/RiskFreeCard'
 
 export default {
-    components: {DetailCard},
+    components: {
+        DetailCard,
+        RiskFreeCard
+    },
     layout: 'page'
 }
 </script>
 
 <style lang="scss" scoped>
-    .flight-detail {
-
-    }
 </style>

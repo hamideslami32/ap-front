@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import DetailItem from '~/components/flight/available/detail/DetailItem'
+import DetailItem from '~/components/flight/detail/DetailItem'
 
 export default {
     name: 'DetailCard',
