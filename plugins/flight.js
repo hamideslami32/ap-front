@@ -6,6 +6,7 @@ class Flight {
     constructor(ctx) {
         this.session = null
         this.available = null
+        this.flights = null
 
         if (process.browser && ctx.nuxtState.session) {
             this.session = ctx.nuxtState.session
@@ -36,6 +37,10 @@ class Flight {
         this.available = x
     }
 
+    selectFlights(flights) {
+        this.flights = flights
+    }
+
     get passengersCount() {
         const {adult, child, infant} = this.session
         return adult + child + infant
@@ -44,6 +49,10 @@ class Flight {
     flightPrice(flight) {
         const { fare } = flight
         return ['adult', 'child', 'infant'].reduce((carry, item) => carry + (fare[item].price + fare[item].tax) * this.session[item], 0)
+    }
+
+    airlineLogoUrl(iata) {
+        return Vue.prototype.$staticUrl(`/ad/airlines/logo/${iata}.png`)
     }
 }
 

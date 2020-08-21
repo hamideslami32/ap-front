@@ -283,7 +283,7 @@ export default {
         }
 
         &.holiday {
-            color: $info;
+            color: $secondary;
         }
 
         &::after {

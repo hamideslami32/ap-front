@@ -114,5 +114,9 @@ export default {
     layoutTransition: {
         name: 'slide-left',
         mode: ''
+    },
+    pageTransition: {
+        name: 'slide-left',
+        mode: ''
     }
 }

@@ -1,56 +1,67 @@
 <template>
     <div class="detail-item">
         <div class="detail-item__airplane">
-            <span class="font-en px-2">B777</span>
+            <span class="font-en px-2">{{ stop.aircraft }}</span>
             <span class="px-2">|</span>
-            <span>شماره پرواز: ۴۸۳</span>
+            <span>شماره پرواز: {{ stop.flightNumber }}</span>
             <span class="flex-grow-1" />
-            <span class="px-1 text-2">ترکیش ایرلاینز</span>
-            <span />
+            <span class="px-1 text-2">{{ stop.airlineName }}</span>
+            <img
+                class="rounded-circle"
+                :src="$flight.airlineLogoUrl(stop.airline)"
+                :alt="stop.airlineName"
+                width="26"
+                height="26"
+            >
         </div>
-        <div class="detail-item__cities d-flex align-items-center justify-content-between mt-2">
-            <span class="text-2 text-gray-800 font-en text-weight-500">Tehran</span>
-            <svgicon name="plane-takeoff" class="text-gray-700 flex-grow-1" width="40" height="20" />
-            <span class="text-2 text-gray-800 font-en text-weight-500">London</span>
+        <div class="detail-item__cities d-flex align-items-center mt-2">
+            <span class="small font-en">{{ stop.departureCityName }}</span>
+            <svgicon name="plane-takeoff" class="text-gray-700" width="40" height="20" />
+            <span class="small font-en text-left">{{ stop.arrivalCityName }}</span>
         </div>
         <div class="detail-item__time d-flex align-items-center justify-content-between mt-3 mb-2">
             <div class="detail-item__time__holder">
                 <p class="text-weight-600 text-gray-900 mb-0 py-1">
-                    23:00
+                    {{ departureTime.format('HH:mm') }}
                 </p>
-                <p class="font-en text-1 text-gray-800 text-weight-500 mb-0 py-1">
-                    23 AUG
+                <p class="font-en text-1 text-gray-800 text-weight-500 mb-0 py-1" dir="ltr">
+                    {{ departureTime.calendar('gregory').locale('en').format('DD MMM').toUpperCase() }}
                 </p>
             </div>
             <div class="flex-grow-1 mt-2 px-3">
                 <div class="detail-item__time__route px-3">
-                    <span class="text-2 text-weight-500 font-en text-gray-700">2h 30m</span>
+                    <span class="text-2 text-weight-500 font-en text-gray-700">{{ stop.duration | duration }}</span>
                 </div>
                 <div class="text-1 text-gray-800 text-weight-500 mt-4 d-flex align-items-center justify-content-between">
-                    <span>۲۰ مرداد ۹۹</span>
-                    <span>۰۴ شهریور ۹۹</span>
+                    <span>{{ departureTime.format('D MMMM YY') }}</span>
+                    <span>{{ arrivalTime.format('D MMMM YY') }}</span>
                 </div>
             </div>
             <div class="detail-item__time__holder">
                 <p class="text-weight-600 text-gray-900 mb-0 py-1">
-                    23:00
+                    {{ arrivalTime.format('HH:mm') }}
                 </p>
-                <p class="font-en text-1 text-gray-800 text-weight-500 mb-0 py-1">
-                    23 AUG
+                <p class="font-en text-1 text-gray-800 text-weight-500 mb-0 py-1" dir="ltr">
+                    {{ arrivalTime.calendar('gregory').locale('en').format('DD MMM').toUpperCase() }}
                 </p>
             </div>
         </div>
         <div class="d-flex align-items-center justify-content-between">
             <badge class="px-3">
-                IKA
+                {{ stop.departureAirport }}
             </badge>
             <div class="d-flex align-items-center flex-grow-1 px-3 justify-content-between font-en text-weight-500 text-2 text-gray-700">
-                <span>Imam Khomeini</span>
-                <span>Heathrow</span>
+                <span class="">{{ stop.departureAirportName.replace(/فرودگاه|بین[\s+‌]المللی/g, '') }}</span>
+                <span class="text-left">{{ stop.arrivalAirportName.replace(/فرودگاه|بین[\s+]المللی/g, '') }}</span>
             </div>
             <badge class="px-3">
-                LHR
+                {{ stop.arrivalAirport }}
             </badge>
+        </div>
+
+        <div v-if="showStop" class="alert alert-info p-2 my-3">
+            <svgicon name="chair" class="text-gray-700 p-1" width="18" height="18" />
+            <span class="text-weight-500 text-2 text-gray-900 mr-2">توقف در {{ stop.arrivalCityName }} به مدت {{ stop.duration | duration(true) }}</span>
         </div>
     </div>
 </template>
@@ -59,8 +70,25 @@
 import Badge from '~/components/ui/Badge'
 
 export default {
-    name: 'DetailItem',
-    components: {Badge}
+    components: {Badge},
+    props: {
+        showStop: {
+            type: Number,
+            default: null
+        },
+        stop: {
+            type: Object,
+            required: true
+        }
+    },
+    computed: {
+        departureTime() {
+            return this.$dayjs(this.stop.departureTime)
+        },
+        arrivalTime() {
+            return this.$dayjs(this.stop.arrivalTime)
+        }
+    }
 }
 </script>
 
@@ -98,31 +126,30 @@ export default {
             padding: 5px 10px;
             border-radius: 8px;
             border: 1px solid map_get($grays, '500');
-
-            span:last-child { // image section for airline logo
-                background: rgba(255, 0, 0, 0.1);
-                width: 30px;
-                height: 30px;
-                border-radius: 50px;
-            }
         }
 
         &__cities {
+            position: relative;
+            padding: 0 10px;
+            color: map_get($grays, '800');
+            font-weight: 500;
+
             svg {
-                transform: scale(-1, 1);
+                transform: scaleX(-1);
             }
 
-            span {
-                position: relative;
+            > span {
+                flex: 1 0 1px;
+            }
 
-                &:first-child {
-                    margin-right: 10px;
+            &::before, &::after {
+                @include line;
+                right: 0;
+            }
 
-                    &:before {
-                        @include line;
-                        right: -10px;
-                    }
-                }
+            &::after {
+                left: 0;
+                right: auto;
             }
         }
 

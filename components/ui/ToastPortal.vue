@@ -1,6 +1,6 @@
 <template>
     <div class="toast-portal">
-        <portal-target name="toast" />
+        <portal-target name="toast" multiple />
     </div>
 </template>
 

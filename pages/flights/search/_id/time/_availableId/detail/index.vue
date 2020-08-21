@@ -3,35 +3,47 @@
         <portal to="header">
             <span>جزئیات پرواز</span>
         </portal>
-        <div class="d-flex align-items-center justify-content-center">
-            <span class="text-gray-900 text-weight-500">تهران</span>
-            <span class="mx-3">vector</span>
-            <span class="text-gray-900 text-weight-500">پاریس</span>
+        <div class="d-flex align-items-center justify-content-center mb-2">
+            <span class="text-gray-900 text-weight-500">{{ $flight.session.routes[0].origin.city | translate }}</span>
+            <span class="mx-3">-</span>
+            <span class="text-gray-900 text-weight-500">{{ $flight.session.routes[0].destination.city | translate }}</span>
         </div>
-        <div class="mt-2 d-flex align-items-center justify-content-center text-2 text-gray-800">
-            <span>دوشنبه ۲۰ مرداد ۹۹</span>
+
+        <!--<div class="d-flex align-items-center justify-content-center text-2 text-gray-800 mb-3">
+            <span>{{ $dayjs($flight.session.routes[0].date).format('dddd D MMMM YY') }}</span>
             <span class="px-1">-</span>
             <span>توقف لندن</span>
             <span class="px-1">-</span>
             <span class="font-en text-weight-500">Economy(H)</span>
+        </div>-->
+
+        <div v-for="flight in flights" :key="flight._id" class="flight-detail__card-holder mt-3 mb-3">
+            <flight-detail-card :flight="flight" />
         </div>
-        <div class="flight-detail__card-holder mt-3 mb-3">
-            <detail-card />
-        </div>
-        <risk-free-card />
+
+        <risk-free-card class="mb-5" />
     </div>
 </template>
 
 <script>
-import DetailCard from '~/components/flight/detail/DetailCard'
-import RiskFreeCard from '~/components/ui/RiskFreeCard'
+import FlightDetailCard from '~/components/flight/detail/FlightDetailCard'
+import RiskFreeCard from '~/components/flight/detail/RiskFreeCard'
 
 export default {
     components: {
-        DetailCard,
+        FlightDetailCard,
         RiskFreeCard
     },
-    layout: 'page'
+    layout: 'page',
+
+    computed: {
+        available() {
+            return this.$flight.available
+        },
+        flights() {
+            return this.$route.query.flights.split('-').map((flightIndex, i) => this.available.routes[i].flights[flightIndex])
+        }
+    }
 }
 </script>
 

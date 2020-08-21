@@ -76,7 +76,7 @@ export default {
 
         &__price {
             font-size: 1.2em;
-            color: $info;
+            color: $secondary;
 
             &__text {
                 font-size: 0.6em;
@@ -106,7 +106,7 @@ export default {
                 border-bottom-right-radius: 25px;
                 font-weight: 600;
                 color: $white;
-                background: $info;
+                background: $secondary;
                 position: relative;
 
                 .shape {
@@ -170,7 +170,7 @@ export default {
             justify-content: center;
             span {
                 font-size: 0.6em;
-                color: $info;
+                color: $secondary;
             }
         }
     }

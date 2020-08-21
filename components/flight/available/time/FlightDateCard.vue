@@ -2,7 +2,7 @@
     <div class="flight-date-card" :class="{ active }" @click="$emit('click')">
         <div class="flight-date-card__header">
             <span class="text-1 text-gray-700">
-                {{ flight.stops.length > 1 ? `${flight.stops.length} توقف` : 'بدون توقف' }}
+                {{ flight.stops.length > 1 ? `${flight.stops.length - 1} توقف` : 'بدون توقف' }}
             </span>
             <span>
                 <img

@@ -27,7 +27,7 @@
                     <span class="text-1 mt-2 text-gray-900">ویرایش مسافر</span>
                 </div>
                 <div class="custom-card__actions__btn">
-                    <svgicon class="text-info" name="bookmarks-accept" width="26" height="26" />
+                    <svgicon class="text-secondary" name="bookmarks-accept" width="26" height="26" />
                     <span class="text-1 mt-2 text-gray-900">حذف مسافر</span>
                 </div>
             </template>

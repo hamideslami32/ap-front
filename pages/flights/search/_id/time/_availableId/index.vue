@@ -33,12 +33,12 @@
 
                 <div>
                     <flight-date-card
-                        v-for="flight in available.routes[0].flights"
+                        v-for="(flight, i) in available.routes[0].flights"
                         :key="flight._id"
                         :flight="flight"
                         :available="available"
-                        :active="flightTimes[0] === flight._id"
-                        @click="selectFlight(0, flight._id)"
+                        :active="flightTimes[0] === i"
+                        @click="selectFlight(0, i)"
                     />
                 </div>
             </div>
@@ -57,44 +57,42 @@
 
                 <div>
                     <flight-date-card
-                        v-for="flight in available.routes[1].flights"
+                        v-for="(flight, i) in available.routes[1].flights"
                         :key="flight._id"
                         :flight="flight"
                         :available="available"
-                        :active="flightTimes[1] === flight._id"
-                        @click="selectFlight(1, flight._id)"
+                        :active="flightTimes[1] === i"
+                        @click="selectFlight(1, i)"
                     />
                 </div>
             </div>
         </div>
 
+        
+        <toast-card variant="light">
+            <div class="text-center">
+                <svgicon name="arrow-left" width="20" height="20" />
+                <span>
+                    قیمت برای هر نفر {{ available.totalFare / passengersCount | separateNumber }} تومان
+                </span>
+            </div>
+        </toast-card>
 
-        <portal to="toast">
-            <toast-card variant="light">
-                <div class="text-center">
-                    <svgicon name="arrow-left" width="20" height="20" />
-                    <span>
-                        قیمت برای هر نفر {{ available.totalFare / passengersCount | separateNumber }} تومان
-                    </span>
+        <toast-card>
+            <div class="d-flex align-items-center justify-content-between p-1">
+                <div>
+                    <p class="mb-2">
+                        مجموع قیمت برای {{ available.passengersCount }} نفر
+                    </p>
+                    <p class="mb-0 text-4">
+                        {{ available.totalFare | separateNumber }} تومان
+                    </p>
                 </div>
-            </toast-card>
-
-            <toast-card>
-                <div class="d-flex align-items-center justify-content-between p-1">
-                    <div>
-                        <p class="mb-2">
-                            مجموع قیمت برای {{ available.passengersCount }} نفر
-                        </p>
-                        <p class="mb-0 text-4">
-                            {{ available.totalFare | separateNumber }} تومان
-                        </p>
-                    </div>
-                    <b-button class="text-3 py-2 px-4" variant="info" @click="submit">
-                        جز‌ئیات پرواز
-                    </b-button>
-                </div>
-            </toast-card>
-        </portal>
+                <b-button class="text-3 py-2 px-4" variant="secondary" @click="submit">
+                    جز‌ئیات پرواز
+                </b-button>
+            </div>
+        </toast-card>
     </div>
 </template>
 
@@ -122,17 +120,20 @@ export default {
         }
     },
     methods: {
-        selectFlight(i, flightId) {
-            this.$set(this.flightTimes, i, flightId)
+        selectFlight(i, flightIndex) {
+            this.$set(this.flightTimes, i, flightIndex)
         },
         submit() {
-            if (this.flightTimes.filter(Boolean).length < this.available.routes.length) {
+            if (this.flightTimes.filter(el => el != null).length < this.available.routes.length) {
                 this.$toast.alert('لطفا ساعت پرواز خود را مشخص کنید.')
                 return
             }
             this.$router.push({
                 path: this.$route.path + '/detail',
-                query: this.$route.query
+                query: {
+                    ...this.$route.query,
+                    flights: this.flightTimes.join('-')
+                }
             })
         }
     }

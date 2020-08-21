@@ -29,7 +29,7 @@
         content: '';
         width: 6px;
         height: 6px;
-        background-color: $info;
+        background-color: $secondary;
         left: 12px;
         position: absolute;
         top: 50%;
