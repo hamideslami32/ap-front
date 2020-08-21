@@ -7,6 +7,9 @@ class Flight {
         this.session = null
         this.available = null
         this.flights = null
+        if (process.server) {
+            this.ssr = ctx.ssrContext.nuxt
+        }
 
         if (process.browser && ctx.nuxtState.session) {
             this.session = ctx.nuxtState.session
@@ -21,11 +24,17 @@ class Flight {
 
     async fetchSession(id) {
         this.session = await flightApi.getSearchSession(id)
+        if (process.server) {
+            this.ssr.session = this.session
+        }
         return this.session
     }
 
     async fetchAvailable(id) {
         this.available = await flightApi.getAvailable(this.session.id, id)
+        if (process.server) {
+            this.ssr.available = this.available
+        }
         return this.available
     }
 
@@ -62,10 +71,10 @@ export default async function(ctx, inject) {
     const { availableId } = ctx.route.params
     if (process.server) {
         if (sid) {
-            ctx.ssrContext.nuxt.session = await flight.fetchSession(sid).catch(() => null)
+            await flight.fetchSession(sid).catch(() => null)
         }
         if (availableId) {
-            ctx.ssrContext.nuxt.available = await flight.fetchAvailable(availableId).catch(() => null)
+            await flight.fetchAvailable(availableId).catch(() => null)
         }
     }
     if (process.browser) {

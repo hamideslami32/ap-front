@@ -68,41 +68,22 @@
             </div>
         </div>
 
-        
-        <toast-card variant="light">
-            <div class="text-center">
-                <svgicon name="arrow-left" width="20" height="20" />
-                <span>
-                    قیمت برای هر نفر {{ available.totalFare / passengersCount | separateNumber }} تومان
-                </span>
-            </div>
-        </toast-card>
 
-        <toast-card>
-            <div class="d-flex align-items-center justify-content-between p-1">
-                <div>
-                    <p class="mb-2">
-                        مجموع قیمت برای {{ available.passengersCount }} نفر
-                    </p>
-                    <p class="mb-0 text-4">
-                        {{ available.totalFare | separateNumber }} تومان
-                    </p>
-                </div>
-                <b-button class="text-3 py-2 px-4" variant="secondary" @click="submit">
-                    جز‌ئیات پرواز
-                </b-button>
-            </div>
-        </toast-card>
+        <flight-details-toast>
+            <b-button class="text-3 py-2 px-4" variant="secondary" @click="submit">
+                جز‌ئیات پرواز
+            </b-button>
+        </flight-details-toast>
     </div>
 </template>
 
 <script>
 import FlightDateCard from '~/components/flight/available/time/FlightDateCard'
 import flightSearchMixin from '~/components/flight/flight-search/flightSearchMixin'
-import ToastCard from '~/components/ui/ToastCard'
+import FlightDetailsToast from '~/components/flight/FlightDetailsToast'
 
 export default {
-    components: {ToastCard, FlightDateCard},
+    components: {FlightDetailsToast, FlightDateCard},
     layout: 'page',
 
     mixins: [flightSearchMixin],

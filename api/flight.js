@@ -51,4 +51,15 @@ export const flightApi = new class FlightApi extends BaseApi {
     getAvailable(searchId, availableId) {
         return this.axios.$get('/flight/results/' + searchId + '/' + availableId)
     }
+
+    async createOrder({ sessionId, availableId, flightIds }) {
+        return this.axios.$post(`/flight/results/${sessionId}/select`, {
+            availableId,
+            flightIds
+        })
+    }
+
+    async pay(orderId) {
+        return this.axios.$post(`/order/${orderId}/pay`)
+    }
 }

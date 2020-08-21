@@ -72,7 +72,6 @@
 import Card from '~/components/ui/Card'
 
 export default {
-    name: 'TransActions',
     components: {Card}
 }
 </script>

@@ -51,7 +51,8 @@ export default {
    */
     buildModules: [
         '@nuxtjs/style-resources',
-        ['@nuxtjs/pwa', { icon: false }]
+        ['@nuxtjs/pwa', { icon: false }],
+        '@nuxtjs/router-extras'
         /*     '@nuxtjs/eslint-module',
         '@nuxtjs/stylelint-module' */
         // Doc: https://github.com/nuxt-community/eslint-module

@@ -21,16 +21,28 @@
             <flight-detail-card :flight="flight" />
         </div>
 
-        <risk-free-card class="mb-5" />
+        <risk-free-card />
+
+        <div class="py-5" />
+        <div class="py-4" />
+
+        <flight-details-toast>
+            <b-button class="text-3 py-2 px-4" variant="secondary" @click="submit">
+                رزرو کنید
+            </b-button>
+        </flight-details-toast>
     </div>
 </template>
 
 <script>
 import FlightDetailCard from '~/components/flight/detail/FlightDetailCard'
 import RiskFreeCard from '~/components/flight/detail/RiskFreeCard'
+import FlightDetailsToast from '~/components/flight/FlightDetailsToast'
+import {flightApi} from '~/api/flight'
 
 export default {
     components: {
+        FlightDetailsToast,
         FlightDetailCard,
         RiskFreeCard
     },
@@ -42,6 +54,23 @@ export default {
         },
         flights() {
             return this.$route.query.flights.split('-').map((flightIndex, i) => this.available.routes[i].flights[flightIndex])
+        }
+    },
+
+    methods: {
+        async submit() {
+            const { order } = await flightApi.createOrder({
+                sessionId: this.$flight.session.id,
+                availableId: this.available._id,
+                flightIds: this.flights.map(fl => fl._id)
+            })
+            await this.$router.push({
+                path: this.$route.path + '/order',
+                query: {
+                    ...this.$route.query,
+                    orderId: order._id
+                }
+            })
         }
     }
 }

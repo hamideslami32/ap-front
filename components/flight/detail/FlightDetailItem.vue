@@ -73,8 +73,8 @@ export default {
     components: {Badge},
     props: {
         showStop: {
-            type: Number,
-            default: null
+            type: Boolean,
+            default: false
         },
         stop: {
             type: Object,
