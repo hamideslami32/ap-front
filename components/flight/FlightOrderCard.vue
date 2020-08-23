@@ -85,7 +85,7 @@ export default {
 }
 
 .ticket {
-    background: linear-gradient(90deg, $primary 0%, #6d4ea3 100%);
+    background: linear-gradient(90deg, $primary 0%, $lightPrimary 100%);
     border-radius: 10px;
     color: $white;
 

@@ -106,7 +106,7 @@ export default {
         right: 0;
         left: 0;
         z-index: 1;
-        background: linear-gradient(90deg, $primary 0%, #6d4ea3 100%);
+        background: linear-gradient(90deg, $primary 0%, $lightPrimary 100%);
         color: $white;
 
         /deep/ input {
@@ -118,7 +118,7 @@ export default {
             font-size: 0.75rem;
             color: $white;
             border: 1px solid rgba($white, 0.1);
-            background-color: #6d4ea3;
+            background-color: $lightPrimary;
             text-align: center;
             padding: 5px 15px;
             width: 100%;
@@ -143,7 +143,7 @@ export default {
                 margin: 0 10px;
                 display: flex;
                 border: 1px solid rgba(255, 255, 255, 0.1);
-                background-color: #6d4ea3;
+                background-color: $lightPrimary;
                 box-sizing: border-box;
                 box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
                 border-radius: 5px;
