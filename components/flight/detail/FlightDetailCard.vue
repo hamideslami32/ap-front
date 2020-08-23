@@ -15,7 +15,7 @@
         </div>
 
         <div class="detail-card__tag">
-            <span class="text-primary text-1 text-weight-500 ">قوانین ویزا و استرداد</span>
+            <span class="text-primary text-1 text-weight-500 " @click="$emit('show-flight-rule')">قوانین ویزا و استرداد</span>
         </div>
     </div>
 </template>
