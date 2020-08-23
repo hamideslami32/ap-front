@@ -22,6 +22,7 @@
         </div>
 
         <risk-free-card />
+        <price-detail />
 
         <div class="py-5" />
         <div class="py-4" />
@@ -37,6 +38,7 @@
 <script>
 import FlightDetailCard from '~/components/flight/detail/FlightDetailCard'
 import RiskFreeCard from '~/components/flight/detail/RiskFreeCard'
+import PriceDetail from '~/components/flight/PriceDetail'
 import FlightDetailsToast from '~/components/flight/FlightDetailsToast'
 import {flightApi} from '~/api/flight'
 
@@ -44,7 +46,8 @@ export default {
     components: {
         FlightDetailsToast,
         FlightDetailCard,
-        RiskFreeCard
+        RiskFreeCard,
+        PriceDetail
     },
     layout: 'page',
 
