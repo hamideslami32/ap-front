@@ -179,7 +179,7 @@ export default {
                 color: $white;
                 font-size: 17px;
                 text-align: left;
-                padding: 10px 35px;
+                padding: 10px 30px;
 
                 &:last-child {
                     text-align: right;

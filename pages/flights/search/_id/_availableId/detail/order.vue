@@ -3,7 +3,7 @@
         <portal to="header">
             <span>مسافرین و خریدار</span>
         </portal>
-        <div class="mt-2 px-2">
+        <div class="mt-3 px-2">
             <flight-order-card :available="available" :flight="flights[0]" />
             <p class="my-3 text-center text-gray-700 text-3">
                 وارد کردن اطلاعات مسافرین

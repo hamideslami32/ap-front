@@ -13,7 +13,7 @@
                     <span class="text-2 text-weight-400 ml-2 pt-1">{{ $dayjs(firstStop.departureTime).calendar('gregory').locale('en').format('D MMMM YYYY') }}</span>
                 </div>
 
-                <p class="my-2 text-info text-weight-500 text-1">
+                <p class="my-2 text-secondary text-weight-500 text-1">
                     {{ available.routes.length === 2 ? 'Round Trip' : 'One Way' }}
                 </p>
 
@@ -25,7 +25,7 @@
             </div>
         </b-col>
         <b-col cols="3" class="p-3 ticket__info  text-center">
-            <div class="mt-2">
+            <div class="">
                 <div class="mb-2">
                     <img
                         class="rounded-circle"

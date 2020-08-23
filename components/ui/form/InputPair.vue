@@ -2,7 +2,7 @@
     <div class="input-pair">
         <span class="input-pair__switch">
             <button @click.prevent="switchInputs">
-                <svgicon name="arrows-round" width="100%" height="100%" />
+                <svgicon name="arrows-round" width="29" height="29" />
             </button>
         </span>
         <slot />
@@ -103,7 +103,7 @@ export default {
             }
 
             > button {
-                background: #411f7e;
+                background: linear-gradient(180deg, $secondary 0%, #411f7e 100%);
                 padding: 0;
                 border-radius: 50%;
                 width: 30px;
@@ -113,6 +113,12 @@ export default {
                 color: $white;
                 position: relative;
                 z-index: 3;
+
+                >svg {
+                    background: $primary;
+                    border-radius: 50%;
+                    position: relative;
+                }
             }
         }
 
