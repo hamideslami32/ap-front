@@ -1,8 +1,5 @@
 <template>
-    <div class="risk-free-card">
-        <div class="risk-free-card__tag">
-            <span class="text-1 text-weight-500 ">{{ tag }}</span>
-        </div>
+    <card-with-tag :tag="tag">
         <div class="risk-free-card__header pt-3 px-3 d-flex align-items-center justify-content-between ml-5">
             <div class="d-flex align-items-center">
                 <div class="icon d-flex justify-content-center align-items-center">
@@ -13,20 +10,17 @@
                 <span class="text-3 text-weight-600 mr-3">خرید آسوده</span>
             </div>
             <div>
-                <!-- <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="customSwitches">
-                    <label class="custom-control-label" for="customSwitches"></label>
-                </div> -->
-                <b-form-checkbox v-model="checked" class="custom-control" switch size="lg" />
+                <b-form-checkbox v-model="localSwitchData" class="custom-control" switch size="lg" />
             </div>
         </div>
-        <div class="risk-free-card__options text-2 mt-4">
+        <div class="risk-free-card__options text-2 mt-4" :class="{ 'opacity-half': !localSwitchData }">
             <div v-for="(item, i) in options" :key="i" class="item d-flex mb-3 mx-2 pb-3" :class="{ 'first-item': i === 0 }">
                 <div cols="1" class="d-flex ml-2 pb-2">
                     <b-form-checkbox
                         :id="item.value"
-                        v-model="localValue"
+                        v-model="item.model"
                         :value="item.value"
+                        :disabled="!localSwitchData"
                     />
                 </div>
                 <div cols="11" class="text-2 flex-grow-1 text-gray-900">
@@ -40,13 +34,17 @@
                 </div>
             </div>
         </div>
-    </div>
+    </card-with-tag>
 </template>
 
 <script>
+import CardWithTag from '~/components/ui/CardWithTag'
 
 export default {
     name: 'RiskFreeCard',
+    components: {
+        CardWithTag
+    },
     props: {
         tag: {
             type: String,
@@ -60,124 +58,75 @@ export default {
                     description: 'کنسلی بدون جریمه تا ساعت ۲۳:۰۰ روز صدور بلیط',
                     price: '100,000',
                     type: 'رایگان',
-                    value: 'return-money'
+                    // value: 'return-money',
+                    model: false
                 },
                 {
                     title: 'Fare Drop Protection',
                     description: 'بازگشت مابه التفاوت قیمت در صورت کاهش نرخ',
                     price: '50,000',
                     type: 'رایگان',
-                    value: 'fare-drop-protection'
+                    // value: 'fare-drop-protection',
+                    model: false
                 }
             ]
         }
     },
-    data: function() {
+    data() {
         return {
-            checked: false
+            localSwitchData: false
         }
-    },
-    computed: {
-        localValue: {
-            get() {
-                return this.value
-            },
-            set(x) {
-                this.$emit('input', x)
-            }
-        }
-        // checked: {
-        //     get() {
-        //         return this.value
-        //     },
-        //     set(value) {
-        //         this.$emit('input', value)
-        //     }
-        // }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-    .risk-free-card {
-        min-height: 270px;
-        border: 1px solid $borderColor;
-        border-radius: $borderRadius10;
-        position: relative;
-        &__tag {
-            position: absolute;
-            top: -1px;
-            height: 24px;
-            width: 100px;
-            background: transparent;
-            border: 1px solid $blueColor;
-            border-top-color: #fff;
-            border-bottom-color: #fff;
-            border-bottom-left-radius: 20px 30px;
-            border-bottom-right-radius: 20px 30px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            left: 30px;
-            color: $blueColor;
-        }
-
-        &__header {
-            .icon {
-                height: 60px;
-                width: 60px;
-                background: linear-gradient(180deg, $blueColor 0%, #f9f9f9 55.21%);
-                box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.05);
+    .risk-free-card__header {
+        .icon {
+            height: 60px;
+            width: 60px;
+            background: linear-gradient(180deg, $blueColor 0%, #f9f9f9 55.21%);
+            box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.05);
+            border-radius: $borderRadius10;
+            & > div {
+                background: #e3f0f2;
                 border-radius: $borderRadius10;
-
-                & > div {
-                    background: #e3f0f2;
-                    border-radius: $borderRadius10;
-                    width: 58px;
-                    height: 58px;
-                    color: $blueColor;
-                }
-            }
-
-            .custom-control {
-
-                /deep/ label {
-                    border-color: $blueColor;
-                }
-                
-                /deep/ .custom-control-input:checked ~ .custom-control-label::before {
-                    border-color: $blueColor;
-                    background-color: $blueColor;
-                }
-
-                /deep/ .custom-control-input:not(:disabled):active ~ .custom-control-label::before {
-                    background-color: $borderColor;
-                    border-color: $blueColor;
-                }
-            }
-
-            .custom-switch .custom-control-label::before {
-                // width: 3rem;
-                // height: 20px;
+                width: 58px;
+                height: 58px;
+                color: $blueColor;
             }
         }
 
-        &__options {
-            .item {
-                & > div:first-of-type {
-                    width: 25px;
-                }
-                .type {
-                    color: $blueColor;
-                }
-                .price {
-                    text-decoration: line-through;
-                }
+    }
+    .risk-free-card__options {
+        .item {
+            & > div:first-of-type {
+                width: 25px;
             }
-            .first-item {
-                border-bottom: 1px solid $borderColor;
+            .type {
+                color: $blueColor;
+            }
+            .price {
+                text-decoration: line-through;
             }
         }
+        .first-item {
+            border-bottom: 1px solid $borderColor;
+        }
+    }
+    .opacity-half {
+        opacity: 0.5;
+    }
+
+    /deep/ .custom-control-input:checked ~ .custom-control-label::before {
+        border-color: $blueColor !important;
+        background-color: $blueColor !important;
+    }
+    /deep/ .custom-control-label::before {
+        box-shadow: none !important;   
+    }
+    /deep/ .custom-control-input ~ .custom-control-label::before {
+        background-color: #fff !important;
+        border-color: $blueColor !important;
     }
 </style>
