@@ -34,3 +34,11 @@ Vue.prototype.$translate = function(x) {
     if (typeof x === 'string') return x
     return x.fa || x.en || Object.values(x).filter(Boolean)[0] || ''
 }
+
+Vue.filter('translate', Vue.prototype.$translate)
+
+Vue.filter('duration', (x, text) => {
+    const h = Math.floor(x / 60)
+    const m = x % 60
+    return (text ? `${h ? h + ' ساعت' : ''} ${m ? m + ' دقیقه' : ''}` : `${h ? h + 'h' : ''} ${m ? m + 'm' : ''}`).trim()
+})

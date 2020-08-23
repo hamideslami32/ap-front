@@ -41,7 +41,7 @@
                     v-else
                     :disabled="!resend"
                     class="float-left d-inline-block auth-form__resend-otp"
-                    variant="outline-info"
+                    variant="outline-secondary"
                     @click.prevent="resendRequest"
                 >
                     ارسال مجدد
@@ -162,8 +162,8 @@ export default {
         }
 
         &__timer-holder {
-            color: $info;
-            border: 1px solid $info;
+            color: $secondary;
+            border: 1px solid $secondary;
             padding: 5px 20px;
             border-radius: 10px;
             font-size: 1rem;

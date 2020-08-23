@@ -36,7 +36,7 @@
                 <b-button
                     v-if="!editAccount"
                     class="account__edit text-3"
-                    variant="outline-info"
+                    variant="outline-secondary"
                     @click.prevent="showAccountEdit"
                 >
                     ویرایش

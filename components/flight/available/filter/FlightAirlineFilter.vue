@@ -3,7 +3,7 @@
         <group-checkbox :value="value" :options="mappedAirlines" @input="$emit('input', $event)">
             <template v-slot="{ item }">
                 <span class="airline-item">
-                    <img :src="$staticUrl('/ad/airlines/logo/' + item.value + '.png')" alt="" width="34">
+                    <img :src="$flight.airlineLogoUrl(item.value)" alt="" width="34">
                 </span>
                 <span class="align-middle mr-2">
                     {{ item.title }}

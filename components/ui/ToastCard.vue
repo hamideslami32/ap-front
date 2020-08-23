@@ -1,7 +1,9 @@
 <template>
-    <div class="toast-card mt-2" :class="variant">
-        <slot />
-    </div>
+    <portal to="toast">
+        <div class="toast-card mt-2" :class="variant">
+            <slot />
+        </div>
+    </portal>
 </template>
 
 <script>

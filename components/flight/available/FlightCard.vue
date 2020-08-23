@@ -51,11 +51,10 @@ export default {
                 return routes[0].flights.length - 1
             }
             if (routes.length === 2) {
-                const flightPrice = flight => flight.fare.adult.price + flight.fare.adult.tax
                 let count = 0
                 routes[0].flights.forEach(f1 => {
                     routes[1].flights.forEach(f2 => {
-                        count += flightPrice(f1) + flightPrice(f2) === totalFare ? 1 : 0
+                        count += this.$flight.flightPrice(f1) + this.$flight.flightPrice(f2) === totalFare ? 1 : 0
                     })
                 })
                 return count - 1
@@ -77,7 +76,7 @@ export default {
 
         &__price {
             font-size: 1.2em;
-            color: $info;
+            color: $secondary;
 
             &__text {
                 font-size: 0.6em;
@@ -107,7 +106,7 @@ export default {
                 border-bottom-right-radius: 25px;
                 font-weight: 600;
                 color: $white;
-                background: $info;
+                background: $secondary;
                 position: relative;
 
                 .shape {
@@ -171,7 +170,7 @@ export default {
             justify-content: center;
             span {
                 font-size: 0.6em;
-                color: $info;
+                color: $secondary;
             }
         }
     }

@@ -37,7 +37,7 @@
                     <div v-if="destinations.length === 0" class="text-center mt-4">
                         <h5>اوپس!</h5>
                         <p>موردی یافت نشد، مجدد تلاش کنید</p>
-                        <b-btn variant="outline-info" @click="(query = '') || fetchResult('')">
+                        <b-btn variant="outline-secondary" @click="(query = '') || fetchResult('')">
                             بازگشت به صفحه نخست
                         </b-btn>
                     </div>

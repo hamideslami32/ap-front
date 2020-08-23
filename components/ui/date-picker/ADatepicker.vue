@@ -481,7 +481,7 @@ export default {
     z-index: 5000;
 
     .tooltip-inner {
-        background-color: $secondary;
+        background-color: map_get($grays, '800');
         padding: 2px 4px;
     }
 }

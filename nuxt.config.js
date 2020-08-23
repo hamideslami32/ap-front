@@ -9,7 +9,8 @@ export default {
    ** See https://nuxtjs.org/api/configuration-head
    */
     head: {
-        title: process.env.npm_package_name || '',
+        title: 'خرید بلیط هواپیما',
+        titleTemplate: 'Apro | %s',
         meta: [
             {charset: 'utf-8'},
             {name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1'},
@@ -50,7 +51,8 @@ export default {
    */
     buildModules: [
         '@nuxtjs/style-resources',
-        ['@nuxtjs/pwa', { icon: false }]
+        ['@nuxtjs/pwa', { icon: false }],
+        '@nuxtjs/router-extras'
         /*     '@nuxtjs/eslint-module',
         '@nuxtjs/stylelint-module' */
         // Doc: https://github.com/nuxt-community/eslint-module
@@ -111,6 +113,10 @@ export default {
     },
 
     layoutTransition: {
+        name: 'slide-left',
+        mode: ''
+    },
+    pageTransition: {
         name: 'slide-left',
         mode: ''
     }

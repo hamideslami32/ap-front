@@ -18,6 +18,10 @@ class Auth {
         this.router = ctx.app.router
         this.user = null
         this.showModal = false
+
+        if (process.server) {
+            this.ssr = ctx.ssrContext.nuxt
+        }
     }
 
     async init(ctx) {
@@ -26,6 +30,9 @@ class Auth {
             this.setToken(token)
         }
 
+        const shouldRedirect = (route) => routeOption(route, 'auth') && !this.user
+        const shouldFetchFull = ({ meta }) => !!((meta[0] || meta) || {}).fullUser
+
         if (process.browser) {
             if (ctx.nuxtState.user) {
                 this.user = ctx.nuxtState.user
@@ -33,25 +40,23 @@ class Auth {
             if (!this.user && this.token) {
                 await this.fetchUser()
             }
-            this.router.beforeResolve((t, f, next) => {
-                next(this.shouldRedirect(t) ? UNAUTH_REDIRECT : undefined)
+            this.router.beforeResolve(async (t, f, next) => {
+                if (this.token && shouldFetchFull(t)) {
+                    await this.fetchUser(true)
+                }
+                next(shouldRedirect(t) ? UNAUTH_REDIRECT : undefined)
             })
         }
 
         if (process.server) {
             if (this.token) {
-                const shouldFetchFull = ctx.route.name === 'profile'
-                ctx.ssrContext.nuxt.user = await this.fetchUser(shouldFetchFull).catch(() => null)
+                await this.fetchUser(shouldFetchFull(ctx.route)).catch(() => null)
             }
-            if (this.shouldRedirect(ctx.route)) {
+            if (shouldRedirect(ctx.route)) {
                 ctx.redirect(UNAUTH_REDIRECT)
             }
         }
 
-    }
-
-    shouldRedirect(route) {
-        return routeOption(route, 'auth') && !this.user
     }
 
     /**
@@ -90,6 +95,12 @@ class Auth {
                 full: full ? 1 : 0
             }
         })
+        if (full) {
+            user.__full = true
+        }
+        if (process.server) {
+            this.ssr.user = user
+        }
         this.user = user
         return user
     }

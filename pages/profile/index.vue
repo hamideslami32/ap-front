@@ -51,7 +51,7 @@
             <template v-slot:modal-header-close>
                 <svgicon name="arrow-long-right" width="20" height="20" />
             </template>
-            <trans-actions />
+            <transactions />
         </b-modal>
         <b-modal v-model="passengerModal" hide-footer>
             <template v-slot:modal-title>
@@ -71,10 +71,10 @@ import Account from '~/components/profile/Account'
 import Field from '~/components/ui/Field'
 import Orders from '~/components/profile/Orders'
 import Passengers from '~/components/profile/Passengers'
-import TransActions from '~/components/profile/TransActions'
+import Transactions from '~/components/profile/Transactions'
 
 export default {
-    components: {TransActions, Passengers, Orders, Field, Account, Panel },
+    components: {Transactions, Passengers, Orders, Field, Account, Panel },
     auth: true,
     data() {
         return {
@@ -105,6 +105,14 @@ export default {
     }
 }
 </script>
+
+<router>
+    {
+      "meta": {
+        "fullUser": true
+      }
+    }
+</router>
 
 <style lang="scss" scoped>
     .profile-header {

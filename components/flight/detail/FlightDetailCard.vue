@@ -1,38 +1,37 @@
 <template>
     <div class="detail-card">
         <div class="detail-card__wrapper mb-4">
-            <detail-item />
-            <div class="detail-card__stop p-2 my-3">
-                <svgicon name="chair" class="text-gray-700 p-1" width="18" height="18" />
-                <span class="text-weight-500 text-2 text-gray-900 mr-2">توقف در لندن به مدت 2 ساعت 40 دقیقه</span>
-            </div>
-            <detail-item />
+            <detail-item v-for="(stop, i) in flight.stops" :key="i" :stop="stop" :show-stop="i !== flight.stops.length - 1" />
         </div>
 
         <div class="detail-card__rule mb-5">
             <div class="detail-card__rule__text">
                 <svgicon name="bag" class="text-gray-700" width="20" height="20" />
-                <span class="mr-1">بار مجاز : 20 کیلوگرم</span>
-                <span class="px-1">/</span>
-                <span>2pcs</span>
+                <span class="mr-1">بار مجاز : {{ flight.baggage }}</span>
             </div>
-            <div class="detail-card__rule__type">
+            <!--<div class="detail-card__rule__type">
                 <div>قابل استرداد</div>
-            </div>
+            </div>-->
         </div>
 
         <div class="detail-card__tag">
-            <span class="text-primary text-1 text-weight-500 ">قوانین استرداد</span>
+            <span class="text-primary text-1 text-weight-500 ">قوانین ویزا و استرداد</span>
         </div>
     </div>
 </template>
 
 <script>
-import DetailItem from '~/components/flight/detail/DetailItem'
+import DetailItem from '~/components/flight/detail/FlightDetailItem'
 
 export default {
-    name: 'DetailCard',
-    components: {DetailItem}
+    components: {DetailItem},
+
+    props: {
+        flight: {
+            type: Object,
+            required: true
+        }
+    }
 }
 </script>
 
@@ -50,9 +49,8 @@ export default {
             padding: 10px;
         }
 
-        &__stop {
+        /deep/ .alert {
             background: #e4f7f9;
-            border: 1px solid #c4edf1;
             border-radius: 8px;
 
             svg {
