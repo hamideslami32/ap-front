@@ -144,7 +144,7 @@ export default {
 
             &__line {
                 margin: -5px 10px 0;
-                border-bottom: 1px dashed #e6e6e6;
+                border-bottom: 1px solid #e6e6e6;
                 height: 100%;
                 flex: 1;
                 display: flex;
@@ -152,6 +152,7 @@ export default {
 
                 > span {
                     @include circle;
+                    margin-top: 2px;
                     width: 6px;
                     height: 6px;
                     border: 1px solid #666666;

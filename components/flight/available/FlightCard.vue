@@ -1,7 +1,9 @@
 <template>
     <div class="flight-card" @click="$emit('click', $event)">
-        <span class="flight-card__price">{{ available.totalFare | separateNumber }}</span>
-        <span class="flight-card__price__text">برای هر نفر (تومان)</span>
+        <div class="d-flex align-items-center">
+            <span class="flight-card__price">{{ available.totalFare | separateNumber }}</span>
+            <span class="text-weight-400 text-2 mr-1 pb-1 text-gray-700">برای هر نفر (تومان)</span>
+        </div>
         <div class="flight-tag">
             <span>ارزان ترین</span>
         </div>
@@ -77,12 +79,6 @@ export default {
         &__price {
             font-size: 1.2em;
             color: $secondary;
-
-            &__text {
-                font-size: 0.6em;
-                color: #888888;
-                font-weight: 400;
-            }
         }
 
         &__items {

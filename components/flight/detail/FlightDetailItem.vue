@@ -1,8 +1,8 @@
 <template>
     <div class="detail-item">
         <div class="detail-item__airplane">
-            <span class="font-en px-2">{{ stop.aircraft }}</span>
-            <span class="px-2">|</span>
+            <span class="font-en">{{ stop.aircraft }}</span>
+            <span class="pl-2">|</span>
             <span>شماره پرواز: {{ stop.flightNumber }}</span>
             <span class="flex-grow-1" />
             <span class="px-1 text-2">{{ stop.airlineName }}</span>
@@ -61,7 +61,7 @@
 
         <div v-if="showStop" class="alert alert-info p-2 my-3">
             <svgicon name="chair" class="text-gray-700 p-1" width="18" height="18" />
-            <span class="text-weight-500 text-2 text-gray-900 mr-2">توقف در {{ stop.arrivalCityName }} به مدت {{ stop.duration | duration(true) }}</span>
+            <span class="text-weight-500 text-2 text-gray-900">توقف در {{ stop.arrivalCityName }} به مدت {{ stop.duration | duration(true) }}</span>
         </div>
     </div>
 </template>
@@ -126,6 +126,10 @@ export default {
             padding: 5px 10px;
             border-radius: 8px;
             border: 1px solid map_get($grays, '500');
+
+            >span:first-child {
+                width: 40px;
+            }
         }
 
         &__cities {
@@ -199,6 +203,19 @@ export default {
 
         /deep/ .badge {
             font-size: 0.75rem;
+        }
+
+        .alert {
+            text-align: center;
+            position: relative;
+
+            svg {
+                position: absolute;
+                right: 15px;
+                bottom: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
         }
     }
 </style>

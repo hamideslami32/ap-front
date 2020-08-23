@@ -4,14 +4,14 @@
             <detail-item v-for="(stop, i) in flight.stops" :key="i" :stop="stop" :show-stop="i !== flight.stops.length - 1" />
         </div>
 
-        <div class="detail-card__rule mb-5">
+        <div class="detail-card__rule">
             <div class="detail-card__rule__text">
                 <svgicon name="bag" class="text-gray-700" width="20" height="20" />
                 <span class="mr-1">بار مجاز : {{ flight.baggage }}</span>
             </div>
-            <!--<div class="detail-card__rule__type">
+            <div class="detail-card__rule__type">
                 <div>قابل استرداد</div>
-            </div>-->
+            </div>
         </div>
 
         <div class="detail-card__tag">
@@ -66,6 +66,7 @@ export default {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            margin-bottom: 2.5em;
 
             &__text {
                 font-size: 0.75rem;
