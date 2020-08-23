@@ -1,7 +1,12 @@
 <template>
     <div class="detail-card">
         <div class="detail-card__wrapper mb-4">
-            <detail-item v-for="(stop, i) in flight.stops" :key="i" :stop="stop" :show-stop="i !== flight.stops.length - 1" />
+            <detail-item
+                v-for="(stop, i) in flight.stops"
+                :key="i"
+                :stop="stop"
+                :show-stop="i !== flight.stops.length - 1"
+            />
         </div>
 
         <div class="detail-card__rule">
@@ -15,8 +20,43 @@
         </div>
 
         <div class="detail-card__tag">
-            <span class="text-primary text-1 text-weight-500 " @click="$emit('show-flight-rule')">قوانین ویزا و استرداد</span>
+            <span
+                class="text-primary text-1 text-weight-500 "
+                @click="flightRuleModal = true"
+            >قوانین ویزا و استرداد</span>
         </div>
+
+        <b-modal v-model="flightRuleModal" body-class="py-1 px-0" hide-footer>
+            <template v-slot:modal-title>
+                قوانین استرداد
+            </template>
+            <template v-slot:modal-header-close>
+                <svgicon name="arrow-long-right" width="20" height="20" @click="showFlightRule = false" />
+            </template>
+            <div class="rules-modal d-flex px-2 align-items-center justify-content-between">
+                <span class="text-gray-800 text-3">تهران به پاریس</span>
+                <div class="d-flex">
+                    <div class="text-2 text-left text-gray-700 font-en text-weight-500">
+                        <p class="mb-0">
+                            A320
+                        </p>
+                        <p class="mb-0">
+                            Economy
+                        </p>
+                    </div>
+                    <div class="rules-modal__line mx-2" />
+                    <span>
+                        <span class="ml-1 text-2 text-weight-500 text-gray-800">ترکیش ایرلاینز</span>
+                        <span><img src="https://apro-dev.ir/static/ad/airlines/logo/B9.png" alt="" width="40px"></span>
+                    </span>
+                </div>
+                <div class="rules-modal__action">
+                    <b-btn class="btn" variant="outline-secondary">
+                        قوانین ویزا
+                    </b-btn>
+                </div>
+            </div>
+        </b-modal>
     </div>
 </template>
 
@@ -25,11 +65,15 @@ import DetailItem from '~/components/flight/detail/FlightDetailItem'
 
 export default {
     components: {DetailItem},
-
     props: {
         flight: {
             type: Object,
             required: true
+        }
+    },
+    data() {
+        return {
+            flightRuleModal: false
         }
     }
 }
@@ -127,6 +171,48 @@ export default {
             right: 0;
             left: 0;
             margin: auto;
+        }
+    }
+
+    .rules-modal {
+        height: 50px;
+        background: #f5f5f5;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+
+        &__line {
+            height: 30px;
+            border: 1px solid #e6e6e6;
+        }
+
+        &__container {
+            background-color: $white;
+            border: 1px solid #dddddd;
+            height: 90%;
+            border-radius: $borderRadius10;
+        }
+
+        &__action {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 20px;
+            white-space: nowrap;
+
+            .btn {
+                min-width: 120px;
+                height: 40px;
+
+                &::after {
+                    content: '';
+                    width: 6px;
+                    height: 6px;
+                    display: inline-block;
+                    background: #e3469a;
+                    margin-right: 5px;
+                    border-radius: 50%;
+                }
+            }
         }
     }
 </style>
