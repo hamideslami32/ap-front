@@ -6,7 +6,7 @@
         <div class="price-detail__prices">
             <div v-for="(item, i) in priceData" :key="i" class="d-flex justify-content-between mb-3">
                 <div>
-                    <span class="count d-inline-block px-2 py-1 ml-2 text-2 text-weight-500">{{ 'x'+item.count }}</span>
+                    <span class="count d-inline-block px-2 ml-2 text-2 text-weight-500">{{ 'x'+item.count }}</span>
                     <span class="text-2">{{ item.title }}</span>
                 </div>
                 <div>
@@ -60,6 +60,7 @@ export default {
                 border-radius: $borderRadius5;
                 width: 30px;
                 height: 20px;
+                line-height: 20px;
             }
         }
         &__btn {

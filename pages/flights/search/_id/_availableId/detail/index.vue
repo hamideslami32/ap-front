@@ -24,7 +24,7 @@
         <risk-free-card />
         <price-detail />
 
-        <template v-if="true">
+        <template>
             <b-modal v-model="showFlightRule" body-class="px-0" hide-footer>
                 <template v-slot:modal-title>
                     قوانین استرداد
@@ -117,18 +117,18 @@ export default {
 <style lang="scss" scoped>
 .flight {
     height: 50px;
-    background: #F5F5F5;
+    background: #f5f5f5;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
     // position: fixed;
     // width: 100%;
 }
 .line {
-    height:30px;
-    border: 1px solid #E6E6E6;
+    height: 30px;
+    border: 1px solid #e6e6e6;
 }
 .rules {
     background-color: $white;
-    border: 1px solid #DDDDDD;
+    border: 1px solid #dddddd;
     height: 90%;
     border-radius: $borderRadius10;
 }
