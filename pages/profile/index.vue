@@ -116,7 +116,7 @@ export default {
 
 <style lang="scss" scoped>
     .profile-header {
-        background: linear-gradient(90deg, #49238c 0%, #6d4ea3 100%);
+        background: linear-gradient(90deg, #49238c 0%, $lightPrimary 100%);
         text-align: center;
         color: $white;
         &__icon-wrapper {
@@ -145,7 +145,7 @@ export default {
         /deep/ .profile-header__info {
             height: 40px;
             margin: 0 auto;
-            background: #6d4ea3;
+            background: $lightPrimary;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
             max-width: 240px;

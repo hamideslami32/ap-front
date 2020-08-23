@@ -24,13 +24,13 @@
                     />
                 </div>
                 <div cols="11" class="text-2 flex-grow-1 text-gray-900">
-                    <div class="font-weight-500 font-en pb-1">
+                    <div class="text-weight-500 font-en pb-1">
                         {{ item.title }}
                     </div>
                     <div class="text-gray-800 pb-1">
                         {{ item.description }}
                     </div>
-                    <div><span>( <span class="price font-weight-500">{{ item.price }}</span> <span class="text-1 text-gray-800 font-weight-400">تومان</span>)</span> <span class="type">{{ item.type }}</span></div>
+                    <div><span>( <span class="price text-weight-500">{{ item.price }}</span> <span class="text-1 text-gray-800 text-weight-400">تومان</span>)</span> <span class="type">{{ item.type }}</span></div>
                 </div>
             </div>
         </div>
