@@ -21,7 +21,7 @@
             <flight-detail-card :flight="flight" />
         </div>
 
-        <risk-free-card />
+        <risk-free-card tag="Risk Free" tag-color="#45c6d4" />
         <price-detail />
 
         <div class="py-5" />

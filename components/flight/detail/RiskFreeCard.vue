@@ -1,5 +1,5 @@
 <template>
-    <card-with-tag :tag="tag">
+    <card-with-tag :tag="tag" :color="tagColor">
         <div class="risk-free-card__header pt-3 px-3 d-flex align-items-center justify-content-between ml-5">
             <div class="d-flex align-items-center">
                 <div class="icon d-flex justify-content-center align-items-center">
@@ -14,12 +14,11 @@
             </div>
         </div>
         <div class="risk-free-card__options text-2 mt-4" :class="{ 'opacity-half': !localSwitchData }">
-            <div v-for="(item, i) in options" :key="i" class="item d-flex mb-3 mx-2 pb-3" :class="{ 'first-item': i === 0 }">
+            <div v-for="(item, i) in options" :key="i" class="item d-flex mb-3 pb-3 px-2">
                 <div cols="1" class="d-flex ml-2 pb-2">
                     <b-form-checkbox
-                        :id="item.value"
-                        v-model="item.model"
-                        :value="item.value"
+                        :id="i"
+                        v-model="item.value"
                         :disabled="!localSwitchData"
                     />
                 </div>
@@ -48,7 +47,11 @@ export default {
     props: {
         tag: {
             type: String,
-            default: 'Risk Free'
+            required: true
+        },
+        tagColor : {
+            type: String,
+            required: true
         },
         options: {
             type: Array,
@@ -59,7 +62,7 @@ export default {
                     price: '100,000',
                     type: 'رایگان',
                     // value: 'return-money',
-                    model: false
+                    value: false
                 },
                 {
                     title: 'Fare Drop Protection',
@@ -67,7 +70,7 @@ export default {
                     price: '50,000',
                     type: 'رایگان',
                     // value: 'fare-drop-protection',
-                    model: false
+                    value: false
                 }
             ]
         }
@@ -110,9 +113,10 @@ export default {
                 text-decoration: line-through;
             }
         }
-        .first-item {
-            border-bottom: 1px solid $borderColor;
+        .item:first-of-type {
+            border-bottom: 1px solid #ddd;
         }
+        
     }
     .opacity-half {
         opacity: 0.5;

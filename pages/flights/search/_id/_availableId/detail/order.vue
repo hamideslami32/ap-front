@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="order">
         <portal to="header">
             <span>مسافرین و خریدار</span>
         </portal>
@@ -32,16 +32,18 @@
                 </div>
             </template>
             <template v-else>
-                <div :class="{ 'buyer-border': buyer.value }" class="buyer p-2 mb-10 mt-3">
+                <form :class="{ 'buyer-border': buyer.value }" class="buyer p-2 my-3">
                     <p class="my-3 text-center text-gray-700 text-3">
                         اطلاعات خریدار
                     </p>
                     <div class="buyer__main">
                         <div class="checkbox bg-gray-500 d-flex px-1 align-items-center" :class="{ 'bg-light-primary': buyer.value }">
                             <b-form-checkbox
+                                id="checkbox"
                                 v-model="buyer.value"
+                                name="checkbox"
                             />
-                            <span class="mr-2 text-2 text-weight-500 text-gray-800">بلیط به ایمیل و شماره همراه فرد دیگری هم ارسال شود</span>
+                            <label class="mr-2 mb-0 text-2 text-weight-500 text-gray-800" for="checkbox">بلیط به ایمیل و شماره همراه فرد دیگری هم ارسال شود</label>
                         </div>
                         <div v-if="buyer.value" class="form mt-1">
                             <p class="my-3 text-center text-gray-700 text-3">
@@ -49,21 +51,22 @@
                             </p>
                             <custom-input
                                 v-model="buyer.mobile"
-                                class="mx-4 mb-2"
+                                class="px-4 mb-2"
                                 type="tel"
                                 maxlength="11"
                                 title="شماره همراه"
                             />
                             <custom-input
                                 v-model="buyer.email"
-                                class="mx-4 mb-2"
+                                class="px-4 mb-2"
                                 type="email"
                                 title="ایمیل"
                             />
                         </div>
                     </div>
-                </div>
+                </form>
             </template>
+            <charity tag="Charity" tag-color="#e3469a" />
         </div>
 
         <flight-details-toast>
@@ -78,6 +81,7 @@
 
 import CustomInput from '~/components/ui/form/CustomInput'
 import PassengerField from '~/components/passenger/PassengerField'
+import Charity from '~/components/flight/order/Charity'
 import FlightDetailsToast from '~/components/flight/FlightDetailsToast'
 import FlightOrderCard from '~/components/flight/FlightOrderCard'
 import {flightApi} from '~/api/flight'
@@ -99,7 +103,8 @@ export default {
         FlightOrderCard,
         FlightDetailsToast, 
         PassengerField,
-        CustomInput
+        CustomInput,
+        Charity
     },
     layout: 'page',
 
@@ -150,6 +155,8 @@ export default {
 </router>
 
 <style lang="scss" scoped>
+.order {
+    padding-bottom: 130px;
     .user {
         background: $white;
         border: 1px solid map_get($grays, '400');
@@ -178,13 +185,12 @@ export default {
             .bg-light-primary {
                 background-color: $pinkColor;
             }
-            .form {
-                
-            }
         }
     }
     .buyer-border {
-        border: 1px solid #666;
+        border: 1px solid $borderColor;
         border-radius: $borderRadius10;
+        box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
     }
+}
 </style>
