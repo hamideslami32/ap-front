@@ -1,5 +1,10 @@
 <template>
     <div>
+        <portal to="header-right">
+            <nuxt-link to="/profile/account">
+                <svgicon width="30" height="30" name="user" />
+            </nuxt-link>
+        </portal>
         <portal to="header">
             پروفایل
         </portal>
@@ -16,72 +21,28 @@
                 {{ user.credit }} <span class="text-2">تومان</span>
             </field>
         </div>
-        <panel title="حساب کاربری" disabled @click.native="accountModal = true" />
-        <panel title="خرید ها" disabled @click.native="orderModal = true" />
-        <panel title="تراکنش ها" disabled @click.native="transactionsModal = true" />
-        <panel title="مسافران" disabled @click.native="passengerModal = true" />
+        <panel title="خرید ها" disabled @click.native="$router.push('/profile/orders')" />
+        <panel title="تراکنش ها" disabled @click.native="$router.push('/profile/transactions')" />
+        <panel title="مسافران" disabled @click.native="$router.push('/profile/passengers')" />
         <panel title="صورتحساب ها" disabled />
         <panel disabled @click.native="$auth.logout()">
             <template #title>
                 <span class="text-danger">خروج</span>
             </template>
         </panel>
-        <b-modal v-model="accountModal" body-class="p-0" hide-footer>
-            <template v-slot:modal-title>
-                حساب کاربری
-            </template>
-            <template v-slot:modal-header-close>
-                <svgicon name="arrow-long-right" width="20" height="20" />
-            </template>
-            <account @close="accountModal = false" />
-        </b-modal>
-        <b-modal v-model="orderModal" hide-footer>
-            <template v-slot:modal-title>
-                خریدها
-            </template>
-            <template v-slot:modal-header-close>
-                <svgicon name="arrow-long-right" width="20" height="20" />
-            </template>
-            <orders />
-        </b-modal>
-        <b-modal v-model="transactionsModal" hide-footer>
-            <template v-slot:modal-title>
-                تراکنش ها
-            </template>
-            <template v-slot:modal-header-close>
-                <svgicon name="arrow-long-right" width="20" height="20" />
-            </template>
-            <transactions />
-        </b-modal>
-        <b-modal v-model="passengerModal" hide-footer>
-            <template v-slot:modal-title>
-                مسافران
-            </template>
-            <template v-slot:modal-header-close>
-                <svgicon name="arrow-long-right" width="20" height="20" />
-            </template>
-            <passengers />
-        </b-modal>
     </div>
 </template>
 
 <script>
 import Panel from '~/components/ui/Panel'
-import Account from '~/components/profile/Account'
 import Field from '~/components/ui/Field'
-import Orders from '~/components/profile/Orders'
-import Passengers from '~/components/profile/Passengers'
-import Transactions from '~/components/profile/Transactions'
 
 export default {
-    components: {Transactions, Passengers, Orders, Field, Account, Panel },
+    components: {Field, Panel },
     auth: true,
     data() {
         return {
-            accountModal: false,
-            orderModal:false,
-            passengerModal: false,
-            transactionsModal: false
+            passengerModal: false
         }
     },
     computed: {
