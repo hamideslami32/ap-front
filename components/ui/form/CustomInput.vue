@@ -1,5 +1,5 @@
 <template>
-    <span class="custom-input" :class="{ 'custom-input--icon': icon }">
+    <span class="custom-input" :class="{ 'custom-input--icon': icon }" @click="focus">
         <svgicon
             v-if="icon"
             :name="icon"

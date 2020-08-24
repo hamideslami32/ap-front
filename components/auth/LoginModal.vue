@@ -13,7 +13,7 @@
                 input-class="auth-form__input"
                 type="tel"
                 maxlength="11"
-                title="شماره موبایل"
+                title="شماره همراه"
             />
             <full-btn type="submit" @click.prevent="requestOtp">
                 ورود
