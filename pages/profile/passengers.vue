@@ -1,5 +1,8 @@
 <template>
-    <div class="passengers">
+    <div class="passengers px-2 mt-3">
+        <portal to="header">
+            مسافران
+        </portal>
         <card v-for="i in 4" :key="i" class="mb-3">
             <template #header>
                 <div class="passengers-details__main text-2">
@@ -22,7 +25,7 @@
                 </div>
             </template>
             <template #footer>
-                <div class="custom-card__actions__btn">
+                <div class="custom-card__actions__btn" @click="editPassenger = true">
                     <svgicon class="text-primary" name="bookmarks-denny" width="26" height="26" />
                     <span class="text-1 mt-2 text-gray-900">ویرایش مسافر</span>
                 </div>
@@ -38,7 +41,7 @@
         </a-btn>
         <b-modal v-model="searchModal" body-class="p-0" hide-footer>
             <template v-slot:modal-title>
-                جستجو سفارش
+                جستجو مسافر
             </template>
             <template v-slot:modal-header-close>
                 <svgicon name="arrow-long-right" width="20" height="20" />
@@ -58,19 +61,44 @@
                 </form>
             </div>
         </b-modal>
+        <b-modal v-model="editPassenger" body-class="p-0" hide-footer>
+            <template v-slot:modal-title>
+                ویرایش مسافر
+            </template>
+            <template v-slot:modal-header-close>
+                <svgicon name="arrow-long-right" width="20" height="20" />
+            </template>
+            <div class="mt-3">
+                <passenger-form v-model="passengerInfo" @close="editPassenger = false" />
+            </div>
+        </b-modal>
     </div>
 </template>
 
 <script>
 import Card from '~/components/ui/Card'
 import CustomInput from '~/components/ui/form/CustomInput'
+import PassengerForm from '~/components/passenger/PassengerForm'
 
 export default {
     name: 'Passengers',
-    components: {Card, CustomInput},
+    components: {PassengerForm, Card, CustomInput},
+    layout: 'page',
     data() {
         return {
-            searchModal: false
+            searchModal: false,
+            editPassenger: false,
+            passengerInfo: {
+                name: '',
+                type: 'adult',
+                lastName: null,
+                gender: null,
+                nationalCode: null,
+                birthdate: null,
+                passportCode: null,
+                passportDate: null,
+                passportCity: null
+            }
         }
     }
 }

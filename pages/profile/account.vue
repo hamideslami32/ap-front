@@ -1,5 +1,8 @@
 <template>
     <div class="account">
+        <portal to="header">
+            حساب کاربری
+        </portal>
         <b-tabs content-class="mt-5 px-2">
             <b-tab title="مشخصات فردی" active @click="editAccount = false">
                 <div v-if="!editAccount" class="account__show">
@@ -68,13 +71,15 @@
 </template>
 
 <script>
-import Field from '~/components/ui/Field'
+
 import CustomInput from '~/components/ui/form/CustomInput'
+import Field from '~/components/ui/Field'
 import CheckedTick from '~/components/ui/CheckedTick'
 
 export default {
     name: 'Account',
-    components: {CustomInput, Field, CheckedTick},
+    components: {Field, CustomInput, CheckedTick},
+    layout: 'page',
     data() {
         const user = this.$auth.user
         return {
