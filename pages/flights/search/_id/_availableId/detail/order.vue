@@ -31,6 +31,39 @@
                     </div>
                 </div>
             </template>
+            <template v-else>
+                <div :class="{ 'buyer-border': buyer.value }" class="buyer p-2 mb-10 mt-3">
+                    <p class="my-3 text-center text-gray-700 text-3">
+                        اطلاعات خریدار
+                    </p>
+                    <div class="buyer__main">
+                        <div class="checkbox bg-gray-500 d-flex px-1 align-items-center" :class="{ 'bg-light-primary': buyer.value }">
+                            <b-form-checkbox
+                                v-model="buyer.value"
+                            />
+                            <span class="mr-2 text-2 text-weight-500 text-gray-800">بلیط به ایمیل و شماره همراه فرد دیگری هم ارسال شود</span>
+                        </div>
+                        <div v-if="buyer.value" class="form mt-1">
+                            <p class="my-3 text-center text-gray-700 text-3">
+                                شماره همراه و ایمیل
+                            </p>
+                            <custom-input
+                                v-model="buyer.mobile"
+                                class="mx-4 mb-2"
+                                type="tel"
+                                maxlength="11"
+                                title="شماره همراه"
+                            />
+                            <custom-input
+                                v-model="buyer.email"
+                                class="mx-4 mb-2"
+                                type="email"
+                                title="ایمیل"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </template>
         </div>
 
         <flight-details-toast>
@@ -43,6 +76,7 @@
 
 <script>
 
+import CustomInput from '~/components/ui/form/CustomInput'
 import PassengerField from '~/components/passenger/PassengerField'
 import FlightDetailsToast from '~/components/flight/FlightDetailsToast'
 import FlightOrderCard from '~/components/flight/FlightOrderCard'
@@ -61,7 +95,12 @@ const passengerFactory = (type = 'adult') => ({
 })
 
 export default {
-    components: {FlightOrderCard, FlightDetailsToast, PassengerField},
+    components: {
+        FlightOrderCard,
+        FlightDetailsToast, 
+        PassengerField,
+        CustomInput
+    },
     layout: 'page',
 
     data() {
@@ -72,7 +111,12 @@ export default {
                 ...new Array(adult || 0).fill(1).map(() => passengerFactory('adult')),
                 ...new Array(child || 0).fill(1).map(() => passengerFactory('child')),
                 ...new Array(infant || 0).fill(1).map(() => passengerFactory('infant'))
-            ]
+            ],
+            buyer: {
+                value: false,
+                mobile: '',
+                email: ''
+            }
         }
     },
 
@@ -123,5 +167,24 @@ export default {
             top: 7px;
             left: 7px;
         }
+    }
+    .buyer {
+        border: 1px solid transparent;
+        &__main {
+            .checkbox {
+                border-radius: $borderRadius10;
+                height: 50px;
+            }
+            .bg-light-primary {
+                background-color: $pinkColor;
+            }
+            .form {
+                
+            }
+        }
+    }
+    .buyer-border {
+        border: 1px solid #666;
+        border-radius: $borderRadius10;
     }
 </style>
