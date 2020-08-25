@@ -26,8 +26,8 @@ export default {
             return {
                 'color': this.color,
                 'border': '1px solid '+ this.color,
-                'border-top-color': '#f5f5f5',
-                'border-bottom-color': '#f5f5f5'
+                'border-top-color': '#fff',
+                'border-bottom-color': '#fff'
             }
         }
     }

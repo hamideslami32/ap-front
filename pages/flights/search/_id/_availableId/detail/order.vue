@@ -32,10 +32,10 @@
                 </div>
             </template>
             <template v-else>
+                <p class="my-3 text-center text-gray-700 text-3">
+                    اطلاعات خریدار
+                </p>
                 <form :class="{ 'buyer-border': buyer.value }" class="buyer p-2 my-3">
-                    <p class="my-3 text-center text-gray-700 text-3">
-                        اطلاعات خریدار
-                    </p>
                     <div class="buyer__main">
                         <div class="checkbox bg-gray-500 d-flex px-1 align-items-center" :class="{ 'bg-light-primary': buyer.value }">
                             <b-form-checkbox

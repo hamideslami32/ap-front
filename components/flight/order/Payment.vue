@@ -4,7 +4,7 @@
             <div class="d-flex align-items-center">
                 <div class="icon d-flex justify-content-center align-items-center">
                     <div class="d-flex justify-content-center align-items-center">
-                        <svgicon name="user" class="text-gray-700 flex-grow-1" width="40" height="40" />
+                        <img src="~/assets/images/payment.svg" alt="apro" width="40px" height="40px">
                     </div>
                 </div>
                 <span class="text-3 text-weight-600 mr-3 text-gray-900">روش های پرداخت</span>
@@ -87,7 +87,7 @@ export default {
             box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.05);
             border-radius: $borderRadius10;
             & > div {
-                background: linear-gradient(180deg, #F0F8DE 0%, #F9F9F9 55.21%);
+                background: linear-gradient(180deg, #f0f8de 0%, #f9f9f9 55.21%);
                 border-radius: $borderRadius10;
                 width: 58px;
                 height: 58px;
@@ -112,8 +112,8 @@ export default {
                 text-decoration: line-through;
             }
         }
-        & > div:first-of-type  {
-            & > div:first-of-type  {
+        & > div:first-of-type {
+            & > div:first-of-type {
                 border-bottom: 1px solid #ddd;
             }
         }

@@ -4,7 +4,7 @@
             <div class="d-flex align-items-center">
                 <div class="icon d-flex justify-content-center align-items-center">
                     <div class="d-flex justify-content-center align-items-center">
-                        <svgicon name="user" class="text-gray-700 flex-grow-1" width="40" height="40" />
+                        <img src="~/assets/images/hand.svg" alt="apro" width="40px" height="40px">
                     </div>
                 </div>
                 <span class="text-3 text-weight-600 mr-3 text-gray-900">خرید آسوده</span>
