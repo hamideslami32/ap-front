@@ -16,6 +16,9 @@
             </span>
         </div>
         <div class="flight-date-card__time d-flex align-items-center justify-content-between">
+            <span v-if="flight.providerKey" class="flight-date-card__time__providerKey text-2 font-en text-secondary text-weight-600">
+                {{ flight.providerKey }}
+            </span>
             <span class="text-weight-500 text-3 text-gray-900">{{ $dayjs(firstStop.departureTime).format('HH:mm') }}</span>
             <span class="text-weight-500 text-3 text-gray-900">{{ $dayjs(firstStop.arrivalTime).format('HH:mm') }}</span>
         </div>
@@ -56,6 +59,17 @@ export default {
             border-color: map_get($grays, '800');
             .flight-date-card__header {
                 background-color: $pinkColor;
+            }
+        }
+
+        &__time {
+            position: relative;
+
+            &__providerKey {
+                position: absolute;
+                top: 1px;
+                left: 50%;
+                transform: translate(-50%, 0);
             }
         }
 
