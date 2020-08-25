@@ -1,26 +1,24 @@
 <template>
-    <div class="orders-details">
+    <div class="transactions px-2 mt-3">
+        <portal to="header">
+            تراکنش ها
+        </portal>
         <card v-for="i in 4" :key="i" class="mb-3">
             <template #header>
-                <div class="orders-details__header px-2">
-                    <div>
-                        <p>
-                            شماره پرواز
-                        </p>
-                        <p class="text-2">
-                            پرواز داخلی
-                        </p>
-                    </div>
-                    <span>12423</span>
-                </div>
-                <div class="orders-details__main text-2">
+                <div class="transactions__main text-2">
                     <div class="d-flex align-items-center justify-content-between px-2">
                         <span>تاریخ و ساعت خرید</span>
                         <span class="text-gray-800">۲۰ شهریور ۱۳۹۹ - ۲۲:۱۰</span>
                     </div>
                     <div class="d-flex my-2 align-items-center justify-content-between px-2">
-                        <span>وضعیت</span>
-                        <span>صادر شده</span>
+                        <span>نوع تراکنش</span>
+                        <span>افزایش شارژ</span>
+                    </div>
+                    <div class="d-flex mb-2 align-items-center justify-content-between px-2">
+                        <span>مبلغ</span>
+                        <span class="text-gray-800">15,000,000
+                            <small class="text-gray-700">تومان</small>
+                        </span>
                     </div>
                     <div class="d-flex align-items-center justify-content-between px-2">
                         <span>مبلغ</span>
@@ -31,14 +29,9 @@
                 </div>
             </template>
             <template #footer>
-                <div class="custom-card__actions__btn">
-                    <svgicon class="text-primary" name="bookmarks-denny" width="26" height="26" />
-                    <span class="text-1 mt-2 text-gray-900">دریافت بلیط</span>
-                </div>
-                <div class="custom-card__actions__btn">
-                    <svgicon class="text-secondary" name="bookmarks-accept" width="26" height="26" />
-                    <span class="text-1 mt-2 text-gray-900">استرداد بلیط</span>
-                </div>
+                <p class="text-gray-900 text-900 transactions__code">
+                    GmshtyjwKSuDTd2E4Zdj50MUulXKi04tGR
+                </p>
             </template>
         </card>
 
@@ -47,12 +40,12 @@
         </a-btn>
         <b-modal v-model="searchModal" body-class="p-0" hide-footer>
             <template v-slot:modal-title>
-                جستجو سفارش
+                جستجو تراکنش
             </template>
             <template v-slot:modal-header-close>
                 <svgicon name="arrow-long-right" width="20" height="20" />
             </template>
-            <div class="search-orders">
+            <div class="search-transaction">
                 <p class="text-3 text-gray-700 text-center mt-4">
                     پر کردن حداقل یک فیلد کافیست
                 </p>
@@ -83,8 +76,8 @@ import Card from '~/components/ui/Card'
 import CustomInput from '~/components/ui/form/CustomInput'
 
 export default {
-    name: 'Orders',
     components: {CustomInput, Card},
+    layout: 'page',
     data() {
         return {
             searchModal: false
@@ -93,29 +86,29 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-    .orders-details {
-        &__header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+<style lang="scss" scoped>
+    .transactions {
+        /deep/ .custom-card {
+            border-color: $borderColor;
 
-            p:first-child {
-                font-weight: 500;
-                color: map_get($grays, '800');
+
+            &__info {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
             }
 
-            span {
-                font-weight: 500;
-                color: map_get($grays, '900');
+            &__actions {
+                border-top: 1px solid $modalBorder;
+                background: $white;
+                border-radius: 0 0 10px 10px ;
             }
-
         }
 
-
-        &__main {
-            border-top: 1px solid map_get($grays, '500');
-            padding-top: 20px;
+        &__code {
+            font-family: 'Baloo Thambi 2', Dana, Tahoma, serif;
+            color: map_get($grays, '900');
+            font-size: 0.75rem;
+            font-weight: 500;
         }
 
         /deep/ .search-btn {
@@ -134,7 +127,7 @@ export default {
         }
     }
 
-    .search-orders {
+    .search-transaction {
         padding: 0 40px;
 
         .date-input-pair {

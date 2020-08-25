@@ -1,6 +1,8 @@
 <template>
     <div class="header">
-        <span>icon</span>
+        <portal-target name="right-header">
+            <span>icon</span>
+        </portal-target>
         <portal-target name="header">
             <span />
         </portal-target>
@@ -38,5 +40,9 @@ export default {
         border-bottom: 1px solid #e6e6e6;
         color: map_get($grays, '900');
         font-weight: 600;
+
+        a:focus, a:hover, a:active {
+            color: map_get($grays, '900');
+        }
     }
 </style>

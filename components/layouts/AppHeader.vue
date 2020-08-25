@@ -1,6 +1,8 @@
 <template>
     <header class="app-header">
-        <hamburger-menu />
+        <portal-target name="header-right">
+            <hamburger-menu />
+        </portal-target>
         <portal-target name="header">
             <nuxt-link to="/">
                 <logo />
@@ -25,31 +27,41 @@ export default {
 </script>
 
 <style lang='scss'>
-.app-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    background-color: $body-bg;
-    height: 60px;
-    padding: 15px 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #e6e6e6;
-}
-
-.transparent-header .app-header {
-    border-bottom: 0;
-    color: $white;
-    background-color: transparent;
-
-    .hamburger-menu > span {
-        background-color: $white;
+    .app-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background-color: $body-bg;
+        height: 60px;
+        padding: 15px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #e6e6e6;
     }
-}
-.transparent-header .mobile-layout {
-    padding-top: 0;
-}
+
+    .transparent-header .app-header {
+        border-bottom: 0;
+        color: $white;
+        background-color: transparent;
+
+        .hamburger-menu > span {
+            background-color: $white;
+        }
+    }
+
+    .transparent-header .mobile-layout {
+        padding-top: 0;
+    }
+
+
+    a {
+        color: $white;
+        &:hover, &:focus, &:active {
+            color: $white;
+
+        }
+    }
 </style>
