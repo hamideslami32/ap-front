@@ -50,6 +50,7 @@ export default {
     align-items: center;
     border-top: 1px solid #e6e6e6;
     background-color: $white;
+    z-index: 5;
 
     &__item {
         text-decoration: none;
