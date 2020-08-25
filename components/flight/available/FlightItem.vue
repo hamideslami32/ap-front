@@ -36,7 +36,7 @@
         <div class="flight-item__detail mt-2">
             <span>مدت: <span class="en">{{ flightDuration | duration }}</span></span>
             <span class="flight-item__detail--center">
-                <template v-if="flight.stops > 1">
+                <template v-if="flight.stops.length > 1">
                     {{ flight.stops.length - 1 }}
                     توقف
                     <template v-if="flight.stops.length === 2">
