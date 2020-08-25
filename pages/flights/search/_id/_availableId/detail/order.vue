@@ -66,7 +66,8 @@
                     </div>
                 </form>
             </template>
-            <charity tag="Charity" tag-color="#e3469a" />
+            <charity tag="Charity" tag-color="#e3469a" class="my-3" />
+            <payment tag="Payment" tag-color="#bee16c" />
         </div>
 
         <flight-details-toast>
@@ -82,6 +83,7 @@
 import CustomInput from '~/components/ui/form/CustomInput'
 import PassengerField from '~/components/passenger/PassengerField'
 import Charity from '~/components/flight/order/Charity'
+import Payment from '~/components/flight/order/Payment'
 import FlightDetailsToast from '~/components/flight/FlightDetailsToast'
 import FlightOrderCard from '~/components/flight/FlightOrderCard'
 import {flightApi} from '~/api/flight'
@@ -104,7 +106,8 @@ export default {
         FlightDetailsToast, 
         PassengerField,
         CustomInput,
-        Charity
+        Charity,
+        Payment
     },
     layout: 'page',
 

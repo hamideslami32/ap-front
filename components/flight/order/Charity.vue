@@ -7,7 +7,7 @@
                         <svgicon name="user" class="text-gray-700 flex-grow-1" width="40" height="40" />
                     </div>
                 </div>
-                <span class="text-3 text-weight-600 mr-3">ردپا داشته باشیم</span>
+                <span class="text-3 text-weight-600 mr-3 text-gray-900">ردپا داشته باشیم</span>
             </div>
         </div>
         <p class="charity-card__info bg-gray-200 mb-0 text-2 my-3 mx-3 p-2 text-center">

@@ -7,32 +7,33 @@
                         <svgicon name="user" class="text-gray-700 flex-grow-1" width="40" height="40" />
                     </div>
                 </div>
-                <span class="text-3 text-weight-600 mr-3">خرید آسوده</span>
+                <span class="text-3 text-weight-600 mr-3 text-gray-900">خرید آسوده</span>
             </div>
             <div>
                 <b-form-checkbox v-model="localSwitchData" class="custom-control" switch size="lg" />
             </div>
         </div>
-        <div class="risk-free-card__options text-2 mt-4" :class="{ 'opacity-half': !localSwitchData }">
+        <form class="risk-free-card__options text-2 mt-4" :class="{ 'opacity-half': !localSwitchData }">
             <div v-for="(item, i) in options" :key="i" class="item d-flex mb-3 pb-3 px-2">
                 <div cols="1" class="d-flex ml-2 pb-2">
                     <b-form-checkbox
-                        :id="i"
+                        :id="`checkbox${i+1}`"
                         v-model="item.value"
                         :disabled="!localSwitchData"
+                        :name="`checkbox${i+1}`"
                     />
                 </div>
                 <div cols="11" class="text-2 flex-grow-1 text-gray-900">
-                    <div class="text-weight-500 font-en pb-1">
+                    <label class="text-weight-500 font-en pb-1 mb-0" :for="`checkbox${i+1}`">
                         {{ item.title }}
-                    </div>
+                    </label>
                     <div class="text-gray-800 pb-1">
                         {{ item.description }}
                     </div>
                     <div><span>( <span class="price text-weight-500">{{ item.price }}</span> <span class="text-1 text-gray-800 text-weight-400">تومان</span>)</span> <span class="type">{{ item.type }}</span></div>
                 </div>
             </div>
-        </div>
+        </form>
     </card-with-tag>
 </template>
 
