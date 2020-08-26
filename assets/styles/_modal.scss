@@ -82,3 +82,24 @@
         transform: translateY(80%);
     }
 }
+
+
+
+#center-modal___BV_modal_outer_ {
+    .modal-backdrop {
+        opacity: 1;
+        background: rgba(34, 34, 34, 0.8);
+    }
+}
+
+#center-modal {
+    .modal-dialog {
+        height: unset;
+
+        .modal-content {
+            margin: 0 35px;
+            border-radius: 10px;
+
+        }
+    }
+}
