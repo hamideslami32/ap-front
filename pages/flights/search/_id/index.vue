@@ -50,6 +50,24 @@
                 <flight-filter v-model="filters" :options="availables.filters" @apply="applyFilters" />
             </b-modal>
         </template>
+
+        <b-modal
+            id="center-modal"
+            v-model="reverse"
+            hide-footer
+            hide-header
+            centered
+            title="remove-passenger"
+        >
+            <div class="text-center passengers__remove-modal">
+                <svgicon name="user-remove" class="text-gray-700 " width="50" height="50" />
+                <p class="text-3 mt-2 mb-3 text-gray-black text-weight-500">
+                    حذف مسافر (حسین شریفی نیا)
+                </p>
+                {{ this.$flight.sessionExpire }}
+                <div class="passengers__remove-modal__actions" />
+            </div>
+        </b-modal>
     </div>
 </template>
 
@@ -93,6 +111,10 @@ export default {
             if (!this.$route.query.sid) {
                 this.refresh()
             }
+        },
+
+        '$flight.sessionExpire'(t, f) {
+            // console.log(this.$flight.sessionExpire)
         },
 
         filters: {
