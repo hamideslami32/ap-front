@@ -105,19 +105,12 @@ export default {
     .payment-card__options {
         .item {
             height: 50px;
-            .type {
-                color: #bee16c;
-            }
-            .price {
-                text-decoration: line-through;
-            }
         }
         & > div:first-of-type {
             & > div:first-of-type {
                 border-bottom: 1px solid #ddd;
             }
         }
-
         .green-color {
             color: #bee16c;
         }
