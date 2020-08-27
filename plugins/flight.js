@@ -5,7 +5,6 @@ class Flight {
 
     constructor(ctx) {
         this.session = null
-        this.sessionExpire = false
         this.available = null
         this.flights = null
         if (process.server) {
@@ -25,20 +24,12 @@ class Flight {
 
     async fetchSession(id) {
         this.session = await flightApi.getSearchSession(id)
-        this.checkExpireTime(10000)
+
 
         if (process.server) {
             this.ssr.session = this.session
         }
         return this.session
-    }
-
-    checkExpireTime(time) {
-        setTimeout(() => {
-            this.sessionExpire = true
-
-        }, time)
-
     }
 
     async fetchAvailable(id) {
