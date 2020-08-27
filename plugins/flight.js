@@ -24,6 +24,8 @@ class Flight {
 
     async fetchSession(id) {
         this.session = await flightApi.getSearchSession(id)
+
+
         if (process.server) {
             this.ssr.session = this.session
         }
