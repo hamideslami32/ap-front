@@ -30,7 +30,6 @@
                         <span class="text-2 text-gray-800 text-weight-400 float-left">۲۰ تیر ۹۹</span>
                     </p>
                 </div>
-
                 <div>
                     <flight-date-card
                         v-for="(flight, i) in available.routes[0].flights"
