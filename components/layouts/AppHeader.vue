@@ -1,7 +1,7 @@
 <template>
     <header class="app-header">
         <portal-target name="header-right">
-            <hamburger-menu />
+            <hamburger-menu @click="isNavOpen = !isNavOpen" />
         </portal-target>
         <portal-target name="header">
             <nuxt-link to="/">
@@ -9,19 +9,27 @@
             </nuxt-link>
         </portal-target>
         <svgicon name="notifications" width="30" class="header__icon" height="30" />
+        <sidebar-nav :opened="isNavOpen" />
     </header>
 </template>
 
 <script>
 import Logo from '~/components/logo/Logo'
 import HamburgerMenu from '~/components/layouts/HamburgerMenu'
+import SidebarNav from '~/components/layouts/SidebarNav'
 import {PortalTarget} from 'portal-vue'
 
 export default {
     components: {
         Logo,
         HamburgerMenu,
-        PortalTarget
+        PortalTarget,
+        SidebarNav
+    },
+    data() {
+        return {
+            isNavOpen: false
+        }
     }
 }
 </script>
