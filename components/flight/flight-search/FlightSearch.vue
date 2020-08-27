@@ -89,7 +89,7 @@
                         :value="passengersCountText"
                     />
                 </passengers-picker>
-                <search-button @click.prevent="startSearch" />
+                <search-button class="mb-2" @click.prevent="startSearch" />
             </form>
         </v-observer>
     </div>

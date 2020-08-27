@@ -1,5 +1,8 @@
 <template>
     <div class="flight-item">
+        <span v-if="flight.providerKey" class="flight-item__providerKey text-2 text-secondary font-en text-weight-600">
+            {{ flight.providerKey }}
+        </span>
         <div class="d-flex">
             <span class="flight-item__title">پرواز {{ title }}</span>
             <span class="flex-grow-1" />
@@ -15,9 +18,9 @@
             </span>
         </div>
         <div class="flight-item__locations">
-            <b class="text-left">{{ firstStop.departureCityName }}</b>
+            <b class="text-left">{{ firstStop.departureAirport }}</b>
             <svgicon name="plane-takeoff" width="40" height="20" />
-            <b class="text-right">{{ lastStop.arrivalCityName }}</b>
+            <b class="text-right">{{ lastStop.arrivalAirport }}</b>
         </div>
         <div class="flight-item__map">
             <b class="flight-item__map__time">
@@ -109,6 +112,7 @@ export default {
         color: #888888;
         padding: 10px;
         font-weight: 400;
+        position: relative;
 
         &__title {
             font-size: 0.7em;
@@ -183,6 +187,13 @@ export default {
             span {
                 flex: 1;
             }
+        }
+
+        &__providerKey {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translate(-50%, 0);
         }
     }
 </style>
