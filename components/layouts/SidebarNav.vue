@@ -1,14 +1,20 @@
 <template>
-    <nav class="side-nav" :class="{ sidenavopen: opened }">
-        <div>
-            <svgicon color="white" name="arrow-long-right" width="20" height="20" />>
+    <nav class="side-nav" :class="{ 'side-nav-open': opened }">
+        <div class="side-nav-open__close p-3" @click="$emit('close')">
+            <svgicon color="white" name="arrow-long-right" width="20" height="20" />
         </div>
-        <div>
-            <ul>
-                <li><a href="#">راهنمای خرید بلیط از اپرو</a></li>
-                <li><a href="#">درباره اپرو</a></li>
-                <li><a href="#">تماس با اپرو</a></li>
-                <li><a href="#">قوانین</a></li>
+        <div v-if="opened" class="side-nav-open__menu mt-3">
+            <ul class="pr-0">
+                <li v-for="(item, i) in menuData" :key="i" @click="$emit('close')">
+                    <svgicon
+                        class="ml-2"
+                        color="white"
+                        :name="item.icon"
+                        width="25"
+                        height="25"
+                    />
+                    <a :href="item.link">{{ item.text }}</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -23,6 +29,34 @@ export default {
             type: Boolean,
             default: false
         }
+    },
+    data() {
+        return {
+            menuData: [
+                {
+                    link: '#',
+                    icon: 'user',
+                    text: 'راهنمای خرید بلیط از اپرو'
+                },
+                {
+                    link: '#',
+                    icon: 'user',
+                    text: 'تماس با اپرو'
+                },
+                {
+                    link: '#',
+                    icon: 'user',
+                    text: 'درباره اپرو'
+                },
+                {
+                    link: '#',
+                    icon: 'user',
+                    text: 'قوانین و مقررات'
+                }
+
+                
+            ]
+        }
     }
 }
 </script>
@@ -35,22 +69,34 @@ export default {
         z-index: 1;
         top: 0;
         right: 0;
-        background-color: #111;
-        opacity: 0.9;
+        background-color: $lightPrimary;
         overflow-x: hidden;
         transition: 0.3s;
     }
 
-    .sidenavopen {
+    .side-nav-open {
         height: 100%;
         width: 100%;
         position: fixed;
         z-index: 1;
         top: 0;
         right: 0;
-        background-color: #111;
-        opacity: 0.9;
+        background-color: $lightPrimary;
         overflow-x: hidden;
         transition: 0.3s;
+
+        &__menu {
+            ul {
+                li {
+                    list-style: none;
+                    padding: 15px;
+                }
+            }
+        }
+
+        &__close {
+            text-align: right;
+        }
     }
+    
 </style>
