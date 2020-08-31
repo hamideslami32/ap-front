@@ -18,7 +18,7 @@
                     موردی یافت نشد.
                 </b-alert>
                 <div v-if="!isInitialFilters" class="text-center">
-                    <b-btn variant="outline-info" @click="applyFilters({})">
+                    <b-btn variant="outline-info" @click="applyFilters(initialFilters)">
                         حذف فیلترها
                     </b-btn>
                 </div>
@@ -37,7 +37,7 @@
 
         <template v-if="availables && availables.filters">
             <a-btn wrapper-class="filter-btn" variant="primary" @click="showFilter = true">
-                فیلتر و مرتب سازی
+                {{ filterBtnText }}
             </a-btn>
 
             <b-modal v-model="showFilter" body-class="px-0" hide-footer>
@@ -86,6 +86,17 @@ import {flightApi} from '~/api/flight'
 import FlightFilter from '~/components/flight/available/filter/FlightFilter'
 import isEqual from 'lodash/isEqual'
 
+const initialFilters = () => ({
+    sort: 'min_price',
+    priceRange: [null, null],
+    airlines: [],
+    airports: [],
+    departureFlightTime: [],
+    returningFlightTime: [],
+    flightClass: 'economy'
+})
+
+
 const POLLING_INTERVAL = 3000
 
 export default {
@@ -103,6 +114,8 @@ export default {
             showFilter: false,
             error: null,
             filters: {},
+            initialFilters: initialFilters(),
+            filtersCount: 0,
             expireModal: false
         }
     },
@@ -112,6 +125,9 @@ export default {
         },
         isInitialFilters() {
             return FlightFilter.methods.isInitialFilters.call(null, this.filters) || JSON.stringify(this.filters) === '{}'
+        },
+        filterBtnText() {
+            return this.filtersCount > 0 ? this.filtersCount + ' فیلتر' : 'فیلتر و مرتب سازی'
         }
     },
     watch: {
@@ -120,13 +136,14 @@ export default {
                 this.refresh()
             }
         },
-
         filters: {
             deep: true,
             async handler(t, f) {
                 if (isEqual(t, f)) return
                 this.availables = null
                 this.availables = await this.startPolling(this.searchId)
+                this.countFilters()
+
             }
         }
     },
@@ -135,14 +152,35 @@ export default {
             this.expireTime()
         }
         this.refresh(!this.searchId)
-    },
 
+    },
     beforeDestroy() {
         this.cancelPolling()
         clearTimeout(this.__checkExpire)
     },
-
     methods: {
+        countFilters() {
+            let c = 0
+            const keys = Object.keys(this.initialFilters)
+            
+            for (let i = 0; i < keys.length; i++) {
+                switch (keys[i]) {
+                case 'sort':
+                    if (this.initialFilters[keys[i]] !== this.filters[keys[i]]) c++
+                    break
+                case 'priceRange':
+                case 'airlines':
+                case 'departureFlightTime':
+                case 'returningFlightTime':
+                    if (!isEqual(this.initialFilters[keys[i]], this.filters[keys[i]])) c++
+                    break
+                
+                default:
+                    break
+                }
+            }
+            this.filtersCount = c
+        },
         async search() {
             const toGregory = d => this.$dayjs(d, {jalali: true}).calendar('gregory').format()
             const {departing, returning, business, first, adult = 1, child = 0, infant = 0} = this.$route.query
@@ -230,7 +268,6 @@ export default {
                 this.loading = false
             }
         },
-
         applyFilters(filters, close) {
             this.filters = filters
             if (close) {
