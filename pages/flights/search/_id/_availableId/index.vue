@@ -38,7 +38,11 @@
                         :available="available"
                         :active="flightTimes[0] === i"
                         @click="selectFlight(0, i)"
-                    />
+                    >
+                        <template v-if="!available.routes[1]" #airlineName>
+                            <span class="text-2 text-gray-3 font-en airline-name">{{ flight.stops[0].airlineName }}</span>
+                        </template>
+                    </flight-date-card>
                 </div>
             </div>
             <div v-if="available.routes[1]" class="bg-gray-500">

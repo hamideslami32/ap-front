@@ -4,6 +4,7 @@
             <span class="text-1 text-gray-700">
                 {{ flight.stops.length > 1 ? `${flight.stops.length - 1} توقف` : 'بدون توقف' }}
             </span>
+            <slot name="airlineName" />
             <span>
                 <img
                     v-for="airline in airlines"
@@ -55,6 +56,12 @@ export default {
         border-radius: 10px;
         cursor: pointer;
 
+        .airline-name {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+
         &.active {
             border-color: map_get($grays, '800');
             .flight-date-card__header {
@@ -86,6 +93,7 @@ export default {
             justify-content: space-between;
             margin-bottom: 15px;
             border-radius: 8px;
+            position: relative;
         }
 
         &__line {
