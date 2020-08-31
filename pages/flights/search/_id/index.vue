@@ -115,7 +115,6 @@ export default {
             error: null,
             filters: {},
             initialFilters: initialFilters(),
-            filtersCount: 0,
             expireModal: false
         }
     },
@@ -128,6 +127,9 @@ export default {
         },
         filterBtnText() {
             return this.filtersCount > 0 ? 'فیلتر ( ' + this.filtersCount + ' فیلتر)' : 'فیلتر و مرتب سازی '
+        },
+        filtersCount() {
+            return Object.keys(this.initialFilters).filter(key => !isEqual(this.initialFilters[key], this.filters[key])).length
         }
     },
     watch: {
@@ -142,8 +144,6 @@ export default {
                 if (isEqual(t, f)) return
                 this.availables = null
                 this.availables = await this.startPolling(this.searchId)
-                this.countFilters()
-
             }
         }
     },
@@ -159,28 +159,6 @@ export default {
         clearTimeout(this.__checkExpire)
     },
     methods: {
-        countFilters() {
-            let c = 0
-            const keys = Object.keys(this.initialFilters)
-            
-            for (let i = 0; i < keys.length; i++) {
-                switch (keys[i]) {
-                case 'sort':
-                    if (this.initialFilters[keys[i]] !== this.filters[keys[i]]) c++
-                    break
-                case 'priceRange':
-                case 'airlines':
-                case 'departureFlightTime':
-                case 'returningFlightTime':
-                    if (!isEqual(this.initialFilters[keys[i]], this.filters[keys[i]])) c++
-                    break
-                
-                default:
-                    break
-                }
-            }
-            this.filtersCount = c
-        },
         async search() {
             const toGregory = d => this.$dayjs(d, {jalali: true}).calendar('gregory').format()
             const {departing, returning, business, first, adult = 1, child = 0, infant = 0} = this.$route.query
