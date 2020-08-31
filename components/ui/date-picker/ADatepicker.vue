@@ -104,12 +104,12 @@
             </transition-group>
 
             <slot v-if="!isMobile" name="after" />
-            <div class="a-datepicker__actions text-nowrap">
+            <btn-wrapper class="text-2">
                 <a-datepicker-switch :jalaali="jalaali" @click="setJalaali(!jalaali)" />
                 <a-btn wrapper-class="mr-1" variant="primary" @click="close(true)">
                     تایید
                 </a-btn>
-            </div>
+            </btn-wrapper>
         </div>
     </a-dropdown>
 </template>
@@ -119,9 +119,11 @@ import ADropdown from '../ADropdown'
 import ACalendar from './ACalendar'
 import calendarMixin from './calendarMixin'
 import ADatepickerSwitch from '~/components/ui/date-picker/ADatepickerSwitch'
+import BtnWrapper from '~/components/ui/BtnWrapper'
 
 export default {
     components: {
+        BtnWrapper,
         ADatepickerSwitch,
         ADropdown,
         ACalendar
@@ -496,6 +498,23 @@ export default {
         position: relative;
     }
 
+
+    .btn-wrapper {
+        min-width: 120px;
+        height: 40px;
+        font-weight: 600;
+
+        button {
+            width: 100%;
+            height: 100%;
+            font-weight: 600;
+
+        }
+        span {
+            font-weight: 600;
+        }
+    }
+
     .input-group.focus {
         &::after {
             content: ' ';
@@ -705,21 +724,6 @@ export default {
 
     .min-width-0 {
         min-width: 0;
-    }
-
-    &__actions {
-        position: absolute;
-        bottom: 15px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 5;
-        direction: rtl;
-
-        .btn {
-            width: 120px;
-            font-size: 13px;
-            max-width: 100%;
-        }
     }
 }
 
