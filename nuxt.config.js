@@ -111,7 +111,6 @@ export default {
     styleResources: {
         scss: ['assets/styles/_vars.scss']
     },
-
     layoutTransition: {
         name: 'slide-left',
         mode: ''
