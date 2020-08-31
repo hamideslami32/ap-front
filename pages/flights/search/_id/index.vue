@@ -127,7 +127,7 @@ export default {
             return FlightFilter.methods.isInitialFilters.call(null, this.filters) || JSON.stringify(this.filters) === '{}'
         },
         filterBtnText() {
-            return this.filtersCount > 0 ? this.filtersCount + ' فیلتر' : 'فیلتر و مرتب سازی'
+            return this.filtersCount > 0 ? 'فیلتر ( ' + this.filtersCount + ' فیلتر)' : 'فیلتر و مرتب سازی '
         }
     },
     watch: {
