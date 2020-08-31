@@ -61,14 +61,14 @@
 
         <div class="py-4" />
 
-        <div class="filter__actions">
+        <btn-wrapper>
             <a-btn wrapper-class="ml-2" variant="light" @click="clear">
                 حذف فیلترها
             </a-btn>
             <a-btn variant="primary" @click="apply">
                 تائید
             </a-btn>
-        </div>
+        </btn-wrapper>
     </div>
 </template>
 <script>
@@ -77,6 +77,7 @@ import ASlider from '~/components/ui/ASlider'
 import cloneDeep from 'lodash/cloneDeep'
 import FlightTimeFilter from '~/components/flight/available/filter/FlightTimeFilter'
 import FlightAirlineFilter from '~/components/flight/available/filter/FlightAirlineFilter'
+import BtnWrapper from '~/components/ui/BtnWrapper'
 
 const initialFilters = () => ({
     sort: 'min_price',
@@ -89,7 +90,7 @@ const initialFilters = () => ({
 })
 
 export default {
-    components: {FlightAirlineFilter, FlightTimeFilter, ASlider, FlightSort},
+    components: {BtnWrapper, FlightAirlineFilter, FlightTimeFilter, ASlider, FlightSort},
     props: {
         options: {
             type: Object,
@@ -152,21 +153,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-    .filter {
-        &__actions {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-bottom: 20px;
-            white-space: nowrap;
-
-            .btn {
-                min-width: 120px;
-                height: 40px;
-            }
-        }
-    }
-</style>

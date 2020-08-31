@@ -36,9 +36,12 @@
         </div>
 
         <template v-if="availables && availables.filters">
-            <a-btn wrapper-class="filter-btn" variant="primary" @click="showFilter = true">
-                {{ filterBtnText }}
-            </a-btn>
+            <btn-wrapper>
+                <a-btn wrapper-class="filter-btn" variant="primary" @click="showFilter = true">
+                    {{ filterBtnText }}
+                </a-btn>
+            </btn-wrapper>
+
 
             <b-modal v-model="showFilter" body-class="px-0" hide-footer>
                 <template v-slot:modal-title>
@@ -85,6 +88,7 @@ import FlightPlaceholder from '~/components/flight/available/FlightPlaceholder'
 import {flightApi} from '~/api/flight'
 import FlightFilter from '~/components/flight/available/filter/FlightFilter'
 import isEqual from 'lodash/isEqual'
+import BtnWrapper from '~/components/ui/BtnWrapper'
 
 const initialFilters = () => ({
     sort: 'min_price',
@@ -102,6 +106,7 @@ const POLLING_INTERVAL = 3000
 export default {
     layout: 'flight-search',
     components: {
+        BtnWrapper,
         FlightFilter,
         FlightCard,
         FlightPlaceholder
@@ -302,11 +307,6 @@ export default {
 
     /deep/ .filter-btn {
         font-size: 0.8em;
-        position: fixed;
-        bottom: 20px;
-        margin: auto;
-        left: 50%;
-        transform: translateX(-50%);
 
         .btn {
             width: 140px;
