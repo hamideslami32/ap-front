@@ -54,7 +54,7 @@ export default {
                     text: 'قوانین و مقررات'
                 }
 
-                
+
             ]
         }
     }
@@ -87,6 +87,9 @@ export default {
 
         &__menu {
             ul {
+                animation: showItems 500ms 1 ease-in-out;
+                opacity: 1;
+
                 li {
                     list-style: none;
                     padding: 15px;
@@ -98,5 +101,19 @@ export default {
             text-align: right;
         }
     }
-    
+
+    @keyframes showItems {
+        0% {
+            opacity: 0;
+        }
+
+        70% {
+            opacity: 0.3;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
 </style>
