@@ -13,6 +13,7 @@
 
 <style lang="scss">
     .hamburger-menu {
+        z-index: 2;
         > span {
             width: 24px;
             height: 2px;

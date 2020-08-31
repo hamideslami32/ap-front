@@ -10,7 +10,7 @@ export default {
     data() {
         return {
             jalaaliDatepicker: true,
-
+            isNavOpen: false,
             search: {
                 type: 'RT', // OW, RT, MD,
                 origin: null, //object  i, title, value

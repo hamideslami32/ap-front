@@ -37,10 +37,6 @@ export default {
             if (overflow === 'hidden') document.body.style.overflow = 'auto'
             else document.body.style.overflow = 'hidden'
             this.isNavOpen = !this.isNavOpen
-        },
-        closeNavSidebar() {
-            document.body.style.overflow = 'auto'
-            this.isNavOpen = false
         }
     }
 }
