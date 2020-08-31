@@ -50,6 +50,31 @@
                 <flight-filter v-model="filters" :options="availables.filters" @apply="applyFilters" />
             </b-modal>
         </template>
+
+        <b-modal
+            id="center-modal"
+            v-model="expireModal"
+            hide-footer
+            hide-header
+            centered
+            no-close-on-backdrop
+        >
+            <div class="text-center">
+                <svgicon name="clock" class="text-gray-700 " width="50" height="50" />
+                <p class="text-3 mt-2 mb-3 text-gray-black text-weight-500">
+                    زمان خرید شما به اتمام رسیده
+                </p>
+                <div class="mx-3">
+                    <b-button
+                        class="text-2 py-2 text-weight-500 w-100"
+                        variant="outline-secondary"
+                        @click="research"
+                    >
+                        جستجو مجدد
+                    </b-button>
+                </div>
+            </div>
+        </b-modal>
     </div>
 </template>
 
@@ -57,7 +82,7 @@
 import Axios from 'axios'
 import FlightCard from '~/components/flight/available/FlightCard'
 import FlightPlaceholder from '~/components/flight/available/FlightPlaceholder'
-import { flightApi } from '~/api/flight'
+import {flightApi} from '~/api/flight'
 import FlightFilter from '~/components/flight/available/filter/FlightFilter'
 import isEqual from 'lodash/isEqual'
 
@@ -90,7 +115,8 @@ export default {
             error: null,
             filters: {},
             initialFilters: initialFilters(),
-            filtersCount: 0
+            filtersCount: 0,
+            expireModal: false
         }
     },
     computed: {
@@ -111,7 +137,7 @@ export default {
             }
         },
         filters: {
-            deep:true,
+            deep: true,
             async handler(t, f) {
                 if (isEqual(t, f)) return
                 this.availables = null
@@ -122,11 +148,15 @@ export default {
         }
     },
     mounted() {
+        if(this.$flight.session) {
+            this.expireTime()
+        }
         this.refresh(!this.searchId)
 
     },
     beforeDestroy() {
         this.cancelPolling()
+        clearTimeout(this.__checkExpire)
     },
     methods: {
         countFilters() {
@@ -152,10 +182,10 @@ export default {
             this.filtersCount = c
         },
         async search() {
-            const toGregory = d => this.$dayjs(d, { jalali: true }).calendar('gregory').format()
-            const { departing, returning, business, first, adult=1, child=0, infant=0 } = this.$route.query
+            const toGregory = d => this.$dayjs(d, {jalali: true}).calendar('gregory').format()
+            const {departing, returning, business, first, adult = 1, child = 0, infant = 0} = this.$route.query
             const [origin, destination] = this.$route.params.id.split('-')
-            const res = await flightApi.createSearch( {
+            const res = await flightApi.createSearch({
                 routes: [
                     {
                         origin,
@@ -185,8 +215,8 @@ export default {
             return res.id
         },
         startPolling(sid, retry = 1) {
-            const { filters } = this
-            const { priceRange = [], departureFlightTime, returningFlightTime, airlines = [] } = filters
+            const {filters} = this
+            const {priceRange = [], departureFlightTime, returningFlightTime, airlines = []} = filters
             return flightApi.getResults(sid, {
                 sort: filters.sort,
                 minPrice: priceRange[0] || undefined,
@@ -253,6 +283,24 @@ export default {
                     sid: this.searchId
                 }
             })
+        },
+
+        research() {
+            this.expireModal = false
+            this.refresh().then(res => {
+                this.expireTime()
+            })
+        },
+        expireTime() {
+            if(this.$flight.session) {
+                const expireTime = this.$dayjs(this.$flight.session.expireAt)
+                const nowTime = this.$dayjs()
+                const expirationTime = expireTime.diff(nowTime)
+
+                this.__checkExpire = setTimeout(() => {
+                    this.expireModal = true
+                }, expirationTime)
+            }
         }
     }
 }
@@ -286,6 +334,7 @@ export default {
             width: 140px;
             height: 40px;
             position: relative;
+
             &::after {
                 content: '';
                 width: 6px;

@@ -29,7 +29,7 @@
                     <svgicon class="text-primary" name="bookmarks-denny" width="26" height="26" />
                     <span class="text-1 mt-2 text-gray-900">ویرایش مسافر</span>
                 </div>
-                <div class="custom-card__actions__btn">
+                <div class="custom-card__actions__btn" @click="removeModal = true">
                     <svgicon class="text-secondary" name="bookmarks-accept" width="26" height="26" />
                     <span class="text-1 mt-2 text-gray-900">حذف مسافر</span>
                 </div>
@@ -72,6 +72,33 @@
                 <passenger-form v-model="passengerInfo" @close="editPassenger = false" />
             </div>
         </b-modal>
+
+        <b-modal
+            id="center-modal"
+            v-model="removeModal"
+            hide-footer
+            hide-header
+            centered
+            title="remove-passenger"
+        >
+            <div class="text-center passengers__remove-modal">
+                <svgicon name="user-remove" class="text-gray-700 " width="50" height="50" />
+                <p class="text-3 mt-2 mb-3 text-gray-black text-weight-500">
+                    حذف مسافر (حسین شریفی نیا)
+                </p>
+                <div class="passengers__remove-modal__actions">
+                    <a-btn variant="primary" class="submit-btn text-weight-600" wrapper-class="text-2" @click.prevent="removeModal = false">
+                        بازگشت
+                    </a-btn>
+                    <b-button
+                        class="remove-btn text-2 mr-1 text-weight-500"
+                        variant="outline-secondary"
+                    >
+                        حذف کنید
+                    </b-button>
+                </div>
+            </div>
+        </b-modal>
     </div>
 </template>
 
@@ -87,6 +114,7 @@ export default {
     data() {
         return {
             searchModal: false,
+            removeModal: false,
             editPassenger: false,
             passengerInfo: {
                 name: '',
@@ -123,6 +151,15 @@ export default {
                 width: 140px;
                 height: 40px;
                 position: relative;
+            }
+        }
+
+        &__remove-modal {
+            &__actions {
+                .submit-btn , .remove-btn {
+                    min-width: 120px;
+                    height: 40px;
+                }
             }
         }
 

@@ -47,7 +47,7 @@
                         </div>
                         <div v-if="buyer.value" class="form mt-1">
                             <p class="my-3 text-center text-gray-700 text-3">
-                                شماره همراه و ایمیل
+                                شماره همراه
                             </p>
                             <custom-input
                                 v-model="buyer.mobile"
@@ -55,12 +55,6 @@
                                 type="tel"
                                 maxlength="11"
                                 title="شماره همراه"
-                            />
-                            <custom-input
-                                v-model="buyer.email"
-                                class="px-4 mb-2"
-                                type="email"
-                                title="ایمیل"
                             />
                         </div>
                     </div>
@@ -122,8 +116,7 @@ export default {
             ],
             buyer: {
                 value: false,
-                mobile: '',
-                email: ''
+                mobile: ''
             }
         }
     },
