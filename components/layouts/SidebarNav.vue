@@ -78,7 +78,7 @@ export default {
         height: 100%;
         width: 100%;
         position: fixed;
-        z-index: 1;
+        z-index: 5;
         top: 0;
         right: 0;
         background-color: $lightPrimary;

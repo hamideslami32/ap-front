@@ -1,7 +1,7 @@
 <template>
     <b-container tag="header" class="flight-header" fluid>
         <div class="flight-header__top mb-4">
-            <hamburger-menu class="white my-1" />
+            <hamburger-menu class="white my-1" @click="toggleNavSidebar()" />
             <div class="flight-header__destinations">
                 <input-pair @switch="switchDestinations">
                     <input type="text" :value="search.origin ? $translate(search.origin.city) : null">
@@ -55,6 +55,8 @@
                 <input type="text" class="passenger-input" :value="passengersCount + ' مسافر'">
             </passengers-picker>
         </div>
+
+        <sidebar-nav :opened="isNavOpen" @close="isNavOpen = false" />
     </b-container>
 </template>
 
@@ -64,9 +66,11 @@ import InputPair from '~/components/ui/form/InputPair'
 import ADatepicker from '~/components/ui/date-picker/ADatepicker'
 import PassengersPicker from '~/components/flight/flight-search/PassengersPicker'
 import flightSearchMixin from '~/components/flight/flight-search/flightSearchMixin'
+import SidebarNav from '~/components/layouts/SidebarNav'
 
 export default {
     components: {
+        SidebarNav,
         HamburgerMenu,
         InputPair,
         ADatepicker,
@@ -93,6 +97,12 @@ export default {
         },
         updateSearch() {
             this.startSearch(true)
+        },
+        toggleNavSidebar() {
+            const overflow = document.body.style.overflow
+            if (overflow === 'hidden') document.body.style.overflow = 'auto'
+            else document.body.style.overflow = 'hidden'
+            this.isNavOpen = !this.isNavOpen
         }
     }
 }
