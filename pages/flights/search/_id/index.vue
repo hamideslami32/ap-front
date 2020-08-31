@@ -18,7 +18,7 @@
                     موردی یافت نشد.
                 </b-alert>
                 <div v-if="!isInitialFilters" class="text-center">
-                    <b-btn variant="outline-info" @click="applyFilters({})">
+                    <b-btn variant="outline-info" @click="applyFilters(initialFilters)">
                         حذف فیلترها
                     </b-btn>
                 </div>

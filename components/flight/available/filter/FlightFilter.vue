@@ -144,9 +144,7 @@ export default {
             this.$emit('apply', cloneDeep(this.localValue), true)
         },
         clear() {
-            this.$emit('apply', Object.assign(initialFilters(), {
-                sort: this.localValue.sort
-            }), true)
+            this.$emit('apply', Object.assign(initialFilters()), true)
         },
         isInitialFilters(value) {
             return JSON.stringify(initialFilters()) === JSON.stringify(value)
