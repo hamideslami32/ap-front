@@ -136,6 +136,7 @@ export default {
 
         &__bottom {
             display: flex;
+            justify-content: center;
 
             > div:first-child {
                 /deep/ input {
