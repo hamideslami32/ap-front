@@ -15,7 +15,7 @@
                 />
                 <span class="text-gray-800 text-3">{{ $translate(search.destination.city) }}</span>
             </div>
-            <span class="px-3 text-2 text-gray-700">۲ مسافر</span>
+            <span class="px-3 text-2 text-gray-700">{{ this.$flight.passengersCount }} مسافر</span>
         </div>
         <div class="d-flex flight-time__container">
             <div>
