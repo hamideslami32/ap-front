@@ -169,6 +169,10 @@ export default {
             right: 0;
             overflow: auto;
 
+            & > div::-webkit-scrollbar {
+                display: none;
+            }
+
             > div {
                 flex: 1;
                 overflow-y: scroll;
