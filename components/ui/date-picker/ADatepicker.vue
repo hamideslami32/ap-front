@@ -589,6 +589,7 @@ export default {
         overflow: auto;
         padding: 20px 10px;
         outline: none !important;
+        z-index: 0;
 
         &.slide-left {
             justify-content: flex-end;
