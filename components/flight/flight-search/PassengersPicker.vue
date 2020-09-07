@@ -134,7 +134,10 @@ export default {
                 this.validate(newValue)
                 this.localValue = newValue
             } catch (e) {
-                e.message && this.$emit('error', e.message)
+                this.$toast.alert(this.$createElement('span', {}, e.message), {
+                    solid: false,
+                    autoHideDelay: 10000
+                })
             }
         },
         updateValue() {

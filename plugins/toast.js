@@ -10,12 +10,12 @@ export default (ctx, inject) => {
         bvToast.alert = function(message) {
             const toast = this.toast([
                 h('div', {
-                    staticClass: 'd-flex'
+                    staticClass: 'd-flex align-items-center'
                 }, [
                     renderIcon(h, 'notifications', 'ml-2'),
                     message,
                     h('span', {
-                        staticClass: 'mr-auto',
+                        staticClass: 'mr-auto confirm-btn',
                         on: {
                             click: () => {
                                 this.hide()
