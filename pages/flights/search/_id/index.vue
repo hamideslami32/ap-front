@@ -88,6 +88,7 @@ import FlightPlaceholder from '~/components/flight/available/FlightPlaceholder'
 import {flightApi} from '~/api/flight'
 import FlightFilter from '~/components/flight/available/filter/FlightFilter'
 import isEqual from 'lodash/isEqual'
+import isEmpty from 'lodash/isEmpty'
 import BtnWrapper from '~/components/ui/BtnWrapper'
 
 const initialFilters = () => ({
@@ -134,7 +135,13 @@ export default {
             return this.filtersCount > 0 ? 'فیلتر ( ' + this.filtersCount + ' فیلتر)' : 'فیلتر و مرتب سازی '
         },
         filtersCount() {
-            return Object.keys(this.initialFilters).filter(key => !isEqual(this.initialFilters[key], this.filters[key])).length
+            let c
+            if (!isEmpty(this.filters)) {
+                c = Object.keys(this.initialFilters).filter(key => !isEqual(this.initialFilters[key], this.filters[key])).length
+            } else {
+                c = 0
+            }
+            return c
         }
     },
     watch: {
