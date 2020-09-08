@@ -27,7 +27,7 @@
                             -
                             {{ available.routes[0].destination }}
                         </span>
-                        <span class="text-2 text-gray-800 text-weight-400 float-left">۲۰ تیر ۹۹</span>
+                        <span class="text-2 text-gray-800 text-weight-400 float-left">{{ date[0].format('D MMMM YY') }}</span>
                     </p>
                 </div>
                 <div>
@@ -54,7 +54,7 @@
                             -
                             {{ available.routes[1].origin }}
                         </span>
-                        <span class="text-2 text-gray-800 text-weight-400">۲۰ تیر ۹۹</span>
+                        <span class="text-2 text-gray-800 text-weight-400">{{ date[1].format('D MMMM YY') }}</span>
                     </p>
                 </div>
 
@@ -97,7 +97,6 @@ export default {
             flightTimes: new Array(available ? available.routes.length : 1).fill(null)
         }
     },
-
     computed: {
         available() {
             return this.$flight.available
