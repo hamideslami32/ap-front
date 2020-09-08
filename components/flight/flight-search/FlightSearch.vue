@@ -33,6 +33,7 @@
                             <form-input
                                 v-if="search.type !== 'OW'"
                                 label="تاریخ برگشت"
+                                style="textAlign: left;"
                                 :value="value[1] ? value[1].format('dddd DD MMMM YY') : null"
                                 readonly
                                 data-datepicker="1"
@@ -59,6 +60,7 @@
                         <form-input
                             v-if="search.type !== 'OW'"
                             label="تاریخ برگشت"
+                            style="textAlign: left;"
                             :value="value[1] ? value[1].format('dddd DD MMMM YY') : null"
                             data-datepicker="1"
                             readonly
