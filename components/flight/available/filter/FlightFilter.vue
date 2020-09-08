@@ -80,7 +80,7 @@ import FlightAirlineFilter from '~/components/flight/available/filter/FlightAirl
 import BtnWrapper from '~/components/ui/BtnWrapper'
 
 const initialFilters = () => ({
-    sort: 'min_price',
+    sort: '',
     priceRange: [null, null],
     airlines: [],
     airports: [],
