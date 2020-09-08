@@ -44,7 +44,7 @@ export default {
     }
 
     > a:first-child {
-        margin-right: 10px;
+        // margin-right: 10px;
     }
 
     > a:last-child {
