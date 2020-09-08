@@ -16,12 +16,12 @@
                     </div>
                     <div class="d-flex mb-2 align-items-center justify-content-between px-2">
                         <span>مبلغ</span>
-                        <span class="text-gray-800">15,000,000
+                        <span class="text-gray-800">25,000,000
                             <small class="text-gray-700">تومان</small>
                         </span>
                     </div>
                     <div class="d-flex align-items-center justify-content-between px-2">
-                        <span>مبلغ</span>
+                        <span>باقی مانده اعتبار</span>
                         <span class="text-gray-800">15,000,000
                             <small class="text-gray-700">تومان</small>
                         </span>
