@@ -37,7 +37,7 @@
 
         <template v-if="availables && availables.filters">
             <btn-wrapper>
-                <a-btn wrapper-class="filter-btn" variant="primary" @click="showFilter = true">
+                <a-btn wrapper-class="filter-btn" :class="{ 'filter-btn--selected' : filtersCount }" variant="primary" @click="showFilter = true">
                     {{ filterBtnText }}
                 </a-btn>
             </btn-wrapper>
@@ -92,7 +92,7 @@ import isEmpty from 'lodash/isEmpty'
 import BtnWrapper from '~/components/ui/BtnWrapper'
 
 const initialFilters = () => ({
-    sort: 'min_price',
+    sort: '',
     priceRange: [null, null],
     airlines: [],
     airports: [],
@@ -208,7 +208,7 @@ export default {
             const {filters} = this
             const {priceRange = [], departureFlightTime, returningFlightTime, airlines = []} = filters
             return flightApi.getResults(sid, {
-                sort: filters.sort,
+                sort: filters.sort ? filters.sort : undefined,
                 minPrice: priceRange[0] || undefined,
                 maxPrice: priceRange[1] || undefined,
                 flightTimes: (departureFlightTime || []).concat(returningFlightTime || []).length ? [
@@ -328,6 +328,12 @@ export default {
                 background: #e3469a;
                 margin-right: 5px;
                 border-radius: 50%;
+            }
+        }
+
+        &--selected {
+            &:after {
+                background: $success !important;
             }
         }
     }

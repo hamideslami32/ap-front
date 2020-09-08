@@ -50,7 +50,8 @@ export default {
     padding: 5px 12px;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
     border-radius: 3px;
-    border: 1px solid transparent;
+    border: 1px solid map_get($grays, '400');
+    background: $white;
 
     > img {
         display: block;
