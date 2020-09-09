@@ -4,7 +4,7 @@
             <div class="text-center">
                 <svgicon name="arrow-left" width="20" height="20" />
                 <span>
-                    قیمت برای هر نفر {{ available.totalFare / $flight.passengersCount | separateNumber }} تومان
+                    قیمت برای هر نفر {{ Math.floor(available.totalFare / $flight.passengersCount) | separateNumber }} تومان
                 </span>
             </div>
         </toast-card>
