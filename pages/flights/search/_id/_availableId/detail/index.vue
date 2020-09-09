@@ -9,16 +9,56 @@
             <span class="text-gray-900 text-weight-500">{{ $flight.session.routes[0].destination.city | translate }}</span>
         </div>
 
-        <!--<div class="d-flex align-items-center justify-content-center text-2 text-gray-800 mb-3">
+        <div class="d-flex align-items-center justify-content-center text-2 text-gray-800 mb-3">
             <span>{{ $dayjs($flight.session.routes[0].date).format('dddd D MMMM YY') }}</span>
             <span class="px-1">-</span>
-            <span>توقف لندن</span>
+            <span>
+                <template v-if="flights[0].stops.length > 1">
+                    {{ flights[0].stops.length - 1 }}
+                    توقف
+                    <template v-if="flights[0].stops.length === 2">
+                        در {{ flights[0].stops[0].arrivalCityName }}
+                    </template>
+                </template>
+                <template v-else>
+                    بدون توقف
+                </template>
+            </span>
             <span class="px-1">-</span>
             <span class="font-en text-weight-500">Economy(H)</span>
-        </div>-->
+        </div>
 
-        <div v-for="flight in flights" :key="flight._id" class="flight-detail__card-holder mt-3 mb-3">
-            <flight-detail-card :flight="flight" />
+        <div class="flight-detail__card-holder mt-3 mb-3">
+            <flight-detail-card :flight="flights[0]" />
+        </div>
+
+        <div class="d-flex align-items-center justify-content-center mb-2 mt-1">
+            <span class="text-gray-900 text-weight-500">{{ $flight.session.routes[1].origin.city | translate }}</span>
+            <span class="mx-3">-</span>
+            <span class="text-gray-900 text-weight-500">{{ $flight.session.routes[1].destination.city | translate }}</span>
+        </div>
+
+        <div class="d-flex align-items-center justify-content-center text-2 text-gray-800 mb-3">
+            <span>{{ $dayjs($flight.session.routes[1].date).format('dddd D MMMM YY') }}</span>
+            <span class="px-1">-</span>
+            <span>
+                <template v-if="flights[1].stops.length > 1">
+                    {{ flights[1].stops.length - 1 }}
+                    توقف
+                    <template v-if="flights[1].stops.length === 2">
+                        در {{ flights[1].stops[0].arrivalCityName }}
+                    </template>
+                </template>
+                <template v-else>
+                    بدون توقف
+                </template>
+            </span>
+            <span class="px-1">-</span>
+            <span class="font-en text-weight-500">Economy(H)</span>
+        </div>
+
+        <div class="flight-detail__card-holder mt-3 mb-3">
+            <flight-detail-card :flight="flights[1]" />
         </div>
 
         <risk-free-card tag="Risk Free" tag-color="#45c6d4" />
@@ -61,7 +101,7 @@ export default {
 
     methods: {
         async submit() {
-            const { order } = await flightApi.createOrder({
+            const {order} = await flightApi.createOrder({
                 sessionId: this.$flight.session.id,
                 availableId: this.available._id,
                 flightIds: this.flights.map(fl => fl._id)
