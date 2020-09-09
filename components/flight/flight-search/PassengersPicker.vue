@@ -3,7 +3,7 @@
         <slot />
         <b-modal v-model="showModal" title="انتخاب مسافران" hide-footer @hide="updateValue">
             <template v-slot:modal-header-close>
-                <svgicon name="arrow-long-right" width="20" height="20" />
+                <svgicon name="arrow-left" width="20" height="20" />
             </template>
             <div class="passenger-modal">
                 <p class="passenger-modal__title mb-4">

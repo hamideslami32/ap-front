@@ -43,7 +43,7 @@
                 جستجو تراکنش
             </template>
             <template v-slot:modal-header-close>
-                <svgicon name="arrow-long-right" width="20" height="20" />
+                <svgicon name="arrow-left" width="20" height="20" />
             </template>
             <div class="search-transaction">
                 <p class="text-3 text-gray-700 text-center mt-4">

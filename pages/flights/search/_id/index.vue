@@ -43,12 +43,12 @@
             </btn-wrapper>
 
 
-            <b-modal v-model="showFilter" body-class="px-0" hide-footer>
+            <b-modal v-model="showFilter" modal-class="right-icon" body-class="px-0" hide-footer>
                 <template v-slot:modal-title>
                     فیلتر و مرتب سازی
                 </template>
                 <template v-slot:modal-header-close>
-                    <svgicon name="arrow-long-right" width="20" height="20" />
+                    <svgicon name="delete-disabled" width="30" height="30" />
                 </template>
                 <flight-filter v-model="filters" :options="availables.filters" @apply="applyFilters" />
             </b-modal>
