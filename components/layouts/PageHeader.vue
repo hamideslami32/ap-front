@@ -1,14 +1,16 @@
 <template>
     <div class="header">
-        <portal-target name="right-header">
-            <span>icon</span>
-        </portal-target>
-        <portal-target name="header">
+        <portal-target name="right-header" class="text-right">
             <span />
         </portal-target>
-        <a class="text-gray-900" href="javascript:void(0)" @click="$router.back()">
-            <svgicon name="arrow-left" width="20" height="20" />
-        </a>
+        <portal-target name="header" class="text-center">
+            <span />
+        </portal-target>
+        <portal-target name="left-header" class="text-left">
+            <a class="text-gray-900" href="javascript:void(0)" @click="$router.back()">
+                <svgicon name="arrow-left" width="20" height="20" />
+            </a>
+        </portal-target>
     </div>
 </template>
 
@@ -40,6 +42,13 @@ export default {
         border-bottom: 1px solid #e6e6e6;
         color: map_get($grays, '900');
         font-weight: 600;
+
+        > div {
+            flex: 2;
+            &:last-child , &:first-child {
+                flex: 1;
+            }
+        }
 
         a:focus, a:hover, a:active {
             color: map_get($grays, '900');

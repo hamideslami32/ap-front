@@ -4,7 +4,7 @@
             ورود یا عضویت
         </template>
         <template v-slot:modal-header-close>
-            <svgicon name="arrow-long-right" width="20" height="20" />
+            <svgicon name="arrow-left" width="20" height="20" />
         </template>
         <form v-if="step === 'otp'" class="auth-form" action="#">
             <p>لطفا شماره همراه خود را وارد نمایید</p>

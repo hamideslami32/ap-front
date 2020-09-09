@@ -1,8 +1,7 @@
 <template>
     <div class="field px-3 py-2 mb-2 d-flex align-items-center justify-content-between" @click="showModal = true">
         <div>
-            <svgicon name="user" width="24" height="24" />
-            <span class="text-2 text-gray-800 mr-2">مسافر {{ index }} - {{ passengerType }}</span>
+            <span class="text-2 text-gray-800">مسافر {{ index }} - {{ passengerType }}</span>
         </div>
         <span class="flex-grow-1 text-left">
             <badge v-if="value.name || value.lastName" class="px-3 py-2">
@@ -10,14 +9,27 @@
                 {{ value.lastName }}
             </badge>
         </span>
-        <svgicon name="arrow-left" class="text-gray-700 mr-2" width="24" height="24" />
+        <svgicon
+            v-if="value.name || value.lastName"
+            name="arrow-left"
+            class="text-gray-700 mr-2"
+            width="24"
+            height="24"
+        />
+        <svgicon
+            v-else
+            name="user"
+            class="text-gray-700 mr-2"
+            width="24"
+            height="24"
+        />
 
         <b-modal v-model="showModal" hide-footer>
             <template v-slot:modal-title>
                 مسافر {{ index | ordinal }} - {{ passengerType }}
             </template>
             <template v-slot:modal-header-close>
-                <svgicon name="arrow-long-right" width="20" height="20" />
+                <svgicon name="arrow-left" width="20" height="20" />
             </template>
             <div class="add-passengers">
                 <b-tabs content-class="mt-5 px-2">

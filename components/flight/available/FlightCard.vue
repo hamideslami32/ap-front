@@ -26,7 +26,7 @@
             <div class="float-left d-flex align-items-center">
                 <span class="flight-card__select-text ml-2">انتخاب</span>
                 <div class="circle">
-                    <svgicon name="arrow-long-right" width="18" height="20" />
+                    <svgicon name="arrow-left" width="18" height="20" />
                 </div>
             </div>
         </div>

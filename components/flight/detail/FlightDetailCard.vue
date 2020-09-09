@@ -31,7 +31,7 @@
                 قوانین استرداد
             </template>
             <template v-slot:modal-header-close>
-                <svgicon name="arrow-long-right" width="20" height="20" @click="showFlightRule = false" />
+                <svgicon name="delete-disabled" width="30" height="30" @click="showFlightRule = false" />
             </template>
             <div class="rules-modal d-flex px-2 align-items-center justify-content-between">
                 <span class="text-gray-800 text-3">تهران به پاریس</span>

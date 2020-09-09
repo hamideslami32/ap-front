@@ -21,20 +21,20 @@
             <header class="a-datepicker__header" dir="rtl">
                 <div class="px-3 px-sm-0 py-md-2">
                     <div>
-                        <b-btn-close class="d-sm-none" @click="close">
-                            <svgicon name="arrow-long-right" />
-                        </b-btn-close>
-                    </div>
-                    <b class="text-center">
-                        انتخاب تاریخ
-                    </b>
-                    <div>
                         <b-btn
                             class="btn-today d-none d-sm-inline-block float-left py-2"
                             @click="goToday"
                         >
                             برو به امروز
                         </b-btn>
+                    </div>
+                    <b class="text-center">
+                        انتخاب تاریخ
+                    </b>
+                    <div class="d-flex justify-content-end">
+                        <b-btn-close class="d-sm-none" @click="close">
+                            <svgicon name="arrow-left" />
+                        </b-btn-close>
                     </div>
                 </div>
             </header>
@@ -699,7 +699,7 @@ export default {
             font-size: 32px;
             padding: 12px;
             opacity: 1;
-            color: $primary;
+            color: $black;
             position: static;
         }
 

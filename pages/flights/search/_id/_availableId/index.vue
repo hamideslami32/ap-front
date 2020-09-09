@@ -3,6 +3,14 @@
         <portal to="header">
             <span>انتخاب ساعت پرواز</span>
         </portal>
+        <portal to="right-header">
+            <a class="text-gray-900" href="javascript:void(0)" @click="$router.back()">
+                <svgicon name="delete-disabled" width="30" height="30" />
+            </a>
+        </portal>
+        <portal to="left-header">
+            <span />
+        </portal>
         <div class="flight-time__header d-flex align-items-center py-3 justify-content-between">
             <span class="px-3 text-2 text-gray-700">{{ classTypeText }}</span>
             <div class="flight-time__header__places">
