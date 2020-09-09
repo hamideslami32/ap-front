@@ -11,6 +11,7 @@
                 :aria-disabled="disabled"
                 @keydown="dotKeydown"
             />
+            <span class="a-slider__progress" style="width: 100%; backgroundColor: #e7def7;" />
             <span class="a-slider__progress" :style="progressStyle" />
             <span
                 ref="endDot"
@@ -293,7 +294,7 @@ export default {
             position: absolute;
             top: 0;
             bottom: 0;
-            background-color: #e7def7;
+            background-color: rgba(73, 35, 140, 0.6);
             border-radius: $thickness;
             transition: background-color ease 150ms;
         }
