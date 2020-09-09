@@ -35,8 +35,8 @@ export default {
     data() {
         return {
             flightTime: [
-                {value: '06:00-12:00', title: 'صبح', subtitle: '(۶ الی ۱۲)', icon: 'sunset'},
                 {value: '00:00-06:00', title: 'بامداد', subtitle: '(۰ الی ۶)', icon: 'user'},
+                {value: '06:00-12:00', title: 'صبح', subtitle: '(۶ الی ۱۲)', icon: 'sunset'},
                 {value: '12:00-18:00', title: 'بعدظهر', subtitle: '(۱۲ الی ۱۸)', icon: 'sun'},
                 {value: '18:00-23:59', title: 'شب', subtitle: '(۱۸ الی ۲۴)', icon: 'moon'}
             ]
