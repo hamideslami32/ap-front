@@ -1,5 +1,5 @@
 <template>
-    <panel icon="plane" title="ایرلاین ها" body-class="px-3">
+    <panel icon="planeTrip-international" title="ایرلاین ها" body-class="px-3">
         <group-checkbox :value="value" :options="mappedAirlines" @input="$emit('input', $event)">
             <template v-slot="{ item }">
                 <span class="airline-item">
@@ -48,7 +48,7 @@ export default {
     display: inline-block;
     vertical-align: middle;
     padding: 5px 12px;
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
     border-radius: 3px;
     border: 1px solid map_get($grays, '400');
     background: $white;
