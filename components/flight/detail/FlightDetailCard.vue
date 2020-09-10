@@ -34,19 +34,19 @@
                 <svgicon name="delete-disabled" width="30" height="30" @click="showFlightRule = false" />
             </template>
             <div class="rules-modal d-flex px-2 align-items-center justify-content-between">
-                <span class="text-gray-800 text-3">تهران به پاریس</span>
+                <span class="text-gray-800 text-3">{{ flight.stops[0].departureCityName }} به {{ flight.stops[0].arrivalCityName }}</span>
                 <div class="d-flex">
                     <div class="text-2 text-left text-gray-700 font-en text-weight-500">
                         <p class="mb-0">
-                            A320
+                            {{ flight.stops[0].aircraft }}
                         </p>
-                        <p class="mb-0">
-                            Economy
+                        <p class="mb-0 text-capitalize">
+                            {{ flight.flightClass }}
                         </p>
                     </div>
                     <div class="rules-modal__line mx-2" />
                     <span>
-                        <span class="ml-1 text-2 text-weight-500 text-gray-800">ترکیش ایرلاینز</span>
+                        <span class="ml-1 text-2 text-weight-500 text-gray-800">{{ flight.stops[0].airlineName }}</span>
                         <span><img src="https://apro-dev.ir/static/ad/airlines/logo/B9.png" alt="" width="40px"></span>
                     </span>
                 </div>
