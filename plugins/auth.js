@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 const COOKIE_TOKEN = 'token'
-const UNAUTH_REDIRECT = '/login'
+const UNAUTH_REDIRECT = '/'
 
 const routeOption = (route, key) => route.matched.some(m => {
     if (process.browser) {

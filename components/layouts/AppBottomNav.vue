@@ -13,14 +13,15 @@
         <nuxt-link exact-active-class="active" class="footer__item" to="/">
             <svgicon class="footer__item--icon" name="home" width="30" height="30" />
         </nuxt-link>
-        <nuxt-link exact-active-class="active" class="footer__item" to="/orders">
-            <svgicon
-                class="footer__item--icon"
-                name="calendar"
-                width="30"
-                height="30"
-                :orginal="false"
-            />
+        <nuxt-link
+            :is="$auth.user ? 'nuxt-link' : 'a'"
+            href="javascript:void(0)"
+            exact-active-class="active"
+            class="footer__item"
+            to="/profile/orders"
+            @click="goToOrder"
+        >
+            <svgicon class="footer__item--icon" name="calendar" width="30" height="30" />
         </nuxt-link>
     </footer>
 </template>
@@ -31,6 +32,11 @@ export default {
         goToProfile() {
             this.$auth.authenticate().then(() => {
                 this.$router.push('/profile')
+            }).catch(err => {})
+        },
+        goToOrder() {
+            this.$auth.authenticate().then(() => {
+                this.$router.push('/profile/orders')
             }).catch(err => {})
         }
     }
