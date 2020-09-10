@@ -1,6 +1,6 @@
 <template>
     <div class="flight-card" @click="$emit('click', $event)">
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center flight-card__top">
             <span class="flight-card__price">{{ available.totalFare | separateNumber }}</span>
             <span class="text-weight-400 text-2 mr-1 pb-1 text-gray-700">برای هر نفر (تومان)</span>
         </div>
@@ -26,7 +26,7 @@
             <div class="float-left d-flex align-items-center">
                 <span class="flight-card__select-text ml-2">انتخاب</span>
                 <div class="circle">
-                    <svgicon name="arrow-left" width="18" height="20" />
+                    <svgicon name="arrow-long-right" width="18" height="20" />
                 </div>
             </div>
         </div>
@@ -76,6 +76,15 @@ export default {
         position: relative;
         box-shadow: 0 3px 8px rgba($black, 0.1);
 
+
+        &__top {
+            background: white;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+            margin: -15px -10px -10px;
+            padding: 15px 10px;
+        }
+
         &__price {
             font-size: 1.2em;
             color: $secondary;
@@ -86,6 +95,7 @@ export default {
             margin: 8px -10px 15px;
             box-shadow: 0 3px 5px rgba($black, 0.1);
             border-radius: 0 0 10px 10px;
+            border-top: 1px solid $modalBorder;
         }
 
         .alternative-holder {
@@ -155,7 +165,7 @@ export default {
             top: -1px;
             height: 24px;
             width: 80px;
-            background: transparent;
+            background: map_get($grays, '200');
             border: 1px solid #dddddd;
             border-top-color: $body-bg;
             border-bottom-left-radius: 12px 20px;

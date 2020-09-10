@@ -114,6 +114,10 @@ export default {
         font-weight: 400;
         position: relative;
 
+        &:last-child {
+            border-top: 1px dashed map_get($grays, '400');
+        }
+
         &__title {
             font-size: 0.7em;
             font-weight: 700;
@@ -172,7 +176,7 @@ export default {
         &__detail {
             display: flex;
             text-align: center;
-            background: rgba(73, 35, 140, 0.1);
+            background: map_get($grays, '200');
             border-radius: 50px;
             font-size: 0.7em;
             color: #888888;
