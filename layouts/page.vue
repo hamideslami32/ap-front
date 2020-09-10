@@ -5,15 +5,18 @@
             <nuxt />
         </main>
         <toast-portal />
+        <login-modal />
     </div>
 </template>
 
 <script>
 import PageHeader from '~/components/layouts/PageHeader'
 import ToastPortal from '~/components/ui/ToastPortal'
+import LoginModal from '~/components/auth/LoginModal'
+
 export default {
     name: 'Page',
-    components: {ToastPortal, PageHeader}
+    components: {ToastPortal, PageHeader, LoginModal}
 }
 </script>
 

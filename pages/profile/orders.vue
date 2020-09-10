@@ -96,6 +96,18 @@ export default {
         return {
             searchModal: false
         }
+    },
+    computed: {
+        user() {
+            return this.$auth.user
+        }
+    },
+    mounted() {
+        this.$auth.authenticate().then(() => {
+            this.$router.push('/profile/orders')
+        }).catch(err => {
+            this.$router.push('/profile')
+        })
     }
 }
 </script>
