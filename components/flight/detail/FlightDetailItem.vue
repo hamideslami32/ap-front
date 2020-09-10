@@ -28,7 +28,7 @@
                     {{ departureTime.calendar('gregory').locale('en').format('DD MMM').toUpperCase() }}
                 </p>
             </div>
-            <div class="flex-grow-1 mt-2 px-3">
+            <div class="flex-grow-1 mt-2 px-2">
                 <div class="detail-item__time__route px-3">
                     <span class="text-2 text-weight-500 font-en text-gray-700">{{ stop.duration | duration }}</span>
                 </div>
@@ -50,7 +50,7 @@
             <badge class="px-3">
                 {{ stop.departureAirport }}
             </badge>
-            <div class="d-flex align-items-center flex-grow-1 px-3 justify-content-between font-en text-weight-500 text-2 text-gray-700">
+            <div class="d-flex align-items-center flex-grow-1 px-2 justify-content-between font-en text-weight-500 text-2 text-gray-700">
                 <span class="">{{ stop.departureAirportName.replace(/فرودگاه|بین[\s+‌]المللی/g, '') }}</span>
                 <span class="text-left">{{ stop.arrivalAirportName.replace(/فرودگاه|بین[\s+]المللی/g, '') }}</span>
             </div>
