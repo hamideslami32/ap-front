@@ -2,8 +2,8 @@
     <span v-if="available">
         <toast-card variant="light">
             <div class="text-center">
-                <svgicon name="arrow-left" width="20" height="20" />
-                <span>
+                <svgicon name="money" width="20" height="20" />
+                <span class="mr-2">
                     قیمت برای هر نفر {{ Math.floor(available.totalFare / $flight.passengersCount) | separateNumber }} تومان
                 </span>
             </div>

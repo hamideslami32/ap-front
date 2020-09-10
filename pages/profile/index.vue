@@ -2,7 +2,7 @@
     <div>
         <portal to="header-right">
             <nuxt-link to="/profile/account">
-                <svgicon width="30" height="30" name="user" />
+                <svgicon width="30" height="30" name="userProfile-Hexagon" />
             </nuxt-link>
         </portal>
         <portal to="header">
@@ -11,7 +11,7 @@
         <div class="profile-header pb-3 pt-5">
             <div class="profile-header__icon-wrapper">
                 <span class="profile-header__icon-holder">
-                    <svgicon width="40" height="40" name="user" />
+                    <svgicon width="40" height="40" name="wallet" />
                 </span>
             </div>
             <p class="mb-4 mt-1">
@@ -21,10 +21,10 @@
                 {{ user.credit }} <span class="text-2">تومان</span>
             </field>
         </div>
-        <panel title="خرید ها" disabled @click.native="$router.push('/profile/orders')" />
-        <panel title="تراکنش ها" disabled @click.native="$router.push('/profile/transactions')" />
-        <panel title="مسافران" disabled @click.native="$router.push('/profile/passengers')" />
-        <panel title="صورتحساب ها" disabled />
+        <panel icon="shoppingbag-Pack" title="خرید ها" disabled @click.native="$router.push('/profile/orders')" />
+        <panel icon="atm" title="تراکنش ها" disabled @click.native="$router.push('/profile/transactions')" />
+        <panel icon="userProfile-Group" title="مسافران" disabled @click.native="$router.push('/profile/passengers')" />
+        <panel icon="recipe" title="صورتحساب ها" disabled />
         <panel disabled @click.native="$auth.logout()">
             <template #title>
                 <span class="text-danger">خروج</span>
