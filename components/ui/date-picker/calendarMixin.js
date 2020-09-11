@@ -8,16 +8,14 @@ export default {
         },
 
         minDate: {
-            type: [Date, String, Object, Number],
             default() {
-                return dayjs().calendar(this.jalaali ? 'jalali' : 'gregorian')
+                return dayjs().toDate()
             }
         },
 
         maxDate: {
-            type: [Date, String, Object, Number],
             default() {
-                return dayjs().add(1, 'year').calendar(this.jalaali ? 'jalali' : 'gregorian')
+                return dayjs().add(1, 'year').toDate()
             }
         },
 
@@ -37,7 +35,7 @@ export default {
             return this.$device.isMobile
         },
         calendarType() {
-            return this.jalaali ? 'jalali' : 'gregorian'
+            return this.jalaali ? 'jalali' : 'gregory'
         },
         calendarLocale() {
             return this.jalaali ? 'fa' : 'en'
@@ -46,7 +44,7 @@ export default {
 
     methods: {
         weekday(i) {
-            return this.dayjs().day(i).format('ddd')[0]
+            return this.dayjs().day(i + (this.jalaali ? 1 : 0)).format('ddd').slice(0, this.jalaali ? 1 : 2)
         },
         dayjs(a) {
             return dayjs(a, { calendar: this.calendarType, locale: this.calendarLocale })

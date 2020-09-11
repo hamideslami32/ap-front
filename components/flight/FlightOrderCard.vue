@@ -72,7 +72,7 @@ export default {
             return this.flight.stops[this.flight.stops.length - 1]
         },
         airlines() {
-            return flattenDeep(this.order.flights.map(flight => flight.stops.map(stop => stop.airline)))
+            return [...new Set(flattenDeep(this.order.flights.map(flight => flight.stops.map(stop => stop.airline))))]
         }
     }
 }

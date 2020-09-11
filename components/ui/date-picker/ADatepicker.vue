@@ -173,7 +173,7 @@ export default {
     computed: {
         months() {
             if (process.server) return []
-            const baseMonth = this.currentDate
+            const baseMonth = this.dayjs(this.currentDate.toDate())
             if (!this.isMobile) {
                 return [baseMonth, baseMonth.add(1, 'month')]
             }

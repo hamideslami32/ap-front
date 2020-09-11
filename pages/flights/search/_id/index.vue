@@ -165,10 +165,12 @@ export default {
         }
         this.refresh(!this.searchId)
 
+        window.addEventListener('scroll', this.scrollListener)
     },
     beforeDestroy() {
         this.cancelPolling()
         clearTimeout(this.__checkExpire)
+        window.removeEventListener('scroll', this.scrollListener)
     },
     methods: {
         async search() {
@@ -205,18 +207,7 @@ export default {
             return res.id
         },
         startPolling(sid, retry = 1) {
-            const {filters} = this
-            const {priceRange = [], departureFlightTime, returningFlightTime, airlines = []} = filters
-            return flightApi.getResults(sid, {
-                sort: filters.sort ? filters.sort : undefined,
-                minPrice: priceRange[0] || undefined,
-                maxPrice: priceRange[1] || undefined,
-                flightTimes: (departureFlightTime || []).concat(returningFlightTime || []).length ? [
-                    departureFlightTime ? departureFlightTime : '',
-                    returningFlightTime ? returningFlightTime : ''
-                ] : undefined,
-                airlines: airlines.length ? airlines : undefined
-            }, new Axios.CancelToken(canceler => {
+            return this.getRequest(sid, new Axios.CancelToken(canceler => {
                 this._pollingCanceler = canceler
             })).then(res => {
                 if (res.progress < 100) {
@@ -235,6 +226,22 @@ export default {
                 throw err
             })
         },
+        getRequest(sid, cancelToken, offset, limit) {
+            const {filters} = this
+            const {priceRange = [], departureFlightTime, returningFlightTime, airlines = []} = filters
+            return flightApi.getResults(sid, {
+                sort: filters.sort ? filters.sort : undefined,
+                minPrice: priceRange[0] || undefined,
+                maxPrice: priceRange[1] || undefined,
+                flightTimes: (departureFlightTime || []).concat(returningFlightTime || []).length ? [
+                    departureFlightTime ? departureFlightTime : '',
+                    returningFlightTime ? returningFlightTime : ''
+                ] : undefined,
+                airlines: airlines.length ? airlines : undefined,
+                offset,
+                limit
+            })
+        },
         cancelPolling() {
             this._pollingCanceler && this._pollingCanceler()
             clearTimeout(this._pollingTimeout)
@@ -242,6 +249,7 @@ export default {
         async refresh(newSearch = true) {
             this.loading = true
             this.availables = null
+            delete this._loadMoreComplete
             try {
                 const searchId = newSearch ? await this.search() : this.searchId
                 if (newSearch) {
@@ -258,6 +266,19 @@ export default {
                 this.loading = false
             }
         },
+
+        async loadMore() {
+            if (this.loading || this._loadMoreComplete) return false
+            const limit = 20
+            const { results } = await this.getRequest(this.searchId, null, this.availables.results.length, limit)
+            if (results.length < 20) {
+                this._loadMoreComplete = true
+            }
+            results.forEach(r => {
+                this.availables.results.push(r)
+            })
+        },
+
         applyFilters(filters, close) {
             this.filters = filters
             if (close) {
@@ -290,6 +311,13 @@ export default {
                 this.__checkExpire = setTimeout(() => {
                     this.expireModal = true
                 }, expirationTime)
+            }
+        },
+
+        scrollListener() {
+            const OFFSET = 50
+            if (window.scrollY > (document.documentElement.scrollHeight - document.documentElement.clientHeight) - OFFSET) {
+                this.loadMore()
             }
         }
     }

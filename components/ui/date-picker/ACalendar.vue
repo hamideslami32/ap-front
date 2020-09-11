@@ -106,7 +106,7 @@ export default {
         shiftDays() {
             const firstDay = this.daysInMonth[0]
             const weekday = firstDay ? firstDay.day.day() : 0
-            return (this.jalaali ? weekday : weekday + 6) % 7
+            return (this.jalaali ? weekday + 1 : weekday) % 7
         }
     },
 
@@ -166,7 +166,7 @@ export default {
         },
 
         isHoliday(day) {
-            return (this.jalaali ? [6] : []).includes(day.day())
+            return (this.jalaali ? [5] : []).includes(day.day())
         },
 
         hover(e, isHover) {
