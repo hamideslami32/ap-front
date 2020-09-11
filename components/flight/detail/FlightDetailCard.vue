@@ -47,7 +47,7 @@
                     <div class="rules-modal__line mx-2" />
                     <span>
                         <span class="ml-1 text-2 text-weight-500 text-gray-800">{{ flight.stops[0].airlineName }}</span>
-                        <span><img src="https://apro-dev.ir/static/ad/airlines/logo/B9.png" alt="" width="40px"></span>
+                        <span><img :src="$flight.airlineLogoUrl(flight.stops[0].airline)" alt="" width="40px"></span>
                     </span>
                 </div>
                 <div class="rules-modal__action">

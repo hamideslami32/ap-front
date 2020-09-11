@@ -1,9 +1,9 @@
 <template functional>
     <a-btn
-        wrapper-class="full-btn"
+        :wrapper-class="`full-btn ${props.variant.match(/^outline/) ? 'full-btn--outline' : ''}`"
         :class="[data.class, data.staticClass]"
         v-bind="data.attrs"
-        variant="primary"
+        :variant="props.variant"
         v-on="listeners"
     >
         <span>
@@ -23,6 +23,10 @@ export default {
         icon:{
             type: String,
             default: null
+        },
+        variant: {
+            type: String,
+            default: 'primary'
         }
     }
 }
@@ -38,14 +42,13 @@ export default {
 
         &__icon-holder {
             position: absolute;
-            border-radius: 5px;
-            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
             width: 40px;
             display: inline-block;
             left: 5px;
             top: 5px;
             bottom: 5px;
-            color: $white;
 
             &::before {
                 content: ' ';
@@ -55,17 +58,9 @@ export default {
             }
         }
 
-        &::after {
-            $size: 1px;
-            content: ' ';
-            position: absolute;
-            top: -$size;
-            left: -$size;
-            right: -$size;
-            bottom: -$size;
-            background: linear-gradient(180deg, rgba(255,255,255, 0) 57.81%, #e3469a 100%);
-            z-index: -1;
-            border-radius: 10px;
+        &--outline::after {
+            content: none;
+            display: none;
         }
     }
 

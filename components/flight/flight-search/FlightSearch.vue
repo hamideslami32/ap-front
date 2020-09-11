@@ -73,7 +73,7 @@
                             <span v-if="datePrices && datePrices.departing[day.calendar('gregory').format('YYYY-MM-DD')]">
                                 {{ day.format('D') }}
                                 <br>
-                                <small class="text-1">{{ datePrices.departing[day.calendar('gregory').format('YYYY-MM-DD')] / 1000 }}</small>
+                                <small class="text-1">{{ Math.ceil(datePrices.departing[day.calendar('gregory').format('YYYY-MM-DD')] / 1000) }}</small>
                             </span>
                             <template v-else>
                                 {{ day.format('D') }}

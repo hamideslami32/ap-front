@@ -14,7 +14,7 @@
                 </div>
 
                 <p class="my-2 text-secondary text-weight-500 text-1">
-                    {{ available.routes.length === 2 ? 'Round Trip' : 'One Way' }}
+                    {{ order.flights.length === 2 ? 'Round Trip' : 'One Way' }}
                 </p>
 
                 <div class="d-flex align-items-center text-weight-500">
@@ -28,8 +28,10 @@
             <div class="">
                 <div class="mb-2">
                     <img
+                        v-for="airline in airlines"
+                        :key="airline"
                         class="rounded-circle"
-                        :src="$flight.airlineLogoUrl('B9')"
+                        :src="$flight.airlineLogoUrl(airline)"
                         alt=""
                         width="30"
                         height="30"
@@ -37,10 +39,10 @@
                 </div>
                 <div class="ticket__info__class-type text-center text-weight-500">
                     <p class="text-1 mb-0 py-1 text-capitalize">
-                        {{ $flight.session.class }}
+                        {{ order.session.class }}
                     </p>
                     <p class="text-0 mb-0 py-1">
-                        {{ $flight.passengersCount }} Traveller
+                        {{ order.session.adult + order.session.child + order.session.infant }} Traveller
                     </p>
                 </div>
             </div>
@@ -49,24 +51,28 @@
 </template>
 
 <script>
+import flattenDeep from 'lodash/flattenDeep'
+
 export default {
     props: {
-        available: {
-            type: Object,
-            required: true
-        },
-        flight: {
+        order: {
             type: Object,
             required: true
         }
     },
 
     computed: {
+        flight() {
+            return this.order.flights[0]
+        },
         firstStop() {
             return this.flight.stops[0]
         },
         lastStop() {
             return this.flight.stops[this.flight.stops.length - 1]
+        },
+        airlines() {
+            return flattenDeep(this.order.flights.map(flight => flight.stops.map(stop => stop.airline)))
         }
     }
 }

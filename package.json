@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "dev-local": "PORT=3002 API_URL=http://localhost:3000/api yarn dev",
+    "dev-local": "DOMAIN_URL=http://localhost:3002 PORT=3002 API_URL=http://localhost:3000/api yarn dev",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",

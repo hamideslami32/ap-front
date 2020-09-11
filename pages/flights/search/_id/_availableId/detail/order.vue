@@ -4,7 +4,7 @@
             <span>مسافرین و خریدار</span>
         </portal>
         <div class="mt-3 px-2">
-            <flight-order-card v-if="!$fetchState.pending" :available="available" :flight="flights[0]" />
+            <flight-order-card v-if="order" :order="order.orderItems[0]" />
             <p class="my-3 text-center text-gray-700 text-3">
                 وارد کردن اطلاعات مسافرین
             </p>
@@ -110,7 +110,7 @@ export default {
     layout: 'page',
 
     async fetch() {
-        this.flights = await flightApi.getFlights(this.$flight.session.id, this.available._id, this.$route.query.flights.split(','))
+        this.order = await flightApi.getOrder(this.$route.query.orderId)
     },
 
     data() {
@@ -122,7 +122,7 @@ export default {
                 ...new Array(child || 0).fill(1).map(() => passengerFactory('child')),
                 ...new Array(infant || 0).fill(1).map(() => passengerFactory('infant'))
             ],
-            flights: [],
+            order: null,
             buyer: {
                 value: false,
                 mobile: ''
@@ -133,9 +133,6 @@ export default {
     computed: {
         user() {
             return this.$auth.user
-        },
-        available() {
-            return this.$flight.available
         }
     },
 

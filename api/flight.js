@@ -60,7 +60,7 @@ export const flightApi = new class FlightApi extends BaseApi {
         })
     }
 
-    async createOrder({ sessionId, availableId, flightIds, callbackURL }) {
+    createOrder({ sessionId, availableId, flightIds, callbackURL }) {
         return this.axios.$post(`/flight/results/${sessionId}/select`, {
             availableId,
             flightIds,
@@ -68,7 +68,11 @@ export const flightApi = new class FlightApi extends BaseApi {
         })
     }
 
-    async pay(orderId) {
+    pay(orderId) {
         return this.axios.$post(`/order/${orderId}/pay`)
+    }
+
+    getOrder(orderId) {
+        return this.axios.$get(`/order/${orderId}`)
     }
 }
