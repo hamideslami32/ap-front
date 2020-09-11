@@ -22,7 +22,7 @@
         </div>
 
         <risk-free-card tag="Risk Free" tag-color="#45c6d4" />
-        <price-detail />
+        <price-detail :flights="flights" :session="$flight.session" />
 
         <div class="py-5" />
         <div class="py-4" />
@@ -50,12 +50,18 @@ export default {
         PriceDetail
     },
     layout: 'page',
+
+    async fetch() {
+        this.flights = await flightApi.getFlights(this.$flight.session.id, this.available._id, this.$route.query.flights.split(','))
+    },
+    data() {
+        return {
+            flights: []
+        }
+    },
     computed: {
         available() {
             return this.$flight.available
-        },
-        flights() {
-            return this.$route.query.flights.split('-').map((flightIndex, i) => this.available.routes[i].flights[flightIndex])
         }
     },
 
@@ -64,7 +70,8 @@ export default {
             const { order } = await flightApi.createOrder({
                 sessionId: this.$flight.session.id,
                 availableId: this.available._id,
-                flightIds: this.flights.map(fl => fl._id)
+                flightIds: this.flights.map(fl => fl._id),
+                callbackURL: process.env.DOMAIN_URL + this.$router.resolve({ name: 'issue' }).href
             })
             await this.$router.push({
                 path: this.$route.path + '/order',

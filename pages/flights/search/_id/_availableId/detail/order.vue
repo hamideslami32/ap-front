@@ -4,7 +4,7 @@
             <span>مسافرین و خریدار</span>
         </portal>
         <div class="mt-3 px-2">
-            <flight-order-card :available="available" :flight="flights[0]" />
+            <flight-order-card v-if="!$fetchState.pending" :available="available" :flight="flights[0]" />
             <p class="my-3 text-center text-gray-700 text-3">
                 وارد کردن اطلاعات مسافرین
             </p>
@@ -37,13 +37,17 @@
                 </p>
                 <form :class="{ 'buyer-border': buyer.value }" class="buyer p-2 my-3">
                     <div class="buyer__main">
-                        <div class="checkbox bg-gray-500 d-flex px-1 align-items-center" :class="{ 'bg-light-primary': buyer.value }">
+                        <div
+                            class="checkbox bg-gray-500 d-flex px-1 align-items-center"
+                            :class="{ 'bg-light-primary': buyer.value }"
+                        >
                             <b-form-checkbox
                                 id="checkbox"
                                 v-model="buyer.value"
                                 name="checkbox"
                             />
-                            <label class="mr-2 mb-0 text-2 text-weight-500 text-gray-800" for="checkbox">بلیط به ایمیل و شماره همراه فرد دیگری هم ارسال شود</label>
+                            <label class="mr-2 mb-0 text-2 text-weight-500 text-gray-800" for="checkbox">بلیط به ایمیل و
+                                شماره همراه فرد دیگری هم ارسال شود</label>
                         </div>
                         <div v-if="buyer.value" class="form mt-1">
                             <p class="my-3 text-center text-gray-700 text-3">
@@ -97,7 +101,7 @@ const passengerFactory = (type = 'adult') => ({
 export default {
     components: {
         FlightOrderCard,
-        FlightDetailsToast, 
+        FlightDetailsToast,
         PassengerField,
         CustomInput,
         Charity,
@@ -105,8 +109,12 @@ export default {
     },
     layout: 'page',
 
+    async fetch() {
+        this.flights = await flightApi.getFlights(this.$flight.session.id, this.available._id, this.$route.query.flights.split(','))
+    },
+
     data() {
-        const { adult, child, infant } = this.$flight.session
+        const {adult, child, infant} = this.$flight.session
         return {
             nationalPassenger: true,
             passengers: [
@@ -114,6 +122,7 @@ export default {
                 ...new Array(child || 0).fill(1).map(() => passengerFactory('child')),
                 ...new Array(infant || 0).fill(1).map(() => passengerFactory('infant'))
             ],
+            flights: [],
             buyer: {
                 value: false,
                 mobile: ''
@@ -127,32 +136,35 @@ export default {
         },
         available() {
             return this.$flight.available
-        },
-        flights() {
-            return this.$route.query.flights.split('-').map((flightIndex, i) => this.available.routes[i].flights[flightIndex])
         }
     },
 
     methods: {
         async pay() {
-            const { paymentUrl } = await flightApi.pay(this.$route.query.orderId)
-            window.location = paymentUrl
+            try {
+                await this.$auth.authenticate()
+                const {paymentUrl} = await flightApi.pay(this.$route.query.orderId)
+                window.location = paymentUrl
+            } catch (e) {
+
+            }
         }
     }
 }
 </script>
 
 <router>
-    {
-      "meta": {
-         "fullUser": true
-      }
-    }
+{
+"meta": {
+"fullUser": true
+}
+}
 </router>
 
 <style lang="scss" scoped>
 .order {
     padding-bottom: 130px;
+
     .user {
         background: $white;
         border: 1px solid map_get($grays, '400');
@@ -171,18 +183,22 @@ export default {
             left: 7px;
         }
     }
+
     .buyer {
         border: 1px solid transparent;
+
         &__main {
             .checkbox {
                 border-radius: $borderRadius10;
                 height: 50px;
             }
+
             .bg-light-primary {
                 background-color: $pinkColor;
             }
         }
     }
+
     .buyer-border {
         border: 1px solid $borderColor;
         border-radius: $borderRadius10;

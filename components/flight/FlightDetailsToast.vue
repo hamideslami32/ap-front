@@ -4,7 +4,7 @@
             <div class="text-center">
                 <svgicon name="arrow-left" width="20" height="20" />
                 <span>
-                    قیمت برای هر نفر {{ available.totalFare / $flight.passengersCount | separateNumber }} تومان
+                    قیمت برای هر نفر {{ pricePerPassenger | separateNumber }} تومان
                 </span>
             </div>
         </toast-card>
@@ -31,6 +31,9 @@ export default {
     computed: {
         available() {
             return this.$flight.available
+        },
+        pricePerPassenger() {
+            return Math.ceil(this.available.totalFare / this.$flight.passengersCount)
         }
     }
 }
