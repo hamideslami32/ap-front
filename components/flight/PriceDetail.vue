@@ -4,45 +4,53 @@
             جزییات قیمت
         </p>
         <div class="price-detail__prices my-4">
-            <div v-for="(item, i) in priceData" :key="i" class="d-flex justify-content-between mb-3">
+            <div v-for="(item, i) in prices" :key="i" class="d-flex justify-content-between mb-3">
                 <div>
-                    <span class="count d-inline-block px-2 ml-2 text-2 text-weight-500">{{ 'x'+item.count }}</span>
+                    <span class="count d-inline-block px-2 ml-2 text-2 text-weight-500">x{{ item.count }}</span>
                     <span class="text-2">{{ item.title }}</span>
                 </div>
                 <div>
-                    <span class="text-weight-500">{{ item.price }}</span>
+                    <span class="text-weight-500">{{ item.price | separateNumber }}</span>
                     <span class="text-1">تومان</span>
                 </div>
             </div>
         </div>
         <div class="price-detail__btn">
-            <span class="ml-2 text-2 text-weight-500">مبلغ نهایی</span> <span class="text-3 text-weight-500">{{ finalPrice }}</span> <span class="text-1">تومان</span>
+            <span class="ml-2 text-2 text-weight-500">مبلغ نهایی</span> <span class="text-3 text-weight-500">{{ totalPrice | separateNumber }}</span> <span class="text-1">تومان</span>
         </div>
     </div>
 </template>
 <script>
 export default {
     name: 'PriceDetail',
-    data() {
-        return {
-            finalPrice: '145,000,000',
-            priceData: [
-                {
-                    count: 2,
-                    title: 'بزرگسال',
-                    price: '73,500,000'
-                },
-                {
-                    count: 1,
-                    title: 'کودک',
-                    price: '27,000,000'
-                },
-                {
-                    count: 1,
-                    title: 'نوزاد',
-                    price: '31,000,000'
-                }
-            ]
+    props: {
+        flights: {
+            type: Array,
+            required: true
+        },
+        session: {
+            type: Object,
+            required: true
+        }
+    },
+    computed: {
+        prices() {
+            const titles = {
+                adult: 'بزرگسال',
+                child: 'کودک',
+                infant: 'نوزاد'
+            }
+            return ['adult', 'child', 'infant'].map(type => ({
+                count: this.session[type],
+                title: titles[type],
+                price: this.flights.reduce((carry, item) => {
+                    const fare = item.fare[type]
+                    return carry + (fare.price + fare.tax) * this.session[type]
+                }, 0)
+            })).filter(el => el.count)
+        },
+        totalPrice() {
+            return this.prices.reduce((carry, item) => carry + item.price, 0)
         }
     }
 }
@@ -53,7 +61,6 @@ export default {
         background-color: $primary;
         color: $white;
         border-radius: $borderRadius10;
-        height: 250px;
         &__prices {
             .count {
                 border: 1px solid rgba(255, 255, 255, 0.3);

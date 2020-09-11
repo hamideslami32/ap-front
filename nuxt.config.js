@@ -78,7 +78,8 @@ export default {
         baseURL: process.env.API_URL || 'https://apro-dev.ir/api'
     },
     env: {
-        STATIC_URL: process.env.STATIC_URL
+        STATIC_URL: process.env.STATIC_URL,
+        DOMAIN_URL: process.env.DOMAIN_URL
     },
     /*
    ** Content module configuration

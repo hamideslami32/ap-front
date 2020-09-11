@@ -1,7 +1,7 @@
 <template>
     <div class="flight-card" @click="$emit('click', $event)">
         <div class="d-flex align-items-center flight-card__top">
-            <span class="flight-card__price">{{ available.totalFare | separateNumber }}</span>
+            <span class="flight-card__price">{{ Math.floor(available.totalFare / $flight.passengersCount) | separateNumber }}</span>
             <span class="text-weight-400 text-2 mr-1 pb-1 text-gray-700">برای هر نفر (تومان)</span>
         </div>
         <div class="flight-tag">

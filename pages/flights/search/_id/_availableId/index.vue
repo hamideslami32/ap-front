@@ -123,7 +123,7 @@ export default {
                 path: this.$route.path + '/detail',
                 query: {
                     ...this.$route.query,
-                    flights: this.flightTimes.join('-')
+                    flights: this.flightTimes.map((i, routeIndex) => this.available.routes[routeIndex].flights[i]._id).join(',')
                 }
             })
         }

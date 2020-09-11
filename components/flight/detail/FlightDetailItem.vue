@@ -51,8 +51,8 @@
                 {{ stop.departureAirport }}
             </badge>
             <div class="d-flex align-items-center flex-grow-1 px-2 justify-content-between font-en text-weight-500 text-2 text-gray-700">
-                <span class="">{{ stop.departureAirportName.replace(/فرودگاه|بین[\s+‌]المللی/g, '') }}</span>
-                <span class="text-left">{{ stop.arrivalAirportName.replace(/فرودگاه|بین[\s+]المللی/g, '') }}</span>
+                <span class="">{{ (stop.departureAirportName || '').replace(/فرودگاه|بین[\s+‌]المللی/g, '') }}</span>
+                <span class="text-left">{{ (stop.arrivalAirportName || '').replace(/فرودگاه|بین[\s+]المللی/g, '') }}</span>
             </div>
             <badge class="px-3">
                 {{ stop.arrivalAirport }}

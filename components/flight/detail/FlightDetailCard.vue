@@ -14,7 +14,7 @@
                 <svgicon name="bag" class="text-gray-700" width="20" height="20" />
                 <span class="mr-1">بار مجاز : {{ flight.baggage }}</span>
             </div>
-            <div class="detail-card__rule__type">
+            <div v-show="false" class="detail-card__rule__type">
                 <div>قابل استرداد</div>
             </div>
         </div>

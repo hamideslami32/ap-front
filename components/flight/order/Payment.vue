@@ -20,6 +20,7 @@
                             :value="item.value"
                             :name="`radio${i+1}`"
                             class="ml-2"
+                            :disabled="item.disabled"
                         />
                         <label class="mb-0 text-2 text-weight-500 font-en" :class="{ 'green-color': item.value === selectPayment }" :for="`radio${i+1}`">
                             {{ item.title }}
@@ -65,7 +66,8 @@ export default {
                     title: 'اقساطی پرداخت کنید',
                     price: '100,000',
                     description: 'شما می توانید 20 درصد مبلغ را پرداخت و مابقی را یک روز قبل از پرواز پرداخت نمایید',
-                    value: 'partial-payment'
+                    value: 'partial-payment',
+                    disabled: true
                 }
             ]
         }
@@ -121,7 +123,7 @@ export default {
         background-color: #bee16c!important;
     }
     /deep/ .custom-control-label::before {
-        box-shadow: none !important;   
+        box-shadow: none !important;
     }
     /deep/ .custom-control-input ~ .custom-control-label::before {
         background-color: #fff !important;
