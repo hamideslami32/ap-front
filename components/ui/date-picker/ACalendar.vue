@@ -255,7 +255,7 @@ export default {
         align-items: center;
         justify-content: center;
         font-size: 14px;
-        line-height: 1.2em;
+        line-height: 1;
         cursor: pointer;
         border: 1px solid transparent;
         background-color: transparent;

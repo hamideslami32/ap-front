@@ -581,7 +581,7 @@ export default {
         right: 0;
         bottom: 0;
         overflow: auto;
-        padding: 20px 10px;
+        padding: 20px 10px 40px;
         outline: none !important;
         z-index: 0;
 
@@ -626,10 +626,12 @@ export default {
         background-color: #eee;
         display: flex;
         color: #888;
-        padding: 5px 0 5px;
+        padding: 5px 0;
         z-index: 10;
         border-radius: 8px;
         font-size: 0.8em;
+        max-width: 340px;
+        margin: 0 auto;
 
         > span {
             flex: 1;
