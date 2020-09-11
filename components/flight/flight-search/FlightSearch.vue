@@ -13,15 +13,16 @@
                     :jalaali.sync="jalaaliDatepicker"
                     :range.sync="isDatepickerRange"
                 >
-                    <template v-slot:before="{ on, value }">
+                    <template v-slot:before="{ open, value, focus }">
                         <span class="date-input-pair" dir="rtl">
                             <form-input
+                                :class="{ active: focus === 0 }"
                                 :class-name="search.type === 'OW' ? 'one-way' : ''"
                                 label="تاریخ رفت"
                                 :icon="search.type === 'OW' ? 'calendar-schedule': ''"
                                 :value="value[0] ? value[0].format('dddd DD MMMM YY') : null"
                                 readonly
-                                v-on="on"
+                                @click.native="open(0)"
                             />
                             <svgicon
                                 v-if="search.type !== 'OW'"
@@ -32,12 +33,13 @@
                             />
                             <form-input
                                 v-if="search.type !== 'OW'"
+                                :class="{ active: focus === 1 }"
                                 label="تاریخ برگشت"
                                 style="textAlign: left;"
                                 :value="value[1] ? value[1].format('dddd DD MMMM YY') : null"
                                 readonly
                                 data-datepicker="1"
-                                v-on="on"
+                                @click.native="open(1)"
                             />
                         </span>
                     </template>
@@ -177,6 +179,21 @@ export default {
 
         .form-input {
             background: #f9f9f9;
+
+            &.active::before {
+                content: ' ';
+                position: absolute;
+                top: 2px;
+                right: 2px;
+                left: 2px;
+                bottom: 2px;
+                background-color: $pinkColor;
+                border-radius: 3px 8px 8px 3px;
+                z-index: auto;
+            }
+            &.active:last-child::before {
+                border-radius: 8px 3px 3px 8px;
+            }
         }
 
         .pair-icon {

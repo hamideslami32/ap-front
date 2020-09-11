@@ -9,7 +9,7 @@
         ]"
     >
         <h4 class="calendar__month d-flex align-items-center">
-            <span>
+            <span v-if="jalaali">
                 {{ date.format('MMMM') }}
             </span>
             <span class="mx-auto" />

@@ -15,7 +15,7 @@
             width="28"
             height="28"
         />
-        <div>
+        <div class="position-relative">
             <label :class="className" :for="'form_' + _uid"><slot name="label">{{ label }}</slot></label>
             <input
                 :id="'form_' + _uid"

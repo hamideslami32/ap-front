@@ -40,7 +40,7 @@
             </header>
 
             <div v-if="$slots.before || $scopedSlots.before" class="mb-2">
-                <slot name="before" :open="open" :value="value" />
+                <slot name="before" :open="open" :value="value" :focus="focus" />
             </div>
 
             <div
@@ -502,16 +502,10 @@ export default {
     .btn-wrapper {
         min-width: 120px;
         height: 40px;
-        font-weight: 600;
 
         button {
             width: 100%;
             height: 100%;
-            font-weight: 600;
-
-        }
-        span {
-            font-weight: 600;
         }
     }
 
