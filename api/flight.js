@@ -1,6 +1,5 @@
 import {BaseApi} from '~/plugins/api'
 
-
 export const flightApi = new class FlightApi extends BaseApi {
     constructor() {
         super()

@@ -1,5 +1,7 @@
 export class BaseApi {}
 
 export default function(ctx) {
-    BaseApi.prototype.axios = ctx.app.$axios
+    const axios = ctx.app.$axios
+    axios.defaults.headers.common.Timezone = -new Date().getTimezoneOffset()
+    BaseApi.prototype.axios = axios
 }
