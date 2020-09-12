@@ -62,6 +62,23 @@ class Flight {
         return ['adult', 'child', 'infant'].reduce((carry, item) => carry + (fare[item].price + fare[item].tax) * this.session[item], 0)
     }
 
+    similarFlightsCount(available) {
+        const { routes, totalFare } = available
+        if (routes.length === 1) {
+            return routes[0].flights.length - 1
+        }
+        if (routes.length === 2) {
+            let count = 0
+            routes[0].flights.forEach(f1 => {
+                routes[1].flights.forEach(f2 => {
+                    count += this.flightPrice(f1) + this.flightPrice(f2) === totalFare ? 1 : 0
+                })
+            })
+            return count - 1
+        }
+        return 0
+    }
+
     airlineLogoUrl(iata) {
         return Vue.prototype.$staticUrl(`/ad/airlines/logo/${iata}.png`)
     }

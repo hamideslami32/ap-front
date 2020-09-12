@@ -17,10 +17,10 @@
             />
         </div>
         <div class="clearfix">
-            <div v-if="similarFlightsCount" class="alternative-holder">
+            <div v-if="available.similarFlightsCount > 0" class="alternative-holder">
                 <div class="alternative">
                     <div class="shape" />
-                    <span>{{ similarFlightsCount }} پرواز مشابه</span>
+                    <span>{{ available.similarFlightsCount }} پرواز مشابه</span>
                 </div>
             </div>
             <div class="float-left d-flex align-items-center">
@@ -44,24 +44,6 @@ export default {
         available: {
             type: Object,
             required: true
-        }
-    },
-    computed: {
-        similarFlightsCount() {
-            const { routes, totalFare } = this.available
-            if (routes.length === 1) {
-                return routes[0].flights.length - 1
-            }
-            if (routes.length === 2) {
-                let count = 0
-                routes[0].flights.forEach(f1 => {
-                    routes[1].flights.forEach(f2 => {
-                        count += this.$flight.flightPrice(f1) + this.$flight.flightPrice(f2) === totalFare ? 1 : 0
-                    })
-                })
-                return count - 1
-            }
-            return 0
         }
     }
 }

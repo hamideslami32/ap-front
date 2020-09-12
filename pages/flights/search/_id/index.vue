@@ -240,6 +240,12 @@ export default {
                 airlines: airlines.length ? airlines : undefined,
                 offset,
                 limit
+            }).then(res => {
+                res.results = res.results.filter(result => {
+                    result.similarFlightsCount = this.$flight.similarFlightsCount(result)
+                    return result.similarFlightsCount > 0
+                })
+                return res
             })
         },
         cancelPolling() {
