@@ -12,7 +12,10 @@
             <span class="text-gray-900 text-weight-500">{{ $flight.session.routes[0].destination.city | translate }}</span>
         </div>
 
-        <template v-if="!$fetchState.pending && !$fetchState.error">
+        <template v-if="$fetchState.pending">
+            <flight-placeholder v-for="i in 3" :key="i" />
+        </template>
+        <template v-else-if="!$fetchState.error">
             <div class="d-flex align-items-center justify-content-center text-2 text-gray-800 mb-3">
                 <span>{{ $dayjs($flight.session.routes[0].date).format('dddd D MMMM YY') }}</span>
                 <span class="px-1">-</span>
@@ -80,6 +83,9 @@
                 </b-button>
             </flight-details-toast>
         </template>
+        <template v-else>
+            <p>خطایی رخ داده است.</p>
+        </template>
     </div>
 </template>
 
@@ -89,9 +95,11 @@ import RiskFreeCard from '~/components/flight/detail/RiskFreeCard'
 import PriceDetail from '~/components/flight/PriceDetail'
 import FlightDetailsToast from '~/components/flight/FlightDetailsToast'
 import {flightApi} from '~/api/flight'
+import FlightPlaceholder from '~/components/flight/available/FlightPlaceholder'
 
 export default {
     components: {
+        FlightPlaceholder,
         FlightDetailsToast,
         FlightDetailCard,
         RiskFreeCard,
