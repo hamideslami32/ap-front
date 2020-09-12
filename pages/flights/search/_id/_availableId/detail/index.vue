@@ -29,7 +29,7 @@
                     </template>
                 </span>
                 <span class="px-1">-</span>
-                <span class="font-en text-weight-500">Economy(H)</span>
+                <span class="font-en text-weight-500 text-capitalize">{{ flights[0].flightClass }} ({{ flights[0].priceClass }})</span>
             </div>
 
             <div class="flight-detail__card-holder mt-3 mb-3">

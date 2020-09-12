@@ -243,7 +243,7 @@ export default {
             }).then(res => {
                 res.results = res.results.filter(result => {
                     result.similarFlightsCount = this.$flight.similarFlightsCount(result)
-                    return result.similarFlightsCount > 0
+                    return result.similarFlightsCount >= 0
                 })
                 return res
             })
