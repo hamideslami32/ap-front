@@ -1,5 +1,5 @@
 <template>
-    <b-row class="ticket ticket-fa font-en" no-gutters>
+    <b-row class="ticket ticket--fa font-en" no-gutters>
         <b-col cols="9" class="p-3 ticket__destination d-flex align-items-center">
             <div class="ticket__destination__arrow text-1">
                 <span class="d-block mx-auto" />
@@ -164,15 +164,14 @@ export default {
             }
         }
     }
-}
-.ticket-fa {
-    direction: 'rtl';
-    .ticket-info {
-        border-left: none;
-        border-right: 1px dashed rgba(255, 255, 255, 0.2);
-    }
-    .flight-type {
-        text-align: right;
+    &.ticket--fa {
+        .ticket__info {
+            border-left: none;
+            border-right: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+        .flight-type {
+            text-align: right;
+        }
     }
 }
 
