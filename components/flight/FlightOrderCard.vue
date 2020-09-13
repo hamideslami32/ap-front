@@ -1,5 +1,5 @@
 <template>
-    <b-row dir="ltr" class="ticket font-en" no-gutters>
+    <b-row class="ticket ticket-fa font-en" no-gutters>
         <b-col cols="9" class="p-3 ticket__destination d-flex align-items-center">
             <div class="ticket__destination__arrow text-1">
                 <span class="d-block mx-auto" />
@@ -9,22 +9,22 @@
             <div class="ticket__destination__info flex-grow-1 text-left px-2">
                 <div class="d-flex align-items-center text-weight-500">
                     <span class="text-2 py-1 px-2">{{ $dayjs(firstStop.departureTime).format('HH:mm') }}</span>
-                    <span class="text-3 ml-2">{{ firstStop.departureCityName }}</span>
+                    <span class="text-3 mx-2">{{ firstStop.departureCityName }}</span>
                     <span class="text-2 text-weight-400 ml-2 pt-1">{{ $dayjs(firstStop.departureTime).calendar('gregory').locale('en').format('D MMM YYYY') }}</span>
                 </div>
 
-                <p class="my-2 text-secondary text-weight-500 text-1">
+                <p class="flight-type my-2 text-secondary text-weight-500 text-1">
                     {{ order.flights.length === 2 ? 'Round Trip' : 'One Way' }}
                 </p>
 
                 <div class="d-flex align-items-center text-weight-500">
                     <span class="text-2 py-1 px-2">{{ $dayjs(lastStop.arrivalTime).format('HH:mm') }}</span>
-                    <span class="text-3 ml-2">{{ lastStop.arrivalCityName }}</span>
+                    <span class="text-3 mx-2">{{ lastStop.arrivalCityName }}</span>
                     <span class="text-2 text-weight-400 ml-2 pt-1">{{ $dayjs(lastStop.arrivalTime).calendar('gregory').locale('en').format('D MMM YYYY') }}</span>
                 </div>
             </div>
         </b-col>
-        <b-col cols="3" class="p-3 ticket__info  text-center">
+        <b-col cols="3" class="p-3 ticket__info text-center">
             <div class="">
                 <div class="mb-2">
                     <img
@@ -52,16 +52,20 @@
 
 <script>
 import flattenDeep from 'lodash/flattenDeep'
+import flightSearchMixin from '~/components/flight/flight-search/flightSearchMixin'
 
 export default {
+    mixin: [flightSearchMixin],
     props: {
         order: {
             type: Object,
             required: true
         }
     },
-
     computed: {
+        direction() {
+            return 'rtl'
+        },
         flight() {
             return this.order.flights[0]
         },
@@ -96,7 +100,6 @@ export default {
     color: $white;
 
     &__info {
-
         border-left: 1px dashed rgba(255, 255, 255, 0.2);
 
         &__class-type {
@@ -162,4 +165,15 @@ export default {
         }
     }
 }
+.ticket-fa {
+    direction: 'rtl';
+    .ticket-info {
+        border-left: none;
+        border-right: 1px dashed rgba(255, 255, 255, 0.2);
+    }
+    .flight-type {
+        text-align: right;
+    }
+}
+
 </style>
