@@ -12,21 +12,21 @@
             <passenger-field v-for="(passenger, i) in passengers" :key="i" v-model="passengers[i]" :index="i + 1" />
 
 
-            <template v-if="$auth.user">
+            <template v-if="user">
                 <p class="my-3 text-center text-gray-700 text-3">
                     اطلاعات خریدار
                 </p>
 
                 <div class="user p-3 d-flex align-items-center justify-content-between">
-                    <span class="text-3 text-gray-900 text-weight-600 pr-3">
-                        {{ $auth.user.firstName + ' ' + $auth.user.lastName }}
+                    <span class="text-3 text-gray-900 text-weight-600 pr-1">
+                        {{ user.firstName + ' ' + user.lastName }}
                     </span>
                     <div class="user__contact text-left text-2 text-weight-500 text-gray-700">
                         <p class="mb-1">
-                            {{ $auth.user.email }}
+                            {{ user.email }}
                         </p>
                         <p class="mb-0">
-                            {{ $auth.user.phone }}
+                            {{ user.phone }}
                         </p>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                                 v-model="buyer.value"
                                 name="checkbox"
                             />
-                            <label class="mr-2 mb-0 text-2 text-weight-500 text-gray-800" for="checkbox">بلیط به ایمیل و
+                            <label class="mr-2 mb-0 text-2 text-weight-500 text-gray-800" for="checkbox">بلیط به 
                                 شماره همراه فرد دیگری هم ارسال شود</label>
                         </div>
                         <div v-if="buyer.value" class="form mt-1">
