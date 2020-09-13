@@ -90,7 +90,7 @@ import FlightPlaceholder from '~/components/flight/available/FlightPlaceholder'
 
 
 const passengerFactory = (type = 'adult') => ({
-    name: '',
+    name: null,
     type,
     lastName: null,
     gender: null,
@@ -137,13 +137,23 @@ export default {
     computed: {
         user() {
             return this.$auth.user
+        },
+        isValid() {
+            const keys = ['birthdate','gender', 'lastName', 'name']
+            return this.passengers.every((item, i) => keys.every(key => item[key] != null) && Boolean(item.nationalCode || (item.passportCode && item.passportCity && item.passportDate)))
         }
-
     },
 
     methods: {
         async pay() {
             try {
+                if(!this.isValid) {
+                    this.$toast.alert(this.$createElement('span', {}, 'مسافرین را وارد کنید'), {
+                        solid: false,
+                        autoHideDelay: 10000
+                    })
+                    return
+                }
                 await this.$auth.authenticate()
                 const {paymentUrl} = await flightApi.pay(this.$route.query.orderId)
                 window.location = paymentUrl
