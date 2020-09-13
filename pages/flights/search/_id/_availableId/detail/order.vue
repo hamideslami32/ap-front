@@ -5,6 +5,7 @@
         </portal>
         <div class="mt-3 px-2">
             <flight-order-card v-if="order" :order="order.orderItems[0]" />
+            <flight-placeholder v-else />
             <p class="my-3 text-center text-gray-700 text-3">
                 وارد کردن اطلاعات مسافرین
             </p>
@@ -46,7 +47,7 @@
                                 v-model="buyer.value"
                                 name="checkbox"
                             />
-                            <label class="mr-2 mb-0 text-2 text-weight-500 text-gray-800" for="checkbox">بلیط به 
+                            <label class="mr-2 mb-0 text-2 text-weight-500 text-gray-800" for="checkbox">بلیط به
                                 شماره همراه فرد دیگری هم ارسال شود</label>
                         </div>
                         <div v-if="buyer.value" class="form mt-1">
@@ -65,7 +66,7 @@
                 </form>
             </template>
             <charity tag="Charity" tag-color="#e3469a" class="my-3" />
-            <payment tag="Payment" tag-color="#bee16c" />
+            <payment tag="Payment" tag-color="#bee16c" :price="order ? order.orderItems[0].price : 0" />
         </div>
 
         <flight-details-toast>
@@ -85,6 +86,8 @@ import Payment from '~/components/flight/order/Payment'
 import FlightDetailsToast from '~/components/flight/FlightDetailsToast'
 import FlightOrderCard from '~/components/flight/FlightOrderCard'
 import {flightApi} from '~/api/flight'
+import FlightPlaceholder from '~/components/flight/available/FlightPlaceholder'
+
 
 const passengerFactory = (type = 'adult') => ({
     name: '',
@@ -105,7 +108,8 @@ export default {
         PassengerField,
         CustomInput,
         Charity,
-        Payment
+        Payment,
+        FlightPlaceholder
     },
     layout: 'page',
 
@@ -151,55 +155,55 @@ export default {
 </script>
 
 <router>
-{
-"meta": {
-"fullUser": true
-}
-}
+    {
+    "meta": {
+    "fullUser": true
+    }
+    }
 </router>
 
 <style lang="scss" scoped>
-.order {
-    padding-bottom: 130px;
+    .order {
+        padding-bottom: 130px;
 
-    .user {
-        background: $white;
-        border: 1px solid map_get($grays, '400');
-        border-radius: 10px;
-        position: relative;
-        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+        .user {
+            background: $white;
+            border: 1px solid map_get($grays, '400');
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
 
-        &:after {
-            width: 6px;
-            height: 6px;
-            background: #bee16c;
-            border-radius: 50%;
-            position: absolute;
-            content: '';
-            top: 7px;
-            left: 7px;
-        }
-    }
-
-    .buyer {
-        border: 1px solid transparent;
-
-        &__main {
-            .checkbox {
-                border-radius: $borderRadius10;
-                height: 50px;
-            }
-
-            .bg-light-primary {
-                background-color: $pinkColor;
+            &:after {
+                width: 6px;
+                height: 6px;
+                background: #bee16c;
+                border-radius: 50%;
+                position: absolute;
+                content: '';
+                top: 7px;
+                left: 7px;
             }
         }
-    }
 
-    .buyer-border {
-        border: 1px solid $borderColor;
-        border-radius: $borderRadius10;
-        box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
+        .buyer {
+            border: 1px solid transparent;
+
+            &__main {
+                .checkbox {
+                    border-radius: $borderRadius10;
+                    height: 50px;
+                }
+
+                .bg-light-primary {
+                    background-color: $pinkColor;
+                }
+            }
+        }
+
+        .buyer-border {
+            border: 1px solid $borderColor;
+            border-radius: $borderRadius10;
+            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
+        }
     }
-}
 </style>

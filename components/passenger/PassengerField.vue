@@ -18,7 +18,7 @@
         />
         <svgicon
             v-else
-            name="user"
+            name="plus"
             class="text-gray-700 mr-2"
             width="24"
             height="24"

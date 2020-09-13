@@ -1,6 +1,6 @@
 <template>
     <div class="destination-input" @click="inputFocus">
-        <label v-if="title" class="destination-input__title text-2">
+        <label v-if="title" class="destination-input__title text-3">
             {{ title }}
         </label>
         <input

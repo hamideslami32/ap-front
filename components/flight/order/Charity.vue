@@ -25,7 +25,6 @@
                         {{ item.title }}
                     </label>
                 </div>
-                <svgicon :name="item.icon" class="text-gray-700" width="25" height="25" />
             </div>
         </form>
     </card-with-tag>

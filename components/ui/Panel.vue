@@ -7,7 +7,7 @@
                     {{ title }}
                 </slot>
             </span>
-            <svgicon class="panel__chevron" name="arrow-left" />
+            <svgicon class="panel__chevron" width="30" height="30" name="arrow-down" />
         </a>
         <b-collapse v-model="show" :accordion="accordion">
             <div class="px-2 pb-3" :class="bodyClass">
@@ -68,14 +68,13 @@ export default {
 
             &.show {
                 .panel__chevron {
-                    transform: rotate(-90deg);
+                    transform: rotate(180deg);
                 }
             }
         }
 
         &__chevron {
             float: left;
-            margin: 3px 0;
             transition: all ease 150ms;
         }
     }
