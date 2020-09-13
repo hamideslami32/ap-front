@@ -138,6 +138,7 @@ export default {
         user() {
             return this.$auth.user
         }
+
     },
 
     methods: {
