@@ -150,7 +150,7 @@ export default {
         },
 
         validate() {
-            const {origin, destination, departing, adult} = this.search
+            const {origin, destination, departing, adult, type, returning} = this.search
             if (!origin) {
                 throw new Error('لطفا مبدا را مشخص نمایید')
             }
@@ -163,6 +163,10 @@ export default {
             if (!adult) {
                 throw new Error('تعداد بزرگسال باید بیشتر از ۱ باشد')
             }
+            if (type === 'RT' && !returning) {
+                throw new Error('لطفا تاریخ برگشت را مشخص نمایید')
+            }
+
         },
 
         getLastSearch() {
