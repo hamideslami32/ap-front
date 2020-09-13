@@ -1,7 +1,7 @@
 <template>
     <div class="detail-item">
         <div class="detail-item__airplane">
-            <span class="font-en">{{ stop.aircraft }}</span>
+            <span class="font-en text-center">{{ stop.aircraft }}</span>
             <span class="pl-2">|</span>
             <span>شماره پرواز: {{ stop.flightNumber }}</span>
             <span class="flex-grow-1" />
@@ -21,10 +21,10 @@
         </div>
         <div class="detail-item__time d-flex align-items-center justify-content-between mt-3 mb-2">
             <div class="detail-item__time__holder">
-                <p class="text-weight-600 text-gray-900 mb-0 py-1">
+                <p class="text-weight-600 text-gray-900 mb-0 py-1 text-3">
                     {{ departureTime.format('HH:mm') }}
                 </p>
-                <p class="font-en text-1 text-gray-800 text-weight-500 mb-0 py-1" dir="ltr">
+                <p class="font-en text-2 text-gray-800 text-weight-500 mb-0 py-1" dir="ltr">
                     {{ departureTime.calendar('gregory').locale('en').format('DD MMM').toUpperCase() }}
                 </p>
             </div>
@@ -32,16 +32,16 @@
                 <div class="detail-item__time__route px-3">
                     <span class="text-2 text-weight-500 font-en text-gray-700">{{ stop.duration | duration }}</span>
                 </div>
-                <div class="text-1 text-gray-800 text-weight-500 mt-4 d-flex align-items-center justify-content-between">
+                <div class="text-2 text-gray-800 text-weight-500 mt-4 d-flex align-items-center justify-content-between">
                     <span>{{ departureTime.format('D MMMM YY') }}</span>
                     <span>{{ arrivalTime.format('D MMMM YY') }}</span>
                 </div>
             </div>
             <div class="detail-item__time__holder">
-                <p class="text-weight-600 text-gray-900 mb-0 py-1">
+                <p class="text-weight-600 text-gray-900 mb-0 py-1 text-3">
                     {{ arrivalTime.format('HH:mm') }}
                 </p>
-                <p class="font-en text-1 text-gray-800 text-weight-500 mb-0 py-1" dir="ltr">
+                <p class="font-en text-2 text-gray-800 text-weight-500 mb-0 py-1" dir="ltr">
                     {{ arrivalTime.calendar('gregory').locale('en').format('DD MMM').toUpperCase() }}
                 </p>
             </div>
@@ -123,12 +123,12 @@ export default {
             color: map_get($grays, '800');
             font-size: 0.625rem;
             background: map_get($grays, '200');
-            padding: 5px 10px;
+            padding: 5px;
             border-radius: 8px;
             border: 1px solid map_get($grays, '500');
 
             >span:first-child {
-                width: 40px;
+                width: 46px;
             }
         }
 

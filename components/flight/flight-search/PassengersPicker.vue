@@ -11,9 +11,8 @@
                 </p>
                 <div class="d-flex passenger-section-holder align-items-center mb-3">
                     <div class="passenger-section d-flex">
-                        <div class="icon ml-2" style="width: 40px; height: 40px; background: gray;" />
-                        <div class="d-flex flex-column">
-                            <span class="passenger-section__name">بزرگسال</span>
+                        <div class="d-flex align-items-center">
+                            <span class="ml-2 passenger-section__name">بزرگسال</span>
                             <small class="passenger-section__tip text-muted">(12 سال به بالا)</small>
                         </div>
                     </div>
@@ -21,9 +20,8 @@
                 </div>
                 <div class="d-flex align-items-center mb-3">
                     <div class="passenger-section d-flex">
-                        <div class="icon ml-2" style="width: 40px; height: 40px; background: gray;" />
-                        <div class="d-flex flex-column">
-                            <span class="passenger-section__name">کودک</span>
+                        <div class="d-flex align-items-center">
+                            <span class="ml-2 passenger-section__name">کودک</span>
                             <small class="text-muted">(2 سال تا 12 سال)</small>
                         </div>
                     </div>
@@ -31,9 +29,8 @@
                 </div>
                 <div class="d-flex align-items-center mb-3">
                     <div class="passenger-section d-flex">
-                        <div class="icon ml-2" style="width: 40px; height: 40px; background: gray;" />
-                        <div class="d-flex flex-column">
-                            <span class="passenger-section__name">نوزاد</span>
+                        <div class="d-flex align-items-center">
+                            <span class="ml-2 passenger-section__name">نوزاد</span>
                             <small class="text-muted">(10 روز تا 2 سال)</small>
                         </div>
                     </div>

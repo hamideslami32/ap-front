@@ -8,7 +8,9 @@
         </portal>
         <div class="d-flex align-items-center justify-content-center mb-2">
             <span class="text-gray-900 text-weight-500">{{ $flight.session.routes[0].origin.city | translate }}</span>
-            <span class="mx-3">-</span>
+            <gradient-wrapper class="mx-2">
+                <svgicon class="position-relative d-block icon-detail" name="single-arrow" width="30" height="20" />
+            </gradient-wrapper>
             <span class="text-gray-900 text-weight-500">{{ $flight.session.routes[0].destination.city | translate }}</span>
         </div>
 
@@ -96,9 +98,11 @@ import PriceDetail from '~/components/flight/PriceDetail'
 import FlightDetailsToast from '~/components/flight/FlightDetailsToast'
 import {flightApi} from '~/api/flight'
 import FlightPlaceholder from '~/components/flight/available/FlightPlaceholder'
+import GradientWrapper from '~/components/ui/GradientWrapper'
 
 export default {
     components: {
+        GradientWrapper,
         FlightPlaceholder,
         FlightDetailsToast,
         FlightDetailCard,
@@ -142,5 +146,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+    .icon-detail {
+        z-index: 1;
+        background: map_get($grays, '500');
+        border-radius: 5px;
+        color: $secondary;
+    }
 </style>

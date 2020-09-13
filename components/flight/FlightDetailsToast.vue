@@ -1,9 +1,9 @@
 <template>
     <span v-if="available">
         <toast-card variant="light">
-            <div class="text-center">
+            <div class="text-center d-flex align-items-center justify-content-center">
                 <svgicon name="money" width="20" height="20" />
-                <span class="mr-2">
+                <span class="mr-2 text-2">
                     قیمت برای هر نفر {{ pricePerPassenger | separateNumber }} تومان
                 </span>
             </div>
@@ -11,7 +11,7 @@
         <toast-card>
             <div class="d-flex align-items-center justify-content-between p-1">
                 <div>
-                    <p class="mb-2">
+                    <p class="mb-2 text-3">
                         مجموع قیمت برای {{ $flight.passengersCount }} نفر
                     </p>
                     <p class="mb-0 text-4">

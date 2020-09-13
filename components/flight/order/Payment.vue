@@ -11,25 +11,43 @@
             </div>
         </div>
         <b-form-group class="payment-card__options text-2 mt-4">
-            <div v-for="(item, i) in options" :key="i" class="item mb-2 px-2">
+            <div class="item mb-2 px-2">
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="d-flex align-items-center">
                         <b-form-radio
-                            :id="`radio${i+1}`"
+                            :id="`radio-1`"
                             v-model="selectPayment"
-                            :value="item.value"
-                            :name="`radio${i+1}`"
+                            value="cash"
+                            :name="`radio-1`"
                             class="ml-2"
-                            :disabled="item.disabled"
                         />
-                        <label class="mb-0 text-2 text-weight-500 font-en" :class="{ 'green-color': item.value === selectPayment }" :for="`radio${i+1}`">
-                            {{ item.title }}
+                        <label class="mb-0 text-2 text-weight-500">
+                            مبلغ کامل را پرداخت نمایید
                         </label>
                     </div>
-                    <span class="text-3 text-gray-900">{{ item.price }}<span class="text-1 text-gray-800 mr-1">تومان</span></span>
+                    <span class="text-3 text-gray-900">{{ price | separateNumber }}<span class="text-1 text-gray-800 mr-1">تومان</span></span>
                 </div>
-                <div v-if="item.description" class="text-2 text-gray-800 text-center mt-3">
-                    {{ item.description }}
+            </div>
+
+            <div class="item mb-2 px-2 disabled__item">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <b-form-radio
+                            :id="`radio-2`"
+                            v-model="selectPayment"
+                            value="partial"
+                            :name="`radio-2`"
+                            class="ml-2"
+                            :disabled="true"
+                        />
+                        <label class="mb-0 text-2 text-weight-500">
+                            اقساطی پرداخت کنید
+                        </label>
+                    </div>
+                    <span class="text-3 text-gray-900">{{ Math.floor(price * 0.2) | separateNumber }}<span class="text-1 text-gray-800 mr-1">تومان</span></span>
+                </div>
+                <div class="text-2 text-gray-800 text-center mt-3">
+                    شما می توانید 20 درصد مبلغ را پرداخت و مابقی را یک روز قبل از پرواز پرداخت نمایید
                 </div>
             </div>
         </b-form-group>
@@ -53,28 +71,14 @@ export default {
             type: String,
             required: true
         },
-        options: {
-            type: Array,
-            default: () => [
-                {
-                    title: 'مبلغ کامل را پرداخت نمایید',
-                    price: '100,000',
-                    description: '',
-                    value: 'full-payment'
-                },
-                {
-                    title: 'اقساطی پرداخت کنید',
-                    price: '100,000',
-                    description: 'شما می توانید 20 درصد مبلغ را پرداخت و مابقی را یک روز قبل از پرواز پرداخت نمایید',
-                    value: 'partial-payment',
-                    disabled: true
-                }
-            ]
+        price: {
+            type: Number,
+            required: true
         }
     },
     data() {
         return {
-            selectPayment: ''
+            selectPayment: 'cash'
         }
     }
 }
@@ -105,6 +109,11 @@ export default {
         border-radius: $borderRadius10;
     }
     .payment-card__options {
+        .disabled__item {
+            opacity: 0.4;
+        }
+
+
         .item {
             height: 50px;
         }
@@ -112,9 +121,6 @@ export default {
             & > div:first-of-type {
                 border-bottom: 1px solid #ddd;
             }
-        }
-        .green-color {
-            color: #bee16c;
         }
     }
 
