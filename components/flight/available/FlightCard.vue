@@ -5,7 +5,9 @@
             <span class="text-weight-400 text-2 mr-1 pb-1 text-gray-700">برای هر نفر (تومان)</span>
         </div>
         <div class="flight-tag">
-            <span>ارزان ترین</span>
+            <curve-badge color="#e3469a">
+                Risk Free
+            </curve-badge>
         </div>
         <div class="flight-card__items">
             <flight-item
@@ -36,10 +38,13 @@
 
 <script>
 import FlightItem from '~/components/flight/available/FlightItem'
+import CurveBadge from '~/components/ui/CurveBadge'
+
 
 export default {
     components: {
-        FlightItem
+        FlightItem,
+        CurveBadge
     },
     props: {
         available: {
@@ -57,7 +62,7 @@ export default {
         padding: 15px 10px 10px;
         font-weight: 600;
         position: relative;
-        box-shadow: 0 3px 8px rgba($black, 0.1);
+        box-shadow: 0 8px 8px rgba($black, 0.1);
 
 
         &__top {
@@ -145,22 +150,19 @@ export default {
         .flight-tag {
             position: absolute;
             left: 20px;
-            top: -1px;
+            top: 0px;
             height: 24px;
             width: 80px;
-            background: map_get($grays, '200');
-            border: 1px solid #dddddd;
-            border-top-color: $body-bg;
-            border-bottom-left-radius: 12px 20px;
-            border-bottom-right-radius: 12px 20px;
+            // background: map_get($grays, '200');
+            // border: 1px solid #dddddd;
+            // border-top-color: $body-bg;
+            // border-bottom-left-radius: 12px 20px;
+            // border-bottom-right-radius: 12px 20px;
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            span {
-                font-size: 0.6em;
-                color: $secondary;
-            }
+            
         }
     }
 </style>
