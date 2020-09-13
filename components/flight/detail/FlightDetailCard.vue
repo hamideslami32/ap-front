@@ -20,8 +20,8 @@
         </div>
 
         <div class="detail-card__tag" @click="flightRuleModal = true">
-            <curve-badge color="#49238c" :bottom="true" width="150px">
-                قوانین ویزا
+            <curve-badge color="#49238c" :bottom="true" :width="180">
+                <span class="text-nowrap">قوانین استرداد / ویزا</span>
             </curve-badge>
         </div>
 

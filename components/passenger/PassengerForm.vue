@@ -28,13 +28,23 @@
         </b-form-group>
         <template v-if="!passport">
             <custom-input v-model="localValue.nationalCode" title="کد ملی" />
-            <custom-input v-model="localValue.birthdate" title="تاریخ تولد" />
         </template>
         <template v-else>
             <custom-input v-model="localValue.passportCode" title="شماره پاسپورت" />
             <custom-input v-model="localValue.passportDate" title="تاریخ انقضای پاسپورت" />
             <b-form-select v-model="localValue.passportCity" :options="options" />
         </template>
+        <b-row dir="ltr" no-gutters>
+            <b-col>
+                <custom-input v-model="birthdate.year" title="سال تولد" inputmode="numeric" pattern="[0-9]*" />
+            </b-col>
+            <b-col class="mx-1">
+                <custom-input v-model="birthdate.month" title="ماه تولد" />
+            </b-col>
+            <b-col>
+                <custom-input v-model="birthdate.day" title="روز تولد" inputmode="numeric" pattern="[0-9]*" />
+            </b-col>
+        </b-row>
         <a-btn variant="primary" class="submit-btn" type="submit">
             ثبت
         </a-btn>
@@ -59,10 +69,16 @@ export default {
         }
     },
     data() {
+        const m = this.$dayjs(this.value.birthdate).calendar('jalali')
         return {
             gender: 'male',
             country: null,
             localValue: cloneDeep(this.value),
+            birthdate: {
+                day: m.date() || null,
+                month: m.month() || null,
+                year: m.year() || null
+            },
             options: [
                 {value: null, text: 'کشور صادر کننده پاسپورت'},
                 {value: 'هلند', text: 'هلند'},
@@ -75,6 +91,8 @@ export default {
     },
     methods: {
         submit() {
+            const b = this.birthdate
+            this.localValue.birthdate = this.$dayjs(`${b.year}/${b.month}/${b.day}`, { jalali: true }).calendar('gregory').format()
             this.$emit('input', this.localValue)
             this.$emit('close')
         }
@@ -84,7 +102,8 @@ export default {
 
 <style lang="scss" scoped>
     .passenger-form {
-        padding: 0 40px;
+        max-width: 280px;
+        margin: 0 auto;
 
         .btn-wrapper {
             width: 100%;

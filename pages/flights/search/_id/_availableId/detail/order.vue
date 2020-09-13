@@ -12,7 +12,6 @@
 
             <passenger-field v-for="(passenger, i) in passengers" :key="i" v-model="passengers[i]" :index="i + 1" />
 
-
             <template v-if="user">
                 <p class="my-3 text-center text-gray-700 text-3">
                     اطلاعات خریدار

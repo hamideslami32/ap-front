@@ -1,5 +1,5 @@
 <template>
-    <b-container v-if="!$fetchState.pending" class="text-center">
+    <b-container v-if="!$fetchState.pending && order" class="text-center">
         <div v-if="order.status === 'paid'">
             <span class="circle-btn mx-auto mt-5 mb-4">
                 <svgicon width="32" height="32" name="plane-takeoff" />
@@ -110,7 +110,7 @@ export default {
         &__icon-holder {
             background: $secondary;
             color: $white;
-            
+
         }
     }
 </style>

@@ -5,13 +5,13 @@
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            :width="width"
+            width="110px"
             height="25px"
             x="0px"
             y="0px"
             :class="{ 'rotate': bottom }"
             viewBox="0 0 110 25"
-            style="enable-background: new 0 0 110 25;"
+            :style="{ transform: `scaleX(${width / 110}) ${bottom ? ' rotate(180deg)' : ''}` }"
             xml:space="preserve"
         >
             <g>
@@ -30,7 +30,7 @@
                 />
             </g>
         </svg>
-        
+
         <span :style="`color: ${color}`">
             <slot />
         </span>
@@ -46,8 +46,8 @@ export default {
             required: true
         },
         width: {
-            type: String,
-            default: '110px'
+            type: Number,
+            default: 110
         },
         bottom: {
             type: Boolean,
@@ -61,7 +61,7 @@ export default {
     .curve-badge {
         position: relative;
 
-        span {
+        > span {
             position: absolute;
             left: 50%;
             top: 50%;
