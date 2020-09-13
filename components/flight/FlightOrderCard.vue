@@ -10,7 +10,7 @@
                 <div class="d-flex align-items-center text-weight-500">
                     <span class="text-2 py-1 px-2">{{ $dayjs(firstStop.departureTime).format('HH:mm') }}</span>
                     <span class="text-3 ml-2">{{ firstStop.departureCityName }}</span>
-                    <span class="text-2 text-weight-400 ml-2 pt-1">{{ $dayjs(firstStop.departureTime).calendar('gregory').locale('en').format('D MMMM YYYY') }}</span>
+                    <span class="text-2 text-weight-400 ml-2 pt-1">{{ $dayjs(firstStop.departureTime).calendar('gregory').locale('en').format('D MMM YYYY') }}</span>
                 </div>
 
                 <p class="my-2 text-secondary text-weight-500 text-1">
@@ -20,7 +20,7 @@
                 <div class="d-flex align-items-center text-weight-500">
                     <span class="text-2 py-1 px-2">{{ $dayjs(lastStop.arrivalTime).format('HH:mm') }}</span>
                     <span class="text-3 ml-2">{{ lastStop.arrivalCityName }}</span>
-                    <span class="text-2 text-weight-400 ml-2 pt-1">{{ $dayjs(lastStop.arrivalTime).calendar('gregory').locale('en').format('D MMMM YYYY') }}</span>
+                    <span class="text-2 text-weight-400 ml-2 pt-1">{{ $dayjs(lastStop.arrivalTime).calendar('gregory').locale('en').format('D MMM YYYY') }}</span>
                 </div>
             </div>
         </b-col>
