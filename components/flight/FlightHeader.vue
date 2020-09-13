@@ -29,12 +29,12 @@
                 :range.sync="isDatepickerRange"
                 @input="updateSearch"
             >
-                <template v-slot="{ open, value, on }">
+                <template v-slot="{ open, value }">
                     <input
                         type="text"
                         :value="value[0] ? value[0].format('DD MMMM') : null"
                         readonly
-                        v-on="on"
+                        @click="open(0)"
                     >
                     <input
                         v-if="search.type === 'RT'"
@@ -42,7 +42,7 @@
                         :value="value[1] ? value[1].format('DD MMMM') : null"
                         data-datepicker="1"
                         readonly
-                        v-on="on"
+                        @click="open(1)"
                     >
                 </template>
             </a-datepicker>

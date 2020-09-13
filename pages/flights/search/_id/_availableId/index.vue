@@ -101,8 +101,12 @@ export default {
 
     data() {
         const { available } = this.$flight
+        const similarFlightsCount = available ? this.$flight.similarFlightsCount(available) : 0
         return {
-            flightTimes: new Array(available ? available.routes.length : 1).fill(null)
+            flightTimes: new Array(available ? available.routes.length : 1).fill(null).map((el, i) => {
+                if (similarFlightsCount > 0) return null
+                return 0
+            })
         }
     },
     computed: {
@@ -185,7 +189,7 @@ export default {
                 overflow-y: scroll;
                 height: 100%;
 
-                padding: 0 10px 60px;
+                padding: 0 10px 80px;
             }
 
             &__info {
