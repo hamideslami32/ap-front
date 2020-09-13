@@ -19,11 +19,10 @@
             </div>
         </div>
 
-        <div class="detail-card__tag">
-            <span
-                class="text-primary text-1 text-weight-500 "
-                @click="flightRuleModal = true"
-            >قوانین ویزا و استرداد</span>
+        <div class="detail-card__tag" @click="flightRuleModal = true">
+            <curve-badge color="#49238c" :bottom="true" width="150px">
+                قوانین ویزا
+            </curve-badge>
         </div>
 
         <b-modal v-model="flightRuleModal" body-class="py-1 px-0" hide-footer>
@@ -62,9 +61,13 @@
 
 <script>
 import DetailItem from '~/components/flight/detail/FlightDetailItem'
+import CurveBadge from '~/components/ui/CurveBadge'
 
 export default {
-    components: {DetailItem},
+    components: {
+        DetailItem,
+        CurveBadge
+    },
     props: {
         flight: {
             type: Object,
@@ -155,21 +158,15 @@ export default {
 
         &__tag {
             position: absolute;
-            bottom: -1px;
             height: 24px;
-            width: 100px;
-            background: transparent;
-            border: 1px solid $primary;
-            border-bottom-color: map_get($grays, '200');
-            border-top-color: map_get($grays, '200');
-            border-top-left-radius: 20px 30px;
-            border-top-right-radius: 20px 30px;
+            width: 150px;
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
             right: 0;
             left: 0;
+            bottom: -1px;
             margin: auto;
         }
     }

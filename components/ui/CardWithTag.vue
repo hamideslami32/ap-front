@@ -1,16 +1,22 @@
 <template>
     <div class="card-tag">
-        <div class="card-tag__tag" :style="style">
-            <span class="text-2 text-weight-500">{{ tag }}</span>
+        <div class="card-tag__tag">
+            <curve-badge :color="color">
+                {{ tag }}
+            </curve-badge>
         </div>
         <slot />
     </div>
 </template>
 
 <script>
+import CurveBadge from '~/components/ui/CurveBadge'
 
 export default {
     name: 'CardWithTag',
+    components: {
+        CurveBadge
+    },
     props: {
         tag: {
             type: String,
@@ -19,16 +25,6 @@ export default {
         color: {
             type: String,
             required: true
-        }
-    },
-    computed: {
-        style() {
-            return {
-                'color': this.color,
-                'border': '1px solid '+ this.color,
-                'border-top-color': '#fff',
-                'border-bottom-color': '#fff'
-            }
         }
     }
 }
@@ -44,15 +40,8 @@ export default {
         box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
         &__tag {
             position: absolute;
-            top: -1px;
             height: 24px;
             width: 100px;
-            background: transparent;
-            border: 1px solid transparent;
-            border-top-color: #fff;
-            border-bottom-color: #fff;
-            border-bottom-left-radius: 20px 30px;
-            border-bottom-right-radius: 20px 30px;
             text-align: center;
             display: flex;
             align-items: center;

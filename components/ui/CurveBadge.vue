@@ -5,17 +5,18 @@
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            width="110px"
+            :width="width"
             height="25px"
             x="0px"
             y="0px"
+            :class="{ 'rotate': bottom }"
             viewBox="0 0 110 25"
-            style="enable-background:new 0 0 110 25;"
+            style="enable-background: new 0 0 110 25;"
             xml:space="preserve"
         >
             <style type="text/css">
-                .st0{fill:#F5F5F5;}
-                .st1{fill:#CCCCCC;}
+                .st0 {fill: #f5f5f5;}
+                .st1 {fill: #cccccc;}
             </style>
             <g>
                 <path
@@ -41,7 +42,20 @@
 <script>
 export default {
     name: 'CurveBadge',
-    props: ['color']
+    props: {
+        color: {
+            type: String,
+            required: true
+        },
+        width: {
+            type: String,
+            default: '110px'
+        },
+        bottom: {
+            type: Boolean,
+            default: false
+        }
+    }
 }
 </script>
 
@@ -56,6 +70,11 @@ export default {
             transform: translate(-50%, -50%);
             text-align: center;
             font-size: 0.7em;
+        }
+
+        .rotate {
+            transform: rotate(180deg);
+            bottom: 2px;
         }
     }
 </style>
