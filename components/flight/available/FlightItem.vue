@@ -114,9 +114,14 @@ export default {
         font-weight: 400;
         position: relative;
 
-        &:last-child {
-            border-top: 1px dashed map_get($grays, '400');
+
+        &.flight-item--toWay {
+            &:last-child {
+                border-top: 1px dashed map_get($grays, '400');
+            }
         }
+
+
 
         &__title {
             font-size: 0.7em;

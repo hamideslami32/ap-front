@@ -117,6 +117,7 @@ export default {
     label {
         font-size: 13px;
         margin-bottom: 0;
+        color: map_get($grays, '700');
         width: 100%;
         &.one-way {
             text-align: right;
@@ -137,7 +138,8 @@ export default {
     &--value {
         background-color: #f9f9f9;
         label {
-            font-size: 0.6rem;
+            font-size: 0.75rem;
+            color: map_get($grays, '700');
         }
     }
 }

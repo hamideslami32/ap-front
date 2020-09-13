@@ -12,6 +12,7 @@
                 v-for="(route, i) in available.routes"
                 :key="i"
                 :available="available"
+                :class="{ 'flight-item--toWay': available.routes[1] }"
                 :flight="route.flights[0]"
                 :title="i === 0 ? 'رفت' : 'برگشت'"
             />
