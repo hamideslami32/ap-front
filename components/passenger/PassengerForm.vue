@@ -32,7 +32,7 @@
         <template v-else>
             <custom-input v-model="localValue.passportCode" title="شماره پاسپورت" />
             <custom-input v-model="localValue.passportDate" title="تاریخ انقضای پاسپورت" />
-            <b-form-select v-model="localValue.passportCity" :options="options" />
+            <b-form-select v-model="localValue.passportCity" class="mb-3" :options="options" />
         </template>
         <b-row dir="ltr" no-gutters>
             <b-col>

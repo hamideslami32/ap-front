@@ -19,7 +19,7 @@
 
                 <div class="user p-3 d-flex align-items-center justify-content-between">
                     <span class="text-3 text-gray-900 text-weight-600 pr-1">
-                        {{ user.firstName + ' ' + user.lastName }}
+                        {{ user.firstName || '' }} {{ user.lastName || '' }}
                     </span>
                     <div class="user__contact text-left text-2 text-weight-500 text-gray-700">
                         <p class="mb-1">
@@ -35,7 +35,7 @@
                 <p class="my-3 text-center text-gray-700 text-3">
                     اطلاعات خریدار
                 </p>
-                <form :class="{ 'buyer-border': buyer.value }" class="buyer p-2 my-3">
+                <form :class="{ 'buyer-border': buyer.value }" class="buyer p-2 my-3" @submit.prevent>
                     <div class="buyer__main">
                         <div
                             class="checkbox bg-gray-500 d-flex px-1 align-items-center"

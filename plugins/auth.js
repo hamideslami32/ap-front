@@ -87,6 +87,7 @@ class Auth {
         }
         this.user = null
         this.storage.removeCookie('token')
+        delete this.axios.defaults.headers.common.Authorization
     }
 
     async fetchUser(full) {
