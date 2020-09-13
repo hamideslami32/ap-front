@@ -16,7 +16,7 @@
             <flight-placeholder v-for="i in 3" :key="i" />
         </template>
         <template v-else-if="!$fetchState.error">
-            <div class="d-flex align-items-center justify-content-center text-2 text-gray-800 mb-3">
+            <div dir="ltr" class="d-flex align-items-center justify-content-center flex-row-reverse text-2 text-gray-800 mb-3">
                 <span>{{ $dayjs($flight.session.routes[0].date).format('dddd D MMMM YY') }}</span>
                 <span class="px-1">-</span>
                 <span>
@@ -32,7 +32,7 @@
                     </template>
                 </span>
                 <span class="px-1">-</span>
-                <span class="font-en text-weight-500 text-capitalize">{{ flights[0].flightClass }} ({{ flights[0].priceClass }})</span>
+                <span class="font-en text-weight-500 text-capitalize text-left">{{ flights[0].flightClass }} ({{ flights[0].priceClass }})</span>
             </div>
 
             <div class="flight-detail__card-holder mt-3 mb-3">
@@ -46,7 +46,7 @@
                     <span class="text-gray-900 text-weight-500">{{ $flight.session.routes[1].destination.city | translate }}</span>
                 </div>
 
-                <div class="d-flex align-items-center justify-content-center text-2 text-gray-800 mb-3">
+                <div dir="ltr" class="d-flex align-items-center justify-content-center flex-row-reverse text-2 text-gray-800 mb-3">
                     <span>{{ $dayjs($flight.session.routes[1].date).format('dddd D MMMM YY') }}</span>
                     <span class="px-1">-</span>
                     <span>
@@ -62,7 +62,7 @@
                         </template>
                     </span>
                     <span class="px-1">-</span>
-                    <span class="font-en text-weight-500">Economy(H)</span>
+                    <span class="font-en text-weight-500">{{ flights[1].flightClass }} ({{ flights[1].priceClass }})</span>
                 </div>
 
                 <div class="flight-detail__card-holder mt-3 mb-3">
