@@ -1,6 +1,6 @@
 <template>
     <div class="destination-input" @click="inputFocus">
-        <label v-if="title" class="destination-input__title">
+        <label v-if="title" class="destination-input__title text-2">
             {{ title }}
         </label>
         <input
@@ -76,7 +76,7 @@ export default {
     overflow: hidden;
 
     &__title {
-        font-size: inherit;
+        /* font-size: inherit; */
         color: $grayColor;
         line-height: 22px;
         margin-bottom: 5px;
@@ -94,6 +94,7 @@ export default {
         color: $black;
         margin-bottom: 5px;
         width: 100%;
+        padding: 0;
     }
 
     &--active {
@@ -102,6 +103,10 @@ export default {
 
     &__detail {
         font-size: 11px;
+
+        > span {
+            line-height: 20px;
+        }
     }
 
     /deep/ .badge {
