@@ -6,19 +6,26 @@
         <template v-slot:modal-header-close>
             <svgicon name="arrow-left" width="20" height="20" />
         </template>
-        <form v-if="step === 'otp'" class="auth-form" action="#">
-            <p>لطفا شماره همراه خود را وارد نمایید</p>
-            <custom-input
-                v-model="mobile"
-                input-class="auth-form__input"
-                type="tel"
-                maxlength="11"
-                title="شماره همراه"
-            />
-            <full-btn type="submit" @click.prevent="requestOtp">
-                ورود
-            </full-btn>
-        </form>
+        <VObserver v-slot="{ handleSubmit }">
+            <form v-if="step === 'otp'" class="auth-form" @submit.prevent="handleSubmit(requestOtp)">
+                <p>لطفا شماره همراه خود را وارد نمایید</p>
+                <VProvider v-slot="{ errors }" name="شماره همراه" rules="required|min:11|mobileNumber">
+                    <custom-input
+                        v-model="mobile"
+                        input-class="auth-form__input"
+                        type="tel"
+                        class="mb-1"
+                        inputmode="numeric"
+                        maxlength="11"
+                        title="شماره همراه"
+                    />
+                    <span class="validation-alert">{{ errors[0] }}</span>
+                </VProvider>
+                <full-btn class="mt-4" type="submit">
+                    ورود
+                </full-btn>
+            </form>
+        </VObserver>
         <form v-if="step === 'verification'" class="auth-form">
             <p>کد پیامک شده را وارد نمایید</p>
             <digit-input ref="digitInputs" v-model="digits" @done="verifyOtpRequest" />
@@ -57,6 +64,16 @@ import CustomInput from '~/components/ui/form/CustomInput'
 import FullBtn from '~/components/ui/buttons/FullBtn'
 import DigitInput from '~/components/auth/DigitInput'
 import Timer from '~/components/Timer'
+import { extend } from 'vee-validate'
+import '~/plugins/veeValidate/rules/required'
+import '~/plugins/veeValidate/rules/mobileNumber'
+import {min} from 'vee-validate/dist/rules'
+import { toLatin } from '~/plugins/numbers'
+
+extend('min', {
+    ...min,
+    message: 'شماره همراه را صحیح وارد نمایید'
+})
 
 export default {
     components: {
@@ -84,7 +101,7 @@ export default {
     methods: {
         async requestOtp() {
             try {
-                const data = await this.$auth.requestOtp(this.mobile)
+                const data = await this.$auth.requestOtp(toLatin(this.mobile))
                 this.duration = Number(data.duration)
                 this.step = 'verification'
             } catch (e) {
@@ -168,6 +185,11 @@ export default {
             border-radius: 10px;
             font-size: 1rem;
             font-weight: 600;
+        }
+
+        /deep/ .btn.disabled {
+            opacity: 1;
+            background: #6c757d;
         }
     }
 </style>

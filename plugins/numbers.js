@@ -5,7 +5,7 @@ const AR_NUMBERS = [
     '٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'
 ]
 
-const toLatin = function(v) {
+export const toLatin = function(v) {
     return (v || '').replace(/[۰-۹٠-٩]/g, w => AR_NUMBERS.indexOf(w) % 10)
 }
 
