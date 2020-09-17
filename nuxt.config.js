@@ -40,7 +40,7 @@ export default {
         '~plugins/dayjs',
         '~plugins/portal',
         { src: '~plugins/toast.js', mode: 'client' },
-        '~plugins/veeValidate'
+        '~plugins/veeValidate/veeValidate'
     ],
     server: {
         port: process.env.PORT || 3000,
@@ -93,6 +93,9 @@ export default {
     build: {
         publicPath: process.env.PUBLIC_PATH || '/_nuxt/',
         extractCSS: process.env.NODE_ENV === 'production',
+        transpile: [
+            'vee-validate/dist/rules'
+        ],
         extend(config) {
             config.devServer = {
                 inline: false

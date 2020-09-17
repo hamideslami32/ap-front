@@ -1,59 +1,111 @@
 <template>
-    <form action="" class="passenger-form" @submit.prevent="submit">
-        <custom-input v-model="localValue.name" dir="ltr" title="نام به لاتین" />
-        <custom-input v-model="localValue.lastName" dir="ltr" title="نام خانوادگی به لاتین" />
-        <p class="text-3 text-gray-700 text-center my-3">
-            جنسیت مسافر
-        </p>
+    <VObserver v-slot="{ handleSubmit }">
+        <form action="" class="passenger-form" @submit.prevent="handleSubmit(submit)">
+            <VProvider v-slot="{ errors }" name="نام" rules="latinWord|required">
+                <custom-input v-model="localValue.name" class="mb-1 mt-3" dir="ltr" title="نام به لاتین" />
+                <span class="validation-alert">{{ errors[0] }}</span>
+            </VProvider>
+            <VProvider v-slot="{ errors }" name="نام خانوادگی" rules="latinWord|required">
+                <custom-input v-model="localValue.lastName" class="mb-1 mt-3" dir="ltr" title="نام خانوادگی به لاتین" />
+                <span class="validation-alert">{{ errors[0] }}</span>
+            </VProvider>
+            <p class="text-3 text-gray-700 text-center my-3">
+                جنسیت مسافر
+            </p>
 
-        <b-form-group class="en font-weight-medium">
-            <b-form-radio
-                v-model="localValue.gender"
-                class="mb-2 ml-0"
-                value="male"
-                :class="{ active: localValue.gender === 'male' }"
-                inline
-            >
-                مرد
-            </b-form-radio>
-            <b-form-radio
-                v-model="localValue.gender"
-                class="mb-2 ml-0 mr-auto"
-                value="female"
-                :class="{ active: localValue.gender === 'female' }"
-                inline
-            >
-                زن
-            </b-form-radio>
-        </b-form-group>
-        <template v-if="!passport">
-            <custom-input v-model="localValue.nationalCode" title="کد ملی" />
-        </template>
-        <template v-else>
-            <custom-input v-model="localValue.passportCode" title="شماره پاسپورت" />
-            <custom-input v-model="localValue.passportDate" title="تاریخ انقضای پاسپورت" />
-            <b-form-select v-model="localValue.passportCity" class="mb-3" :options="options" />
-        </template>
-        <b-row dir="ltr" no-gutters>
-            <b-col>
-                <custom-input v-model="birthdate.year" title="سال تولد" inputmode="numeric" pattern="[0-9]*" />
-            </b-col>
-            <b-col class="mx-1">
-                <custom-input v-model="birthdate.month" title="ماه تولد" />
-            </b-col>
-            <b-col>
-                <custom-input v-model="birthdate.day" title="روز تولد" inputmode="numeric" pattern="[0-9]*" />
-            </b-col>
-        </b-row>
-        <a-btn variant="primary" class="submit-btn" type="submit">
-            ثبت
-        </a-btn>
-    </form>
+            <VProvider v-slot="{ errors }" name="جنسیت" rules="required">
+                <b-form-group class="en font-weight-medium mb-1">
+                    <b-form-radio
+                        v-model="localValue.gender"
+                        class="ml-0"
+                        value="male"
+                        :class="{ active: localValue.gender === 'male' }"
+                        inline
+                    >
+                        مرد
+                    </b-form-radio>
+                    <b-form-radio
+                        v-model="localValue.gender"
+                        class="ml-0 mr-auto"
+                        value="female"
+                        :class="{ active: localValue.gender === 'female' }"
+                        inline
+                    >
+                        زن
+                    </b-form-radio>
+                </b-form-group>
+                <span class="validation-alert">{{ errors[0] }}</span>
+            </VProvider>
+            <template v-if="!passport">
+                <VProvider v-slot="{ errors }" rules="nationalCode|required" name="کد ملی">
+                    <custom-input
+                        v-model="localValue.nationalCode"
+                        class="mb-1 mt-3"
+                        inputmode="numeric"
+                        title="کد ملی"
+                    />
+                    <span class="validation-alert">{{ errors[0] }}</span>
+                </VProvider>
+            </template>
+            <template v-else>
+                <VProvider v-slot="{ errors }" rules="passportCode|required" name="شماره پاسپورت">
+                    <custom-input
+                        v-model="localValue.passportCode"
+                        inputmode="numeric"
+                        class="mb-1 mt-3"
+                        title="شماره پاسپورت"
+                    />
+                    <span class="validation-alert">{{ errors[0] }}</span>
+                </VProvider>
+                <VProvider v-slot="{ errors }" rules="required" name="تاریخ انقضای پاسپورت">
+                    <custom-input
+                        v-model="passportDate"
+                        class="mb-1 mt-3"
+                        maxlength="10"
+                        inputmode="numeric"
+                        title="تاریخ انقضای پاسپورت"
+                    />
+                    <span class="validation-alert">{{ errors[0] }}</span>
+                </VProvider>
+                <VProvider v-slot="{ errors }" rules="required" name="کشور صادر کننده پاسپورت">
+                    <b-form-select v-model="localValue.passportCity" class="mb-1 mt-3" :options="options" />
+                    <span class="validation-alert">{{ errors[0] }}</span>
+                </vprovider>
+            </template>
+            <VProvider v-slot="{ errors }" name="تاریخ تولد" rules="required">
+                <custom-input
+                    v-model="birthdate"
+                    dir="ltr"
+                    class="mb-1 mt-3"
+                    title="تاریخ تولد"
+                    inputmode="numeric"
+                    maxlength="10"
+                />
+                <span class="validation-alert">{{ errors[0] }}</span>
+            </VProvider>
+            <a-btn variant="primary" class="submit-btn" type="submit">
+                ثبت
+            </a-btn>
+        </form>
+    </VObserver>
 </template>
 
 <script>
 import CustomInput from '~/components/ui/form/CustomInput'
 import cloneDeep from 'lodash/cloneDeep'
+import { required } from 'vee-validate/dist/rules'
+import { extend } from 'vee-validate'
+import '~/plugins/veeValidate/rules/nationalCode'
+import '~/plugins/veeValidate/rules/latinWord'
+import '~/plugins/veeValidate/rules/nationalCode'
+
+
+extend('required', {
+    ...required,
+    message: '{_field_} اجباری میباشد'
+})
+
+
 
 export default {
     name: 'PassengerForm',
@@ -68,17 +120,14 @@ export default {
             required: true
         }
     },
+
     data() {
-        const m = this.$dayjs(this.value.birthdate).calendar('jalali')
         return {
             gender: 'male',
             country: null,
             localValue: cloneDeep(this.value),
-            birthdate: {
-                day: m.date() || null,
-                month: m.month() || null,
-                year: m.year() || null
-            },
+            birthdate: this.value.birthdate ? this.$dayjs(this.value.birthdate).calendar('jalali').format('YYYY-MM-DD') : undefined,
+            passportDate: this.value.passportDate ? this.$dayjs(this.value.passportDate).calendar('jalali').format('YYYY-MM-DD') : undefined,
             options: [
                 {value: null, text: 'کشور صادر کننده پاسپورت'},
                 {value: 'هلند', text: 'هلند'},
@@ -89,10 +138,31 @@ export default {
             ]
         }
     },
+    watch: {
+        'birthdate'(t, f) {
+            if (t && (!t.match(/^[\d-]+$/) || t.length > 10)) this.birthdate = f
+            const [tl, fl] = [t.length, (f || '').length]
+            if (tl - fl === 1) {
+                if (tl === 4 || tl === 7) {
+                    this.birthdate += '-'
+                }
+            }
+        },
+        'passportDate'(t, f) {
+            if (t && (!t.match(/^[\d-]+$/) || t.length > 10)) this.passportDate = f
+            const [tl, fl] = [t.length, (f || '').length]
+            if (tl - fl === 1) {
+                if (tl === 4 || tl === 7) {
+                    this.passportDate += '-'
+                }
+            }
+        }
+    },
     methods: {
         submit() {
-            const b = this.birthdate
-            this.localValue.birthdate = this.$dayjs(`${b.year}/${b.month}/${b.day}`, { jalali: true }).calendar('gregory').format()
+            const isJalaali = this.birthdate.split(/-|\//)[0] < 1700
+            this.localValue.birthdate = this.$dayjs(this.birthdate, { jalali: isJalaali }).calendar('gregory').format('YYYY-MM-DD')
+            this.localValue.passportDate = this.$dayjs(this.passportDate, { jalali: this.passportDate.split(/-|\//)[0] < 1700 }).calendar('gregory').format('YYYY-MM-DD')
             this.$emit('input', this.localValue)
             this.$emit('close')
         }
@@ -104,6 +174,10 @@ export default {
     .passenger-form {
         max-width: 280px;
         margin: 0 auto;
+
+        /deep/ input::placeholder {
+            text-align: right;
+        }
 
         .btn-wrapper {
             width: 100%;
