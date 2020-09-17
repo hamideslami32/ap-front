@@ -93,17 +93,10 @@
 <script>
 import CustomInput from '~/components/ui/form/CustomInput'
 import cloneDeep from 'lodash/cloneDeep'
-import { required } from 'vee-validate/dist/rules'
-import { extend } from 'vee-validate'
 import '~/plugins/veeValidate/rules/nationalCode'
 import '~/plugins/veeValidate/rules/latinWord'
 import '~/plugins/veeValidate/rules/nationalCode'
-
-
-extend('required', {
-    ...required,
-    message: '{_field_} اجباری میباشد'
-})
+import '~/plugins/veeValidate/rules/required'
 
 
 
