@@ -48,7 +48,7 @@
                 </v-provider>
             </template>
             <template v-else>
-                <v-provider v-slot="{ errors }" rules="passportCode|required" name="شماره پاسپورت">
+                <v-provider v-slot="{ errors }" rules="required" name="شماره پاسپورت">
                     <custom-input
                         v-model="localValue.passportCode"
                         inputmode="numeric"
@@ -95,8 +95,8 @@ import CustomInput from '~/components/ui/form/CustomInput'
 import cloneDeep from 'lodash/cloneDeep'
 import '~/plugins/veeValidate/rules/nationalCode'
 import '~/plugins/veeValidate/rules/latinWord'
-import '~/plugins/veeValidate/rules/nationalCode'
 import '~/plugins/veeValidate/rules/required'
+// import '~/plugins/veeValidate/rules/passportCode'
 
 
 
@@ -116,11 +116,10 @@ export default {
 
     data() {
         return {
-            gender: 'male',
             country: null,
             localValue: cloneDeep(this.value),
             birthdate: this.value.birthdate ? this.$dayjs(this.value.birthdate).calendar('jalali').format('YYYY-MM-DD') : undefined,
-            passportDate: this.value.passportDate ? this.$dayjs(this.value.passportDate).calendar('jalali').format('YYYY-MM-DD') : undefined,
+            passportDate: this.passport && this.value.passportDate ? this.$dayjs(this.value.passportDate).calendar('jalali').format('YYYY-MM-DD') : undefined,
             options: [
                 {value: null, text: 'کشور صادر کننده پاسپورت'},
                 {value: 'هلند', text: 'هلند'},
@@ -155,7 +154,7 @@ export default {
         submit() {
             const isJalaali = this.birthdate.split(/-|\//)[0] < 1700
             this.localValue.birthdate = this.$dayjs(this.birthdate, { jalali: isJalaali }).calendar('gregory').format('YYYY-MM-DD')
-            this.localValue.passportDate = this.$dayjs(this.passportDate, { jalali: this.passportDate.split(/-|\//)[0] < 1700 }).calendar('gregory').format('YYYY-MM-DD')
+            // this.localValue.passportDate = this.$dayjs(this.passportDate, { jalali: this.passportDate.split(/-|\//)[0] < 1700 }).calendar('gregory').format('YYYY-MM-DD')
             this.$emit('input', this.localValue)
             this.$emit('close')
         }
