@@ -117,7 +117,7 @@ export default {
                 this.duration = Number(data.duration)
                 this.step = 'verification'
             } catch (e) {
-                if (e.response?.status === 429) {
+                if (e.response.status === 429) {
                     this.$refs.loginForm.setErrors({
                         phone: 'شما چند لحظه پیش درخواست داده‌اید، لطفا کمی صبر کنید.'
                     })
@@ -168,6 +168,9 @@ export default {
             border-radius: 10px;
             height: 50px;
             border: 1px solid map_get($grays, '400');
+            &::placeholder {
+                text-align: center;
+            }
         }
 
         .resend-section {

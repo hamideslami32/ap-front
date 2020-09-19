@@ -90,3 +90,10 @@
     font-size: 0.75rem;
     color: $secondary;
 }
+
+
+@keyframes flash {
+    50% {
+        opacity: 0.5;
+    }
+}

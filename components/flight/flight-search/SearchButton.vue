@@ -1,14 +1,3 @@
-<template functional>
-    <a-btn
-        icon="arrow-left"
-        variant="primary"
-        :shadow="true"
-        :block="true"
-    >
-        جست و جو
-    </a-btn>
-</template>
-
 <script>
 import ABtn from '~/components/ui/buttons/ABtn'
 

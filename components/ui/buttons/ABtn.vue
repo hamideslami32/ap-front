@@ -53,7 +53,16 @@ export default {
 <style>
 .btn-icon {
     position: absolute;
-    left: 8px;
+    left: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .btn-block {

@@ -18,11 +18,7 @@
 </template>
 
 <style lang="scss">
-@keyframes flash {
-    50% {
-        opacity: 0.5;
-    }
-}
+
 
 .flight-placeholder {
     height: 340px;
