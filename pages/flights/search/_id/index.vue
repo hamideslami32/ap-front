@@ -125,7 +125,7 @@ export default {
             availables: null,
             showFilter: false,
             error: null,
-            filters: {},
+            filters: initialFilters(),
             initialFilters: initialFilters(),
             expireModal: false
         }
