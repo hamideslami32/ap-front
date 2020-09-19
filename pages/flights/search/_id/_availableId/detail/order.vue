@@ -5,7 +5,7 @@
         </portal>
         <div class="mt-3 px-2">
             <flight-order-card v-if="order" :order="order.orderItems[0]" />
-            <flight-placeholder v-else />
+            <ticket-placeholder v-else />
             <p class="my-3 text-center text-gray-700 text-3">
                 وارد کردن اطلاعات مسافرین
             </p>
@@ -85,7 +85,7 @@ import Payment from '~/components/flight/order/Payment'
 import FlightDetailsToast from '~/components/flight/FlightDetailsToast'
 import FlightOrderCard from '~/components/flight/FlightOrderCard'
 import {flightApi} from '~/api/flight'
-import FlightPlaceholder from '~/components/flight/available/FlightPlaceholder'
+import TicketPlaceholder from '~/components/flight/TicketPlaceholder'
 
 
 const passengerFactory = (type = 'adult') => ({
@@ -102,13 +102,13 @@ const passengerFactory = (type = 'adult') => ({
 
 export default {
     components: {
+        TicketPlaceholder,
         FlightOrderCard,
         FlightDetailsToast,
         PassengerField,
         CustomInput,
         Charity,
-        Payment,
-        FlightPlaceholder
+        Payment
     },
     layout: 'page',
 
@@ -166,9 +166,9 @@ export default {
 
 <router>
     {
-    "meta": {
-    "fullUser": true
-    }
+        "meta": {
+            "fullUser": true
+        }
     }
 </router>
 
