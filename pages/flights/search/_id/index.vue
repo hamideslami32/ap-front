@@ -37,7 +37,13 @@
 
         <template v-if="availables && availables.filters">
             <btn-wrapper>
-                <a-btn wrapper-class="filter-btn" :class="{ 'filter-btn--selected' : filtersCount }" variant="primary" @click="showFilter = true">
+                <a-btn
+                    wrapper-class="filter-btn"
+                    :class="{ 'filter-btn--selected' : filtersCount }"
+                    variant="primary"
+                    shadow
+                    @click="showFilter = true"
+                >
                     {{ filterBtnText }}
                 </a-btn>
             </btn-wrapper>

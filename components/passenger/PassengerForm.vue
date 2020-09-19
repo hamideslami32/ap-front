@@ -1,19 +1,19 @@
 <template>
-    <VObserver v-slot="{ handleSubmit }">
+    <v-observer v-slot="{ handleSubmit }" slim>
         <form action="" class="passenger-form" @submit.prevent="handleSubmit(submit)">
-            <VProvider v-slot="{ errors }" name="نام" rules="latinWord|required">
+            <v-provider v-slot="{ errors }" name="نام" rules="latinWord|required" slim>
                 <custom-input v-model="localValue.name" class="mb-1 mt-3" dir="ltr" title="نام به لاتین" />
                 <span class="validation-alert">{{ errors[0] }}</span>
-            </VProvider>
-            <VProvider v-slot="{ errors }" name="نام خانوادگی" rules="latinWord|required">
+            </v-provider>
+            <v-provider v-slot="{ errors }" name="نام خانوادگی" rules="latinWord|required" slim>
                 <custom-input v-model="localValue.lastName" class="mb-1 mt-3" dir="ltr" title="نام خانوادگی به لاتین" />
                 <span class="validation-alert">{{ errors[0] }}</span>
-            </VProvider>
+            </v-provider>
             <p class="text-3 text-gray-700 text-center my-3">
                 جنسیت مسافر
             </p>
 
-            <VProvider v-slot="{ errors }" name="جنسیت" rules="required">
+            <v-provider v-slot="{ errors }" name="جنسیت" rules="required">
                 <b-form-group class="en font-weight-medium mb-1">
                     <b-form-radio
                         v-model="localValue.gender"
@@ -35,9 +35,9 @@
                     </b-form-radio>
                 </b-form-group>
                 <span class="validation-alert">{{ errors[0] }}</span>
-            </VProvider>
+            </v-provider>
             <template v-if="!passport">
-                <VProvider v-slot="{ errors }" rules="nationalCode|required" name="کد ملی">
+                <v-provider v-slot="{ errors }" rules="nationalCode|required" name="کد ملی">
                     <custom-input
                         v-model="localValue.nationalCode"
                         class="mb-1 mt-3"
@@ -45,10 +45,10 @@
                         title="کد ملی"
                     />
                     <span class="validation-alert">{{ errors[0] }}</span>
-                </VProvider>
+                </v-provider>
             </template>
             <template v-else>
-                <VProvider v-slot="{ errors }" rules="passportCode|required" name="شماره پاسپورت">
+                <v-provider v-slot="{ errors }" rules="passportCode|required" name="شماره پاسپورت">
                     <custom-input
                         v-model="localValue.passportCode"
                         inputmode="numeric"
@@ -56,8 +56,8 @@
                         title="شماره پاسپورت"
                     />
                     <span class="validation-alert">{{ errors[0] }}</span>
-                </VProvider>
-                <VProvider v-slot="{ errors }" rules="required" name="تاریخ انقضای پاسپورت">
+                </v-provider>
+                <v-provider v-slot="{ errors }" rules="required" name="تاریخ انقضای پاسپورت">
                     <custom-input
                         v-model="passportDate"
                         class="mb-1 mt-3"
@@ -66,28 +66,28 @@
                         title="تاریخ انقضای پاسپورت"
                     />
                     <span class="validation-alert">{{ errors[0] }}</span>
-                </VProvider>
-                <VProvider v-slot="{ errors }" rules="required" name="کشور صادر کننده پاسپورت">
+                </v-provider>
+                <v-provider v-slot="{ errors }" rules="required" name="کشور صادر کننده پاسپورت">
                     <b-form-select v-model="localValue.passportCity" class="mb-1 mt-3" :options="options" />
                     <span class="validation-alert">{{ errors[0] }}</span>
-                </vprovider>
+                </v-provider>
             </template>
-            <VProvider v-slot="{ errors }" name="تاریخ تولد" rules="required">
+            <v-provider v-slot="{ errors }" name="تاریخ تولد" rules="required">
                 <custom-input
                     v-model="birthdate"
                     dir="ltr"
-                    class="mb-1 mt-3"
+                    class="mb-2 mt-3"
                     title="تاریخ تولد"
                     inputmode="numeric"
                     maxlength="10"
                 />
                 <span class="validation-alert">{{ errors[0] }}</span>
-            </VProvider>
-            <a-btn variant="primary" class="submit-btn" type="submit">
+            </v-provider>
+            <a-btn variant="primary" class="submit-btn" type="submit" block>
                 ثبت
             </a-btn>
         </form>
-    </VObserver>
+    </v-observer>
 </template>
 
 <script>

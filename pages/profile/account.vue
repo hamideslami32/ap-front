@@ -26,17 +26,17 @@
                     <p class="text-3 text-center">
                         ویرایش اطلاعات شخصی
                     </p>
-                    <VObserver v-slot="{ handleSubmit }">
+                    <v-observer v-slot="{ handleSubmit }">
                         <form @submit.prevent="handleSubmit(submitInfo)">
-                            <VProvider v-slot="{ errors }" name="نام" rules="required">
+                            <v-provider v-slot="{ errors }" name="نام" rules="required">
                                 <custom-input v-model="account.firstName" class="mb-1 mt-3" title="نام" input-class="input text-3" />
                                 <span class="validation-alert">{{ errors[0] }}</span>
-                            </VProvider>
-                            <VProvider v-slot="{ errors }" name="نام خانوادگی" rules="required">
+                            </v-provider>
+                            <v-provider v-slot="{ errors }" name="نام خانوادگی" rules="required">
                                 <custom-input v-model="account.lastName" class="mb-1 mt-3" title="نام خانوادگی" input-class="input text-3" />
                                 <span class="validation-alert">{{ errors[0] }}</span>
-                            </VProvider>
-                            <VProvider v-slot="{ errors }" name="ایمیل" rules="required|email">
+                            </v-provider>
+                            <v-provider v-slot="{ errors }" name="ایمیل" rules="required|email">
                                 <custom-input
                                     v-model="account.email"
                                     class="mb-1 mt-3"
@@ -45,8 +45,8 @@
                                     dir="ltr"
                                 />
                                 <span class="validation-alert">{{ errors[0] }}</span>
-                            </VProvider>
-                            <VProvider v-slot="{ errors }" name="تاریخ تولد" rules="required">
+                            </v-provider>
+                            <v-provider v-slot="{ errors }" name="تاریخ تولد" rules="required">
                                 <custom-input
                                     v-model="account.birthdate"
                                     class="mb-1 mt-3"
@@ -57,12 +57,12 @@
                                     dir="ltr"
                                 />
                                 <span class="validation-alert">{{ errors[0] }}</span>
-                            </VProvider>
+                            </v-provider>
                             <a-btn variant="primary" class="submit-btn" type="submit">
                                 تائید ویرایش
                             </a-btn>
                         </form>
-                    </VObserver>
+                    </v-observer>
                 </div>
                 <b-button
                     v-if="!editAccount"
@@ -78,10 +78,10 @@
                     <p class="text-3 text-center">
                         تغییر رمز عبور
                     </p>
-                    <VObserver v-slot="{ handleSubmit }">
+                    <v-observer v-slot="{ handleSubmit }">
                         <form @submit.prevent="handleSubmit(submitPassword)">
                             <template v-if="user.password">
-                                <VProvider v-slot="{ errors }" name="رمز عبور فعلی" rules="required|min:6">
+                                <v-provider v-slot="{ errors }" name="رمز عبور فعلی" rules="required|min:6">
                                     <custom-input
                                         v-model="changePassword.currentPassword"
                                         class="mb-1 mt-3"
@@ -90,12 +90,12 @@
                                         input-class="input text-3"
                                     />
                                     <span class="validation-alert">{{ errors[0] }}</span>
-                                </VProvider>
+                                </v-provider>
                                 <p class="text-3 mt-4">
                                     رمز عبور جدید
                                 </p>
                             </template>
-                            <VProvider v-slot="{ errors }" name="رمز عبور جدید" rules="required|min:6|password:@confirm">
+                            <v-provider v-slot="{ errors }" name="رمز عبور جدید" rules="required|min:6|password:@confirm">
                                 <custom-input
                                     v-model="changePassword.newPassword"
                                     class="mb-1 mt-3"
@@ -104,8 +104,8 @@
                                     input-class="input text-3"
                                 />
                                 <span class="validation-alert">{{ errors[0] }}</span>
-                            </VProvider>
-                            <VProvider v-slot="{ errors }" name="confirm" rules="required|min:4">
+                            </v-provider>
+                            <v-provider v-slot="{ errors }" name="confirm" rules="required|min:4">
                                 <custom-input
                                     v-model="changePassword.confirmPassword"
                                     class="mb-1 mt-3"
@@ -114,12 +114,12 @@
                                     input-class="input text-3"
                                 />
                                 <span v-if="errors[0]" class="validation-alert">تکرار رمز عبور جدید الزامی میباشد</span>
-                            </VProvider>
+                            </v-provider>
                             <a-btn variant="primary" class="submit-btn" type="submit">
                                 تغییر رمز عبور
                             </a-btn>
                         </form>
-                    </VObserver>
+                    </v-observer>
                 </div>
             </b-tab>
         </b-tabs>

@@ -10,9 +10,9 @@
 
             <flight-order-card class="mb-4" :order="flightOrderItem" />
 
-            <full-btn icon="arrow-left" variant="outline-secondary">
+            <a-btn icon="arrow-left" variant="outline-secondary" block shadow>
                 دریافت بلیط
-            </full-btn>
+            </a-btn>
         </div>
 
         <div v-if="order.status === 'failed'">
@@ -34,9 +34,9 @@
                 لطفا با بخش پشتیبانی تماس بگیرید
             </p>
 
-            <full-btn icon="phone">
+            <a-btn icon="phone" block shadow>
                 تماس با پشتیبانی
-            </full-btn>
+            </a-btn>
         </div>
     </b-container>
 </template>
@@ -44,10 +44,11 @@
 <script>
 import FlightOrderCard from '~/components/flight/FlightOrderCard'
 import {flightApi} from '~/api/flight'
-import FullBtn from '~/components/ui/buttons/FullBtn'
 
 export default {
-    components: {FullBtn, FlightOrderCard},
+    components: {
+        FlightOrderCard
+    },
 
     async fetch() {
         this.order = await flightApi.getOrder(this.$route.query.orderId)

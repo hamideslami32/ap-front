@@ -1,0 +1,21 @@
+.page-layout {
+
+    .page-transition {
+        &-enter {
+            transform: translateX(100%);
+        }
+
+        &-leave-to {
+            transform: translateX(-100%);
+        }
+
+        &-enter-active, &-leave-active {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transition: all ease-out 200ms;
+        }
+    }
+}

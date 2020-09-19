@@ -62,10 +62,10 @@
         <div class="py-4" />
 
         <btn-wrapper>
-            <a-btn wrapper-class="ml-2" variant="light" @click="clear">
+            <a-btn wrapper-class="ml-2" variant="light" shadow @click="clear">
                 حذف فیلترها
             </a-btn>
-            <a-btn variant="primary" @click="apply">
+            <a-btn variant="primary" shadow @click="apply">
                 تائید
             </a-btn>
         </btn-wrapper>

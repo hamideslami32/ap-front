@@ -6,32 +6,46 @@
         <template v-slot:modal-header-close>
             <svgicon name="arrow-left" width="20" height="20" />
         </template>
-        <VObserver v-slot="{ handleSubmit }">
+        <v-observer v-slot="{ handleSubmit }" ref="loginForm" slim>
             <form v-if="step === 'otp'" class="auth-form" @submit.prevent="handleSubmit(requestOtp)">
                 <p>لطفا شماره همراه خود را وارد نمایید</p>
-                <VProvider v-slot="{ errors }" name="شماره همراه" rules="required|min:11|mobileNumber">
+                <v-provider v-slot="{ errors }" name="شماره همراه" vid="phone" rules="required|min:11|mobileNumber">
                     <custom-input
                         v-model="mobile"
+                        dir="ltr"
                         input-class="auth-form__input"
                         type="tel"
-                        class="mb-1"
+                        class="mb-1 text-center"
                         inputmode="numeric"
                         maxlength="11"
                         title="شماره همراه"
                     />
                     <span class="validation-alert">{{ errors[0] }}</span>
-                </VProvider>
-                <full-btn class="mt-4" type="submit">
+                </v-provider>
+                <a-btn
+                    class="mt-3"
+                    type="submit"
+                    shadow
+                    block
+                    variant="primary"
+                >
                     ورود
-                </full-btn>
+                </a-btn>
             </form>
-        </VObserver>
+        </v-observer>
         <form v-if="step === 'verification'" class="auth-form">
             <p>کد پیامک شده را وارد نمایید</p>
             <digit-input ref="digitInputs" v-model="digits" @done="verifyOtpRequest" />
-            <full-btn ref="submitBtn" :disabled="canSendVerifyCode" @click.prevent="verifyOtpRequest">
+            <a-btn
+                ref="submitBtn"
+                :disabled="loading || digits.length < 5"
+                shadow
+                block
+                variant="primary"
+                @click.prevent="verifyOtpRequest"
+            >
                 تأیید
-            </full-btn>
+            </a-btn>
             <div class="mt-5 d-flex justify-content-between align-items-center">
                 <div class="d-flex flex-column align-items-start">
                     <span class="auth-form__tip">
@@ -61,7 +75,6 @@
 <script>
 
 import CustomInput from '~/components/ui/form/CustomInput'
-import FullBtn from '~/components/ui/buttons/FullBtn'
 import DigitInput from '~/components/auth/DigitInput'
 import Timer from '~/components/Timer'
 import { extend } from 'vee-validate'
@@ -79,7 +92,6 @@ export default {
     components: {
         Timer,
         DigitInput,
-        FullBtn,
         CustomInput
     },
     data() {
@@ -88,7 +100,7 @@ export default {
             mobile: '',
             digits: new Array(5).fill(null),
             resend: false,
-            canSendVerifyCode: true,
+            loading: false,
             duration: 60,
             tryCount: 0
         }
@@ -105,7 +117,11 @@ export default {
                 this.duration = Number(data.duration)
                 this.step = 'verification'
             } catch (e) {
-
+                if (e.response?.status === 429) {
+                    this.$refs.loginForm.setErrors({
+                        phone: 'شما چند لحظه پیش درخواست داده‌اید، لطفا کمی صبر کنید.'
+                    })
+                }
             }
         },
         finishCounter() {
@@ -113,14 +129,14 @@ export default {
         },
         async verifyOtpRequest() {
             try {
-                this.canSendVerifyCode = false
+                this.loading = false
                 await this.$auth.verifyOtp(this.mobile, this.verifyCode)
                 Object.assign(this.$data, this.$options.data())
             } catch (e) {
                 this.$refs.digitInputs.$children.forEach(el => {
                     el.$el.querySelector('input').value = ''
                 })
-                this.canSendVerifyCode = true
+                this.loading = true
                 this.resend = true
             }
         },

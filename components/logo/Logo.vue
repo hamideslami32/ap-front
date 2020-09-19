@@ -1,5 +1,5 @@
 <template functional>
-    <div class="logo">
+    <span class="logo">
         <svg
             id="Layer_1"
             version="1.1"
@@ -54,7 +54,7 @@
                 </g>
             </g>
         </svg>
-    </div>
+    </span>
 </template>
 
 <style lang="scss" scoped>
@@ -63,6 +63,7 @@
     height: auto;
     animation: 1s appear;
     margin: auto;
+    display: inline-block;
 
     @keyframes appear {
         0% {

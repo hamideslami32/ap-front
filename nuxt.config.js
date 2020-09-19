@@ -120,7 +120,7 @@ export default {
         mode: ''
     },
     pageTransition: {
-        name: 'slide-left',
+        name: 'page-transition',
         mode: ''
     }
 }
