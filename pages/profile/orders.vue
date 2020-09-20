@@ -6,7 +6,7 @@
         <portal to="header">
             خرید ها و استرداد ها
         </portal>
-        <card v-for="i in 4" :key="i" class="mb-3">
+        <card v-for="(order, i) in orders" :key="i" class="mb-3">
             <template #header>
                 <div class="orders-details__header px-2">
                     <div>
@@ -22,7 +22,7 @@
                 <div class="orders-details__main text-2">
                     <div class="d-flex align-items-center justify-content-between px-2">
                         <span>تاریخ و ساعت خرید</span>
-                        <span class="text-gray-800">۲۰ شهریور ۱۳۹۹ - ۲۲:۱۰</span>
+                        <span class="text-gray-800">{{ $dayjs(orders[0].createdAt).format('DD MMMM YYYY - HH:mm') }}</span>
                     </div>
                     <div class="d-flex my-2 align-items-center justify-content-between px-2">
                         <span>وضعیت</span>
@@ -30,8 +30,8 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-between px-2">
                         <span>مبلغ</span>
-                        <span class="text-gray-800">15,000,000
-                            <small class="text-gray-700">تومان</small>
+                        <span class="text-gray-800">
+                            {{ orders[0].orderItems[0].price }} <small class="text-gray-700">تومان</small>
                         </span>
                     </div>
                 </div>
@@ -87,6 +87,7 @@
 <script>
 import Card from '~/components/ui/Card'
 import CustomInput from '~/components/ui/form/CustomInput'
+import {flightApi} from '~/api/flight'
 
 export default {
     name: 'Orders',
@@ -94,7 +95,8 @@ export default {
     layout: 'page',
     data() {
         return {
-            searchModal: false
+            searchModal: false,
+            orders: []
         }
     },
     computed: {
@@ -102,12 +104,20 @@ export default {
             return this.$auth.user
         }
     },
-    mounted() {
+    created() {
         this.$auth.authenticate().then(() => {
             this.$router.push('/profile/orders')
         }).catch(err => {
-            this.$router.push('/profile')
+            this.$router.push('/')
         })
+    },
+    mounted() {
+        this.getOrders()
+    },
+    methods: {
+        async getOrders() {
+            this.orders = await flightApi.getOrders()
+        }
     }
 }
 </script>
