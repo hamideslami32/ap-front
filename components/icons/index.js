@@ -1,4 +1,5 @@
 /* eslint-disable */
+require('./airplane-travel')
 require('./arrow-down')
 require('./arrow-left')
 require('./arrow-long-right')

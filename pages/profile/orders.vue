@@ -6,32 +6,46 @@
         <portal to="header">
             خرید ها و استرداد ها
         </portal>
-        <card v-for="(order, i) in orders" :key="i" class="mb-3">
+        <template v-if="!orders">
+            <flight-place-holder v-for="i in 3" :key="i" />
+        </template>
+        <card v-for="(order, i) in orders" v-else :key="i" class="mb-3">
             <template #header>
-                <div class="orders-details__header px-2">
+                <div class="orders-details__header d-flex align-items-center justify-content-between px-2 mb-3">
                     <div>
-                        <p>
-                            شماره پرواز
+                        <p class="mb-2l">
+                            شماره سفارش
                         </p>
-                        <p class="text-2">
+                        <p class="text-2 mb-0">
                             پرواز داخلی
                         </p>
                     </div>
-                    <span>12423</span>
+                    <div class="d-flex align-items-center">
+                        <span class="ml-2">12423</span>
+                        <span>
+                            <svgicon name="airplane-travel" width="30" height="30" />
+                        </span>
+                    </div>
                 </div>
                 <div class="orders-details__main text-2">
                     <div class="d-flex align-items-center justify-content-between px-2">
-                        <span>تاریخ و ساعت خرید</span>
-                        <span class="text-gray-800">{{ $dayjs(orders[0].createdAt).format('DD MMMM YYYY - HH:mm') }}</span>
+                        <span>مسیر</span>
+                        <span class="text-gray-800">{{ order.orderItems[0].flights[0].stops[0].departureCityName }} به {{ order.orderItems[0].flights[0].stops[0].arrivalCityName }}</span>
                     </div>
-                    <div class="d-flex my-2 align-items-center justify-content-between px-2">
+                    <div class="d-flex my-3 align-items-center justify-content-between px-2">
+                        <span>تاریخ و ساعت خرید</span>
+                        <span class="text-gray-800">{{ $dayjs(order.createdAt).format('DD MMMM YYYY - HH:mm') }}</span>
+                    </div>
+                    <div class="d-flex my-3 align-items-center justify-content-between px-2">
                         <span>وضعیت</span>
-                        <span>صادر شده</span>
+                        <template>
+                            <span :class="`text-${$statusChecker(order.status).color}`">{{ $statusChecker(order.status).fa }}</span>
+                        </template>
                     </div>
                     <div class="d-flex align-items-center justify-content-between px-2">
                         <span>مبلغ</span>
                         <span class="text-gray-800">
-                            {{ orders[0].orderItems[0].price }} <small class="text-gray-700">تومان</small>
+                            {{ order.orderItems[0].price | separateNumber }} <small class="text-gray-700">تومان</small>
                         </span>
                     </div>
                 </div>
@@ -48,9 +62,11 @@
             </template>
         </card>
 
-        <a-btn wrapper-class="search-btn" variant="primary" @click="searchModal = true">
-            جستجو
-        </a-btn>
+        <!--        <btn-wrapper>
+            <a-btn wrapper-class="search-btn" variant="primary" @click="searchModal = true">
+                جستجو
+            </a-btn>
+        </btn-wrapper>
         <b-modal v-model="searchModal" body-class="p-0" hide-footer>
             <template v-slot:modal-title>
                 جستجو سفارش
@@ -75,28 +91,30 @@
                         />
                         <custom-input title="تا تاریخ" />
                     </span>
-                    <a-btn variant="primary" class="submit-btn" type="submit">
+                    <a-btn shadow variant="primary" class="submit-btn" type="submit">
                         جستجو
                     </a-btn>
                 </form>
             </div>
-        </b-modal>
+        </b-modal>-->
     </div>
 </template>
 
 <script>
+// import CustomInput from '~/components/ui/form/CustomInput'
+// import BtnWrapper from '~/components/ui/BtnWrapper'
 import Card from '~/components/ui/Card'
-import CustomInput from '~/components/ui/form/CustomInput'
-import {flightApi} from '~/api/flight'
+import {profileApi} from '~/api/profile'
+import FlightPlaceHolder from '~/components/flight/available/FlightPlaceholder'
 
 export default {
     name: 'Orders',
-    components: {CustomInput, Card},
+    components: {Card, FlightPlaceHolder},
     layout: 'page',
     data() {
         return {
             searchModal: false,
-            orders: []
+            orders: null
         }
     },
     computed: {
@@ -116,7 +134,7 @@ export default {
     },
     methods: {
         async getOrders() {
-            this.orders = await flightApi.getOrders()
+            this.orders = await profileApi.getOrders()
         }
     }
 }
@@ -125,10 +143,6 @@ export default {
 <style scoped lang="scss">
     .orders-details {
         &__header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
             p:first-child {
                 font-weight: 500;
                 color: map_get($grays, '800');
@@ -137,6 +151,15 @@ export default {
             span {
                 font-weight: 500;
                 color: map_get($grays, '900');
+            }
+
+            svg {
+                padding: 10px;
+                background: $info;
+                box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+                border-radius: 5px;
+                box-sizing: content-box;
+                color: $white;
             }
 
         }
@@ -148,13 +171,6 @@ export default {
         }
 
         /deep/ .search-btn {
-            font-size: 0.8em;
-            position: fixed;
-            bottom: 20px;
-            margin: auto;
-            left: 50%;
-            transform: translateX(-50%);
-
             .btn {
                 width: 140px;
                 height: 40px;

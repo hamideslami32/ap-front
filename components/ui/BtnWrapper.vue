@@ -25,5 +25,6 @@ export default {
             min-width: 120px;
             height: 40px;
         }
+
     }
 </style>

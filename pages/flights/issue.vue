@@ -10,7 +10,7 @@
 
             <flight-order-card class="mb-4" :order="flightOrderItem" />
 
-            <a-btn icon="arrow-left" variant="outline-secondary" block shadow>
+            <a-btn icon="arrow-left" variant="outline-secondary" block>
                 دریافت بلیط
             </a-btn>
         </div>
@@ -34,7 +34,7 @@
                 لطفا با بخش پشتیبانی تماس بگیرید
             </p>
 
-            <a-btn icon="phone" block shadow>
+            <a-btn shadow icon="phone" block>
                 تماس با پشتیبانی
             </a-btn>
         </div>
@@ -43,7 +43,7 @@
 
 <script>
 import FlightOrderCard from '~/components/flight/FlightOrderCard'
-import {flightApi} from '~/api/flight'
+import {profileApi} from '~/api/profile'
 
 export default {
     components: {
@@ -51,7 +51,7 @@ export default {
     },
 
     async fetch() {
-        this.order = await flightApi.getOrder(this.$route.query.orderId)
+        this.order = await profileApi.getOrder(this.$route.query.orderId)
     },
 
     data() {
@@ -95,24 +95,17 @@ export default {
 
     }
 
-    /deep/ .full-btn {
+    /deep/ .btn-wrapper {
         button {
             font-weight: 600;
             background-color: map_get($grays, '200');
             color: $secondary;
             border-color: $secondary;
-
         }
-
-        &:after {
-            content: none;
-        }
-
-        &__icon-holder {
+        /deep/ .btn-icon {
             background: $secondary;
-            color: $white;
-
         }
+
     }
 </style>
 
