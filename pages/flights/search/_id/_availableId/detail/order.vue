@@ -85,6 +85,7 @@ import Payment from '~/components/flight/order/Payment'
 import FlightDetailsToast from '~/components/flight/FlightDetailsToast'
 import FlightOrderCard from '~/components/flight/FlightOrderCard'
 import {flightApi} from '~/api/flight'
+import {profileApi} from '~/api/profile'
 import TicketPlaceholder from '~/components/flight/TicketPlaceholder'
 
 
@@ -113,7 +114,7 @@ export default {
     layout: 'page',
 
     async fetch() {
-        this.order = await flightApi.getOrder(this.$route.query.orderId)
+        this.order = await profileApi.getOrder(this.$route.query.orderId)
     },
 
     data() {
