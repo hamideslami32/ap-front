@@ -112,6 +112,7 @@ export default {
             try {
                 this.loading = true
                 const data = await this.$auth.requestOtp(toLatin(this.mobile))
+                alert(data.otp)
                 this.duration = Number(data.duration)
                 this.step = 'verification'
             } catch (e) {
@@ -129,7 +130,7 @@ export default {
         },
         async verifyOtpRequest() {
             try {
-                this.loading = false
+                this.loading = true
                 await this.$auth.verifyOtp(this.mobile, this.digits.join(''))
                 Object.assign(this.$data, this.$options.data())
             } catch (e) {
@@ -138,6 +139,8 @@ export default {
                 })
                 this.loading = true
                 this.resend = true
+            }finally {
+                this.loading = false
             }
         },
         resendRequest() {

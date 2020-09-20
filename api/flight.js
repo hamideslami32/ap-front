@@ -74,4 +74,8 @@ export const flightApi = new class FlightApi extends BaseApi {
     getOrder(orderId) {
         return this.axios.$get(`/order/${orderId}`)
     }
+
+    getOrders() {
+        return this.axios.$get('/order/')
+    }
 }
