@@ -21,7 +21,7 @@
                         </p>
                     </div>
                     <div class="d-flex align-items-center">
-                        <span class="ml-2">12423</span>
+                        <span class="ml-2">{{ order._id }}</span>
                         <span>
                             <svgicon name="airplane-travel" width="30" height="30" />
                         </span>
