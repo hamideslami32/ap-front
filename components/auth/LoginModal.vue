@@ -23,8 +23,9 @@
                     <span class="validation-alert">{{ errors[0] }}</span>
                 </v-provider>
                 <a-btn
-                    class="mt-3"
+                    wrapper-class="mt-3"
                     type="submit"
+                    :loading="loading"
                     shadow
                     block
                     variant="primary"
@@ -38,7 +39,8 @@
             <digit-input ref="digitInputs" v-model="digits" @done="verifyOtpRequest" />
             <a-btn
                 ref="submitBtn"
-                :disabled="loading || digits.length < 5"
+                :disabled="digits.filter(el => el != null).length < 5"
+                :loading="loading"
                 shadow
                 block
                 variant="primary"
@@ -105,14 +107,10 @@ export default {
             tryCount: 0
         }
     },
-    computed: {
-        verifyCode() {
-            return this.digits.join('')
-        }
-    },
     methods: {
         async requestOtp() {
             try {
+                this.loading = true
                 const data = await this.$auth.requestOtp(toLatin(this.mobile))
                 this.duration = Number(data.duration)
                 this.step = 'verification'
@@ -122,6 +120,8 @@ export default {
                         phone: 'شما چند لحظه پیش درخواست داده‌اید، لطفا کمی صبر کنید.'
                     })
                 }
+            } finally {
+                this.loading = false
             }
         },
         finishCounter() {
@@ -130,7 +130,7 @@ export default {
         async verifyOtpRequest() {
             try {
                 this.loading = false
-                await this.$auth.verifyOtp(this.mobile, this.verifyCode)
+                await this.$auth.verifyOtp(this.mobile, this.digits.join(''))
                 Object.assign(this.$data, this.$options.data())
             } catch (e) {
                 this.$refs.digitInputs.$children.forEach(el => {
