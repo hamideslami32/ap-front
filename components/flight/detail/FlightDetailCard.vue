@@ -21,13 +21,13 @@
 
         <div class="detail-card__tag" @click="flightRuleModal = true">
             <curve-badge color="#49238c" :bottom="true" :width="180">
-                <span class="text-nowrap">قوانین استرداد / ویزا</span>
+                <span class="text-nowrap">{{ detailRefundRules }}</span>
             </curve-badge>
         </div>
 
         <b-modal v-model="flightRuleModal" body-class="py-1 px-0" hide-footer>
             <template v-slot:modal-title>
-                قوانین استرداد
+                {{ detailRefundRules }}
             </template>
             <template v-slot:modal-header-close>
                 <svgicon name="delete-disabled" width="30" height="30" @click="showFlightRule = false" />
@@ -77,6 +77,11 @@ export default {
     data() {
         return {
             flightRuleModal: false
+        }
+    },
+    computed: {
+        detailRefundRules() {
+            return this.$flight.session.isDomestic ? 'قوانین استرداد' : 'قوانین استرداد / ویزا'
         }
     }
 }

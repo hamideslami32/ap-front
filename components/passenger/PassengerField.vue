@@ -33,7 +33,7 @@
             </template>
             <div class="add-passengers">
                 <b-tabs content-class="mt-5 px-2">
-                    <b-tab title="خرید با کد ملی" active @click="nationalPassenger = true">
+                    <b-tab v-if="$flight.session.isDomestic" title="خرید با کد ملی" active @click="nationalPassenger = true">
                         <passenger-form v-model="localValue" @close="showModal = false" />
                     </b-tab>
                     <b-tab title="خرید با پاسپورت" @click="nationalPassenger = false">

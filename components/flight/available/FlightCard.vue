@@ -20,7 +20,7 @@
             />
         </div>
         <div class="clearfix">
-            <div v-if="available.similarFlightsCount > 0" class="alternative-holder">
+            <div v-if="available.similarFlightsCount" class="alternative-holder">
                 <div class="alternative">
                     <div class="shape" />
                     <span>{{ available.similarFlightsCount }} پرواز مشابه</span>

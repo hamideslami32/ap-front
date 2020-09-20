@@ -41,7 +41,7 @@
                     <p class="text-1 mb-0 py-1 text-capitalize">
                         {{ order.session.class }}
                     </p>
-                    <p class="text-0 mb-0 py-1">
+                    <p class="text-1 mb-0 py-1" dir="ltr">
                         {{ order.session.adult + order.session.child + order.session.infant }} Traveller
                     </p>
                 </div>
