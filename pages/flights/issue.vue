@@ -10,7 +10,13 @@
 
             <flight-order-card class="mb-4" :order="flightOrderItem" />
 
-            <a-btn icon="arrow-left" variant="outline-secondary" block>
+            <a-btn
+                wrapper-class="action-btn"
+                class="text-weight-600"
+                icon="arrow-left"
+                variant="outline-secondary"
+                block
+            >
                 دریافت بلیط
             </a-btn>
         </div>
@@ -34,7 +40,13 @@
                 لطفا با بخش پشتیبانی تماس بگیرید
             </p>
 
-            <a-btn shadow icon="phone" block>
+            <a-btn
+                shadow
+                wrapper-class="action-btn"
+                class="text-weight-600"
+                icon="phone"
+                block
+            >
                 تماس با پشتیبانی
             </a-btn>
         </div>
@@ -95,15 +107,12 @@ export default {
 
     }
 
-    /deep/ .btn-wrapper {
-        button {
-            font-weight: 600;
-            background-color: map_get($grays, '200');
-            color: $secondary;
-            border-color: $secondary;
-        }
+    /deep/ .action-btn {
         /deep/ .btn-icon {
             background: $secondary;
+            svg {
+                color: $white;
+            }
         }
 
     }
