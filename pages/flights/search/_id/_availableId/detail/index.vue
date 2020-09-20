@@ -44,7 +44,9 @@
             <template v-if="$flight.session.routes[1]">
                 <div class="d-flex align-items-center justify-content-center mb-2 mt-1">
                     <span class="text-gray-900 text-weight-500">{{ $flight.session.routes[1].origin.city | translate }}</span>
-                    <span class="mx-3">-</span>
+                    <gradient-wrapper class="mx-2">
+                        <svgicon class="position-relative d-block icon-detail" name="single-arrow" width="30" height="20" />
+                    </gradient-wrapper>
                     <span class="text-gray-900 text-weight-500">{{ $flight.session.routes[1].destination.city | translate }}</span>
                 </div>
 
