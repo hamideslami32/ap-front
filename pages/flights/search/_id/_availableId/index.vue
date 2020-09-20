@@ -60,7 +60,7 @@
                         <span class="text-2 text-primary text-weight-600 float-right">
                             {{ available.routes[1].origin }}
                             -
-                            {{ available.routes[1].origin }}
+                            {{ available.routes[1].destination }}
                         </span>
                         <span class="text-2 text-gray-800 text-weight-400">{{ date[1].format('D MMMM YY') }}</span>
                     </p>
