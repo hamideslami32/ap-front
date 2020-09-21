@@ -4,7 +4,7 @@
             <span>مسافرین و خریدار</span>
         </portal>
         <div class="mt-3 px-2">
-            <flight-order-card v-if="order" :order="order.orderItems[0]" />
+            <flight-order-card v-if="order" :on-way="!$flight.session.routes[1]" :order="order.orderItems[0]" />
             <ticket-placeholder v-else />
             <p class="my-3 text-center text-gray-700 text-3">
                 وارد کردن اطلاعات مسافرین

@@ -1,9 +1,14 @@
 <template>
     <b-row class="ticket ticket--fa font-en" no-gutters>
         <b-col cols="9" class="p-3 ticket__destination d-flex align-items-center">
-            <div class="ticket__destination__arrow text-1">
+            <div class="ticket__destination__arrow text-1" :class="{ 'ticket__destination__arrow--single': onWay }">
                 <span class="d-block mx-auto" />
-                <svgicon name="arrows-round" class="my-3" width="24" height="20" />
+                <svgicon
+                    :name="onWay ? 'single-arrow' : 'arrows-round'"
+                    class="my-3"
+                    width="24"
+                    height="20"
+                />
                 <span class="d-block mx-auto" />
             </div>
             <div class="ticket__destination__info flex-grow-1 text-left px-2">
@@ -25,12 +30,12 @@
             </div>
         </b-col>
         <b-col cols="3" class="p-3 ticket__info text-center">
-            <div class="">
+            <div>
                 <div class="mb-2">
                     <img
                         v-for="airline in airlines"
                         :key="airline"
-                        class="rounded-circle"
+                        class="rounded-circle m-1"
                         :src="$flight.airlineLogoUrl(airline)"
                         alt=""
                         width="30"
@@ -60,6 +65,10 @@ export default {
         order: {
             type: Object,
             required: true
+        },
+        onWay: {
+            type: Boolean,
+            default: true
         }
     },
     computed: {
@@ -161,6 +170,11 @@ export default {
             svg {
                 color: #ae90e3;
                 transform: rotate(90deg);
+            }
+            &.ticket__destination__arrow--single {
+                svg {
+                    transform: rotate(-90deg);
+                }
             }
         }
     }
