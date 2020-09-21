@@ -300,12 +300,22 @@ export default {
 
         onSelectAvailable(available) {
             this.$flight.selectAvailable(available)
-            this.$router.push({
-                path: this.$route.path + '/' + available._id,
-                query: {
-                    sid: this.searchId
-                }
-            })
+            if (this.$flight.similarFlightsCount(available) > 0) {
+                this.$router.push({
+                    path: this.$route.path + '/' + available._id,
+                    query: {
+                        sid: this.searchId
+                    }
+                })
+            } else {
+                this.$router.push({
+                    path: this.$route.path + '/' + available._id + '/detail',
+                    query: {
+                        ...this.$route.query,
+                        flights: available.routes.map(el => el.flights[0]._id).join(',')
+                    }
+                })
+            }
         },
 
         research() {
