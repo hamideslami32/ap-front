@@ -12,6 +12,7 @@
                 <v-provider v-slot="{ errors }" name="شماره همراه" vid="phone" rules="required|min:11|mobileNumber">
                     <custom-input
                         v-model="mobile"
+                        v-localize-number
                         dir="ltr"
                         input-class="auth-form__input"
                         type="tel"
@@ -83,7 +84,6 @@ import { extend } from 'vee-validate'
 import '~/plugins/veeValidate/rules/required'
 import '~/plugins/veeValidate/rules/mobileNumber'
 import {min} from 'vee-validate/dist/rules'
-import { toLatin } from '~/plugins/numbers'
 
 extend('min', {
     ...min,
@@ -111,8 +111,8 @@ export default {
         async requestOtp() {
             try {
                 this.loading = true
-                const data = await this.$auth.requestOtp(toLatin(this.mobile))
-                alert(data.otp)
+                const data = await this.$auth.requestOtp(this.mobile)
+                data.otp && alert(data.otp)
                 this.duration = Number(data.duration)
                 this.step = 'verification'
             } catch (e) {
@@ -137,13 +137,18 @@ export default {
                 this.$refs.digitInputs.$children.forEach(el => {
                     el.$el.querySelector('input').value = ''
                 })
-                this.loading = true
-                this.resend = true
+                if(e.response.status === 401) {
+                    this.$toast.alert('کد وارد شده اشتباه میباشد.')
+                }
             }finally {
                 this.loading = false
             }
         },
         resendRequest() {
+            this.$refs.digitInputs.$children.forEach(el => {
+                el.$el.querySelector('input').value = ''
+            })
+            this.digits = new Array(5).fill(null)
             this.step = 'otp'
         },
 
