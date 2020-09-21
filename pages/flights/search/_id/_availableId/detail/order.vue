@@ -155,10 +155,12 @@ export default {
                     return
                 }
                 await this.$auth.authenticate()
-                const {paymentUrl} = await flightApi.pay(this.$route.query.orderId)
+                const { orderId } = this.$route.query
+                // const passengers = await flightApi.setPassengers(orderId, this.passengers)
+                const {paymentUrl} = await flightApi.pay(orderId)
                 window.location = paymentUrl
             } catch (e) {
-
+                
             }
         }
     }
