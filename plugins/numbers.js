@@ -27,6 +27,10 @@ const transformInputToLatin = (el, onlyNumber = false) => {
 Vue.directive('localize-number', {
     bind(el, bindings) {
         const onlyNumber = bindings.modifiers.only
+        if (el.tagName !== 'INPUT') {
+            el = el.querySelector('input')
+        }
+        if (!el) return
         el.addEventListener('input', ({ target }) => {
             transformInputToLatin(target, onlyNumber)
         })

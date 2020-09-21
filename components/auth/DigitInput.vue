@@ -21,6 +21,7 @@
 
 <script>
 import CustomInput from '~/components/ui/form/CustomInput'
+import {toLatin} from '~/plugins/numbers'
 export default {
     components: {
         CustomInput
@@ -35,7 +36,7 @@ export default {
     mounted() {
         setTimeout(() => {
             Array.from(this.$el.querySelectorAll('input')).forEach(el => {
-                el.onkeypress = (e) => !isNaN(e.key)
+                el.onkeypress = (e) => !isNaN(toLatin(e.key))
                 el.onfocus = (e) => e.target.select()
             })
         }, 50)
@@ -43,6 +44,7 @@ export default {
 
     methods: {
         onInput(i, value) {
+            value = toLatin(value)
             this.value[i] = isNaN(value) ? '' : value[0]
             const nextElement = this.$refs.inputs[i + 1]
             if (value.trim() && nextElement) {
