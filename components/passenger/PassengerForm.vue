@@ -51,7 +51,6 @@
                 <v-provider v-slot="{ errors }" rules="required" name="شماره پاسپورت">
                     <custom-input
                         v-model="localValue.passportCode"
-                        inputmode="numeric"
                         class="mb-1 mt-3"
                         title="شماره پاسپورت"
                     />
