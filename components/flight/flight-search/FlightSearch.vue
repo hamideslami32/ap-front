@@ -20,8 +20,9 @@
                                 :class-name="search.type === 'OW' ? 'one-way' : ''"
                                 label="تاریخ رفت"
                                 :icon="search.type === 'OW' ? 'calendar-schedule': ''"
-                                :value="value[0] ? value[0].format('dddd DD MMMM YY') : null"
+                                :value="datePickerValue(value[0])"
                                 readonly
+                                :dir="jalaaliDatepicker ? 'rtl' : 'ltr'"
                                 @click.native="open(0)"
                             />
                             <svgicon
@@ -36,8 +37,9 @@
                                 :class="{ active: focus === 1 }"
                                 label="تاریخ برگشت"
                                 style="textAlign: left;"
-                                :value="value[1] ? value[1].format('dddd DD MMMM YY') : null"
+                                :value="datePickerValue(value[1])"
                                 readonly
+                                :dir="jalaaliDatepicker ? 'rtl' : 'ltr'"
                                 data-datepicker="1"
                                 @click.native="open(1)"
                             />
@@ -47,8 +49,9 @@
                         <form-input
                             label="تاریخ رفت"
                             :class-name="search.type === 'OW' ? 'one-way' : ''"
-                            :value="value[0] ? value[0].format('dddd DD MMMM YY') : null"
+                            :value="datePickerValue(value[0])"
                             readonly
+                            :dir="jalaaliDatepicker ? 'rtl' : 'ltr'"
                             :icon="search.type === 'OW' ? 'calendar-schedule': ''"
                             v-on="on"
                         />
@@ -63,9 +66,10 @@
                             v-if="search.type !== 'OW'"
                             label="تاریخ برگشت"
                             style="textAlign: left;"
-                            :value="value[1] ? value[1].format('dddd DD MMMM YY') : null"
+                            :value="datePickerValue(value[1])"
                             data-datepicker="1"
                             readonly
+                            :dir="jalaaliDatepicker ? 'rtl' : 'ltr'"
                             v-on="on"
                         />
                     </template>
@@ -167,6 +171,16 @@ export default {
                 minDate: this.$dayjs().calendar('gregory').format('YYYY-MM-DD'),
                 maxDate: this.$dayjs().calendar('gregory').add(30, 'day').format('YYYY-MM-DD')
             }).catch(err => null)
+        },
+        datePickerValue(value) {
+            if(value && this.jalaaliDatepicker) {
+                return value.format('dddd DD MMMM YY')
+            }
+            else if(value && !this.jalaaliDatepicker) {
+                return value.format('YYYY MMMM D')
+            }else {
+                return null
+            }
         }
     }
 }
