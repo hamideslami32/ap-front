@@ -52,7 +52,7 @@ import debounce from 'lodash/debounce'
 import DestinationInput from '~/components/flight/flight-search/DestinationInput'
 import CustomInput from '~/components/ui/form/CustomInput'
 import FlightDestinationPickerItem from '~/components/flight/flight-search/FlightDestinationPickerItem'
-import {flightApi} from '~/api/flight'
+import {flightApi} from '~/api/flightApi'
 
 export default {
     components: {

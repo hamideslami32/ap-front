@@ -98,7 +98,7 @@ import FlightDetailCard from '~/components/flight/detail/FlightDetailCard'
 import RiskFreeCard from '~/components/flight/detail/RiskFreeCard'
 import PriceDetail from '~/components/flight/PriceDetail'
 import FlightDetailsToast from '~/components/flight/FlightDetailsToast'
-import {flightApi} from '~/api/flight'
+import {flightApi} from '~/api/flightApi'
 import FlightPlaceholder from '~/components/flight/available/FlightPlaceholder'
 import GradientWrapper from '~/components/ui/GradientWrapper'
 

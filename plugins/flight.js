@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { flightApi } from '~/api/flight'
+import {flightApi} from '~/api/flightApi'
 
 class Flight {
 
