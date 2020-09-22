@@ -84,7 +84,7 @@ import Charity from '~/components/flight/order/Charity'
 import Payment from '~/components/flight/order/Payment'
 import FlightDetailsToast from '~/components/flight/FlightDetailsToast'
 import FlightOrderCard from '~/components/flight/FlightOrderCard'
-import {flightApi} from '~/api/flight'
+import {flightApi} from '~/api/flightApi'
 import {profileApi} from '~/api/profile'
 import TicketPlaceholder from '~/components/flight/TicketPlaceholder'
 

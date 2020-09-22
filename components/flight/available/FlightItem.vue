@@ -18,7 +18,7 @@
             </span>
         </div>
         <div class="flight-item__locations">
-            <b class="text-left">{{ firstStop.departureAirport }}</b>
+            <b class="text-left">{{ flight.departureAirport }}</b>
             <svgicon name="plane-takeoff" width="40" height="20" />
             <b class="text-right">{{ lastStop.arrivalAirport }}</b>
         </div>

@@ -110,7 +110,7 @@ import FormInput from '~/components/ui/form/FormInput'
 import InputPair from '~/components/ui/form/InputPair'
 import PassengerInput from '~/components/ui/PassengerInput'
 import flightSearchMixin from '~/components/flight/flight-search/flightSearchMixin'
-import {flightApi} from '~/api/flight'
+import {flightApi} from '~/api/flightApi'
 
 export default {
     components: {

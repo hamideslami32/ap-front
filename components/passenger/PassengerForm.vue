@@ -153,7 +153,7 @@ export default {
         submit() {
             const isJalaali = this.birthdate.split(/-|\//)[0] < 1700
             this.localValue.birthdate = this.$dayjs(this.birthdate, { jalali: isJalaali }).calendar('gregory').format('YYYY-MM-DD')
-            // this.localValue.passportDate = this.$dayjs(this.passportDate, { jalali: this.passportDate.split(/-|\//)[0] < 1700 }).calendar('gregory').format('YYYY-MM-DD')
+            this.localValue.passportDate = this.$dayjs(this.passportDate, { jalali: this.passportDate.split(/-|\//)[0] < 1700 }).calendar('gregory').format('YYYY-MM-DD')
             this.$emit('input', this.localValue)
             this.$emit('close')
         }
