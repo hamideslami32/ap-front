@@ -21,4 +21,8 @@ export const profileApi = new class ProfileApi extends BaseApi {
                 return result
             })
     }
+
+    getTransactions() {
+        return this.axios.$get('/payments')
+    }
 }

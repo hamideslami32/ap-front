@@ -15,17 +15,17 @@
                 <div class="d-flex align-items-center text-weight-500">
                     <span class="text-2 py-1 px-2">{{ $dayjs(firstStop.departureTime).format('HH:mm') }}</span>
                     <span class="text-3 mx-2">{{ firstStop.departureCityName }}</span>
-                    <span class="text-2 text-weight-400 ml-2 pt-1">{{ $dayjs(firstStop.departureTime).calendar('gregory').locale('en').format('D MMM YYYY') }}</span>
+                    <span class="text-2 text-weight-400 ml-2 pt-1" :dir="isDomestic ? 'rtl' : 'ltr'">{{ departureDate }}</span>
                 </div>
 
                 <p class="flight-type my-2 text-secondary text-weight-500 text-1">
-                    {{ order.flights.length === 2 ? 'Round Trip' : 'One Way' }}
+                    {{ isRoundTrip }}
                 </p>
 
                 <div class="d-flex align-items-center text-weight-500">
                     <span class="text-2 py-1 px-2">{{ $dayjs(lastStop.arrivalTime).format('HH:mm') }}</span>
                     <span class="text-3 mx-2">{{ lastStop.arrivalCityName }}</span>
-                    <span class="text-2 text-weight-400 ml-2 pt-1">{{ $dayjs(lastStop.arrivalTime).calendar('gregory').locale('en').format('D MMM YYYY') }}</span>
+                    <span class="text-2 text-weight-400 ml-2 pt-1" :dir="isDomestic ? 'rtl' : 'ltr'">{{ arrivalDate }}</span>
                 </div>
             </div>
         </b-col>
@@ -72,9 +72,6 @@ export default {
         }
     },
     computed: {
-        direction() {
-            return 'rtl'
-        },
         flight() {
             return this.order.flights[0]
         },
@@ -84,8 +81,31 @@ export default {
         lastStop() {
             return this.flight.stops[this.flight.stops.length - 1]
         },
+        isDomestic() {
+            return this.order.session.isDomestic
+        },
         airlines() {
             return [...new Set(flattenDeep(this.order.flights.map(flight => flight.stops.map(stop => stop.airline))))]
+        },
+        departureDate() {
+            if (this.isDomestic) return this.$dayjs(this.firstStop.departureTime).format('D MMMM YY')
+            else return this.$dayjs(this.firstStop.departureTime).calendar('gregory').locale('en').format('YYYY MMMM D')
+        },
+        arrivalDate() {
+            if (this.isDomestic) return this.$dayjs(this.lastStop.arrivalTime).format('D MMMM YY')
+            else return this.$dayjs(this.lastStop.arrivalTime).calendar('gregory').locale('en').format('YYYY MMMM D')
+        },
+        isRoundTrip() {
+            let title
+            let isRounded = this.order.flights.length === 2
+            if (this.isDomestic) {
+                if (isRounded) title = 'رفت و برگشت'
+                else title = 'یک طرفه'
+            }  else {
+                if (isRounded) title = 'Round Trip'
+                else title = 'One Way'
+            }
+            return title
         }
     }
 }
