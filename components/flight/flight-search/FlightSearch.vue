@@ -177,7 +177,7 @@ export default {
                 return value.format('dddd DD MMMM YY')
             }
             else if(value && !this.jalaaliDatepicker) {
-                return value.format('YYYY MMMM D')
+                return value.format('D MMMM YYYY')
             }else {
                 return null
             }
