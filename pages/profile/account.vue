@@ -58,7 +58,13 @@
                                 />
                                 <span class="validation-alert">{{ errors[0] }}</span>
                             </v-provider>
-                            <a-btn variant="primary" class="submit-btn" type="submit">
+                            <a-btn
+                                variant="primary"
+                                block
+                                shadow
+                                class="submit-btn"
+                                type="submit"
+                            >
                                 تائید ویرایش
                             </a-btn>
                         </form>
@@ -115,7 +121,13 @@
                                 />
                                 <span v-if="errors[0]" class="validation-alert">تکرار رمز عبور جدید الزامی میباشد</span>
                             </v-provider>
-                            <a-btn variant="primary" class="submit-btn" type="submit">
+                            <a-btn
+                                variant="primary"
+                                shadow
+                                block
+                                class="submit-btn"
+                                type="submit"
+                            >
                                 تغییر رمز عبور
                             </a-btn>
                         </form>

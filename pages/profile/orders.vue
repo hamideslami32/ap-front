@@ -9,6 +9,9 @@
         <template v-if="!orders">
             <flight-place-holder v-for="i in 3" :key="i" />
         </template>
+        <b-alert v-else-if="!orders.length > 0" class="text-center" show variant="primary">
+            نتیجه ای یافت نشد!
+        </b-alert>
         <card v-for="(order, i) in orders" v-else :key="i" class="mb-3">
             <template #header>
                 <div class="orders-details__header d-flex align-items-center justify-content-between px-2 mb-3">
@@ -30,7 +33,7 @@
                 <div class="orders-details__main text-2">
                     <div class="d-flex align-items-center justify-content-between px-2">
                         <span>مسیر</span>
-                        <span class="text-gray-800">{{ order.orderItems[0].flights[0].stops[0].departureCityName }} به {{ order.orderItems[0].flights[0].stops[0].arrivalCityName }}</span>
+                        <span class="text-gray-800">{{ order.orderItems[0].flights[0].departureCity }} به {{ order.orderItems[0].flights[0].arrivalCity }}</span>
                     </div>
                     <div class="d-flex my-3 align-items-center justify-content-between px-2">
                         <span>تاریخ و ساعت خرید</span>
@@ -134,7 +137,11 @@ export default {
     },
     methods: {
         async getOrders() {
-            this.orders = await profileApi.getOrders()
+            try {
+                this.orders = await profileApi.getOrders()
+            } catch (e) {
+
+            }
         }
     }
 }
@@ -186,14 +193,17 @@ export default {
             position: relative;
             display: flex;
             flex-direction: column;
+
             .custom-input {
                 margin-bottom: 0;
+
                 &:first-child {
                     /deep/ input {
                         border-bottom-left-radius: 0;
                         border-bottom-right-radius: 0;
                     }
                 }
+
                 &:last-child {
                     /deep/ input {
                         border-top-left-radius: 0;
@@ -227,6 +237,7 @@ export default {
             width: 100%;
             display: block;
             margin-top: 20px;
+
             &:after {
                 z-index: 0;
             }

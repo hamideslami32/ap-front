@@ -1,4 +1,5 @@
 import {BaseApi} from '~/plugins/api'
+import {Flight} from '~/scripts/Flight'
 
 export const flightApi = new class FlightApi extends BaseApi {
     constructor() {
@@ -32,6 +33,13 @@ export const flightApi = new class FlightApi extends BaseApi {
         return this.axios.$get('/flight/results/' + searchId, {
             params: filters,
             cancelToken
+        }).then(result => {
+            result.results.forEach(available => {
+                available.routes.forEach(route => {
+                    route.flights = route.flights.map(flight => new Flight(flight))
+                })
+            })
+            return result
         })
     }
 
@@ -69,13 +77,5 @@ export const flightApi = new class FlightApi extends BaseApi {
 
     pay(orderId) {
         return this.axios.$post(`/order/${orderId}/pay`)
-    }
-
-    getOrder(orderId) {
-        return this.axios.$get(`/order/${orderId}`)
-    }
-
-    getOrders() {
-        return this.axios.$get('/order/')
     }
 }
