@@ -41,6 +41,7 @@
                     <custom-input
                         v-model="localValue.nationalCode"
                         class="mb-1 mt-3"
+                        maxlength="10"
                         inputmode="numeric"
                         title="کد ملی"
                     />
@@ -95,7 +96,6 @@ import cloneDeep from 'lodash/cloneDeep'
 import '~/plugins/veeValidate/rules/nationalCode'
 import '~/plugins/veeValidate/rules/latinWord'
 import '~/plugins/veeValidate/rules/required'
-// import '~/plugins/veeValidate/rules/passportCode'
 
 
 
