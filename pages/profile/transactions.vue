@@ -82,6 +82,12 @@ export default {
         return {
             searchModal: false
         }
+    },
+    mounted() {
+        this.$axios.$get('/payments')
+            .then(res => {
+                // console.log({res})
+            })
     }
 }
 </script>
