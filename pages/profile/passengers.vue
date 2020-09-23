@@ -3,6 +3,16 @@
         <portal to="header">
             مسافران
         </portal>
+        <a-btn
+            wrapper-class="mb-3"
+            block
+            shadow
+            variant="secondary"
+            icon="plus"
+            @click.prevent="addPassenger = true"
+        >
+            اضافه کردن مسافر
+        </a-btn>
         <card v-for="i in 4" :key="i" class="mb-3">
             <template #header>
                 <div class="passengers-details__main text-2">
@@ -36,9 +46,11 @@
             </template>
         </card>
 
-        <a-btn wrapper-class="search-btn" variant="primary" @click="searchModal = true">
-            جستجو
-        </a-btn>
+        <btn-wrapper class="d-flex align-items-center justify-content-center">
+            <a-btn wrapper-class="search-btn d-flex ml-2" shadow variant="primary" @click="searchModal = true">
+                جستجو
+            </a-btn>
+        </btn-wrapper>
         <b-modal v-model="searchModal" body-class="p-0" hide-footer>
             <template v-slot:modal-title>
                 جستجو مسافر
@@ -55,7 +67,13 @@
                     <custom-input title="نام خانوادگی" />
                     <custom-input title="کد ملی" />
                     <custom-input title="شماره پاسپورت" />
-                    <a-btn variant="primary" class="submit-btn" type="submit">
+                    <a-btn
+                        variant="primary"
+                        block
+                        shadow
+                        class="submit-btn"
+                        type="submit"
+                    >
                         جستجو
                     </a-btn>
                 </form>
@@ -70,6 +88,25 @@
             </template>
             <div class="mt-3">
                 <passenger-form v-model="passengerInfo" @close="editPassenger = false" />
+            </div>
+        </b-modal>
+
+        <b-modal v-model="addPassenger" body-class="p-0" hide-footer>
+            <template v-slot:modal-title>
+                اضافه کردن مسافر
+            </template>
+            <template v-slot:modal-header-close>
+                <svgicon name="arrow-left" width="20" height="20" />
+            </template>
+            <div class="mt-3">
+                <b-tabs content-class="mt-5 px-2">
+                    <b-tab title="با کد ملی" active>
+                        <passenger-form v-model="submitPassenger" @close="addPassenger = false" />
+                    </b-tab>
+                    <b-tab title="با پاسپورت">
+                        <passenger-form v-model="submitPassenger" :passport="true" @close="addPassenger = false" />
+                    </b-tab>
+                </b-tabs>
             </div>
         </b-modal>
 
@@ -106,16 +143,18 @@
 import Card from '~/components/ui/Card'
 import CustomInput from '~/components/ui/form/CustomInput'
 import PassengerForm from '~/components/passenger/PassengerForm'
+import BtnWrapper from '~/components/ui/BtnWrapper'
 
 export default {
     name: 'Passengers',
-    components: {PassengerForm, Card, CustomInput},
+    components: {BtnWrapper, PassengerForm, Card, CustomInput},
     layout: 'page',
     data() {
         return {
             searchModal: false,
             removeModal: false,
             editPassenger: false,
+            addPassenger: false,
             passengerInfo: {
                 name: '',
                 type: 'adult',
@@ -127,6 +166,21 @@ export default {
                 passportDate: null,
                 passportCity: null
             }
+        }
+    },
+    computed: {
+        submitPassenger: {
+            get() {
+                return this.passengerInfo
+            },
+            set(value) {
+                return this.submitNewPassenger(value)
+            }
+        }
+    },
+    methods: {
+        submitNewPassenger(value) {
+        // TODO : Send request to Api
         }
     }
 }
@@ -140,12 +194,6 @@ export default {
         }
 
         /deep/ .search-btn {
-            font-size: 0.8em;
-            position: fixed;
-            bottom: 20px;
-            margin: auto;
-            left: 50%;
-            transform: translateX(-50%);
 
             .btn {
                 width: 140px;

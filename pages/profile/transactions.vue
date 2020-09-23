@@ -35,9 +35,11 @@
             </template>
         </card>
 
-        <a-btn wrapper-class="search-btn" variant="primary" @click="searchModal = true">
-            جستجو
-        </a-btn>
+        <btn-wrapper class="d-flex align-items-center justify-content-center">
+            <a-btn wrapper-class="search-btn" shadow variant="primary" @click="searchModal = true">
+                جستجو
+            </a-btn>
+        </btn-wrapper>
         <b-modal v-model="searchModal" body-class="p-0" hide-footer>
             <template v-slot:modal-title>
                 جستجو تراکنش
@@ -74,9 +76,11 @@
 <script>
 import Card from '~/components/ui/Card'
 import CustomInput from '~/components/ui/form/CustomInput'
+import BtnWrapper from '~/components/ui/BtnWrapper'
+
 
 export default {
-    components: {CustomInput, Card},
+    components: {CustomInput, Card, BtnWrapper},
     layout: 'page',
     data() {
         return {
@@ -118,17 +122,9 @@ export default {
         }
 
         /deep/ .search-btn {
-            font-size: 0.8em;
-            position: fixed;
-            bottom: 20px;
-            margin: auto;
-            left: 50%;
-            transform: translateX(-50%);
-
             .btn {
                 width: 140px;
                 height: 40px;
-                position: relative;
             }
         }
     }

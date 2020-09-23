@@ -83,7 +83,13 @@
                 />
                 <span class="validation-alert">{{ errors[0] }}</span>
             </v-provider>
-            <a-btn variant="primary" class="submit-btn" type="submit" block>
+            <a-btn
+                wrapper-class="mt-3"
+                variant="primary"
+                class="submit-btn"
+                type="submit"
+                block
+            >
                 ثبت
             </a-btn>
         </form>
