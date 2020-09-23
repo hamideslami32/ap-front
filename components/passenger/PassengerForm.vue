@@ -57,7 +57,7 @@
                     />
                     <span class="validation-alert">{{ errors[0] }}</span>
                 </v-provider>
-                <v-provider v-slot="{ errors }" rules="required" name="تاریخ انقضای پاسپورت">
+                <v-provider v-slot="{ errors }" rules="required|date" name="تاریخ انقضای پاسپورت">
                     <custom-input
                         v-model="passportDate"
                         class="mb-1 mt-3"
@@ -72,7 +72,7 @@
                     <span class="validation-alert">{{ errors[0] }}</span>
                 </v-provider>
             </template>
-            <v-provider v-slot="{ errors }" name="تاریخ تولد" rules="required">
+            <v-provider v-slot="{ errors }" name="تاریخ تولد" rules="required|date">
                 <custom-input
                     v-model="birthdate"
                     dir="ltr"
@@ -102,6 +102,8 @@ import cloneDeep from 'lodash/cloneDeep'
 import '~/plugins/veeValidate/rules/nationalCode'
 import '~/plugins/veeValidate/rules/latinWord'
 import '~/plugins/veeValidate/rules/required'
+import '~/plugins/veeValidate/rules/dateValidation'
+import {toLatin} from '~/plugins/numbers'
 
 
 
@@ -137,6 +139,7 @@ export default {
     },
     watch: {
         'birthdate'(t, f) {
+            t = toLatin(t)
             if (t && (!t.match(/^[\d-]+$/) || t.length > 10)) this.birthdate = f
             const [tl, fl] = [t.length, (f || '').length]
             if (tl - fl === 1) {
@@ -146,6 +149,7 @@ export default {
             }
         },
         'passportDate'(t, f) {
+            t = toLatin(t)
             if (t && (!t.match(/^[\d-]+$/) || t.length > 10)) this.passportDate = f
             const [tl, fl] = [t.length, (f || '').length]
             if (tl - fl === 1) {
