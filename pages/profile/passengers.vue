@@ -162,9 +162,9 @@ export default {
                 gender: null,
                 nationalCode: null,
                 birthdate: null,
-                passportCode: null,
-                passportDate: null,
-                passportCity: null
+                passportNumber: null,
+                passportExpiration: null,
+                nationality: null
             }
         }
     },

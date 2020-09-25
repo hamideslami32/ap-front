@@ -38,6 +38,7 @@
     "lodash": "^4.17.15",
     "nuxt": "^2.13.0",
     "portal-vue": "^2.1.7",
+    "raw-body": "^2.4.1",
     "vee-validate": "^3.3.8"
   },
   "devDependencies": {

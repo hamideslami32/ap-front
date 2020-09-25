@@ -1,0 +1,82 @@
+{
+  "type" : "flight",
+  "price" : 264600,
+  "flights" : [
+    {
+      "dependencies" : [],
+      "stops" : [
+        {
+          "aircraft" : "M83",
+          "airline" : "ZV",
+          "airlineName" : "زاگرس",
+          "flightNumber" : "4091",
+          "departureAirport" : "THR",
+          "departureTime" : ISODate("2020-09-28T05:40:00.000Z"),
+          "departureAirportName" : "فرودگاه مهرآباد",
+          "departureCityName" : "تهران",
+          "arrivalAirport" : "MHD",
+          "arrivalTime" : ISODate("2020-09-28T07:05:00.000Z"),
+          "arrivalAirportName" : "فرودگاه مشهد",
+          "arrivalCityName" : "مشهد",
+          "duration" : 85
+        }
+      ],
+      "_id" : "NiraZV|THR|MHD|2020-09-28 09:10:00|4091",
+      "baggage" : "20KG",
+      "net" : {
+        "adult" : {
+          "price" : 242000,
+          "tax" : 22600
+        },
+        "child" : {
+          "price" : 157300,
+          "tax" : 17500
+        },
+        "infant" : {
+          "price" : 49000,
+          "tax" : 11000
+        }
+      },
+      "fare" : {
+        "adult" : {
+          "price" : 242000,
+          "tax" : 22600
+        },
+        "child" : {
+          "price" : 157300,
+          "tax" : 17500
+        },
+        "infant" : {
+          "price" : 49000,
+          "tax" : 11000
+        }
+      },
+      "freeSeats" : 9,
+      "flightClass" : "economy",
+      "priceClass" : "R",
+      "providerKey" : "NiraZV",
+      "subProvider" : "",
+      "markup" : 1
+    }
+  ],
+  "session" : "5f6dc87043daf550c2581008",
+  "isDomestic" : true,
+  "priceHistory" : [
+    264600
+  ],
+  "passengers" : [
+    {
+      "gender" : "male",
+      "name" : {
+        "en" : "Sasan"
+      },
+      "surname" : {
+        "en" : "Farrokh"
+      },
+      "nationalCode" : "0020438583",
+      "birthdate" : "1399-07-04T14:22:48+03:30"
+    }
+  ],
+  "refundedPassengers" : [],
+  "bookingState" : "unknown"
+}

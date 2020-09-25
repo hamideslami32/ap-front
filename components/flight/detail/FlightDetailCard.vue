@@ -19,54 +19,26 @@
             </div>
         </div>
 
-        <div class="detail-card__tag" @click="flightRuleModal = true">
+        <div class="detail-card__tag" @click="showRulesModal = true">
             <curve-badge color="#49238c" :bottom="true" :width="180">
-                <span class="text-nowrap">{{ detailRefundRules }}</span>
+                <span class="text-nowrap">{{ $flight.session.isDomestic ? 'قوانین استرداد' : 'قوانین استرداد / ویزا' }}</span>
             </curve-badge>
         </div>
 
-        <b-modal v-model="flightRuleModal" body-class="py-1 px-0" hide-footer>
-            <template v-slot:modal-title>
-                {{ detailRefundRules }}
-            </template>
-            <template v-slot:modal-header-close>
-                <svgicon name="delete-disabled" width="30" height="30" @click="showFlightRule = false" />
-            </template>
-            <div class="rules-modal d-flex px-2 align-items-center justify-content-between">
-                <span class="text-gray-800 text-3">{{ flight.stops[0].departureCityName }} به {{ flight.stops[flight.stops.length - 1].arrivalCityName }}</span>
-                <div class="d-flex">
-                    <div class="text-2 text-left text-gray-700 font-en text-weight-500">
-                        <p class="mb-0">
-                            {{ flight.stops[0].aircraft }}
-                        </p>
-                        <p class="mb-0 text-capitalize">
-                            {{ flight.flightClass }}
-                        </p>
-                    </div>
-                    <div class="rules-modal__line mx-2" />
-                    <span>
-                        <span class="ml-1 text-2 text-weight-500 text-gray-800">{{ flight.stops[0].airlineName }}</span>
-                        <span><img :src="$flight.airlineLogoUrl(flight.stops[0].airline)" alt="" width="40px"></span>
-                    </span>
-                </div>
-                <div class="rules-modal__action">
-                    <b-btn class="btn" variant="outline-secondary">
-                        قوانین ویزا
-                    </b-btn>
-                </div>
-            </div>
-        </b-modal>
+        <flight-rules-modal v-model="showRulesModal" :flight="flight" />
     </div>
 </template>
 
 <script>
 import DetailItem from '~/components/flight/detail/FlightDetailItem'
+import FlightRulesModal from '~/components/flight/detail/FlightRulesModal'
 import CurveBadge from '~/components/ui/CurveBadge'
 
 export default {
     components: {
         DetailItem,
-        CurveBadge
+        CurveBadge,
+        FlightRulesModal
     },
     props: {
         flight: {
@@ -76,12 +48,7 @@ export default {
     },
     data() {
         return {
-            flightRuleModal: false
-        }
-    },
-    computed: {
-        detailRefundRules() {
-            return this.$flight.session.isDomestic ? 'قوانین استرداد' : 'قوانین استرداد / ویزا'
+            showRulesModal: false
         }
     }
 }
@@ -173,48 +140,6 @@ export default {
             left: 0;
             bottom: -1px;
             margin: auto;
-        }
-    }
-
-    .rules-modal {
-        height: 50px;
-        background: #f5f5f5;
-        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
-
-        &__line {
-            height: 30px;
-            border: 1px solid #e6e6e6;
-        }
-
-        &__container {
-            background-color: $white;
-            border: 1px solid #dddddd;
-            height: 90%;
-            border-radius: $borderRadius10;
-        }
-
-        &__action {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-bottom: 20px;
-            white-space: nowrap;
-
-            .btn {
-                min-width: 120px;
-                height: 40px;
-
-                &::after {
-                    content: '';
-                    width: 6px;
-                    height: 6px;
-                    display: inline-block;
-                    background: #e3469a;
-                    margin-right: 5px;
-                    border-radius: 50%;
-                }
-            }
         }
     }
 </style>

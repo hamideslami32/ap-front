@@ -4,13 +4,13 @@
             <span class="text-2 text-gray-800">مسافر {{ index }} - {{ passengerType }}</span>
         </div>
         <span class="flex-grow-1 text-left">
-            <badge v-if="value.name || value.lastName" class="px-3 py-2">
+            <badge v-if="value.name || value.surname" class="px-3 py-2">
                 {{ value.name }}
-                {{ value.lastName }}
+                {{ value.surname }}
             </badge>
         </span>
         <svgicon
-            v-if="value.name || value.lastName"
+            v-if="value.name || value.surname"
             name="arrow-left"
             class="text-gray-700 mr-2"
             width="24"

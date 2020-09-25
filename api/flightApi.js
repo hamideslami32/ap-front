@@ -78,4 +78,18 @@ export const flightApi = new class FlightApi extends BaseApi {
     pay(orderId) {
         return this.axios.$post(`/order/${orderId}/pay`)
     }
+
+    setPassengers(searchId, passengers) {
+        return this.axios.$post(`/flight/results/${searchId}/passengers`, {
+            passengers
+        })
+    }
+
+    getFlightRules(searchId, availableId, flightIds) {
+        return this.axios.$get(`/flight/results/${searchId}/${availableId}/rules`, {
+            params: {
+                flightIds
+            }
+        })
+    }
 }

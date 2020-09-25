@@ -99,9 +99,6 @@ export default {
             this.startSearch(true)
         },
         toggleNavSidebar() {
-            const overflow = document.body.style.overflow
-            if (overflow === 'hidden') document.body.style.overflow = 'auto'
-            else document.body.style.overflow = 'hidden'
             this.isNavOpen = !this.isNavOpen
         }
     }

@@ -19,7 +19,7 @@
 
                 <div class="user p-3 d-flex align-items-center justify-content-between">
                     <span class="text-3 text-gray-900 text-weight-600 pr-1">
-                        {{ user.firstName || '' }} {{ user.lastName || '' }}
+                        {{ user.firstName || '' }} {{ user.surname || '' }}
                     </span>
                     <div class="user__contact text-left text-2 text-weight-500 text-gray-700">
                         <p class="mb-1">
@@ -92,13 +92,13 @@ import TicketPlaceholder from '~/components/flight/TicketPlaceholder'
 const passengerFactory = (type = 'adult') => ({
     name: null,
     type,
-    lastName: null,
+    surname: null,
     gender: null,
     nationalCode: null,
     birthdate: null,
-    passportCode: null,
-    passportDate: null,
-    passportCity: null
+    passportExpiration: null,
+    passportNumber: null,
+    nationality: null
 })
 
 export default {
@@ -113,8 +113,18 @@ export default {
     },
     layout: 'page',
 
+    fetchOnServer: false,
     async fetch() {
-        this.order = await profileApi.getOrder(this.$route.query.orderId)
+        this.order = await profileApi.getOrder(this.$route.query.orderId);
+        (this.order.orderItems[0].passengers || []).forEach((p, i) => {
+            p = {
+                ...p,
+                type: this.passengers[i].type,
+                name: p.name.en,
+                surname: p.surname.en
+            }
+            this.$set(this.passengers, i, p)
+        })
     },
 
     data() {
@@ -139,8 +149,8 @@ export default {
             return this.$auth.user
         },
         isValid() {
-            const keys = ['birthdate','gender', 'lastName', 'name']
-            return this.passengers.every((item, i) => keys.every(key => item[key] != null) && Boolean(item.nationalCode || (item.passportCode && item.passportCity && item.passportDate)))
+            const keys = ['birthdate','gender', 'surname', 'name']
+            return this.passengers.every((item, i) => keys.every(key => item[key] != null) && Boolean(item.nationalCode || (item.passportNumber && item.nationality && item.passportExpiration)))
         }
     },
 
@@ -156,11 +166,17 @@ export default {
                 }
                 await this.$auth.authenticate()
                 const { orderId } = this.$route.query
-                // const passengers = await flightApi.setPassengers(orderId, this.passengers)
+                await flightApi.setPassengers(this.$flight.session.id, this.passengers.map(p => ({
+                    gender: p.gender,
+                    name: { en: p.name },
+                    surname: { en: p.surname },
+                    nationalCode: p.nationalCode,
+                    birthdate: this.$dayjs(p.birthday).format()
+                })))
                 const {paymentUrl} = await flightApi.pay(orderId)
                 window.location = paymentUrl
             } catch (e) {
-                
+
             }
         }
     }
