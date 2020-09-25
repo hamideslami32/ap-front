@@ -79,7 +79,7 @@ export default {
             return this.order.orderItems.find(item => item.type === 'flight')
         },
         downloadUrl() {
-            return process.env.API_URL + '/api/flight/ticket/5f6dc87043daf550c2581008'
+            return process.env.API_URL + '/flight/ticket/5f6dc87043daf550c2581008'
         }
     }
 }
