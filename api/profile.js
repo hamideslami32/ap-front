@@ -22,7 +22,12 @@ export const profileApi = new class ProfileApi extends BaseApi {
             })
     }
 
-    getTransactions() {
-        return this.axios.$get('/payments')
+    getPayments() {
+        return this.axios.$get('/payments', {
+            params: {
+                limit: 20,
+                offset: 0
+            }
+        })
     }
 }
