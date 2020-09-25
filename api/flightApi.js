@@ -14,7 +14,8 @@ export const flightApi = new class FlightApi extends BaseApi {
         return this.axios.$get('/flight/suggestions', {
             params: {
                 q: query
-            }
+            },
+            progress: false
         }).then(res => {
             this.suggestions[query] = res
             return res
@@ -51,7 +52,8 @@ export const flightApi = new class FlightApi extends BaseApi {
                 type,
                 minDate,
                 maxDate
-            }
+            },
+            progress: false
         })
     }
 
