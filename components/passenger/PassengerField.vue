@@ -32,8 +32,8 @@
                 <svgicon name="arrow-left" width="20" height="20" />
             </template>
             <div class="add-passengers">
-                <b-tabs content-class="mt-5 px-2">
-                    <b-tab v-if="$flight.session.isDomestic" title="خرید با کد ملی" active @click="nationalPassenger = true">
+                <b-tabs v-model="currentTab" content-class="mt-5 px-2">
+                    <b-tab v-if="$flight.session.isDomestic" title="خرید با کد ملی">
                         <passenger-form v-model="localValue" @close="showModal = false" />
                     </b-tab>
                     <b-tab title="خرید با پاسپورت" @click="nationalPassenger = false">
@@ -49,6 +49,8 @@
 import Badge from '~/components/ui/Badge'
 import PassengerForm from '~/components/passenger/PassengerForm'
 
+const NATIONAL_TAB = 0, PASSPORT_TAB = 1
+
 export default {
     name: 'PassengerField',
     components: {Badge, PassengerForm},
@@ -63,8 +65,10 @@ export default {
         }
     },
     data() {
+        const { value } = this
         return {
-            showModal: false
+            showModal: false,
+            currentTab: value ? (value.passportNumber ? PASSPORT_TAB : NATIONAL_TAB) : (this.$flight.session.isDomestic ? NATIONAL_TAB : PASSPORT_TAB)
         }
     },
     computed: {

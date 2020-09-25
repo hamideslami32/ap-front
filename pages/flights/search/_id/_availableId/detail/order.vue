@@ -6,11 +6,21 @@
         <div class="mt-3 px-2">
             <flight-order-card v-if="order" :on-way="!$flight.session.routes[1]" :order="order.orderItems[0]" />
             <ticket-placeholder v-else />
-            <p class="my-3 text-center text-gray-700 text-3">
-                وارد کردن اطلاعات مسافرین
-            </p>
 
-            <passenger-field v-for="(passenger, i) in passengers" :key="i" v-model="passengers[i]" :index="i + 1" />
+            <template v-if="!$fetchState.pending">
+                <p class="my-3 text-center text-gray-700 text-3">
+                    وارد کردن اطلاعات مسافرین
+                </p>
+
+                <passenger-field
+                    v-for="(passenger, i) in passengers"
+                    :key="i"
+                    v-model="passengers[i]"
+                    :index="i + 1"
+                    @input="submitPassengers"
+                />
+            </template>
+
 
             <template v-if="user">
                 <p class="my-3 text-center text-gray-700 text-3">
@@ -98,7 +108,7 @@ const passengerFactory = (type = 'adult') => ({
     birthdate: null,
     passportExpiration: null,
     passportNumber: null,
-    nationality: null
+    nationality: 'IRN'
 })
 
 export default {
@@ -166,18 +176,25 @@ export default {
                 }
                 await this.$auth.authenticate()
                 const { orderId } = this.$route.query
-                await flightApi.setPassengers(this.$flight.session.id, this.passengers.map(p => ({
-                    gender: p.gender,
-                    name: { en: p.name },
-                    surname: { en: p.surname },
-                    nationalCode: p.nationalCode,
-                    birthdate: this.$dayjs(p.birthday).format()
-                })))
+                await this.submitPassengers()
                 const {paymentUrl} = await flightApi.pay(orderId)
                 window.location = paymentUrl
             } catch (e) {
 
             }
+        },
+
+        submitPassengers() {
+            return flightApi.setPassengers(this.$flight.session.id, this.passengers.map(p => ({
+                gender: p.gender,
+                name: { en: p.name },
+                surname: { en: p.surname },
+                nationalCode: p.nationalCode,
+                nationality: p.nationality,
+                passportExpiration: this.$dayjs(p.passportExpiration).format(),
+                passportNumber: p.passportNumber,
+                birthdate: this.$dayjs(p.birthday).calendar('gregory').format()
+            })))
         }
     }
 }

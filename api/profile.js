@@ -1,5 +1,5 @@
 import {BaseApi} from '~/plugins/api'
-import { Flight } from '~/scripts/Flight'
+import { Flight } from '~/scripts/models/Flight'
 
 export const profileApi = new class ProfileApi extends BaseApi {
     constructor() {

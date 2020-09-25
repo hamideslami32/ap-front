@@ -68,7 +68,7 @@
                     <span class="validation-alert">{{ errors[0] }}</span>
                 </v-provider>
                 <v-provider v-slot="{ errors }" rules="required" name="کشور صادر کننده پاسپورت">
-                    <b-form-select v-model="localValue.nationality" class="mb-1 mt-3" :options="options" />
+                    <b-form-select v-model="localValue.nationality" class="mb-1 mt-3" :options="nationalities" />
                     <span class="validation-alert">{{ errors[0] }}</span>
                 </v-provider>
             </template>
@@ -104,6 +104,9 @@ import '~/plugins/veeValidate/rules/latinWord'
 import '~/plugins/veeValidate/rules/required'
 import '~/plugins/veeValidate/rules/dateValidation'
 import {toLatin} from '~/plugins/numbers'
+import {flightApi} from '~/api/flightApi'
+
+let nationalities
 
 export default {
     name: 'PassengerForm',
@@ -121,18 +124,10 @@ export default {
 
     data() {
         return {
-            country: null,
             localValue: cloneDeep(this.value),
             birthdate: this.value.birthdate ? this.$dayjs(this.value.birthdate).calendar('jalali').format('YYYY-MM-DD') : undefined,
             passportExpiration: this.passport && this.value.passportExpiration ? this.$dayjs(this.value.passportExpiration).calendar('jalali').format('YYYY-MM-DD') : undefined,
-            options: [
-                {value: null, text: 'کشور صادر کننده پاسپورت'},
-                {value: 'هلند', text: 'هلند'},
-                {value: 'آرژانتین', text: 'آرژانتین'},
-                {value: 'افغانستان', text: 'افغانستان'},
-                {value: 'امارات', text: 'امارات'},
-                {value: 'فرانسه', text: 'فرانسه'}
-            ]
+            nationalities: nationalities
         }
     },
     watch: {
@@ -155,6 +150,11 @@ export default {
                     this.passportExpiration += '-'
                 }
             }
+        }
+    },
+    async mounted() {
+        if (!nationalities) {
+            this.nationalities = nationalities = await flightApi.getNationalities()
         }
     },
     methods: {

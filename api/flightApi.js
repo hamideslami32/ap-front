@@ -1,5 +1,5 @@
 import {BaseApi} from '~/plugins/api'
-import {Flight} from '~/scripts/Flight'
+import {Flight} from '~/scripts/models/Flight'
 
 export const flightApi = new class FlightApi extends BaseApi {
     constructor() {
@@ -91,5 +91,9 @@ export const flightApi = new class FlightApi extends BaseApi {
                 flightIds
             }
         })
+    }
+
+    getNationalities() {
+        return this.axios.$get('/countries.json', { baseURL: '/' })
     }
 }

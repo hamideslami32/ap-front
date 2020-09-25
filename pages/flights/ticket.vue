@@ -21,6 +21,12 @@ export default {
             }
         }
 
+        if (process.env.NODE_ENV !== 'production') {
+            return {
+                ticket: require('~/assets/json/sample-order-item.json')
+            }
+        }
+
         return error({statusCode: 404})
     }
 }

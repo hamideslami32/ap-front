@@ -11,11 +11,11 @@
           "airlineName" : "زاگرس",
           "flightNumber" : "4091",
           "departureAirport" : "THR",
-          "departureTime" : ISODate("2020-09-28T05:40:00.000Z"),
+          "departureTime" : "2020-09-28T05:40:00.000Z",
           "departureAirportName" : "فرودگاه مهرآباد",
           "departureCityName" : "تهران",
           "arrivalAirport" : "MHD",
-          "arrivalTime" : ISODate("2020-09-28T07:05:00.000Z"),
+          "arrivalTime" : "2020-09-28T07:05:00.000Z",
           "arrivalAirportName" : "فرودگاه مشهد",
           "arrivalCityName" : "مشهد",
           "duration" : 85
