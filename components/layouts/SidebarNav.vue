@@ -13,7 +13,7 @@
                         width="25"
                         height="25"
                     />
-                    <a :href="item.link">{{ item.text }}</a>
+                    <a class="text-gray-white" :href="item.link">{{ item.text }}</a>
                 </li>
             </ul>
         </div>
