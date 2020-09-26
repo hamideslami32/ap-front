@@ -99,7 +99,7 @@
                 <svgicon name="arrow-left" width="20" height="20" />
             </template>
             <div class="mt-3">
-                <b-tabs content-class="mt-5 px-2">
+                <b-tabs content-class="mt-5 px-2 mb-3">
                     <b-tab title="با کد ملی" active>
                         <passenger-form v-model="submitPassenger" @close="addPassenger = false" />
                     </b-tab>

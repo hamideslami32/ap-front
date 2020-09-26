@@ -3,7 +3,7 @@
         <portal to="header">
             حساب کاربری
         </portal>
-        <b-tabs content-class="mt-5 px-2">
+        <b-tabs content-class="mt-5 px-2 mb-3">
             <b-tab title="مشخصات فردی" active @click="editAccount = false">
                 <div v-if="!editAccount" class="account__show">
                     <p class="text-3">

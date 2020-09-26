@@ -68,7 +68,13 @@
                     <span class="validation-alert">{{ errors[0] }}</span>
                 </v-provider>
                 <v-provider v-slot="{ errors }" rules="required" name="کشور صادر کننده پاسپورت">
-                    <b-form-select v-model="localValue.nationality" class="mb-1 mt-3" :options="nationalities" />
+                    <b-form-select v-model="localValue.nationality" class="mb-1 mt-3" :options="nationalities">
+                        <template v-slot:first>
+                            <b-form-select-option :value="null" disabled>
+                                کشور صادر کننده پاسپورت
+                            </b-form-select-option>
+                        </template>
+                    </b-form-select>
                     <span class="validation-alert">{{ errors[0] }}</span>
                 </v-provider>
             </template>

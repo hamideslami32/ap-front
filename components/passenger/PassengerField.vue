@@ -32,7 +32,7 @@
                 <svgicon name="arrow-left" width="20" height="20" />
             </template>
             <div class="add-passengers">
-                <b-tabs v-model="currentTab" content-class="mt-5 px-2">
+                <b-tabs v-model="currentTab" content-class="mt-5 px-2 mb-3">
                     <b-tab v-if="$flight.session.isDomestic" title="خرید با کد ملی">
                         <passenger-form v-model="localValue" @close="showModal = false" />
                     </b-tab>
