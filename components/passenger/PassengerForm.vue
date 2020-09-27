@@ -2,92 +2,120 @@
     <v-observer v-slot="{ handleSubmit }" slim>
         <form action="" class="passenger-form" @submit.prevent="handleSubmit(submit)">
             <v-provider v-slot="{ errors }" name="نام" rules="latinWord|required" slim>
-                <a-input v-model="localValue.name" wrapper-class="mb-1 mt-3" dir="ltr" placeholder="نام به لاتین" />
-                <span class="validation-alert">{{ errors[0] }}</span>
+                <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
+                    <a-input
+                        v-model="localValue.name"
+                        dir="ltr"
+                        placeholder="نام به لاتین"
+                        :state="errors.length ? false : null"
+                    />
+                </b-form-group>
             </v-provider>
             <v-provider v-slot="{ errors }" name="نام خانوادگی" rules="latinWord|required" slim>
-                <a-input v-model="localValue.surname" wrapper-class="mb-1 mt-3" dir="ltr" placeholder="نام خانوادگی به لاتین" />
-                <span class="validation-alert">{{ errors[0] }}</span>
+                <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
+                    <a-input
+                        v-model="localValue.surname"
+                        dir="ltr"
+                        placeholder="نام خانوادگی به لاتین"
+                        :state="errors.length ? false : null"
+                    />
+                </b-form-group>
             </v-provider>
             <p class="text-3 text-gray-700 text-center my-3">
                 جنسیت مسافر
             </p>
 
-            <v-provider v-slot="{ errors }" name="جنسیت" rules="required">
-                <b-form-group class="en font-weight-medium mb-1">
+            <v-provider v-slot="{ errors }" name="جنسیت" rules="required" slim>
+                <b-form-group
+                    class="en font-weight-medium mb-3 gender-input"
+                    :state="errors.length ? false : null"
+                    :invalid-feedback="errors[0]"
+                >
                     <b-form-radio
                         v-model="localValue.gender"
                         class="ml-0"
                         value="male"
                         :class="{ active: localValue.gender === 'male' }"
                         inline
+                        :state="errors.length ? false : null"
                     >
                         مرد
                     </b-form-radio>
                     <b-form-radio
                         v-model="localValue.gender"
-                        class="ml-0 mr-auto"
+                        class="ml-0 float-left"
                         value="female"
                         :class="{ active: localValue.gender === 'female' }"
                         inline
+                        :state="errors.length ? false : null"
                     >
                         زن
                     </b-form-radio>
                 </b-form-group>
-                <span class="validation-alert">{{ errors[0] }}</span>
             </v-provider>
             <template v-if="!passport">
-                <v-provider v-slot="{ errors }" rules="nationalCode|required" name="کد ملی">
-                    <a-input
-                        v-model="localValue.nationalCode"
-                        wrapper-class="mb-1 mt-3"
-                        maxlength="10"
-                        inputmode="numeric"
-                        placeholder="کد ملی"
-                    />
-                    <span class="validation-alert">{{ errors[0] }}</span>
+                <v-provider v-slot="{ errors }" rules="nationalCode|required" name="کد ملی" slim>
+                    <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
+                        <a-input
+                            v-model="localValue.nationalCode"
+                            maxlength="10"
+                            inputmode="numeric"
+                            placeholder="کد ملی"
+                            :state="errors.length ? false : null"
+                        />
+                    </b-form-group>
                 </v-provider>
             </template>
             <template v-else>
-                <v-provider v-slot="{ errors }" rules="required" name="شماره پاسپورت">
-                    <a-input
-                        v-model="localValue.passportNumber"
-                        wrapper-class="mb-1 mt-3"
-                        placeholder="شماره پاسپورت"
-                    />
-                    <span class="validation-alert">{{ errors[0] }}</span>
+                <v-provider v-slot="{ errors }" rules="required" name="شماره پاسپورت" slim>
+                    <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
+                        <a-input
+                            v-model="localValue.passportNumber"
+                            placeholder="شماره پاسپورت"
+                            :state="errors.length ? false : null"
+                        />
+                    </b-form-group>
                 </v-provider>
-                <v-provider v-slot="{ errors }" rules="required|date" name="تاریخ انقضای پاسپورت">
-                    <a-input
-                        v-model="passportExpiration"
-                        wrapper-class="mb-1 mt-3"
-                        maxlength="10"
-                        inputmode="numeric"
-                        placeholder="تاریخ انقضای پاسپورت"
-                    />
-                    <span class="validation-alert">{{ errors[0] }}</span>
+                <v-provider v-slot="{ errors }" rules="required|date" name="تاریخ انقضای پاسپورت" slim>
+                    <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
+                        <a-input
+                            v-model="passportExpiration"
+                            maxlength="10"
+                            inputmode="numeric"
+                            placeholder="تاریخ انقضای پاسپورت"
+                            :state="errors.length ? false : null"
+                        />
+                    </b-form-group>
                 </v-provider>
-                <v-provider v-slot="{ errors }" rules="required" name="کشور صادر کننده پاسپورت">
-                    <b-form-select v-model="localValue.nationality" wrapper-class="mb-1 mt-3" :options="nationalities">
-                        <template v-slot:first>
-                            <b-form-select-option :value="null" disabled>
-                                کشور صادر کننده پاسپورت
-                            </b-form-select-option>
-                        </template>
-                    </b-form-select>
-                    <span class="validation-alert">{{ errors[0] }}</span>
+                <v-provider v-slot="{ errors }" rules="required" name="کشور صادر کننده پاسپورت" slim>
+                    <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
+                        <b-form-select
+                            v-model="localValue.nationality"
+                            :state="errors.length ? false : null"
+                            :invalid-feedback="errors[0]"
+                            :options="nationalities"
+                        >
+                            <template v-slot:first>
+                                <b-form-select-option :value="null" disabled>
+                                    کشور صادر کننده پاسپورت
+                                </b-form-select-option>
+                            </template>
+                        </b-form-select>
+                    </b-form-group>
                 </v-provider>
             </template>
-            <v-provider v-slot="{ errors }" name="تاریخ تولد" rules="required|date">
-                <a-input
-                    v-model="birthdate"
-                    dir="ltr"
-                    class="mb-2 mt-3"
-                    placeholder="تاریخ تولد"
-                    inputmode="numeric"
-                    maxlength="10"
-                />
-                <span class="validation-alert">{{ errors[0] }}</span>
+            <v-provider v-slot="{ errors }" name="تاریخ تولد" rules="required|date" slim>
+                <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
+                    <a-input
+                        v-model="birthdate"
+                        dir="ltr"
+                        class="mb-2 mt-3"
+                        placeholder="تاریخ تولد"
+                        inputmode="numeric"
+                        maxlength="10"
+                        :state="errors.length ? false : null"
+                    />
+                </b-form-group>
             </v-provider>
             <a-btn
                 wrapper-class="mt-3"
@@ -166,8 +194,8 @@ export default {
     methods: {
         submit() {
             const isJalaali = this.birthdate.split(/-|\//)[0] < 1700
-            this.localValue.birthdate = this.$dayjs(this.birthdate, { jalali: isJalaali }).calendar('gregory').format('YYYY-MM-DD')
-            this.localValue.passportExpiration = this.passportExpiration ? this.$dayjs(this.passportExpiration, { jalali: this.passportExpiration.split(/-|\//)[0] < 1700 }).calendar('gregory').format('YYYY-MM-DD') : undefined
+            this.localValue.birthdate = this.$dayjs(this.birthdate, {jalali: isJalaali}).calendar('gregory').format('YYYY-MM-DD')
+            this.localValue.passportExpiration = this.passportExpiration ? this.$dayjs(this.passportExpiration, {jalali: this.passportExpiration.split(/-|\//)[0] < 1700}).calendar('gregory').format('YYYY-MM-DD') : undefined
             this.$emit('input', this.localValue)
             this.$emit('close')
         }
@@ -199,12 +227,6 @@ export default {
                 font-weight: 600;
                 position: relative;
                 z-index: 1;
-            }
-        }
-
-        /deep/ .form-group {
-            > div {
-                display: flex;
             }
         }
     }

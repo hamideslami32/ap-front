@@ -26,44 +26,51 @@
                     <p class="text-3 text-center">
                         ویرایش اطلاعات شخصی
                     </p>
-                    <v-observer v-slot="{ handleSubmit }">
+                    <v-observer v-slot="{ handleSubmit }" slim>
                         <form @submit.prevent="handleSubmit(submitInfo)">
-                            <v-provider v-slot="{ errors }" name="نام" rules="required">
-                                <b-form-group :state="errors.length ? false : null" :invalid-feedback="errors[0]">
+                            <v-provider v-slot="{ errors }" name="نام" rules="required" slim>
+                                <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
                                     <a-input
                                         v-model="account.firstName"
-                                        wrapper-class="mb-1 mt-3"
                                         placeholder="نام"
                                         class="input text-3"
                                         :state="errors.length ? false : null"
                                     />
                                 </b-form-group>
                             </v-provider>
-                            <v-provider v-slot="{ errors }" name="نام خانوادگی" rules="required">
-                                <a-input v-model="account.lastName" wrapper-class="mb-1 mt-3" placeholder="نام خانوادگی" class="input text-3" />
-                                <span class="validation-alert">{{ errors[0] }}</span>
+                            <v-provider v-slot="{ errors }" name="نام خانوادگی" rules="required" slim>
+                                <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
+                                    <a-input
+                                        v-model="account.lastName"
+                                        placeholder="نام خانوادگی"
+                                        class="input text-3"
+                                        :state="errors.length ? false : null"
+                                    />
+                                </b-form-group>
                             </v-provider>
-                            <v-provider v-slot="{ errors }" name="ایمیل" rules="required|email">
-                                <a-input
-                                    v-model="account.email"
-                                    wrapper-class="mb-1 mt-3"
-                                    placeholder="ایمیل"
-                                    class="input text-3"
-                                    dir="ltr"
-                                />
-                                <span class="validation-alert">{{ errors[0] }}</span>
+                            <v-provider v-slot="{ errors }" name="ایمیل" rules="required|email" slim>
+                                <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
+                                    <a-input
+                                        v-model="account.email"
+                                        placeholder="ایمیل"
+                                        class="input text-3"
+                                        dir="ltr"
+                                        :state="errors.length ? false : null"
+                                    />
+                                </b-form-group>
                             </v-provider>
-                            <v-provider v-slot="{ errors }" name="تاریخ تولد" rules="required|date">
-                                <a-input
-                                    v-model="account.birthdate"
-                                    wrapper-class="mb-1 mt-3"
-                                    placeholder="تاریخ تولد"
-                                    class="input text-3"
-                                    inputmode="numeric"
-                                    maxlength="10"
-                                    dir="ltr"
-                                />
-                                <span class="validation-alert">{{ errors[0] }}</span>
+                            <v-provider v-slot="{ errors }" name="تاریخ تولد" rules="required|date" slim>
+                                <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
+                                    <a-input
+                                        v-model="account.birthdate"
+                                        placeholder="تاریخ تولد"
+                                        class="input text-3"
+                                        inputmode="numeric"
+                                        maxlength="10"
+                                        dir="ltr"
+                                        :state="errors.length ? false : null"
+                                    />
+                                </b-form-group>
                             </v-provider>
                             <a-btn
                                 variant="primary"
@@ -91,42 +98,52 @@
                     <p class="text-3 text-center">
                         تغییر رمز عبور
                     </p>
-                    <v-observer v-slot="{ handleSubmit }">
+                    <v-observer v-slot="{ handleSubmit }" slim>
                         <form @submit.prevent="handleSubmit(submitPassword)">
                             <template v-if="user.password">
-                                <v-provider v-slot="{ errors }" name="رمز عبور فعلی" rules="required|min:6">
-                                    <a-input
-                                        v-model="changePassword.currentPassword"
-                                        wrapper-class="mb-1 mt-3"
-                                        type="password"
-                                        placeholder="رمز عبور فعلی"
-                                        class="input text-3"
-                                    />
-                                    <span class="validation-alert">{{ errors[0] }}</span>
+                                <v-provider v-slot="{ errors }" name="رمز عبور فعلی" rules="required|min:6" slim>
+                                    <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
+                                        <a-input
+                                            v-model="changePassword.currentPassword"
+                                            type="password"
+                                            placeholder="رمز عبور فعلی"
+                                            class="input text-3"
+                                            :state="errors.length ? false : null"
+                                        />
+                                    </b-form-group>
                                 </v-provider>
                                 <p class="text-3 mt-4">
                                     رمز عبور جدید
                                 </p>
                             </template>
-                            <v-provider v-slot="{ errors }" name="رمز عبور جدید" rules="required|min:6|password:@confirm">
-                                <a-input
-                                    v-model="changePassword.newPassword"
-                                    wrapper-class="mb-1 mt-3"
-                                    type="password"
-                                    placeholder="رمز عبور جدید"
-                                    class="input text-3"
-                                />
-                                <span class="validation-alert">{{ errors[0] }}</span>
+                            <v-provider
+                                v-slot="{ errors }"
+                                name="رمز عبور جدید"
+                                rules="required|min:6|password:@confirm"
+                            >
+                                <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
+                                    <a-input
+                                        v-model="changePassword.newPassword"
+                                        wrapper-class="mb-1 mt-3"
+                                        type="password"
+                                        placeholder="رمز عبور جدید"
+                                        class="input text-3"
+                                        :state="errors.length ? false : null"
+                                    />
+                                </b-form-group>
                             </v-provider>
-                            <v-provider v-slot="{ errors }" name="confirm" rules="required|min:4">
-                                <a-input
-                                    v-model="changePassword.confirmPassword"
-                                    wrapper-class="mb-1 mt-3"
-                                    type="password"
-                                    placeholder="تکرار رمز عبور جدید"
-                                    class="input text-3"
-                                />
-                                <span v-if="errors[0]" class="validation-alert">تکرار رمز عبور جدید الزامی میباشد</span>
+                            <v-provider v-slot="{ errors }" name="رمز عبور جدید" rules="required|min:4" slim>
+                                <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
+                                    <a-input
+                                        v-model="changePassword.confirmPassword"
+                                        wrapper-class="mb-1 mt-3"
+                                        type="password"
+                                        placeholder="تکرار رمز عبور جدید"
+                                        class="input text-3"
+                                        :state="errors.length ? false : null"
+                                    />
+                                    <!--                                    <span v-if="errors[0]" class="validation-alert">تکرار رمز عبور جدید الزامی میباشد</span>-->
+                                </b-form-group>
                             </v-provider>
                             <a-btn
                                 variant="primary"
@@ -150,8 +167,8 @@
 import AInput from '~/components/ui/form/AInput'
 import Field from '~/components/ui/Field'
 import CheckedTick from '~/components/ui/CheckedTick'
-import { extend } from 'vee-validate'
-import { min } from 'vee-validate/dist/rules'
+import {extend} from 'vee-validate'
+import {min} from 'vee-validate/dist/rules'
 import '~/plugins/veeValidate/rules/required'
 import '~/plugins/veeValidate/rules/latinWord'
 import '~/plugins/veeValidate/rules/alphaSpace'
@@ -161,7 +178,7 @@ import {toLatin} from '~/plugins/numbers'
 
 extend('password', {
     params: ['target'],
-    validate(value, { target }) {
+    validate(value, {target}) {
         return value === target
     },
     message: 'رمز عبور جدید و تکرار آن یکسان نمیباشد'
@@ -198,7 +215,7 @@ export default {
             return this.$auth.user
         },
         userFullName() {
-            const { firstName = '', lastName = '' } = this.user
+            const {firstName = '', lastName = ''} = this.user
             return firstName + ' ' + lastName
         }
     },
@@ -221,10 +238,10 @@ export default {
         },
 
         async submitInfo() {
-            const account = { ...this.account }
+            const account = {...this.account}
             if (account.birthdate) {
                 const isJalaali = account.birthdate.split(/-|\//)[0] < 1700
-                account.birthdate = this.$dayjs(account.birthdate, { jalali: isJalaali })
+                account.birthdate = this.$dayjs(account.birthdate, {jalali: isJalaali})
                     .calendar('gregory').format('YYYY-MM-DD')
             }
             await this.$auth.patchUser(account)
