@@ -82,17 +82,17 @@
                     پر کردن حداقل یک فیلد کافیست
                 </p>
                 <form action="">
-                    <custom-input title="شماره سفارش" />
-                    <custom-input title="نوع سفارش" />
+                    <a-input wrapper-class="mb-1 mt-3" placeholder="شماره سفارش" />
+                    <a-input wrapper-class="mb-1 mt-3" placeholder="نوع سفارش" />
                     <span class="date-input-pair">
-                        <custom-input title="از تاریخ" />
+                        <a-input wrapper-class="mb-1 mt-3" placeholder="از تاریخ" />
                         <svgicon
                             class="pair-icon text-primary"
                             name="arrows-round"
                             width="30"
                             height="30"
                         />
-                        <custom-input title="تا تاریخ" />
+                        <a-input wrapper-class="mb-1 mt-3" placeholder="تا تاریخ" />
                     </span>
                     <a-btn shadow variant="primary" class="submit-btn" type="submit">
                         جستجو
@@ -194,7 +194,7 @@ export default {
             display: flex;
             flex-direction: column;
 
-            .custom-input {
+            .form-control-wrapper {
                 margin-bottom: 0;
 
                 &:first-child {

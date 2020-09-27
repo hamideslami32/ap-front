@@ -11,14 +11,15 @@
             <template v-slot:modal-header-close>
                 <svgicon name="arrow-left" width="20" height="20" />
             </template>
-            <div class="destination-picker">
+            <div class="destination-picker mb-2">
                 <div class="destination-picker__input">
-                    <custom-input
+                    <a-input
                         ref="inputModal"
                         v-model="query"
                         icon="search"
-                        :title="'شهر یا فرودگاه ' + title"
+                        :placeholder="'شهر یا فرودگاه ' + title"
                         autocomplete="off"
+                        wrapper-class="mb-3"
                         @input="dFetchResult"
                         @keypress.enter="selectFirst"
                     />
@@ -50,14 +51,14 @@
 <script>
 import debounce from 'lodash/debounce'
 import DestinationInput from '~/components/flight/flight-search/DestinationInput'
-import CustomInput from '~/components/ui/form/CustomInput'
+import AInput from '~/components/ui/form/AInput'
 import FlightDestinationPickerItem from '~/components/flight/flight-search/FlightDestinationPickerItem'
 import {flightApi} from '~/api/flightApi'
 
 export default {
     components: {
         DestinationInput,
-        CustomInput,
+        AInput,
         FlightDestinationPickerItem
     },
 

@@ -1,22 +1,19 @@
 .form-control {
-    width: 100%;
     height: 50px;
-    outline: none;
-    border: 1px solid $modalBorder;
-    font-size: 13px;
-    line-height: 52px;
+    outline: none !important;
+    border-color: $modalBorder;
+    font-size: 0.813rem;
     color: $black;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
-    border-radius: 3px;
-    background: $white;
+    background-color: $white;
 
     &:focus {
         border-color: $black;
-        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05) !important;
     }
 
     &::placeholder {
-        color: $borderColor;
+        color: map_get($grays, '700');
     }
 }
 

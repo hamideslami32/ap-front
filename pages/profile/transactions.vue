@@ -52,19 +52,25 @@
                     پر کردن حداقل یک فیلد کافیست
                 </p>
                 <form action="">
-                    <custom-input title="شماره سفارش" />
-                    <custom-input title="نوع سفارش" />
-                    <span class="date-input-pair">
-                        <custom-input title="از تاریخ" />
+                    <a-input wrapper-class="mb-1 mt-3" placeholder="شماره سفارش" />
+                    <a-input wrapper-class="mb-1 mt-3" placeholder="نوع سفارش" />
+                    <span class="date-input-pair mb-1 mt-3">
+                        <a-input placeholder="از تاریخ" />
                         <svgicon
                             class="pair-icon text-primary"
                             name="arrows-round"
                             width="30"
                             height="30"
                         />
-                        <custom-input title="تا تاریخ" />
+                        <a-input placeholder="تا تاریخ" />
                     </span>
-                    <a-btn variant="primary" class="submit-btn" type="submit">
+                    <a-btn
+                        variant="primary"
+                        shadow
+                        block
+                        class="submit-btn"
+                        type="submit"
+                    >
                         جستجو
                     </a-btn>
                 </form>
@@ -75,13 +81,13 @@
 
 <script>
 import Card from '~/components/ui/Card'
-import CustomInput from '~/components/ui/form/CustomInput'
+import AInput from '~/components/ui/form/AInput'
 import BtnWrapper from '~/components/ui/BtnWrapper'
 import {profileApi} from '~/api/profile'
 
 
 export default {
-    components: {CustomInput, Card, BtnWrapper},
+    components: {AInput, Card, BtnWrapper},
     layout: 'page',
     async fetch() {
         this.payments = await profileApi.getPayments()
@@ -135,7 +141,7 @@ export default {
             position: relative;
             display: flex;
             flex-direction: column;
-            .custom-input {
+            .form-control-wrapper {
                 margin-bottom: 0;
                 &:first-child {
                     /deep/ input {

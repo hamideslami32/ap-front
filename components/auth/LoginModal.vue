@@ -10,16 +10,16 @@
             <form v-if="step === 'otp'" class="auth-form" @submit.prevent="handleSubmit(requestOtp)">
                 <p>لطفا شماره همراه خود را وارد نمایید</p>
                 <v-provider v-slot="{ errors }" name="شماره همراه" vid="phone" rules="required|min:11|mobileNumber">
-                    <custom-input
+                    <a-input
                         v-model="mobile"
                         v-localize-number
                         dir="ltr"
-                        input-class="auth-form__input"
+                        class="auth-form__input"
                         type="tel"
-                        class="mb-1 text-center"
+                        wrapper-class="mb-1 text-center"
                         inputmode="numeric"
                         maxlength="11"
-                        title="شماره همراه"
+                        placeholder="شماره همراه"
                     />
                     <span class="validation-alert">{{ errors[0] }}</span>
                 </v-provider>
@@ -77,7 +77,7 @@
 
 <script>
 
-import CustomInput from '~/components/ui/form/CustomInput'
+import AInput from '~/components/ui/form/AInput'
 import DigitInput from '~/components/auth/DigitInput'
 import Timer from '~/components/Timer'
 import { extend } from 'vee-validate'
@@ -94,7 +94,7 @@ export default {
     components: {
         Timer,
         DigitInput,
-        CustomInput
+        AInput
     },
     data() {
         return {
@@ -171,11 +171,7 @@ export default {
         color: $grayColor;
         text-align: center;
 
-        /deep/ &__input {
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
-            border-radius: 10px;
-            height: 50px;
-            border: 1px solid map_get($grays, '400');
+        /deep/ .form-control {
             &::placeholder {
                 text-align: center;
             }

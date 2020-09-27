@@ -29,29 +29,36 @@
                     <v-observer v-slot="{ handleSubmit }">
                         <form @submit.prevent="handleSubmit(submitInfo)">
                             <v-provider v-slot="{ errors }" name="نام" rules="required">
-                                <custom-input v-model="account.firstName" class="mb-1 mt-3" title="نام" input-class="input text-3" />
-                                <span class="validation-alert">{{ errors[0] }}</span>
+                                <b-form-group :state="errors.length ? false : null" :invalid-feedback="errors[0]">
+                                    <a-input
+                                        v-model="account.firstName"
+                                        wrapper-class="mb-1 mt-3"
+                                        placeholder="نام"
+                                        class="input text-3"
+                                        :state="errors.length ? false : null"
+                                    />
+                                </b-form-group>
                             </v-provider>
                             <v-provider v-slot="{ errors }" name="نام خانوادگی" rules="required">
-                                <custom-input v-model="account.lastName" class="mb-1 mt-3" title="نام خانوادگی" input-class="input text-3" />
+                                <a-input v-model="account.lastName" wrapper-class="mb-1 mt-3" placeholder="نام خانوادگی" class="input text-3" />
                                 <span class="validation-alert">{{ errors[0] }}</span>
                             </v-provider>
                             <v-provider v-slot="{ errors }" name="ایمیل" rules="required|email">
-                                <custom-input
+                                <a-input
                                     v-model="account.email"
-                                    class="mb-1 mt-3"
-                                    title="ایمیل"
-                                    input-class="input text-3"
+                                    wrapper-class="mb-1 mt-3"
+                                    placeholder="ایمیل"
+                                    class="input text-3"
                                     dir="ltr"
                                 />
                                 <span class="validation-alert">{{ errors[0] }}</span>
                             </v-provider>
                             <v-provider v-slot="{ errors }" name="تاریخ تولد" rules="required|date">
-                                <custom-input
+                                <a-input
                                     v-model="account.birthdate"
-                                    class="mb-1 mt-3"
-                                    title="تاریخ تولد"
-                                    input-class="input text-3"
+                                    wrapper-class="mb-1 mt-3"
+                                    placeholder="تاریخ تولد"
+                                    class="input text-3"
                                     inputmode="numeric"
                                     maxlength="10"
                                     dir="ltr"
@@ -88,12 +95,12 @@
                         <form @submit.prevent="handleSubmit(submitPassword)">
                             <template v-if="user.password">
                                 <v-provider v-slot="{ errors }" name="رمز عبور فعلی" rules="required|min:6">
-                                    <custom-input
+                                    <a-input
                                         v-model="changePassword.currentPassword"
-                                        class="mb-1 mt-3"
+                                        wrapper-class="mb-1 mt-3"
                                         type="password"
-                                        title="رمز عبور فعلی"
-                                        input-class="input text-3"
+                                        placeholder="رمز عبور فعلی"
+                                        class="input text-3"
                                     />
                                     <span class="validation-alert">{{ errors[0] }}</span>
                                 </v-provider>
@@ -102,22 +109,22 @@
                                 </p>
                             </template>
                             <v-provider v-slot="{ errors }" name="رمز عبور جدید" rules="required|min:6|password:@confirm">
-                                <custom-input
+                                <a-input
                                     v-model="changePassword.newPassword"
-                                    class="mb-1 mt-3"
+                                    wrapper-class="mb-1 mt-3"
                                     type="password"
-                                    title="رمز عبور جدید"
-                                    input-class="input text-3"
+                                    placeholder="رمز عبور جدید"
+                                    class="input text-3"
                                 />
                                 <span class="validation-alert">{{ errors[0] }}</span>
                             </v-provider>
                             <v-provider v-slot="{ errors }" name="confirm" rules="required|min:4">
-                                <custom-input
+                                <a-input
                                     v-model="changePassword.confirmPassword"
-                                    class="mb-1 mt-3"
+                                    wrapper-class="mb-1 mt-3"
                                     type="password"
-                                    title="تکرار رمز عبور جدید"
-                                    input-class="input text-3"
+                                    placeholder="تکرار رمز عبور جدید"
+                                    class="input text-3"
                                 />
                                 <span v-if="errors[0]" class="validation-alert">تکرار رمز عبور جدید الزامی میباشد</span>
                             </v-provider>
@@ -140,7 +147,7 @@
 
 <script>
 
-import CustomInput from '~/components/ui/form/CustomInput'
+import AInput from '~/components/ui/form/AInput'
 import Field from '~/components/ui/Field'
 import CheckedTick from '~/components/ui/CheckedTick'
 import { extend } from 'vee-validate'
@@ -167,7 +174,7 @@ extend('min', {
 
 export default {
     name: 'Account',
-    components: {Field, CustomInput, CheckedTick},
+    components: {Field, AInput, CheckedTick},
     layout: 'page',
     data() {
         const user = this.$auth.user
@@ -260,7 +267,7 @@ export default {
             font-weight: 600;
         }
 
-        /deep/ .custom-input {
+        /deep/ .form-control {
             margin-bottom: 10px;
         }
 
