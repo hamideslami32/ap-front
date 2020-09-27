@@ -44,7 +44,7 @@ export default {
 
     methods: {
         weekday(i) {
-            return this.dayjs().day(i + (this.jalaali ? 1 : 0)).format('ddd').slice(0, this.jalaali ? 1 : 2)
+            return this.dayjs().day(i + (this.jalaali ? 5 : 0)).format('ddd').slice(0, this.jalaali ? 1 : 2)
         },
         dayjs(a) {
             return dayjs(a, { calendar: this.calendarType, locale: this.calendarLocale })

@@ -1,8 +1,8 @@
 <template>
-    <table class="ticket font-en">
+    <div class="ticket font-en">
         <!-- <ticket-header></ticket-header>
         <ticket-item></ticket-item>
-        <ticket-price></ticket-price> -->
+        <ticket-price></ticket-price>
         <tr>
             <td class="logo-wrapper">
                 <logo class="logo" />
@@ -49,15 +49,15 @@
                     </tr>
                 </table>
             </td>
-        </tr>
-    </table>
+        </tr> -->
+    </div>
 </template>
 
 <script>
 // import TicketHeader from '~/components/ticket/TicketHeader'
 // import TicketPrice from '~/components/ticket/TicketPrice'
 // import TicketItem from '~/components/ticket/TicketItem'
-import Logo from '~/components/logo/Logo'
+// import Logo from '~/components/logo/Logo'
 
 
 export default {
@@ -66,7 +66,7 @@ export default {
         // TicketHeader,
         // TicketPrice,
         // TicketItem,
-        Logo
+        // Logo
     }    
 }
 </script>

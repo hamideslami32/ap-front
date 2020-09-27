@@ -6,7 +6,7 @@
                 <span class="validation-alert">{{ errors[0] }}</span>
             </v-provider>
             <v-provider v-slot="{ errors }" name="نام خانوادگی" rules="latinWord|required" slim>
-                <custom-input v-model="localValue.lastName" class="mb-1 mt-3" dir="ltr" title="نام خانوادگی به لاتین" />
+                <custom-input v-model="localValue.surname" class="mb-1 mt-3" dir="ltr" title="نام خانوادگی به لاتین" />
                 <span class="validation-alert">{{ errors[0] }}</span>
             </v-provider>
             <p class="text-3 text-gray-700 text-center my-3">
@@ -41,6 +41,7 @@
                     <custom-input
                         v-model="localValue.nationalCode"
                         class="mb-1 mt-3"
+                        maxlength="10"
                         inputmode="numeric"
                         title="کد ملی"
                     />
@@ -50,15 +51,15 @@
             <template v-else>
                 <v-provider v-slot="{ errors }" rules="required" name="شماره پاسپورت">
                     <custom-input
-                        v-model="localValue.passportCode"
+                        v-model="localValue.passportNumber"
                         class="mb-1 mt-3"
                         title="شماره پاسپورت"
                     />
                     <span class="validation-alert">{{ errors[0] }}</span>
                 </v-provider>
-                <v-provider v-slot="{ errors }" rules="required" name="تاریخ انقضای پاسپورت">
+                <v-provider v-slot="{ errors }" rules="required|date" name="تاریخ انقضای پاسپورت">
                     <custom-input
-                        v-model="passportDate"
+                        v-model="passportExpiration"
                         class="mb-1 mt-3"
                         maxlength="10"
                         inputmode="numeric"
@@ -67,11 +68,17 @@
                     <span class="validation-alert">{{ errors[0] }}</span>
                 </v-provider>
                 <v-provider v-slot="{ errors }" rules="required" name="کشور صادر کننده پاسپورت">
-                    <b-form-select v-model="localValue.passportCity" class="mb-1 mt-3" :options="options" />
+                    <b-form-select v-model="localValue.nationality" class="mb-1 mt-3" :options="nationalities">
+                        <template v-slot:first>
+                            <b-form-select-option :value="null" disabled>
+                                کشور صادر کننده پاسپورت
+                            </b-form-select-option>
+                        </template>
+                    </b-form-select>
                     <span class="validation-alert">{{ errors[0] }}</span>
                 </v-provider>
             </template>
-            <v-provider v-slot="{ errors }" name="تاریخ تولد" rules="required">
+            <v-provider v-slot="{ errors }" name="تاریخ تولد" rules="required|date">
                 <custom-input
                     v-model="birthdate"
                     dir="ltr"
@@ -82,7 +89,13 @@
                 />
                 <span class="validation-alert">{{ errors[0] }}</span>
             </v-provider>
-            <a-btn variant="primary" class="submit-btn" type="submit" block>
+            <a-btn
+                wrapper-class="mt-3"
+                variant="primary"
+                class="submit-btn"
+                type="submit"
+                block
+            >
                 ثبت
             </a-btn>
         </form>
@@ -95,9 +108,11 @@ import cloneDeep from 'lodash/cloneDeep'
 import '~/plugins/veeValidate/rules/nationalCode'
 import '~/plugins/veeValidate/rules/latinWord'
 import '~/plugins/veeValidate/rules/required'
-// import '~/plugins/veeValidate/rules/passportCode'
+import '~/plugins/veeValidate/rules/dateValidation'
+import {toLatin} from '~/plugins/numbers'
+import {flightApi} from '~/api/flightApi'
 
-
+let nationalities
 
 export default {
     name: 'PassengerForm',
@@ -115,22 +130,15 @@ export default {
 
     data() {
         return {
-            country: null,
             localValue: cloneDeep(this.value),
             birthdate: this.value.birthdate ? this.$dayjs(this.value.birthdate).calendar('jalali').format('YYYY-MM-DD') : undefined,
-            passportDate: this.passport && this.value.passportDate ? this.$dayjs(this.value.passportDate).calendar('jalali').format('YYYY-MM-DD') : undefined,
-            options: [
-                {value: null, text: 'کشور صادر کننده پاسپورت'},
-                {value: 'هلند', text: 'هلند'},
-                {value: 'آرژانتین', text: 'آرژانتین'},
-                {value: 'افغانستان', text: 'افغانستان'},
-                {value: 'امارات', text: 'امارات'},
-                {value: 'فرانسه', text: 'فرانسه'}
-            ]
+            passportExpiration: this.passport && this.value.passportExpiration ? this.$dayjs(this.value.passportExpiration).calendar('jalali').format('YYYY-MM-DD') : undefined,
+            nationalities: nationalities
         }
     },
     watch: {
         'birthdate'(t, f) {
+            t = toLatin(t)
             if (t && (!t.match(/^[\d-]+$/) || t.length > 10)) this.birthdate = f
             const [tl, fl] = [t.length, (f || '').length]
             if (tl - fl === 1) {
@@ -139,21 +147,27 @@ export default {
                 }
             }
         },
-        'passportDate'(t, f) {
-            if (t && (!t.match(/^[\d-]+$/) || t.length > 10)) this.passportDate = f
+        'passportExpiration'(t, f) {
+            t = toLatin(t)
+            if (t && (!t.match(/^[\d-]+$/) || t.length > 10)) this.passportExpiration = f
             const [tl, fl] = [t.length, (f || '').length]
             if (tl - fl === 1) {
                 if (tl === 4 || tl === 7) {
-                    this.passportDate += '-'
+                    this.passportExpiration += '-'
                 }
             }
+        }
+    },
+    async mounted() {
+        if (!nationalities) {
+            this.nationalities = nationalities = await flightApi.getNationalities()
         }
     },
     methods: {
         submit() {
             const isJalaali = this.birthdate.split(/-|\//)[0] < 1700
             this.localValue.birthdate = this.$dayjs(this.birthdate, { jalali: isJalaali }).calendar('gregory').format('YYYY-MM-DD')
-            this.localValue.passportDate = this.passportDate ? this.$dayjs(this.passportDate, { jalali: this.passportDate.split(/-|\//)[0] < 1700 }).calendar('gregory').format('YYYY-MM-DD') : undefined
+            this.localValue.passportExpiration = this.passportExpiration ? this.$dayjs(this.passportExpiration, { jalali: this.passportExpiration.split(/-|\//)[0] < 1700 }).calendar('gregory').format('YYYY-MM-DD') : undefined
             this.$emit('input', this.localValue)
             this.$emit('close')
         }

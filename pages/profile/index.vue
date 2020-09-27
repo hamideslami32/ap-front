@@ -1,7 +1,7 @@
 <template>
     <div>
         <portal to="header-right">
-            <nuxt-link to="/profile/account">
+            <nuxt-link class="text-gray-white" to="/profile/account">
                 <svgicon width="30" height="30" name="userProfile-Hexagon" />
             </nuxt-link>
         </portal>
@@ -79,6 +79,7 @@ export default {
         background: linear-gradient(90deg, #49238c 0%, $lightPrimary 100%);
         text-align: center;
         color: $white;
+        margin-top: -60px;
         &__icon-wrapper {
             display: inline-block;
             padding: 1px;

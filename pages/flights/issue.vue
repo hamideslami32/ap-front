@@ -16,6 +16,8 @@
                 icon="arrow-left"
                 variant="outline-secondary"
                 block
+                :href="downloadUrl"
+                target="_blank"
             >
                 دریافت بلیط
             </a-btn>
@@ -75,6 +77,9 @@ export default {
     computed: {
         flightOrderItem() {
             return this.order.orderItems.find(item => item.type === 'flight')
+        },
+        downloadUrl() {
+            return process.env.API_URL + '/flight/ticket/5f6dc87043daf550c2581008'
         }
     }
 }

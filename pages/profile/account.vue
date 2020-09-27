@@ -3,7 +3,7 @@
         <portal to="header">
             حساب کاربری
         </portal>
-        <b-tabs content-class="mt-5 px-2">
+        <b-tabs content-class="mt-5 px-2 mb-3">
             <b-tab title="مشخصات فردی" active @click="editAccount = false">
                 <div v-if="!editAccount" class="account__show">
                     <p class="text-3">
@@ -46,7 +46,7 @@
                                 />
                                 <span class="validation-alert">{{ errors[0] }}</span>
                             </v-provider>
-                            <v-provider v-slot="{ errors }" name="تاریخ تولد" rules="required">
+                            <v-provider v-slot="{ errors }" name="تاریخ تولد" rules="required|date">
                                 <custom-input
                                     v-model="account.birthdate"
                                     class="mb-1 mt-3"
@@ -149,6 +149,8 @@ import '~/plugins/veeValidate/rules/required'
 import '~/plugins/veeValidate/rules/latinWord'
 import '~/plugins/veeValidate/rules/alphaSpace'
 import '~/plugins/veeValidate/rules/email'
+import '~/plugins/veeValidate/rules/dateValidation'
+import {toLatin} from '~/plugins/numbers'
 
 extend('password', {
     params: ['target'],
@@ -195,6 +197,7 @@ export default {
     },
     watch: {
         'account.birthdate'(t, f) {
+            t = toLatin(t)
             if (t && (!t.match(/^[\d-]+$/) || t.length > 10)) this.account.birthdate = f
             const [tl, fl] = [t.length, (f || '').length]
             if (tl - fl === 1) {

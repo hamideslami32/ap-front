@@ -3,7 +3,7 @@
         <portal to="header">
             تراکنش ها
         </portal>
-        <card v-for="i in 4" :key="i" class="mb-3">
+        <card v-for="payment in payments" :key="payment._id" class="mb-3">
             <template #header>
                 <div class="transactions__main text-2">
                     <div class="d-flex align-items-center justify-content-between px-2">
@@ -16,16 +16,16 @@
                     </div>
                     <div class="d-flex mb-2 align-items-center justify-content-between px-2">
                         <span>مبلغ</span>
-                        <span class="text-gray-800">25,000,000
+                        <span class="text-gray-800">{{ payment.amount | separateNumber | localizeNumber }}
                             <small class="text-gray-700">تومان</small>
                         </span>
                     </div>
-                    <div class="d-flex align-items-center justify-content-between px-2">
+                    <!--<div class="d-flex align-items-center justify-content-between px-2">
                         <span>باقی مانده اعتبار</span>
                         <span class="text-gray-800">15,000,000
                             <small class="text-gray-700">تومان</small>
                         </span>
-                    </div>
+                    </div>-->
                 </div>
             </template>
             <template #footer>
@@ -35,9 +35,11 @@
             </template>
         </card>
 
-        <a-btn wrapper-class="search-btn" variant="primary" @click="searchModal = true">
-            جستجو
-        </a-btn>
+        <btn-wrapper class="d-flex align-items-center justify-content-center">
+            <a-btn wrapper-class="search-btn" shadow variant="primary" @click="searchModal = true">
+                جستجو
+            </a-btn>
+        </btn-wrapper>
         <b-modal v-model="searchModal" body-class="p-0" hide-footer>
             <template v-slot:modal-title>
                 جستجو تراکنش
@@ -74,20 +76,21 @@
 <script>
 import Card from '~/components/ui/Card'
 import CustomInput from '~/components/ui/form/CustomInput'
+import BtnWrapper from '~/components/ui/BtnWrapper'
+import {profileApi} from '~/api/profile'
+
 
 export default {
-    components: {CustomInput, Card},
+    components: {CustomInput, Card, BtnWrapper},
     layout: 'page',
+    async fetch() {
+        this.payments = await profileApi.getPayments()
+    },
     data() {
         return {
-            searchModal: false
+            searchModal: false,
+            payments: null
         }
-    },
-    mounted() {
-        this.$axios.$get('/payments')
-            .then(res => {
-                // console.log({res})
-            })
     }
 }
 </script>
@@ -118,17 +121,9 @@ export default {
         }
 
         /deep/ .search-btn {
-            font-size: 0.8em;
-            position: fixed;
-            bottom: 20px;
-            margin: auto;
-            left: 50%;
-            transform: translateX(-50%);
-
             .btn {
                 width: 140px;
                 height: 40px;
-                position: relative;
             }
         }
     }

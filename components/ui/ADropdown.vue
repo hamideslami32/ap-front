@@ -8,11 +8,14 @@
             :close="close"
             :toggle="toggle"
         />
-        <transition :is="transition" name="v-dropdown">
+        <transition :is="transition" v-if="!noTransition" name="v-dropdown">
             <div v-if="isOpen" ref="dropdown" class="v-dropdown">
                 <slot :is-open="isOpen" />
             </div>
         </transition>
+        <div v-else v-show="isOpen" ref="dropdown" class="v-dropdown">
+            <slot :is-open="isOpen" />
+        </div>
     </div>
 </template>
 
@@ -42,6 +45,10 @@ export default {
             default: false
         },
         show: {
+            type: Boolean,
+            default: false
+        },
+        noTransition: {
             type: Boolean,
             default: false
         }

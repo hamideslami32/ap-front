@@ -1,5 +1,5 @@
 import {BaseApi} from '~/plugins/api'
-import { Flight } from '~/scripts/Flight'
+import { Flight } from '~/scripts/models/Flight'
 
 export const profileApi = new class ProfileApi extends BaseApi {
     constructor() {
@@ -22,7 +22,12 @@ export const profileApi = new class ProfileApi extends BaseApi {
             })
     }
 
-    getTransactions() {
-        return this.axios.$get('/payments')
+    getPayments() {
+        return this.axios.$get('/payments', {
+            params: {
+                limit: 20,
+                offset: 0
+            }
+        })
     }
 }

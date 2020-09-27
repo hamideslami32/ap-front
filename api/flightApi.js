@@ -1,5 +1,5 @@
 import {BaseApi} from '~/plugins/api'
-import {Flight} from '~/scripts/Flight'
+import {Flight} from '~/scripts/models/Flight'
 
 export const flightApi = new class FlightApi extends BaseApi {
     constructor() {
@@ -14,7 +14,8 @@ export const flightApi = new class FlightApi extends BaseApi {
         return this.axios.$get('/flight/suggestions', {
             params: {
                 q: query
-            }
+            },
+            progress: false
         }).then(res => {
             this.suggestions[query] = res
             return res
@@ -51,7 +52,8 @@ export const flightApi = new class FlightApi extends BaseApi {
                 type,
                 minDate,
                 maxDate
-            }
+            },
+            progress: false
         })
     }
 
@@ -77,5 +79,23 @@ export const flightApi = new class FlightApi extends BaseApi {
 
     pay(orderId) {
         return this.axios.$post(`/order/${orderId}/pay`)
+    }
+
+    setPassengers(searchId, passengers) {
+        return this.axios.$post(`/flight/results/${searchId}/passengers`, {
+            passengers
+        })
+    }
+
+    getFlightRules(searchId, availableId, flightIds) {
+        return this.axios.$get(`/flight/results/${searchId}/${availableId}/rules`, {
+            params: {
+                flightIds
+            }
+        })
+    }
+
+    getNationalities() {
+        return this.axios.$get('/countries.json', { baseURL: '/' })
     }
 }

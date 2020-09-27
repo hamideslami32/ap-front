@@ -33,16 +33,13 @@ export default {
     },
     methods: {
         toggleNavSidebar() {
-            const overflow = document.body.style.overflow
-            if (overflow === 'hidden') document.body.style.overflow = 'auto'
-            else document.body.style.overflow = 'hidden'
             this.isNavOpen = !this.isNavOpen
         }
     }
 }
 </script>
 
-<style lang='scss'>
+<style lang="scss" scoped>
     .app-header {
         position: fixed;
         top: 0;
@@ -56,6 +53,14 @@ export default {
         justify-content: space-between;
         align-items: center;
         border-bottom: 1px solid #e6e6e6;
+
+        a {
+            color: $white;
+            &:hover, &:focus, &:active {
+                color: $white;
+
+            }
+        }
     }
 
     .transparent-header .app-header {
@@ -70,14 +75,5 @@ export default {
 
     .transparent-header .mobile-layout {
         padding-top: 0;
-    }
-
-
-    a {
-        color: $white;
-        &:hover, &:focus, &:active {
-            color: $white;
-
-        }
     }
 </style>

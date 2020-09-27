@@ -1,5 +1,5 @@
 <template>
-    <a-dropdown ref="dropdown" class="a-datepicker">
+    <a-dropdown ref="dropdown" class="a-datepicker" no-transition>
         <template #button>
             <slot
                 :on="on"

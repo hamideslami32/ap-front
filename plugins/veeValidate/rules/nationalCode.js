@@ -1,4 +1,5 @@
 import {extend} from 'vee-validate'
+import {toLatin} from '~/plugins/numbers'
 
 extend('nationalCode', {
     validate(value) {
@@ -14,6 +15,8 @@ extend('nationalCode', {
             '8888888888',
             '9999999999'
         ]
+
+        value = value = toLatin(value)
 
         if (!/^\d{10}$/.test(value))
             return false
