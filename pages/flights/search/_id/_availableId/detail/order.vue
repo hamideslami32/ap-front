@@ -63,9 +63,9 @@
                             <p class="my-3 text-center text-gray-700 text-3">
                                 شماره همراه
                             </p>
-                            <custom-input
+                            <a-input
                                 v-model="buyer.mobile"
-                                class="px-4 mb-2"
+                                wrapper-class="px-4 mb-2"
                                 type="tel"
                                 maxlength="11"
                                 title="شماره همراه"
@@ -88,7 +88,7 @@
 
 <script>
 
-import CustomInput from '~/components/ui/form/CustomInput'
+import AInput from '~/components/ui/form/AInput'
 import PassengerField from '~/components/passenger/PassengerField'
 import Charity from '~/components/flight/order/Charity'
 import Payment from '~/components/flight/order/Payment'
@@ -117,7 +117,7 @@ export default {
         FlightOrderCard,
         FlightDetailsToast,
         PassengerField,
-        CustomInput,
+        AInput,
         Charity,
         Payment
     },

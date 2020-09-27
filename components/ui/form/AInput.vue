@@ -1,34 +1,27 @@
 <template>
-    <span class="custom-input" :class="{ 'custom-input--icon': icon }" @click="focus">
+    <span class="form-control-wrapper" :class="[wrapperClass]" @click="focus">
         <svgicon
             v-if="icon"
             :name="icon"
             width="15"
-            class="custom-input__icon"
+            class="form-control__icon"
             height="15"
             :fill="false"
         />
-        <input
+        <b-input
             ref="input"
             v-model="localValue"
-            class="form-control"
-            :placeholder="title"
             v-bind="$attrs"
-            :class="inputClass"
-            @keyup="$emit('keyup', $event)"
-            @keypress="$emit('keypress', $event)"
-        >
+            v-on="$listeners"
+        />
     </span>
 </template>
 
 <script>
 export default {
+    name: 'AInput',
     inheritAttrs: false,
     props: {
-        title: {
-            type: String,
-            default: ''
-        },
         value: {
             type: String,
             default: null
@@ -37,7 +30,7 @@ export default {
             type: String,
             default: null
         },
-        inputClass: {
+        wrapperClass: {
             type: [String, Object, Array],
             default: ''
         }
@@ -60,25 +53,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.custom-input {
-    margin-bottom: 20px;
-    display: flex;
+<style lang="scss">
+.form-control-wrapper {
+    display: block;
     position: relative;
-    appearance: none;
 
-    input {
-        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
-        background-clip: padding-box;
-        padding: 0 20px;
-        border-radius: 10px;
 
-        &::placeholder {
-            color: #888888;
-        }
-    }
-
-    &__icon {
+    .form-control__icon {
         color: $grayColor;
         position: absolute;
         top: 0;
@@ -87,11 +68,10 @@ export default {
         right: 17px;
         margin: auto 0;
         z-index: 1;
-    }
 
-    &--icon {
-        .form-control {
-            padding-right: 40px;
+        + .form-control {
+            padding-right: 3em;
+
         }
     }
 

@@ -5,13 +5,14 @@
             :key="i"
             class="mx-1"
         >
-            <custom-input
+            <a-input
                 ref="inputs"
-                title="-"
+                wrapper-class="mb-3"
+                placeholder="-"
                 type="tel"
                 :value="value[i]"
                 maxlength="1"
-                input-class="text-center"
+                class="text-center"
                 @input="onInput(i, $event)"
                 @keyup="onKeyUp(i, $event)"
             />
@@ -20,11 +21,11 @@
 </template>
 
 <script>
-import CustomInput from '~/components/ui/form/CustomInput'
+import AInput from '~/components/ui/form/AInput'
 import {toLatin} from '~/plugins/numbers'
 export default {
     components: {
-        CustomInput
+        AInput
     },
     props: {
         value: {

@@ -63,10 +63,10 @@
                     پر کردن حداقل یک فیلد کافیست
                 </p>
                 <form action="">
-                    <custom-input title="نام" />
-                    <custom-input title="نام خانوادگی" />
-                    <custom-input title="کد ملی" />
-                    <custom-input title="شماره پاسپورت" />
+                    <a-input wrapper-class="mb-1 mt-3" placeholder="نام" />
+                    <a-input wrapper-class="mb-1 mt-3" placeholder="نام خانوادگی" />
+                    <a-input wrapper-class="mb-1 mt-3" placeholder="کد ملی" />
+                    <a-input wrapper-class="mb-1 mt-3" placeholder="شماره پاسپورت" />
                     <a-btn
                         variant="primary"
                         block
@@ -141,13 +141,13 @@
 
 <script>
 import Card from '~/components/ui/Card'
-import CustomInput from '~/components/ui/form/CustomInput'
+import AInput from '~/components/ui/form/AInput'
 import PassengerForm from '~/components/passenger/PassengerForm'
 import BtnWrapper from '~/components/ui/BtnWrapper'
 
 export default {
     name: 'Passengers',
-    components: {BtnWrapper, PassengerForm, Card, CustomInput},
+    components: {BtnWrapper, PassengerForm, Card, AInput},
     layout: 'page',
     data() {
         return {
