@@ -145,14 +145,36 @@
                     </div>
                 </div>
             </div>
+            <div class="ticket-baggage">
+                <div class="title">
+                    <span class="border-left">Baggage</span>
+                </div>
+                <div class="baggage">
+
+                </div>
+            </div>
             <div class="ticket-price">
                 <div class="title">
                     <span class="border-left">Ticket price</span>
                 </div>
-            </div>
-            <div class="ticket-baggage">
-                <div class="title">
-                    <span class="border-left">Baggage</span>
+                <div class="prices">
+                    <div class="price-detail">
+                        <div>
+                            <span>Base price</span>
+                            <span>44.550,000</span>
+                        </div>
+                        <div>
+                            <span>Tax</span>
+                            <span>500,000</span>
+                        </div>
+                    </div>
+                    <div class="total-price">
+                        <span class="title">Total price</span>
+                        <div>
+                            <span>45,000,000</span>
+                            <span>IR-Rial</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="terms">
@@ -187,7 +209,7 @@ export default {
     width: 595px;
     min-height: 100vh;
     direction: ltr;
-    border: 1px solid ;
+    text-align: left;
 
     .header {
         position: relative;
@@ -197,9 +219,6 @@ export default {
             text-align: left;
             position: absolute;
             left: 10px;
-            .logo {
-
-            }
         }
         .order-info {
             width: 300px;
@@ -245,8 +264,17 @@ export default {
         }
 
     }
+    .border-right, .border-left {
+        border-width: 4px !important;
+        padding: 0 5px;
+        border-color: $secondary !important;
+    }
     .main {
         padding: 5px;
+
+        .title {
+            color: $grayColor;
+        }
 
         .passengers-info-title {
             height: 25px;
@@ -288,12 +316,6 @@ export default {
             padding: 5px;
             clear: both;
 
-            .border-left, .border-right {
-                border-width: 4px !important;
-                border-color: $secondary !important;
-                padding: 0 5px;
-                
-            }
             .title {
                 text-align: left;
             }
@@ -331,20 +353,18 @@ export default {
                     }
                     .duration {
                         text-align: center;
-                        width: 23%;
-                        // display: inline-flex;
-                        // flex-direction: column;
-                        // flex: 1;
+                        width: 22%;
                     }
-                    .dest {
-                        text-align: left;
+                    .origin {
+                        text-align: right;
                     }
 
                     .origin, .dest {
-                        // display: inline-flex;
                         width: 38%;
+                        font-size: 14px;
                         & > div {
-                            display: inline-block;
+                            display: inline-table;
+                            vertical-align: bottom;
                         }
                     }
 
@@ -375,6 +395,118 @@ export default {
                     }
                 }
             }
+
+            .stop {
+                height: 40px;
+                border-radius: $borderRadius3;
+                background-color: #e4f7f9;
+                border: 1px solid $info;
+                line-height: 40px;
+                padding: 0 5px;
+                margin-top: 10px;
+
+                & > div {
+                    display: inline-block;
+
+                    & > * {
+                        display: inline-block;
+                    }
+
+                    &:last-of-type {
+                        float: right;
+                    }
+                }
+            }
+        }
+
+        .ticket-price, .ticket-baggage {
+            width: 275px;
+            height: 214px;
+            display: inline-table;
+            margin: 15px 0;
+
+            .title {
+                text-align: left;
+                margin-bottom: 10px;
+            }
+        }
+
+        .ticket-price {
+            .prices {
+                background: $lightGrayColor;
+                border: 1px solid $modalBorder;
+                border-radius: $borderRadius3;
+                height: 180px;
+
+                & > div {
+                    height: 50%;
+                }
+
+                .price-detail {
+                    border-bottom: 1px dashed $borderColor;
+                    padding: 15px 10px;
+
+                    & > div {
+                        &:first-of-type {
+                            margin-bottom: 10px;
+                        }
+                        span {
+                            width: 50%;
+                        }
+
+                        & > span:first-of-type {
+                            color: $grayColor;
+                            font-size: 14px;
+                        }
+
+                        & > span:last-of-type {
+                            float: right;
+                            text-align: right;
+                        }
+                    }
+                }
+
+                .total-price {
+                    padding: 10px;
+
+                    div {
+                        background: $secondary;
+                        border-radius: $borderRadius3;
+                        padding: 8px;
+                        margin-top: 5px;
+
+                        span:first-of-type {
+                            color: #fff;
+                            font-weight: 500;
+                            font-size: 18px;
+                        }
+
+                        span:last-of-type {
+                            background: #fff;
+                            border-radius: $borderRadius3;
+                            color: $secondary;
+                            float: right;
+                            padding: 3px 5px;
+                            font-size: 14px;
+                            box-sizing: border-box;
+                        }
+                    }
+                }
+            }
+        }
+
+        .ticket-baggage {
+            margin: 0 15px 0 5px;
+
+            .baggage {
+                background: #fff;
+                border-radius: $borderRadius3;
+                height: 180px;
+            }
+        }
+
+        .terms {
+            margin-left: 5px;
         }
     }
 
