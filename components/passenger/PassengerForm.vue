@@ -27,7 +27,7 @@
 
             <v-provider v-slot="{ errors }" name="جنسیت" rules="required" slim>
                 <b-form-group
-                    class="en font-weight-medium mb-3 gender-input"
+                    class="mb-3"
                     :state="errors.length ? false : null"
                     :invalid-feedback="errors[0]"
                 >
@@ -109,7 +109,7 @@
                     <a-input
                         v-model="birthdate"
                         dir="ltr"
-                        class="mb-2 mt-3"
+                        class="mb-2"
                         placeholder="تاریخ تولد"
                         inputmode="numeric"
                         maxlength="10"

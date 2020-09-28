@@ -32,14 +32,16 @@
                 <svgicon name="arrow-left" width="20" height="20" />
             </template>
             <div class="add-passengers">
-                <b-tabs v-model="currentTab" content-class="mt-5 px-2 mb-3">
-                    <b-tab v-if="$flight.session.isDomestic" title="خرید با کد ملی">
+                <b-tabs v-if="$flight.session.isDomestic" v-model="currentTab" content-class="mt-5 px-2 mb-3">
+                    <b-tab title="خرید با کد ملی">
                         <passenger-form v-model="localValue" @close="showModal = false" />
                     </b-tab>
                     <b-tab title="خرید با پاسپورت" @click="nationalPassenger = false">
-                        <passenger-form v-model="localValue" :passport="true" @close="showModal = false" />
+                        <passenger-form v-model="localValue" passport @close="showModal = false" />
                     </b-tab>
                 </b-tabs>
+
+                <passenger-form v-else v-model="localValue" passport @close="showModal = false" />
             </div>
         </b-modal>
     </div>

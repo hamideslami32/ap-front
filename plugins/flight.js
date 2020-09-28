@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import {flightApi} from '~/api/flightApi'
+import SearchExpirationModal from '~/components/flight/SearchExpirationModal'
 
 class Flight {
 
@@ -81,6 +82,20 @@ class Flight {
 
     airlineLogoUrl(iata) {
         return Vue.prototype.$staticUrl(`/ad/airlines/logo/${iata}.png`)
+    }
+
+    expireSession(onRetry) {
+        if (this._expireVm) return
+        const vm = this._expireVm = new SearchExpirationModal({
+            el: document.createElement('div')
+        })
+        vm.$once('retry', () => {
+            onRetry()
+            vm.$destroy()
+            document.body.removeChild(vm.$el)
+            this._expireVm = null
+        })
+        document.body.appendChild(vm.$el)
     }
 }
 

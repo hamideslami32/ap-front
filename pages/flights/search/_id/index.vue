@@ -59,31 +59,6 @@
                 <flight-filter v-model="filters" :options="availables.filters" @apply="applyFilters" />
             </b-modal>
         </template>
-
-        <b-modal
-            id="center-modal"
-            v-model="expireModal"
-            hide-footer
-            hide-header
-            centered
-            no-close-on-backdrop
-        >
-            <div class="text-center">
-                <svgicon name="clock" class="text-gray-700 " width="50" height="50" />
-                <p class="text-3 mt-2 mb-3 text-gray-black text-weight-500">
-                    زمان خرید شما به اتمام رسیده
-                </p>
-                <div class="mx-3">
-                    <b-button
-                        class="text-2 py-2 text-weight-500 w-100"
-                        variant="outline-secondary"
-                        @click="research"
-                    >
-                        جستجو مجدد
-                    </b-button>
-                </div>
-            </div>
-        </b-modal>
     </div>
 </template>
 
@@ -126,8 +101,7 @@ export default {
             showFilter: false,
             error: null,
             filters: initialFilters(),
-            initialFilters: initialFilters(),
-            expireModal: false
+            initialFilters: initialFilters()
         }
     },
     computed: {
@@ -166,7 +140,7 @@ export default {
         }
     },
     mounted() {
-        if(this.$flight.session) {
+        if (this.$flight.session) {
             this.expireTime()
         }
         this.refresh(!this.searchId)
@@ -175,7 +149,7 @@ export default {
     },
     beforeDestroy() {
         this.cancelPolling()
-        clearTimeout(this.__checkExpire)
+        clearTimeout(this._checkExpire)
         window.removeEventListener('scroll', this.scrollListener)
     },
     methods: {
@@ -319,10 +293,7 @@ export default {
         },
 
         research() {
-            this.expireModal = false
-            this.refresh().then(res => {
-                this.expireTime()
-            })
+            this.refresh()
         },
         expireTime() {
             if(this.$flight.session) {
@@ -330,8 +301,8 @@ export default {
                 const nowTime = this.$dayjs()
                 const expirationTime = expireTime.diff(nowTime)
 
-                this.__checkExpire = setTimeout(() => {
-                    this.expireModal = true
+                this._checkExpire = setTimeout(() => {
+                    this.$flight.expireSession(() => this.refresh(true))
                 }, expirationTime)
             }
         },

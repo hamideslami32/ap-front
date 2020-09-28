@@ -1,7 +1,6 @@
-.form-control, .custom-select {
+.form-control, .custom-select, .custom-radio {
     height: 50px;
     outline: none !important;
-    border-color: $modalBorder;
     font-size: 0.813rem;
     color: $black;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
@@ -23,7 +22,7 @@
     width: 185px;
     max-width: 47%;
     background: #f9f9f9;
-    border: 1px solid #cccccc;
+    border: 1px solid $input-border-color;
     border-radius: 10px;
     height: 50px;
     justify-content: flex-end;

@@ -10,7 +10,7 @@
                 <span class="text-3 text-weight-600 mr-3 text-gray-900">خرید آسوده</span>
             </div>
             <div>
-                <b-form-checkbox v-model="localSwitchData" class="custom-control" switch size="lg" />
+                <!--                <b-form-checkbox v-model="localSwitchData" class="custom-control" switch size="lg" />-->
             </div>
         </div>
         <form class="risk-free-card__options text-2 mt-4" :class="{ 'opacity-half': !localSwitchData }">
@@ -78,7 +78,7 @@ export default {
     },
     data() {
         return {
-            localSwitchData: false
+            localSwitchData: true
         }
     }
 }
@@ -117,7 +117,7 @@ export default {
         .item:first-of-type {
             border-bottom: 1px solid #ddd;
         }
-        
+
     }
     .opacity-half {
         opacity: 0.5;
@@ -128,7 +128,7 @@ export default {
         background-color: $blueColor !important;
     }
     /deep/ .custom-control-label::before {
-        box-shadow: none !important;   
+        box-shadow: none !important;
     }
     /deep/ .custom-control-input ~ .custom-control-label::before {
         background-color: #fff !important;

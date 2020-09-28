@@ -79,9 +79,9 @@
         </div>
 
         <flight-details-toast>
-            <b-button class="text-3 py-2 px-4" variant="success" @click="pay">
+            <a-btn class="text-3 py-2 px-4" variant="success" :loading="loading" @click="pay">
                 تائید و پرداخت
-            </b-button>
+            </a-btn>
         </flight-details-toast>
     </div>
 </template>
@@ -150,7 +150,8 @@ export default {
             buyer: {
                 value: false,
                 mobile: ''
-            }
+            },
+            loading: false
         }
     },
 
@@ -166,6 +167,7 @@ export default {
 
     methods: {
         async pay() {
+            this.loading = true
             try {
                 if(!this.isValid) {
                     this.$toast.alert(this.$createElement('span', {}, 'مسافرین را وارد کنید'), {
@@ -180,21 +182,26 @@ export default {
                 const {paymentUrl} = await flightApi.pay(orderId)
                 window.location = paymentUrl
             } catch (e) {
-
+                this.$toast.alert(e.response ? e.response.data.message : e.message)
+            } finally {
+                this.loading = false
             }
         },
 
         submitPassengers() {
             return flightApi.setPassengers(this.$flight.session.id, this.passengers.map(p => ({
+                type: p.type,
                 gender: p.gender,
                 name: { en: p.name },
                 surname: { en: p.surname },
                 nationalCode: p.nationalCode,
                 nationality: p.nationality,
-                passportExpiration: this.$dayjs(p.passportExpiration).format(),
+                passportExpiration: this.$dayjs(p.passportExpiration).calendar('gregory').format(),
                 passportNumber: p.passportNumber,
                 birthdate: this.$dayjs(p.birthday).calendar('gregory').format()
-            })))
+            }))).catch(err => {
+                throw new Error('از درست بودن اطلاعات مسافران اطمینان حاصل کنید.')
+            })
         }
     }
 }

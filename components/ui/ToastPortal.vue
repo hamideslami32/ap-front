@@ -24,5 +24,6 @@ export default {
         font-size: 0.625rem;
         padding: 0 10px 10px;
         background: linear-gradient(180deg, rgba(245, 245, 245, 0) 0%, rgba(245, 245, 245, 0.5) 28.13%, #f5f5f5 82.81%);
+        z-index: 10;
     }
 </style>

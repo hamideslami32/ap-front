@@ -82,9 +82,9 @@
             <div class="py-4" />
 
             <flight-details-toast>
-                <b-button class="text-3 py-2 px-4" variant="secondary" @click="submit">
+                <a-btn class="text-3 py-2 px-4" variant="secondary" :loading="loading" @click="submit">
                     رزرو کنید
-                </b-button>
+                </a-btn>
             </flight-details-toast>
         </template>
         <template v-else>
@@ -114,11 +114,21 @@ export default {
     layout: 'page',
 
     async fetch() {
-        this.flights = await flightApi.getFlights(this.$flight.session.id, this.available._id, this.$route.query.flights.split(','))
+        try {
+            this.flights = await flightApi.getFlights(this.$flight.session.id, this.available._id, this.$route.query.flights.split(','))
+        } catch (err) {
+            if (process.server) {
+                throw err
+            }
+            this.$flight.expireSession(() => {
+                this.$router.push('/flights')
+            })
+        }
     },
     data() {
         return {
-            flights: []
+            flights: [],
+            loading: false
         }
     },
     computed: {
@@ -129,19 +139,26 @@ export default {
 
     methods: {
         async submit() {
-            const {order} = await flightApi.createOrder({
-                sessionId: this.$flight.session.id,
-                availableId: this.available._id,
-                flightIds: this.flights.map(fl => fl._id),
-                callbackURL: process.env.DOMAIN_URL + this.$router.resolve({ name: 'issue' }).href
-            })
-            await this.$router.push({
-                path: this.$route.path + '/order',
-                query: {
-                    ...this.$route.query,
-                    orderId: order._id
-                }
-            })
+            this.loading = true
+            try {
+                const {order} = await flightApi.createOrder({
+                    sessionId: this.$flight.session.id,
+                    availableId: this.available._id,
+                    flightIds: this.flights.map(fl => fl._id),
+                    callbackURL: process.env.DOMAIN_URL + this.$router.resolve({name: 'issue'}).href
+                })
+                await this.$router.push({
+                    path: this.$route.path + '/order',
+                    query: {
+                        ...this.$route.query,
+                        orderId: order._id
+                    }
+                })
+            } catch (e) {
+                this.$toast.alert(e.response ? e.response.data.message : e.message)
+            } finally {
+                this.loading = false
+            }
         }
     }
 }
