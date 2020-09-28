@@ -1,7 +1,7 @@
 <template>
     <div class="detail-item">
         <div class="detail-item__airplane">
-            <span class="font-en text-center">{{ stop.aircraft }}</span>
+            <span class="en text-center">{{ stop.aircraft }}</span>
             <span class="pl-2">|</span>
             <span>شماره پرواز: {{ stop.flightNumber }}</span>
             <span class="flex-grow-1" />
@@ -15,22 +15,22 @@
             >
         </div>
         <div class="detail-item__cities d-flex align-items-center mt-2">
-            <span class="small font-en">{{ stop.departureCityName }}</span>
+            <span class="small en">{{ stop.departureCityName }}</span>
             <svgicon name="plane-takeoff" class="text-gray-700" width="40" height="20" />
-            <span class="small font-en text-left">{{ stop.arrivalCityName }}</span>
+            <span class="small en text-left">{{ stop.arrivalCityName }}</span>
         </div>
         <div class="detail-item__time d-flex align-items-center justify-content-between mt-3 mb-2">
             <div class="detail-item__time__holder">
                 <p class="text-weight-600 text-gray-900 mb-0 py-1 text-3">
                     {{ departureTime.format('HH:mm') }}
                 </p>
-                <p class="font-en text-2 text-gray-800 text-weight-500 mb-0 py-1" dir="ltr">
+                <p class="en text-2 text-gray-800 text-weight-500 mb-0 py-1" dir="ltr">
                     {{ departureTime.calendar('gregory').locale('en').format('DD MMM').toUpperCase() }}
                 </p>
             </div>
             <div class="flex-grow-1 mt-2 px-2">
                 <div class="detail-item__time__route px-3">
-                    <span class="text-2 text-weight-500 font-en text-gray-700">{{ stop.duration | duration }}</span>
+                    <span class="text-2 text-weight-500 en text-gray-700">{{ stop.duration | duration }}</span>
                 </div>
                 <div class="text-2 text-gray-800 text-weight-500 mt-4 d-flex align-items-center justify-content-between">
                     <span>{{ departureTime.format('D MMMM YY') }}</span>
@@ -41,7 +41,7 @@
                 <p class="text-weight-600 text-gray-900 mb-0 py-1 text-3">
                     {{ arrivalTime.format('HH:mm') }}
                 </p>
-                <p class="font-en text-2 text-gray-800 text-weight-500 mb-0 py-1" dir="ltr">
+                <p class="en text-2 text-gray-800 text-weight-500 mb-0 py-1" dir="ltr">
                     {{ arrivalTime.calendar('gregory').locale('en').format('DD MMM').toUpperCase() }}
                 </p>
             </div>
@@ -50,7 +50,7 @@
             <badge class="px-3">
                 {{ stop.departureAirport }}
             </badge>
-            <div class="d-flex align-items-center flex-grow-1 px-2 justify-content-between font-en text-weight-500 text-2 text-gray-700">
+            <div class="d-flex align-items-center flex-grow-1 px-2 justify-content-between en text-weight-500 text-2 text-gray-700">
                 <span class="">{{ (stop.departureAirportName || '').replace(/فرودگاه|بین[\s+‌]المللی/g, '') }}</span>
                 <span class="text-left">{{ (stop.arrivalAirportName || '').replace(/فرودگاه|بین[\s+]المللی/g, '') }}</span>
             </div>

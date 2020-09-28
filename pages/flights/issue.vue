@@ -34,7 +34,7 @@
                 <p class="mb-2 text-3 text-gray-700 text-weight-500">
                     کد پیگیری:
                 </p>
-                <p class="mb-0 text-gray-50 text-weight-600 font-en text-5">
+                <p class="mb-0 text-gray-50 text-weight-600 en text-5">
                     {{ order._id }}
                 </p>
             </div>

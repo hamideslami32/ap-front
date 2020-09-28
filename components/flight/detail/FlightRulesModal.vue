@@ -10,7 +10,7 @@
             <span class="text-gray-800 text-3">{{ flight.stops[0].departureCityName }} به {{ flight.stops[flight.stops.length - 1].arrivalCityName }}</span>
             <span class="mx-auto" />
             <div class="d-flex">
-                <div class="text-2 text-left text-gray-700 font-en text-weight-500">
+                <div class="text-2 text-left text-gray-700 en text-weight-500">
                     <p class="mb-0">
                         {{ flight.stops[0].aircraft }}
                     </p>

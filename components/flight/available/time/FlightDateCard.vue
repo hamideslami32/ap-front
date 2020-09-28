@@ -17,7 +17,7 @@
             </span>
         </div>
         <div class="flight-date-card__time d-flex align-items-center justify-content-between">
-            <span v-if="flight.providerKey" class="flight-date-card__time__providerKey text-2 font-en text-secondary text-weight-600">
+            <span v-if="flight.providerKey" class="flight-date-card__time__providerKey text-2 en text-secondary text-weight-600">
                 {{ flight.providerKey }}
             </span>
             <span class="text-weight-500 text-3 text-gray-900">{{ $dayjs(firstStop.departureTime).format('HH:mm') }}</span>

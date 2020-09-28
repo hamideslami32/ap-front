@@ -1,5 +1,5 @@
 <template>
-    <b-row class="ticket ticket--fa font-en" no-gutters>
+    <b-row class="ticket ticket--fa en" no-gutters>
         <b-col cols="9" class="p-3 ticket__destination d-flex align-items-center">
             <div class="ticket__destination__arrow text-1" :class="{ 'ticket__destination__arrow--single': onWay }">
                 <span class="d-block mx-auto" />

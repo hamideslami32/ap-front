@@ -1,13 +1,13 @@
 @font-face {
     font-family: Dana;
-    src: url(../fonts/dana-fanum-regular.eot), url(../fonts/dana-fanum-regular.woff), url(../fonts/dana-fanum-regular.woff2);
+    src: url(../fonts/dana/dana-fanum-regular.eot), url(../fonts/dana/dana-fanum-regular.woff), url(../fonts/dana/dana-fanum-regular.woff2);
     font-display: swap;
     font-weight: 400;
 }
 
 @font-face {
     font-family: Dana;
-    src: url(../fonts/dana-fanum-bold.eot), url(../fonts/dana-fanum-bold.woff), url(../fonts/dana-fanum-bold.woff2);
+    src: url(../fonts/dana/dana-fanum-bold.eot), url(../fonts/dana/dana-fanum-bold.woff), url(../fonts/dana/dana-fanum-bold.woff2);
     font-display: swap;
     font-weight: 700;
 }
@@ -18,7 +18,7 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: local('Baloo Thambi 2 Regular'), local('BalooThambi2-Regular'), url(https://fonts.gstatic.com/s/baloothambi2/v1/cY9cfjeOW0NHpmOQXranrbDyu7hADpI.woff2) format('woff2');
+    src: local('Baloo Thambi 2 Regular'), local('BalooThambi2-Regular'), url(../fonts/baloo-thambi-2/baloo-thambi-2-regular.woff2) format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -28,10 +28,14 @@
     font-style: normal;
     font-weight: 500;
     font-display: swap;
-    src: local('Baloo Thambi 2 Medium'), local('BalooThambi2-Medium'), url(https://fonts.gstatic.com/s/baloothambi2/v1/cY9ffjeOW0NHpmOQXranrbDyu7CzLYe-RB4.woff2) format('woff2');
+    src: local('Baloo Thambi 2 Medium'), local('BalooThambi2-Medium'), url(../fonts/baloo-thambi-2/baloo-thambi-2-medium.woff2) format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 .en {
     font-family: 'Baloo Thambi 2', Dana, Tahoma, serif;
+}
+
+.fa {
+    font-family: Dana, 'Baloo Thambi 2', Tahoma, serif;
 }

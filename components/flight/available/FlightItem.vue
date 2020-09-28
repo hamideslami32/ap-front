@@ -1,6 +1,6 @@
 <template>
     <div class="flight-item">
-        <span v-if="flight.providerKey" class="flight-item__providerKey text-2 text-secondary font-en text-weight-600">
+        <span v-if="flight.providerKey" class="flight-item__providerKey text-2 text-secondary en text-weight-600">
             {{ flight.providerKey }}
         </span>
         <div class="d-flex">

@@ -21,7 +21,7 @@
                         v-model="item.value"
                         :name="`checkbox${i+1}`"
                     />
-                    <label class="mb-0 text-2 text-weight-500 font-en mr-2" :class="{ 'secondary-color': item.value }" :for="`checkbox${i+1}`">
+                    <label class="mb-0 text-2 text-weight-500 en mr-2" :class="{ 'secondary-color': item.value }" :for="`checkbox${i+1}`">
                         {{ item.title }}
                     </label>
                 </div>
@@ -118,7 +118,7 @@ export default {
         background-color: $secondary !important;
     }
     /deep/ .custom-control-label::before {
-        box-shadow: none !important;   
+        box-shadow: none !important;
     }
     /deep/ .custom-control-input ~ .custom-control-label::before {
         background-color: #fff !important;

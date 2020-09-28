@@ -1,5 +1,5 @@
 <template>
-    <div class="ticket-header font-en">
+    <div class="ticket-header en">
         <logo class="logo" />
         <div class="order-info">
             <div class="order-date">

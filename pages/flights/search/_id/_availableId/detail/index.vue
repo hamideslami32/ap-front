@@ -34,7 +34,7 @@
                     </template>
                 </span>
                 <span class="px-1">-</span>
-                <span class="font-en text-weight-500 text-capitalize text-left">{{ flights[0].flightClass }} ({{ flights[0].priceClass }})</span>
+                <span class="en text-weight-500 text-capitalize text-left">{{ flights[0].flightClass }} ({{ flights[0].priceClass }})</span>
             </div>
 
             <div class="flight-detail__card-holder mt-3 mb-3">
@@ -66,7 +66,7 @@
                         </template>
                     </span>
                     <span class="px-1">-</span>
-                    <span class="font-en text-weight-500">{{ flights[1].flightClass }} ({{ flights[1].priceClass }})</span>
+                    <span class="en text-weight-500">{{ flights[1].flightClass }} ({{ flights[1].priceClass }})</span>
                 </div>
 
                 <div class="flight-detail__card-holder mt-3 mb-3">
