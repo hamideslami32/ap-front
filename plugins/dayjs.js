@@ -7,10 +7,14 @@ dayjs.locale('fa')
 dayjs.calendar('jalali')
 
 dayjs.auto = function(str, format, ...args) {
+    const year = parseInt(str.slice(0, 4), 10)
+    const jalali = year < 1700
+    format = typeof format === 'string' ? { format } : format
     return dayjs(str, {
         ...format,
-        calendar: 'gregory'
-    })
+        jalali,
+        calendar: jalali ? 'jalali' : 'gregory'
+    }, ...args)
 }
 
 Vue.prototype.$dayjs = dayjs

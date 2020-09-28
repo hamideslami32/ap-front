@@ -76,11 +76,12 @@
                         />
                     </b-form-group>
                 </v-provider>
-                <v-provider v-slot="{ errors }" rules="required|date" name="تاریخ انقضای پاسپورت" slim>
-                    <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
-                        <a-input
-                            v-model="passportExpiration"
+                <v-provider v-slot="{ errors, failedRules }" rules="required|date|age:-0.5,-9999" name="تاریخ انقضای پاسپورت" slim>
+                    <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="failedRules.age ? 'تاریخ انقضا پاسپورت باید حداقل ۶ ماه باشد' : errors[0]">
+                        <a-date-input
+                            v-model="localValue.passportExpiration"
                             maxlength="10"
+                            dir="ltr"
                             inputmode="numeric"
                             placeholder="تاریخ انقضای پاسپورت"
                             :state="errors.length ? false : null"
@@ -104,13 +105,13 @@
                     </b-form-group>
                 </v-provider>
             </template>
-            <v-provider v-slot="{ errors }" name="تاریخ تولد" rules="required|date" slim>
-                <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
-                    <a-input
-                        v-model="birthdate"
+            <v-provider v-slot="{ errors, failedRules }" name="تاریخ تولد" :rules="`required|date|age:${ageRange.join(',')}`" slim>
+                <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="failedRules.age ? 'سن وارد شده صحیح نمی باشد' : errors[0]">
+                    <a-date-input
+                        v-model="localValue.birthdate"
                         dir="ltr"
                         class="mb-2"
-                        placeholder="تاریخ تولد"
+                        placeholder="تاریخ تولد (شمسی یا میلادی)"
                         inputmode="numeric"
                         maxlength="10"
                         :state="errors.length ? false : null"
@@ -132,19 +133,19 @@
 
 <script>
 import AInput from '~/components/ui/form/AInput'
+import ADateInput from '~/components/ui/form/ADateInput'
 import cloneDeep from 'lodash/cloneDeep'
 import '~/plugins/veeValidate/rules/nationalCode'
 import '~/plugins/veeValidate/rules/latinWord'
 import '~/plugins/veeValidate/rules/required'
 import '~/plugins/veeValidate/rules/dateValidation'
-import {toLatin} from '~/plugins/numbers'
 import {flightApi} from '~/api/flightApi'
 
 let nationalities
 
 export default {
     name: 'PassengerForm',
-    components: {AInput},
+    components: {AInput, ADateInput},
     props: {
         passport: {
             type: Boolean,
@@ -164,27 +165,36 @@ export default {
             nationalities: nationalities
         }
     },
-    watch: {
-        'birthdate'(t, f) {
-            t = toLatin(t)
-            if (t && (!t.match(/^[\d-]+$/) || t.length > 10)) this.birthdate = f
-            const [tl, fl] = [t.length, (f || '').length]
-            if (tl - fl === 1) {
-                if (tl === 4 || tl === 7) {
-                    this.birthdate += '-'
-                }
-            }
-        },
-        'passportExpiration'(t, f) {
-            t = toLatin(t)
-            if (t && (!t.match(/^[\d-]+$/) || t.length > 10)) this.passportExpiration = f
-            const [tl, fl] = [t.length, (f || '').length]
-            if (tl - fl === 1) {
-                if (tl === 4 || tl === 7) {
-                    this.passportExpiration += '-'
-                }
-            }
+    computed: {
+        ageRange() {
+            return {
+                adult: [12, 9999],
+                child: [2, 12],
+                infant: [0, 2]
+            }[this.localValue.type]
         }
+    },
+    watch: {
+        // 'birthdate'(t, f) {
+        //     t = toLatin(t)
+        //     if (t && (!t.match(/^[\d-]+$/) || t.length > 10)) this.birthdate = f
+        //     const [tl, fl] = [t.length, (f || '').length]
+        //     if (tl - fl === 1) {
+        //         if (tl === 4 || tl === 7) {
+        //             this.birthdate += '-'
+        //         }
+        //     }
+        // },
+        // 'passportExpiration'(t, f) {
+        //     t = toLatin(t)
+        //     if (t && (!t.match(/^[\d-]+$/) || t.length > 10)) this.passportExpiration = f
+        //     const [tl, fl] = [t.length, (f || '').length]
+        //     if (tl - fl === 1) {
+        //         if (tl === 4 || tl === 7) {
+        //             this.passportExpiration += '-'
+        //         }
+        //     }
+        // }
     },
     async mounted() {
         if (!nationalities) {

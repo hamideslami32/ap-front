@@ -1,20 +1,21 @@
 import { extend } from 'vee-validate'
 import {toLatin} from '~/plugins/numbers'
-
-const dateValidation = new RegExp(/^(\d{4})\/(0?[1-9]|1[012])\/(0?[1-9]|[12][0-9]|3[01])$/)
-
-
-const validation = (value) => {
-    const data = value.split('-')
-    const translateData = data.map(item => toLatin(item))
-    const date = translateData.join('/')
-    return dateValidation.test(date)
-}
-
+import dayjs from 'dayjs'
 
 extend('date', {
-    validate(value) {
-        return validation(value)
+    validate: (value) => {
+        if (value instanceof Date || dayjs.isDayjs(value)) return true
+        const date = toLatin(value).replace(/-/g, '/')
+        return dayjs(date, 'YYYY/MM/DD', true).calendar('gregory').format('YYYY/MM/DD') === date
     },
     message: 'تاریخ وارد شده صحیح نمیباشد'
+})
+
+extend('age', {
+    validate(value, args) {
+        const age = dayjs().calendar('gregory').diff(dayjs(value).calendar('gregory'), 'year', true)
+        const [min, max] = args.map(Number).sort((a, b) => a - b)
+        return age >= min && age <= max
+    },
+    message: 'تاریخ وارد شده مستین نمیباشد'
 })
