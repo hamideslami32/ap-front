@@ -44,7 +44,7 @@ export default {
                     text: 'تماس با اپرو'
                 },
                 {
-                    link: '#',
+                    link: '/about',
                     icon: 'user',
                     text: 'درباره اپرو'
                 },
