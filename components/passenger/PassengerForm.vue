@@ -160,8 +160,6 @@ export default {
     data() {
         return {
             localValue: cloneDeep(this.value),
-            birthdate: this.value.birthdate ? this.$dayjs(this.value.birthdate).calendar('jalali').format('YYYY-MM-DD') : undefined,
-            passportExpiration: this.passport && this.value.passportExpiration ? this.$dayjs(this.value.passportExpiration).calendar('jalali').format('YYYY-MM-DD') : undefined,
             nationalities: nationalities
         }
     },
@@ -174,28 +172,6 @@ export default {
             }[this.localValue.type]
         }
     },
-    watch: {
-        // 'birthdate'(t, f) {
-        //     t = toLatin(t)
-        //     if (t && (!t.match(/^[\d-]+$/) || t.length > 10)) this.birthdate = f
-        //     const [tl, fl] = [t.length, (f || '').length]
-        //     if (tl - fl === 1) {
-        //         if (tl === 4 || tl === 7) {
-        //             this.birthdate += '-'
-        //         }
-        //     }
-        // },
-        // 'passportExpiration'(t, f) {
-        //     t = toLatin(t)
-        //     if (t && (!t.match(/^[\d-]+$/) || t.length > 10)) this.passportExpiration = f
-        //     const [tl, fl] = [t.length, (f || '').length]
-        //     if (tl - fl === 1) {
-        //         if (tl === 4 || tl === 7) {
-        //             this.passportExpiration += '-'
-        //         }
-        //     }
-        // }
-    },
     async mounted() {
         if (!nationalities) {
             this.nationalities = nationalities = await flightApi.getNationalities()
@@ -203,9 +179,6 @@ export default {
     },
     methods: {
         submit() {
-            const isJalaali = this.birthdate.split(/-|\//)[0] < 1700
-            this.localValue.birthdate = this.$dayjs(this.birthdate, {jalali: isJalaali}).calendar('gregory').format('YYYY-MM-DD')
-            this.localValue.passportExpiration = this.passportExpiration ? this.$dayjs(this.passportExpiration, {jalali: this.passportExpiration.split(/-|\//)[0] < 1700}).calendar('gregory').format('YYYY-MM-DD') : undefined
             this.$emit('input', this.localValue)
             this.$emit('close')
         }

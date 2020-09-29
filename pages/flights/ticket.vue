@@ -119,14 +119,14 @@
                     </div>
                 </div>
                 <b-alert
-                    v-if="i !== 2"
+                    v-if="i !== flight.stops.length - 1"
                     :key="'a' + i"
                     class="my-4 text-right"
                     dir="rtl"
                     variant="info"
                     show
                 >
-                    <b>توقف در {{ stop.cityName }} برای {{ stop.duration | durationText | localizeNumber }}</b>
+                    <b>توقف در {{ stop.arrivalCityName }} برای {{ stop.duration | durationText | localizeNumber }}</b>
                 </b-alert>
             </template>
         </div>

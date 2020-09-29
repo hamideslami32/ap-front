@@ -1,82 +1,101 @@
 {
-  "type" : "flight",
-  "price" : 264600,
-  "flights" : [
+  "_id" : "F275223",
+  "orderItems" : [
     {
-      "dependencies" : [],
-      "stops" : [
+      "type" : "flight",
+      "price" : 5436000,
+      "flights" : [
         {
-          "aircraft" : "M83",
-          "airline" : "ZV",
-          "airlineName" : "زاگرس",
-          "flightNumber" : "4091",
-          "departureAirport" : "THR",
-          "departureTime" : "2020-09-28T05:40:00.000Z",
-          "departureAirportName" : "فرودگاه مهرآباد",
-          "departureCityName" : "تهران",
-          "arrivalAirport" : "MHD",
-          "arrivalTime" : "2020-09-28T07:05:00.000Z",
-          "arrivalAirportName" : "فرودگاه مشهد",
-          "arrivalCityName" : "مشهد",
-          "duration" : 85
+          "type" : "system",
+          "dependencies" : [],
+          "stops" : [
+            {
+              "departureTime" : "2020-09-30T00:05:00.000Z",
+              "arrivalTime" : "2020-09-30T02:55:00.000Z",
+              "flightNumber" : "513",
+              "departureAirport" : "IKA",
+              "arrivalAirport" : "SAW",
+              "airline" : "PC",
+              "aircraft" : "320",
+              "duration" : 200,
+              "airlineName" : "پگاسوز",
+              "arrivalAirportName" : "فرودگاه صابیحا گوکچن",
+              "arrivalCityName" : "استانبول",
+              "departureAirportName" : "فرودگاه بین المللی امام خمینی",
+              "departureCityName" : "تهران"
+            },
+            {
+              "departureTime" : "2020-09-30T09:20:00.000Z",
+              "arrivalTime" : "2020-09-30T12:35:00.000Z",
+              "flightNumber" : "316",
+              "departureAirport" : "SAW",
+              "arrivalAirport" : "TBS",
+              "airline" : "PC",
+              "aircraft" : "320",
+              "duration" : 135,
+              "airlineName" : "پگاسوز",
+              "arrivalAirportName" : "فرودگاه تفلیس",
+              "arrivalCityName" : "تفلیس",
+              "departureAirportName" : "فرودگاه صابیحا گوکچن",
+              "departureCityName" : "استانبول"
+            }
+          ],
+          "_id" : "6237373631323266356466393466626462396161313938313739303632323135263230373326353735333938",
+          "net" : {
+            "adult" : {
+              "tax" : 0,
+              "price" : 1812000
+            },
+            "child" : {
+              "tax" : 0,
+              "price" : 1812000
+            },
+            "infant" : {
+              "tax" : 0,
+              "price" : 1812000
+            }
+          },
+          "fare" : {
+            "adult" : {
+              "tax" : 0,
+              "price" : 1812000
+            },
+            "child" : {
+              "tax" : 0,
+              "price" : 1812000
+            },
+            "infant" : {
+              "tax" : 0,
+              "price" : 1812000
+            }
+          },
+          "freeSeats" : 9,
+          "providerKey" : "PR",
+          "flightClass" : "economy",
+          "baggage" : "20K",
+          "meta" : {
+            "fareType" : 2
+          },
+          "priceClass" : "I",
+          "routeIndex" : 0,
+          "markup" : 1
         }
       ],
-      "_id" : "NiraZV|THR|MHD|2020-09-28 09:10:00|4091",
-      "baggage" : "20KG",
-      "net" : {
-        "adult" : {
-          "price" : 242000,
-          "tax" : 22600
-        },
-        "child" : {
-          "price" : 157300,
-          "tax" : 17500
-        },
-        "infant" : {
-          "price" : 49000,
-          "tax" : 11000
-        }
-      },
-      "fare" : {
-        "adult" : {
-          "price" : 242000,
-          "tax" : 22600
-        },
-        "child" : {
-          "price" : 157300,
-          "tax" : 17500
-        },
-        "infant" : {
-          "price" : 49000,
-          "tax" : 11000
-        }
-      },
-      "freeSeats" : 9,
-      "flightClass" : "economy",
-      "priceClass" : "R",
-      "providerKey" : "NiraZV",
-      "subProvider" : "",
-      "markup" : 1
+      "session" : "5f724ccb74a6d568e4758983",
+      "isDomestic" : false,
+      "priceHistory" : [
+        5436000
+      ],
+      "passengers" : [],
+      "refundedPassengers" : [],
+      "bookingState" : "selected"
     }
   ],
-  "session" : "5f6dc87043daf550c2581008",
-  "isDomestic" : true,
-  "priceHistory" : [
-    264600
-  ],
-  "passengers" : [
-    {
-      "gender" : "male",
-      "name" : {
-        "en" : "Sasan"
-      },
-      "surname" : {
-        "en" : "Farrokh"
-      },
-      "nationalCode" : "0020438583",
-      "birthdate" : "1399-07-04T14:22:48+03:30"
-    }
-  ],
-  "refundedPassengers" : [],
-  "bookingState" : "unknown"
+  "status" : "new",
+  "user" : "5f2d4e42de91562859b60e28",
+  "channel" : "WEBSITE",
+  "callbackURL" : "http://localhost:3002/flights/issue",
+  "createdAt" : "2020-09-28T21:05:20.965Z",
+  "updatedAt" : "2020-09-28T21:05:20.965Z",
+  "__v" : 0
 }
