@@ -50,7 +50,7 @@ export default {
 <style lang="scss" scoped>
     .flight-date-card {
         background: $white;
-        border: 1px solid map_get($grays, '400');
+        border: 1px solid map_get($grays, '600');
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
         padding: 5px 10px;
         border-radius: 10px;
@@ -109,7 +109,7 @@ export default {
                 height: 10px;
                 border-radius: 50%;
                 background: $white;
-                border: 1px solid map_get($grays, '400');
+                border: 1px solid map_get($grays, '600');
                 top: -5px;
                 bottom: 0;
             }

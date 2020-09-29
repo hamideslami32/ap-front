@@ -39,189 +39,115 @@
                 </div>
             </div>
         </div>
-        <div>
-            <div class="ticket__passengers">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Passport Number</th>
-                            <th>Passenger Type</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><svgicon name="user" width="24" height="24" /> Hamid Reza Afshar</td>
-                            <td>4060934062</td>
-                            <td>Adult</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h4>Flight 1 &nbsp;<small>(پرواز رفت)</small></h4>
-
-            <div class="passengers-info">
-                <span>Hamid Eslami</span>
-
-                <span>
-                    <span>
-                        FN60934062
-                    </span>
-                    <span>
-                        Adult
-                    </span>
-                </span>
-            </div>
-            <div class="ticket-item">
-                <div class="title mb-2">
-                    <span class="border-left">Flight 1 (<span>پرواز رفت</span>)</span>
-                </div>
-                <div class="body">
-                    <div class="flight mb-2">
-                        <div class="origin">
-                            <div>
-                                <div class="mb-3">
-                                    <span class="border-right">Dubai</span>
-                                </div>
-                                <div class="time">
-                                    23:00
-                                </div>
-                                <div class="date">
-                                    23 AUG
-                                </div>
-                                <div class="airport-code mt-2">
-                                    IKA
-                                </div>
-                            </div>
-                            <div class="mr-2">
-                                <div>20 مرداد ۹۹</div>
-                                <div>Dubai International</div>
-                            </div>
-                        </div>
-                        <div class="duration">
-                            <div>
-                                <span class="icon" />
-                            </div>
-                            <div>2h 30m</div>
-                            <div class="separator" />
-                        </div>
-                        <div class="dest">
-                            <div class="ml-2">
-                                <div>04 شهریور 99</div>
-                                <div>London Heathrow</div>
-                            </div>
-                            <div>
-                                <div class="mb-3">
-                                    <span class="border-left">London</span>
-                                </div>
-                                <div class="time">
-                                    04:10
-                                </div>
-                                <div class="date">
-                                    23 AUG
-                                </div>
-                                <div class="airport-code mt-2">
-                                    LHR
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="detail">
-                        <div>
-                            <div class="airline-logo" />
-                            <div>
-                                <div class="title">
-                                    Flight number: 450
-                                </div>
-                                <div>Eurowings</div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="title">
-                                Airplane
-                            </div>
-                            <div>A320</div>
-                        </div>
-                        <div>
-                            <div class="title">
-                                Cabin
-                            </div>
-                            <div>Economy - H</div>
-                        </div>
-                        <div>
-                            <div class="title">
-                                Reference
-                            </div>
-                            <div>NB51206630</div>
-                        </div>
-                    </div>
-                    <!-- <div>
-                        <div>Ticket No : 1618901</div>
-                    </div> -->
-                </div>
-                <div class="stop">
-                    <div>
-                        <div class="icon-wrapper">
-                            icon
-                        </div>
-                        <div>
-                            in Dubai for 2 hours 40 minutes
-                        </div>
-                    </div>
-                    <div>
-                        Dubai
-                    </div>
-                </div>
-            </div>
-            <div class="ticket-baggage">
-                <div class="title">
-                    <span class="border-left">Baggage</span>
-                </div>
-                <div class="baggage" />
-            </div>
-            <div class="ticket-price">
-                <div class="title">
-                    <span class="border-left">Ticket price</span>
-                </div>
-                <div class="prices">
-                    <div class="price-detail">
-                        <div>
-                            <span>Base price</span>
-                            <span>44.550,000</span>
-                        </div>
-                        <div>
-                            <span>Tax</span>
-                            <span>500,000</span>
-                        </div>
-                    </div>
-                    <div class="total-price">
-                        <span class="title">Total price</span>
-                        <div>
-                            <span>45,000,000</span>
-                            <span>IR-Rial</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="terms">
-                <div class="title">
-                    <span class="border-left">Terms & conditions</span>
-                </div>
-            </div>
+        <div class="ticket__passengers mb-3">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Passport Number</th>
+                        <th>Passenger Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><svgicon name="user" width="24" height="24" /> Hamid Reza Afshar</td>
+                        <td>4060934062</td>
+                        <td>Adult</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+        <div v-for="i in 2" :key="i" class="mb-5">
+            <h4 class="mb-4">
+                Flight {{ i }} &nbsp;<small>(پرواز {{ i === 1 ? 'رفت' : 'برگشت' }})</small>
+            </h4>
+
+            <template v-for="i in 2">
+                <div :key="i" class="ticket__card">
+                    <div class="d-flex justify-content-between mb-4">
+                        <div v-for="i in 2" :key="i" :class="i === 1 ? 'text-left' : 'text-right'" :dir="i === 1 ? 'ltr' : 'rtl'">
+                            <h5 class="mb-3">
+                                London
+                            </h5>
+                            <div class="mb-3">
+                                <span class="d-inline-block ticket__time" :class="i === 1 ? 'mr-2' : 'ml-2'">
+                                    <b>04:30</b>
+                                    <span>23 AUG</span>
+                                </span>
+                                <span dir="rtl">
+                                    ۴ شهریور ۹۹
+                                </span>
+                            </div>
+                            <div>
+                                <badge :class="i === 1 ? 'mr-2' : 'ml-2'">
+                                    LHR
+                                </badge>
+                                <span>London Heathrow</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex ticket__card__info">
+                        <img :src="$flight.airlineLogoUrl('W5')" alt="Mahan Airline" width="60" class="mr-3">
+                        <span class=" text-left">
+                            <span class="text-gray-700">Flight Number: 2</span>
+                            <br>
+                            <span class="font-weight-medium">Eurowings</span>
+                        </span>
+                        <span>
+                            <span class="text-gray-700">Airplane</span>
+                            <br>
+                            <span class="font-weight-medium">A 320</span>
+                        </span>
+                        <span>
+                            <span class="text-gray-700">Cabin</span>
+                            <br>
+                            <span class="font-weight-medium">Economy - H</span>
+                        </span>
+                        <span>
+                            <span class="text-gray-700">Reference</span>
+                            <br>
+                            <span class="font-weight-medium">NB51206630</span>
+                        </span>
+                    </div>
+                </div>
+                <b-alert
+                    v-if="i !== 2"
+                    :key="'a' + i"
+                    class="my-4"
+                    variant="info"
+                    show
+                >
+                    <b>Stop in Dubai for 2 hours 40 minutes</b>
+                </b-alert>
+            </template>
+        </div>
+
+        <b-row>
+            <b-col cols="6">
+                <h4>Baggage</h4>
+
+                <div />
+            </b-col>
+            <b-col cols="6">
+                <h4>Ticket Price</h4>
+            </b-col>
+        </b-row>
     </div>
 </template>
 
 <script>
+import Badge from '~/components/ui/Badge'
+
 export default {
     layout: 'empty',
     components: {
+        Badge
     }
 }
 </script>
 
 <style lang="scss">
+/* stylelint-disable */
 @page {
     size: letter;
     margin: 30cm;
@@ -231,24 +157,36 @@ export default {
 .ticket {
     width: 100%;
     margin: 0 auto;
-    padding: 0 10px;
+    padding: 0 20px;
     min-height: 100vh;
     direction: ltr;
     text-align: left;
     font-size: 1rem;
 
-    h4 {
-        font-size: 1.2em;
+    h4, h5 {
+        margin: 0 -10px;
         &::before {
-            print-color-adjust: exact;
+            -webkit-print-color-adjust: exact;
             content: ' ';
             display: inline-block;
             width: 4px;
             height: 20px;
             vertical-align: middle;
             background-color: $secondary;
-            margin-right: 10px;
+            margin: 0 10px;
             border-radius: 5px;
+        }
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+
+    h5 {
+        font-size: 1em;
+
+        &::before {
+            background-color: map-get($grays, '500');
         }
     }
 
@@ -276,8 +214,8 @@ export default {
             }
 
             > thead > tr > th {
-                print-color-adjust: exact;
-                background-color: map-get($grays, '400');
+                -webkit-print-color-adjust: exact;
+                background-color: map-get($grays, '600');
                 padding: 5px 15px;
                 color: map-get($grays, '800');
                 font-weight: 300;
@@ -302,252 +240,35 @@ export default {
         }
     }
 
-    .border-right, .border-left {
-        border-width: 4px !important;
-        padding: 0 5px;
-        border-color: $secondary !important;
-    }
-    .main {
-        padding: 5px;
+    &__time {
+        -webkit-print-color-adjust: exact;
+        border: 1px solid map-get($grays, '500');
+        text-align: center;
+        border-radius: 4px;
 
-        .title {
-            color: $grayColor;
-        }
-
-        .passengers-info-title {
-            height: 25px;
-            padding: 0 5px;
-            background: $modalBorder;
-            border-radius: $borderRadius5;
-            font-size: 12px;
-            line-height: 25px;
-        }
-
-        .passengers-info {
-            height: 40px;
-            margin: 10px 0 20px;
-            padding: 0 5px;
-            background: #fff;
-            border-radius: $borderRadius5;
-            line-height: 40px;
-        }
-
-        .passengers-info-title, .passengers-info {
-            text-align: left;
-            clear: both;
-
-            & > span:first-of-type {
-                float: left;
-            }
-
-            & > span:last-of-type {
-                float: right;
-                width: 50%;
-
-                & > span {
-                    display: inline-block;
-                    width: 48%;
-                }
-            }
-        }
-        .ticket-item {
+        > span, b {
+            display: block;
             padding: 5px;
-            clear: both;
-
-            .title {
-                text-align: left;
-            }
-            .body {
-                background: #fff;
-                padding: 5px;
-                border-radius: $borderRadius3;
-                .flight {
-                    direction: rtl;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    height: 150px;
-                    & > div {
-                        display: inline-block;
-                    }
-                    .time, .date, .airport-code {
-                        text-align: center;
-                    }
-                    .time {
-                        border: 2px solid $modalBorder;
-                        border-radius: $borderRadius3 $borderRadius3 0 0;
-                    }
-                    .date {
-                        background: $modalBorder;
-                        font-size: 12px;
-                        border-radius: 0 0 $borderRadius3 $borderRadius3;
-                    }
-                    .airport-code {
-                        background: $pinkColor;
-                        color: $primary;
-                        font-size: 12px;
-                        font-weight: 700;
-                        border-radius: $borderRadius3;
-                    }
-                    .duration {
-                        text-align: center;
-                        width: 22%;
-                    }
-                    .origin {
-                        text-align: right;
-                    }
-
-                    .origin, .dest {
-                        width: 38%;
-                        font-size: 14px;
-                        & > div {
-                            display: inline-table;
-                            vertical-align: bottom;
-                        }
-                    }
-
-                }
-                .detail {
-                    background: $modalBorder;
-                    border-radius: $borderRadius3;
-                    & > div {
-                        display: inline-block;
-                        text-align: left;
-                        width: 22%;
-                        box-sizing: border-box;
-                        padding: 5px;
-                        border-right: 1px solid $borderColor;
-                        font-size: 14px;
-                    }
-
-                    & > div:first-of-type {
-                        width: 30%;
-                    }
-
-                    & > div:last-of-type {
-                        border-right: none;
-                    }
-
-                    .title {
-                        color: $grayColor;
-                    }
-                }
-            }
-
-            .stop {
-                height: 40px;
-                border-radius: $borderRadius3;
-                background-color: #e4f7f9;
-                border: 1px solid $info;
-                line-height: 40px;
-                padding: 0 5px;
-                margin-top: 10px;
-
-                & > div {
-                    display: inline-block;
-
-                    & > * {
-                        display: inline-block;
-                    }
-
-                    &:last-of-type {
-                        float: right;
-                    }
-                }
-            }
         }
 
-        .ticket-price, .ticket-baggage {
-            width: 275px;
-            height: 214px;
-            display: inline-table;
-            margin: 15px 0;
-
-            .title {
-                text-align: left;
-                margin-bottom: 10px;
-            }
-        }
-
-        .ticket-price {
-            .prices {
-                background: $lightGrayColor;
-                border: 1px solid $modalBorder;
-                border-radius: $borderRadius3;
-                height: 180px;
-
-                & > div {
-                    height: 50%;
-                }
-
-                .price-detail {
-                    border-bottom: 1px dashed $borderColor;
-                    padding: 15px 10px;
-
-                    & > div {
-                        &:first-of-type {
-                            margin-bottom: 10px;
-                        }
-                        span {
-                            width: 50%;
-                        }
-
-                        & > span:first-of-type {
-                            color: $grayColor;
-                            font-size: 14px;
-                        }
-
-                        & > span:last-of-type {
-                            float: right;
-                            text-align: right;
-                        }
-                    }
-                }
-
-                .total-price {
-                    padding: 10px;
-
-                    div {
-                        background: $secondary;
-                        border-radius: $borderRadius3;
-                        padding: 8px;
-                        margin-top: 5px;
-
-                        span:first-of-type {
-                            color: #fff;
-                            font-weight: 500;
-                            font-size: 18px;
-                        }
-
-                        span:last-of-type {
-                            background: #fff;
-                            border-radius: $borderRadius3;
-                            color: $secondary;
-                            float: right;
-                            padding: 3px 5px;
-                            font-size: 14px;
-                            box-sizing: border-box;
-                        }
-                    }
-                }
-            }
-        }
-
-        .ticket-baggage {
-            margin: 0 15px 0 5px;
-
-            .baggage {
-                background: #fff;
-                border-radius: $borderRadius3;
-                height: 180px;
-            }
-        }
-
-        .terms {
-            margin-left: 5px;
+        > span {
+            background-color: map-get($grays, '500');
         }
     }
 
+    &__card {
+        &__info {
+            border: 1px solid map-get($grays, '500');
+            border-radius: 5px;
+            background-color: #f5f5f5;
+            padding: 20px;
+            > span {
+                padding: 0 20px;
+                flex-grow: 1;
+                border-left: 1px solid map-get($grays, '500');
+            }
+        }
+    }
 }
 </style>
 

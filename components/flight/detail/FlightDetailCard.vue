@@ -58,7 +58,7 @@ export default {
     .detail-card {
         background: map-get($grays, '200');
         border-radius: 10px;
-        border: 1px solid map_get($grays, '400');
+        border: 1px solid map_get($grays, '600');
         position: relative;
 
         &__wrapper {

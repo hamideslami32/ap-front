@@ -96,7 +96,7 @@ export default {
     @mixin line {
         content: '';
         width: 3px;
-        background: map_get($grays, '400');
+        background: map_get($grays, '600');
         border-radius: 100px;
         position: absolute;
         top: 0;
@@ -111,7 +111,7 @@ export default {
         border-radius: 50%;
         position: absolute;
         bottom: 0;
-        border: 1px solid map_get($grays, '400');
+        border: 1px solid map_get($grays, '600');
         top: -6px;
     }
 
@@ -175,7 +175,7 @@ export default {
             }
 
             &__route {
-                border-top: 1px dashed map_get($grays, '400');
+                border-top: 1px dashed map_get($grays, '600');
                 position: relative;
 
                 > span {

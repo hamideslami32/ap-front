@@ -58,7 +58,7 @@ export default {
 <style lang="scss" scoped>
     .flight-card {
         border-radius: 10px;
-        border: 1px solid map_get($grays, '400');
+        border: 1px solid map_get($grays, '600');
         padding: 15px 10px 10px;
         font-weight: 600;
         position: relative;
@@ -162,7 +162,7 @@ export default {
             display: flex;
             align-items: center;
             justify-content: center;
-            
+
         }
     }
 </style>

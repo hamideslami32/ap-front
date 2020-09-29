@@ -117,7 +117,7 @@ export default {
 
         &.flight-item--toWay {
             &:last-child {
-                border-top: 1px dashed map_get($grays, '400');
+                border-top: 1px dashed map_get($grays, '600');
             }
         }
 

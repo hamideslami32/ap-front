@@ -149,7 +149,7 @@ export default {
 
     /* Handle */
     &::-webkit-scrollbar-thumb {
-        background: map_get($grays, '300');
+        background: map_get($grays, '500');
         border-radius: 4px;
     }
 }

@@ -221,7 +221,7 @@ export default {
 
         .user {
             background: $white;
-            border: 1px solid map_get($grays, '400');
+            border: 1px solid map_get($grays, '600');
             border-radius: 10px;
             position: relative;
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);

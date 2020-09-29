@@ -50,7 +50,7 @@ export default {
     padding: 5px 12px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
     border-radius: 3px;
-    border: 1px solid map_get($grays, '400');
+    border: 1px solid map_get($grays, '600');
     background: $white;
 
     > img {

@@ -96,7 +96,7 @@ export default {
 
 <style lang="scss" scoped>
     .field {
-        border: 1px solid map_get($grays, '400');
+        border: 1px solid map_get($grays, '600');
         border-radius: 10px;
         background: #f9f9f9;
         min-height: 50px;
