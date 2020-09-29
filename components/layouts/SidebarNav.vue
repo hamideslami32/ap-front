@@ -13,7 +13,9 @@
                         width="25"
                         height="25"
                     />
-                    <a class="text-gray-white" :href="item.link">{{ item.text }}</a>
+                    <n-link class="text-gray-white" :to="item.link">
+                        {{ item.text }}
+                    </n-link>
                 </li>
             </ul>
         </div>
@@ -39,7 +41,7 @@ export default {
                     text: 'راهنمای خرید بلیط از اپرو'
                 },
                 {
-                    link: '#',
+                    link: '/contact',
                     icon: 'user',
                     text: 'تماس با اپرو'
                 },
