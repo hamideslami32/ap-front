@@ -132,6 +132,10 @@
                 <h4>Ticket Price</h4>
             </b-col>
         </b-row>
+
+        <footer class="ticket__footer">
+            <b>Support: 773242341</b>
+        </footer>
     </div>
 </template>
 
@@ -151,7 +155,6 @@ export default {
 @page {
     size: letter;
     margin: 30cm;
-
 }
 
 .ticket {
@@ -215,7 +218,7 @@ export default {
 
             > thead > tr > th {
                 -webkit-print-color-adjust: exact;
-                background-color: map-get($grays, '600');
+                background-color: map-get($grays, '500');
                 padding: 5px 15px;
                 color: map-get($grays, '800');
                 font-weight: 300;
@@ -268,6 +271,12 @@ export default {
                 border-left: 1px solid map-get($grays, '500');
             }
         }
+    }
+
+    &__footer {
+        margin-top: 30px;
+        padding: 20px;
+        border-top:  1px solid map-get($grays, '500');
     }
 }
 </style>
