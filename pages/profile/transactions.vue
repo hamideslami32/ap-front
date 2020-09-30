@@ -12,13 +12,17 @@
                     </div>
                     <div class="d-flex my-2 align-items-center justify-content-between px-2">
                         <span>نوع تراکنش</span>
-                        <span>افزایش شارژ</span>
+                        <span class="text-success text-weight-600">افزایش شارژ</span>
                     </div>
-                    <div class="d-flex mb-2 align-items-center justify-content-between px-2">
+                    <div class="d-flex my-2 align-items-center justify-content-between px-2">
                         <span>مبلغ</span>
                         <span class="text-gray-800">{{ payment.amount | separateNumber | localizeNumber }}
                             <small class="text-gray-700">تومان</small>
                         </span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between px-2">
+                        <span>شماره تراکنش</span>
+                        <span class="text-weight-500 text-gray-700">{{ payment.order }}</span>
                     </div>
                     <!--<div class="d-flex align-items-center justify-content-between px-2">
                         <span>باقی مانده اعتبار</span>
@@ -28,18 +32,18 @@
                     </div>-->
                 </div>
             </template>
-            <template #footer>
+            <!--            <template #footer>
                 <p class="text-gray-900 text-900 transactions__code">
                     GmshtyjwKSuDTd2E4Zdj50MUulXKi04tGR
                 </p>
-            </template>
+            </template>-->
         </card>
 
-        <btn-wrapper class="d-flex align-items-center justify-content-center">
+        <!--        <btn-wrapper class="d-flex align-items-center justify-content-center">
             <a-btn wrapper-class="search-btn" shadow variant="primary" @click="searchModal = true">
                 جستجو
             </a-btn>
-        </btn-wrapper>
+        </btn-wrapper>-->
         <b-modal v-model="searchModal" body-class="p-0" hide-footer>
             <template v-slot:modal-title>
                 جستجو تراکنش
@@ -82,12 +86,11 @@
 <script>
 import Card from '~/components/ui/Card'
 import AInput from '~/components/ui/form/AInput'
-import BtnWrapper from '~/components/ui/BtnWrapper'
 import {profileApi} from '~/api/profile'
 
 
 export default {
-    components: {AInput, Card, BtnWrapper},
+    components: {AInput, Card},
     layout: 'page',
     async fetch() {
         this.payments = await profileApi.getPayments()
@@ -108,11 +111,13 @@ export default {
 
 
             &__info {
-                border-bottom-left-radius: 0;
-                border-bottom-right-radius: 0;
+                // without barcode
+                // border-bottom-left-radius: 0;
+                // border-bottom-right-radius: 0;
             }
 
             &__actions {
+                display: none; // without barcode
                 border-top: 1px solid $modalBorder;
                 background: $white;
                 border-radius: 0 0 10px 10px ;

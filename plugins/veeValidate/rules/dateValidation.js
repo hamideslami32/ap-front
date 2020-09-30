@@ -17,5 +17,5 @@ extend('age', {
         const [min, max] = args.map(Number).sort((a, b) => a - b)
         return age >= min && age <= max
     },
-    message: 'تاریخ وارد شده مستین نمیباشد'
+    message: 'تاریخ وارد شده صحیح نمیباشد'
 })

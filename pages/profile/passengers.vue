@@ -123,7 +123,7 @@
                 <p class="text-3 mt-2 mb-3 text-gray-black text-weight-500">
                     حذف مسافر (حسین شریفی نیا)
                 </p>
-                <div class="passengers__remove-modal__actions">
+                <div class="passengers__remove-modal__actions d-flex align-items-center justify-content-center">
                     <a-btn variant="primary" class="submit-btn text-weight-600" wrapper-class="text-2" @click.prevent="removeModal = false">
                         بازگشت
                     </a-btn>
