@@ -1,7 +1,7 @@
 <template>
     <section class="container">
         <h4 class="mt-4 mb-0 text-gray-1000 text-weight-500">
-            درباره ما اپرو
+            درباره اپرو
         </h4>
         <p class="mt-3 text-justify text-gray-900">
             اپرو سامانه فروش اینترنتی بلیط سفر است که فعالیت خود را در سال 1388 با نام <strong>«سفرهای کهکشانی»</strong> آغاز کرد. در سال
