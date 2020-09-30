@@ -38,6 +38,7 @@
         <template v-if="availables && availables.filters">
             <btn-wrapper>
                 <a-btn
+
                     wrapper-class="filter-btn"
                     :class="{ 'filter-btn--selected' : filtersCount }"
                     variant="primary"
