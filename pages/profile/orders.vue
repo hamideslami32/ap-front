@@ -12,58 +12,9 @@
         <b-alert v-else-if="!orders.length > 0" class="text-center" show variant="primary">
             نتیجه ای یافت نشد!
         </b-alert>
-        <card v-for="(order, i) in orders" v-else :key="i" class="mb-3">
-            <template #header>
-                <div class="orders-details__header d-flex align-items-center justify-content-between px-2 mb-3">
-                    <div>
-                        <p class="mb-2l">
-                            شماره سفارش
-                        </p>
-                        <p class="text-2 mb-0">
-                            پرواز داخلی
-                        </p>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <span class="ml-2">{{ order._id }}</span>
-                        <span>
-                            <svgicon name="airplane-travel" width="30" height="30" />
-                        </span>
-                    </div>
-                </div>
-                <div class="orders-details__main text-2">
-                    <div class="d-flex align-items-center justify-content-between px-2">
-                        <span>مسیر</span>
-                        <span class="text-gray-800">{{ order.orderItems[0].flights[0].departureCity }} به {{ order.orderItems[0].flights[0].arrivalCity }}</span>
-                    </div>
-                    <div class="d-flex my-3 align-items-center justify-content-between px-2">
-                        <span>تاریخ و ساعت خرید</span>
-                        <span class="text-gray-800">{{ $dayjs(order.createdAt).format('DD MMMM YYYY - HH:mm') }}</span>
-                    </div>
-                    <div class="d-flex my-3 align-items-center justify-content-between px-2">
-                        <span>وضعیت</span>
-                        <template>
-                            <span :class="`text-${$statusChecker(order.status).color}`">{{ $statusChecker(order.status).fa }}</span>
-                        </template>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between px-2">
-                        <span>مبلغ</span>
-                        <span class="text-gray-800">
-                            {{ order.orderItems[0].price | separateNumber }} <small class="text-gray-700">تومان</small>
-                        </span>
-                    </div>
-                </div>
-            </template>
-            <template #footer>
-                <div class="custom-card__actions__btn">
-                    <svgicon class="text-primary" name="bookmarks-accept" width="26" height="26" />
-                    <span class="text-1 mt-2 text-gray-900">دریافت بلیط</span>
-                </div>
-                <div class="custom-card__actions__btn">
-                    <svgicon class="text-secondary" name="bookmarks-denny" width="26" height="26" />
-                    <span class="text-1 mt-2 text-gray-900">استرداد بلیط</span>
-                </div>
-            </template>
-        </card>
+        <template v-else>
+            <order-card v-for="order in orders" :key="order._id" :order="order" />
+        </template>
 
         <!--        <btn-wrapper>
             <a-btn wrapper-class="search-btn" variant="primary" @click="searchModal = true">
@@ -104,16 +55,13 @@
 </template>
 
 <script>
-// import CustomInput from '~/components/ui/form/CustomInput'
-// import BtnWrapper from '~/components/ui/BtnWrapper'
-import Card from '~/components/ui/Card'
 import {profileApi} from '~/api/profile'
 import FlightPlaceHolder from '~/components/flight/available/FlightPlaceholder'
+import OrderCard from '@/components/profile/OrderCard'
 
 export default {
     name: 'Orders',
-    components: {Card, FlightPlaceHolder},
-    layout: 'page',
+    components: {OrderCard, FlightPlaceHolder},
     data() {
         return {
             searchModal: false,
@@ -124,13 +72,6 @@ export default {
         user() {
             return this.$auth.user
         }
-    },
-    created() {
-        this.$auth.authenticate().then(() => {
-            this.$router.push('/profile/orders')
-        }).catch(err => {
-            this.$router.push('/')
-        })
     },
     mounted() {
         this.getOrders()

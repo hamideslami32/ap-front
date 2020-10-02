@@ -79,7 +79,6 @@ export default {
         background: linear-gradient(90deg, #49238c 0%, $lightPrimary 100%);
         text-align: center;
         color: $white;
-        margin-top: -60px;
         &__icon-wrapper {
             display: inline-block;
             padding: 1px;

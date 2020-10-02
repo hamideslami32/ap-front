@@ -16,6 +16,19 @@
 //    height: 100%;
 //}
 
+html, body, #__nuxt, #__layout {
+    height: 100%;
+    width: 100%;
+    background: $info;
+    overflow: hidden;
+}
+
+#__layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .btn-raw {
     appearance: none;
     background: none;

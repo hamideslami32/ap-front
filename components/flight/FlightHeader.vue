@@ -112,9 +112,13 @@ export default {
         top: 0;
         right: 0;
         left: 0;
-        z-index: 1;
+        z-index: 110;
         background: linear-gradient(90deg, $primary 0%, $lightPrimary 100%);
         color: $white;
+
+        @include media-breakpoint-up(md) {
+            position: absolute;
+        }
 
         /deep/ input {
             background-clip: border-box !important;

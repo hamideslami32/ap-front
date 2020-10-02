@@ -91,7 +91,6 @@ import {profileApi} from '~/api/profile'
 
 export default {
     components: {AInput, Card},
-    layout: 'page',
     async fetch() {
         this.payments = await profileApi.getPayments()
     },

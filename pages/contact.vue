@@ -46,7 +46,6 @@ import AInput from '~/components/ui/form/AInput'
 
 export default {
     name: 'Contact',
-    layout: 'mobile',
     components: {AInput}
 }
 </script>

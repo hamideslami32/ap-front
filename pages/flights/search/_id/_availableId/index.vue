@@ -95,7 +95,6 @@ import FlightDetailsToast from '~/components/flight/FlightDetailsToast'
 
 export default {
     components: {FlightDetailsToast, FlightDateCard},
-    layout: 'page',
 
     mixins: [flightSearchMixin],
 

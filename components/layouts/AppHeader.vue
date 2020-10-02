@@ -8,7 +8,18 @@
                 <logo />
             </nuxt-link>
         </portal-target>
-        <svgicon name="notifications" width="30" class="header__icon" height="30" />
+        <button v-if="$route.fullPath.match(/^\/(flights)?$/)" class="btn-raw">
+            <svgicon name="notifications" width="30" class="header__icon" height="30" />
+        </button>
+        <button v-else class="btn-raw">
+            <svgicon
+                name="arrow-left"
+                width="20"
+                class="header__icon"
+                height="20"
+                @click="$router.back()"
+            />
+        </button>
         <sidebar-nav :opened="isNavOpen" @close="isNavOpen = false" />
     </header>
 </template>
@@ -39,7 +50,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .app-header {
         position: fixed;
         top: 0;
@@ -53,6 +64,10 @@ export default {
         justify-content: space-between;
         align-items: center;
         border-bottom: 1px solid #e6e6e6;
+
+        @include media-breakpoint-up(md) {
+            position: absolute;
+        }
 
         a {
             color: $white;
@@ -74,6 +89,6 @@ export default {
     }
 
     .transparent-header .mobile-layout {
-        padding-top: 0;
+        padding-top: 0 !important;
     }
 </style>

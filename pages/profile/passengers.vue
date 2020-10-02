@@ -148,7 +148,6 @@ import BtnWrapper from '~/components/ui/BtnWrapper'
 export default {
     name: 'Passengers',
     components: {BtnWrapper, PassengerForm, Card, AInput},
-    layout: 'page',
     data() {
         return {
             searchModal: false,

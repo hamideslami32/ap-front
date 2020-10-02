@@ -6,7 +6,7 @@
         <portal to="right-header">
             <svgicon name="share" width="30" height="30" />
         </portal>
-        <div class="d-flex align-items-center justify-content-center mb-2">
+        <div v-if="$flight.session" class="d-flex align-items-center justify-content-center mb-2">
             <span class="text-gray-900 text-weight-500">{{ $flight.session.routes[0].origin.city | translate }}</span>
             <gradient-wrapper class="mx-2">
                 <svgicon class="position-relative d-block icon-detail" name="single-arrow" width="30" height="20" />
@@ -111,7 +111,6 @@ export default {
         RiskFreeCard,
         PriceDetail
     },
-    layout: 'page',
 
     async fetch() {
         try {
