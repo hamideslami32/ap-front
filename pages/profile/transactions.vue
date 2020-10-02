@@ -6,13 +6,18 @@
         <card v-for="payment in payments" :key="payment._id" class="mb-3">
             <template #header>
                 <div class="transactions__main text-2">
-                    <div class="d-flex align-items-center justify-content-between px-2">
+                    <div v-if="payment.paidAt" class="d-flex align-items-center justify-content-between px-2">
                         <span>تاریخ و ساعت خرید</span>
-                        <span class="text-gray-800">۲۰ شهریور ۱۳۹۹ - ۲۲:۱۰</span>
+                        <span class="text-gray-800"> ۲۰ شهریور ۱۳۹۹ - ۲۲:۱۰</span>
+                        <span class="text-gray-800">{{ $dayjs(payment.paidAt).format('DD MMMM YYYY - HH:mm') }}</span>
                     </div>
                     <div class="d-flex my-2 align-items-center justify-content-between px-2">
                         <span>نوع تراکنش</span>
-                        <span class="text-success text-weight-600">افزایش شارژ</span>
+                        <span>خرید</span>
+                    </div>
+                    <div class="d-flex my-2 align-items-center justify-content-between px-2">
+                        <span>وضعیت</span>
+                        <span class="text-weight-600">{{ statusText(payment.status) }}</span>
                     </div>
                     <div class="d-flex my-2 align-items-center justify-content-between px-2">
                         <span>مبلغ</span>
@@ -22,7 +27,7 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-between px-2">
                         <span>شماره تراکنش</span>
-                        <span class="text-weight-500 text-gray-700">{{ payment.order }}</span>
+                        <span class="text-weight-500 text-gray-700">{{ payment._id }}</span>
                     </div>
                     <!--<div class="d-flex align-items-center justify-content-between px-2">
                         <span>باقی مانده اعتبار</span>
@@ -32,11 +37,6 @@
                     </div>-->
                 </div>
             </template>
-            <!--            <template #footer>
-                <p class="text-gray-900 text-900 transactions__code">
-                    GmshtyjwKSuDTd2E4Zdj50MUulXKi04tGR
-                </p>
-            </template>-->
         </card>
 
         <!--        <btn-wrapper class="d-flex align-items-center justify-content-center">
@@ -98,6 +98,14 @@ export default {
         return {
             searchModal: false,
             payments: null
+        }
+    },
+    methods: {
+        statusText(payment) {
+            return {
+                success: 'موفق',
+                failed: 'نا موفق'
+            }[payment.status] || 'نامشخص'
         }
     }
 }
