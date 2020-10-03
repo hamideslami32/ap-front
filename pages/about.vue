@@ -69,8 +69,7 @@
 
 <script>
 export default {
-    name: 'About',
-    layout: 'mobile'
+    name: 'About'
 }
 </script>
 

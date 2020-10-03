@@ -12,7 +12,7 @@ export default {
 
 <style lang="scss" scoped>
     .button-wrapper {
-        position: fixed;
+        position: absolute;
         bottom: 0;
         left: 0;
         right: 0;

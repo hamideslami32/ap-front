@@ -16,7 +16,7 @@ export default {
 
 <style lang="scss">
     .toast-portal {
-        position: fixed;
+        position: absolute;
         bottom: 0;
         right: 0;
         left: 0;

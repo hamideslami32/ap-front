@@ -245,6 +245,13 @@ function rawBody(req) {
     margin: 30px;
 }
 
+html, body, #__nuxt, #__layout {
+    height: unset;
+    width: unset;
+    background: unset;
+    overflow: unset;
+}
+
 .ticket {
     width: 100%;
     margin: 0 auto;

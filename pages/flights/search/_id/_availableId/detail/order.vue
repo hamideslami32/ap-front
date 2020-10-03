@@ -121,7 +121,6 @@ export default {
         Charity,
         Payment
     },
-    layout: 'page',
 
     fetchOnServer: false,
     async fetch() {

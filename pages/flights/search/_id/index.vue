@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div class="mb-3 py-4">
+            <flight-header />
+        </div>
         <div v-if="loading" class="flight-container">
             <flight-placeholder v-for="i in 3" :key="i" class="mb-3" />
         </div>
@@ -72,6 +75,7 @@ import FlightFilter from '~/components/flight/available/filter/FlightFilter'
 import isEqual from 'lodash/isEqual'
 import isEmpty from 'lodash/isEmpty'
 import BtnWrapper from '~/components/ui/BtnWrapper'
+import FlightHeader from '@/components/flight/FlightHeader'
 
 const initialFilters = () => ({
     sort: '',
@@ -87,8 +91,8 @@ const initialFilters = () => ({
 const POLLING_INTERVAL = 3000
 
 export default {
-    layout: 'flight-search',
     components: {
+        FlightHeader,
         BtnWrapper,
         FlightFilter,
         FlightCard,
@@ -320,7 +324,7 @@ export default {
 
 <style lang="scss" scoped>
     .flight-container {
-        padding: 114px + 20px 10px 80px;
+        padding: 10px 10px 80px;
         -ms-overflow-style: none;
         overflow: auto;
 
@@ -355,3 +359,11 @@ export default {
         }
     }
 </style>
+
+<router>
+{
+"meta": {
+"hideBottomNav": true
+}
+}
+</router>

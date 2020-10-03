@@ -14,7 +14,6 @@ export default {
     components: {
         AppNavs,
         FlightSearch
-    },
-    layout: 'Mobile'
+    }
 }
 </script>
