@@ -77,7 +77,7 @@
                         />
                     </template>
 
-                    <template #day="{ day }">
+                    <template #day="{ day }" dropdown>
                         <span class="calendar__day__content">
                             <span v-if="datePrices && datePrices.departing[day.calendar('gregory').format('YYYY-MM-DD')]">
                                 {{ day.format('D') }}

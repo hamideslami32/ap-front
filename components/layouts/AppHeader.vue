@@ -69,13 +69,7 @@ export default {
             position: absolute;
         }
 
-        a {
-            color: $white;
-            &:hover, &:focus, &:active {
-                color: $white;
-
-            }
-        }
+        // link color was white
     }
 
     .transparent-header .app-header {

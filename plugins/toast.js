@@ -12,7 +12,7 @@ export default (ctx, inject) => {
                 h('div', {
                     staticClass: 'd-flex align-items-center'
                 }, [
-                    renderIcon(h, 'notifications', 'ml-2'),
+                    renderIcon(h, 'warning-cube', 'ml-2'),
                     message,
                     h('span', {
                         staticClass: 'mr-auto confirm-btn',
