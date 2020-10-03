@@ -45,6 +45,7 @@ export default {
         overflow: auto;
         -webkit-overflow-scrolling: touch;
         height: 100%;
+        background: $body-bg;
 
         &::-webkit-scrollbar {
             width: 6px;
