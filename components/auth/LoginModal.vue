@@ -10,18 +10,19 @@
             <form v-if="step === 'otp'" class="auth-form" @submit.prevent="handleSubmit(requestOtp)">
                 <p>لطفا شماره همراه خود را وارد نمایید</p>
                 <v-provider v-slot="{ errors }" name="شماره همراه" vid="phone" rules="required|min:11|mobileNumber">
-                    <a-input
-                        v-model="mobile"
-                        v-localize-number
-                        dir="ltr"
-                        class="auth-form__input"
-                        type="tel"
-                        wrapper-class="mb-1 text-center"
-                        inputmode="numeric"
-                        maxlength="11"
-                        placeholder="شماره همراه"
-                    />
-                    <span class="validation-alert">{{ errors[0] }}</span>
+                    <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
+                        <a-input
+                            v-model="mobile"
+                            v-localize-number
+                            dir="ltr"
+                            class="auth-form__input mb-2"
+                            type="tel"
+                            wrapper-class="mb-1 text-center"
+                            inputmode="numeric"
+                            maxlength="11"
+                            placeholder="شماره همراه"
+                        />
+                    </b-form-group>
                 </v-provider>
                 <a-btn
                     wrapper-class="mt-3"
