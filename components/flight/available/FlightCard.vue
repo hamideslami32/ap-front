@@ -63,6 +63,7 @@ export default {
         font-weight: 600;
         position: relative;
         box-shadow: 0 8px 8px rgba($black, 0.1);
+        cursor: pointer;
 
 
         &__top {
