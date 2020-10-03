@@ -18,7 +18,7 @@ export default {
         }
     },
     render(h, ctx) {
-        const {'wrapper-class': wrapperClass, ...attrs} = ctx.data.attrs || {}
+        const {wrapperClass, ...attrs} = ctx.data.attrs || {}
         const {icon, variant, ...btnAttrs} = attrs
         const {shadow, block, loading} = ctx.props
 
