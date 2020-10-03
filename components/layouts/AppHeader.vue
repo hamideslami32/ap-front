@@ -39,20 +39,12 @@ export default {
     },
     data() {
         return {
-            isNavOpen: false
+            isNavOpen: false,
+            windowWidth: process.browser ? window.innerWidth : 0
         }
     },
-    computed: {
-        checkWidth() {
-            let width = 0
-            if (process.client) {
-                width = window.innerWidth
-            }
-            return width
-        }
-    },
-    mounted() {
-        if(this.checkWidth >= 1200) {
+    beforeCreate() {
+        if (this.windowWidth >= 1200) {
             this.isNavOpen = true
         }
     },

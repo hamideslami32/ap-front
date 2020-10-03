@@ -6,7 +6,7 @@
         <div class="side-nav__logo-wrapper py-4 text-center">
             <logo />
         </div>
-        <div v-if="opened" class="side-nav-open__menu mt-3 mb-5">
+        <div class="side-nav-open__menu mt-3 mb-5">
             <ul class="pr-0">
                 <li v-for="(item, i) in menuData" :key="i" @click="$emit('close')">
                     <svgicon
@@ -86,6 +86,21 @@ export default {
 </script>
 
 <style lang='scss'>
+    @keyframes showItems {
+        0% {
+            opacity: 0;
+        }
+
+        70% {
+            opacity: 0.3;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+
     .side-nav {
         height: 100%;
         width: 0;
@@ -166,8 +181,7 @@ export default {
 
         &__menu {
             ul {
-                animation: showItems 500ms 1 ease-in-out;
-                opacity: 1;
+                animation: showItems 1s ease;
 
                 li {
                     list-style: none;
@@ -183,23 +197,17 @@ export default {
         &__close {
             text-align: right;
         }
-    }
-    @include media-breakpoint-up(xl) {
-        width: 300px !important;
-    }
 
-    @keyframes showItems {
-        0% {
-            opacity: 0;
-        }
-
-        70% {
-            opacity: 0.3;
-        }
-
-        100% {
-            opacity: 1;
+        @include media-breakpoint-up(xl) {
+            width: 300px !important;
+            transition: none;
+            &__menu ul {
+                animation: unset !important;
+                opacity: 1;
+            }
         }
     }
+
+
 
 </style>
