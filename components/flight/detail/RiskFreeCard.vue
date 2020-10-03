@@ -89,7 +89,7 @@ export default {
         .icon {
             height: 60px;
             width: 60px;
-            background: linear-gradient(180deg, $blueColor 0%, map-get($grays, '250') 55.21%);
+            background: linear-gradient(180deg, $info 0%, map-get($grays, '250') 55.21%);
             box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.05);
             border-radius: $borderRadius10;
             & > div {
@@ -97,7 +97,7 @@ export default {
                 border-radius: $borderRadius10;
                 width: 58px;
                 height: 58px;
-                color: $blueColor;
+                color: $info;
             }
         }
 
@@ -108,7 +108,7 @@ export default {
                 width: 25px;
             }
             .type {
-                color: $blueColor;
+                color: $info;
             }
             .price {
                 text-decoration: line-through;
@@ -124,14 +124,14 @@ export default {
     }
 
     /deep/ .custom-control-input:checked ~ .custom-control-label::before {
-        border-color: $blueColor !important;
-        background-color: $blueColor !important;
+        border-color: $info !important;
+        background-color: $info !important;
     }
     /deep/ .custom-control-label::before {
         box-shadow: none !important;
     }
     /deep/ .custom-control-input ~ .custom-control-label::before {
         background-color: #fff !important;
-        border-color: $blueColor !important;
+        border-color: $info !important;
     }
 </style>
