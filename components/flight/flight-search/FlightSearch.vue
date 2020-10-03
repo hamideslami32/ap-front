@@ -119,6 +119,7 @@ import PassengerInput from '~/components/ui/PassengerInput'
 import flightSearchMixin from '~/components/flight/flight-search/flightSearchMixin'
 import {flightApi} from '~/api/flightApi'
 
+
 export default {
     components: {
         PassengerInput,
