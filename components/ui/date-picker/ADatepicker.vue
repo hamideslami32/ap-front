@@ -12,17 +12,19 @@
         <span
             v-if="isMobile"
             class="a-datepicker__backdrop"
+            @click="close(false)"
         />
         <div
             class="a-datepicker__wrapper"
             :dir="jalaali ? 'rtl' : 'ltr'"
-            :class="alignment"
+            :class="[alignment, isMobile ? 'a-datepicker--mobile' : 'a-datepicker--desktop']"
         >
             <header class="a-datepicker__header" dir="rtl">
                 <div class="px-3 px-sm-0 py-md-2">
                     <div>
                         <b-btn
-                            class="btn-today d-none d-sm-inline-block float-left py-2"
+                            v-if="!isMobile"
+                            class="btn-today d-inline-block float-left py-2"
                             @click="goToday"
                         >
                             برو به امروز
@@ -494,8 +496,17 @@ export default {
     z-index: auto;
     user-select: none;
 
-    @media (min-width: 768px) {
+    &--desktop {
         position: relative;
+    }
+
+    &__backdrop {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        background-color: rgba($black, 0.3);
     }
 
 
@@ -529,6 +540,7 @@ export default {
         left: 0;
         height: 100%;
         width: 100%;
+        max-width: 450px;
         background-color: $white;
         padding: 70px 10px 40px;
         overflow: auto;
@@ -545,7 +557,7 @@ export default {
             bottom: 0;
         }
 
-        @media (min-width: 768px) {
+        .a-datepicker--desktop & {
             position: absolute;
             padding: 0 15px 10px;
             top: 100%;
@@ -609,7 +621,7 @@ export default {
             right: 0;
         }
 
-        @media (min-width: 768px) {
+        .a-datepicker--desktop & {
             position: static;
             overflow: hidden;
             flex-wrap: nowrap;
@@ -703,7 +715,7 @@ export default {
             border-color: $primary;
         }
 
-        @media (min-width: 768px) {
+        .a-datepicker--desktop & {
             position: static;
             border-bottom: 1px solid rgba($black, 0.1);
             margin-bottom: 15px;
@@ -733,7 +745,7 @@ export default {
     margin: 0 10px;
 }
 
-@media (min-width: 768px) {
+/* .a-datepicker--desktop {
     .slide-left {
         &-enter {
             transform: translate3d(-100%, 0, 0);
@@ -753,5 +765,5 @@ export default {
             transform: translate3d(-100%, 0, 0);
         }
     }
-}
+} */
 </style>

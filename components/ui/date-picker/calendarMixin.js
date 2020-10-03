@@ -32,7 +32,7 @@ export default {
 
     computed: {
         isMobile() {
-            return this.$device.isMobile
+            return true // this.$device.isMobile
         },
         calendarType() {
             return this.jalaali ? 'jalali' : 'gregory'

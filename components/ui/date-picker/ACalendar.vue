@@ -300,7 +300,7 @@ export default {
             background-color: $white;
         }
 
-        @media (max-width: 767px) {
+        .a-datepicker--mobile & {
             &:hover::after {
                 border-color: transparent;
             }
