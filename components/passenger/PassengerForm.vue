@@ -111,7 +111,7 @@
                         v-model="localValue.birthdate"
                         dir="ltr"
                         class="mb-2"
-                        placeholder="تاریخ تولد (شمسی یا میلادی)"
+                        placeholder="(YYYY-MM-DD) تاریخ تولد"
                         inputmode="numeric"
                         maxlength="10"
                         :state="errors.length ? false : null"
