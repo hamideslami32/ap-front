@@ -66,7 +66,7 @@ export default {
         flex: auto 1;
         margin: 0 5px;
         padding: 15px 10px 10px 10px;
-        background: #f9f9f9;
+        background: map-get($grays, '250');
         border: 1px solid map_get($grays, '600');
         border-radius: 10px;
         transition: all ease 250ms;

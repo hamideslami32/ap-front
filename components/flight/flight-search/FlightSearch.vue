@@ -196,7 +196,7 @@ export default {
         position: relative;
 
         .form-input {
-            background: #f9f9f9;
+            background: map-get($grays, '250');
 
             &.active::before {
                 content: ' ';
@@ -224,7 +224,7 @@ export default {
             z-index: 1;
             box-sizing: content-box;
             padding: 5px 0;
-            background: #f9f9f9;
+            background: map-get($grays, '250');
         }
 
         .left-border-radius {

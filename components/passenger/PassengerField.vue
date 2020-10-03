@@ -96,9 +96,9 @@ export default {
 
 <style lang="scss" scoped>
     .field {
-        border: 1px solid map_get($grays, '600');
+        border: 1px solid map_get($grays, '400');
         border-radius: 10px;
-        background: #f9f9f9;
+        background: map-get($grays, '250');
         min-height: 50px;
 
         /deep/ .badge {
