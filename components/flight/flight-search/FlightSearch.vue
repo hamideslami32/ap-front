@@ -16,7 +16,7 @@
                     <template v-slot:before="{ open, value, focus }">
                         <span class="date-input-pair" dir="rtl">
                             <form-input
-                                :class="{ active: focus === 0 }"
+                                :class="[{ active: focus === 0 }, { 'left-border-radius': search.type === 'OW' }]"
                                 :class-name="search.type === 'OW' ? 'one-way' : ''"
                                 label="تاریخ رفت"
                                 :icon="search.type === 'OW' ? 'calendar-schedule': ''"
@@ -34,7 +34,8 @@
                             />
                             <form-input
                                 v-if="search.type !== 'OW'"
-                                :class="{ active: focus === 1 }"
+                                class="left-border-radius"
+                                :class="[{ active: focus === 1 }]"
                                 label="تاریخ برگشت"
                                 style="textAlign: left;"
                                 :value="datePickerValue(value[1])"
@@ -48,6 +49,7 @@
                     <template v-slot="{ open, value, on }">
                         <form-input
                             label="تاریخ رفت"
+                            :class="{ 'left-border-radius': search.type === 'OW' }"
                             :class-name="search.type === 'OW' ? 'one-way' : ''"
                             :value="datePickerValue(value[0])"
                             readonly
@@ -65,6 +67,7 @@
                         <form-input
                             v-if="search.type !== 'OW'"
                             label="تاریخ برگشت"
+                            class="left-border-radius"
                             style="textAlign: left;"
                             :value="datePickerValue(value[1])"
                             data-datepicker="1"
@@ -223,19 +226,26 @@ export default {
             background: #f9f9f9;
         }
 
+        .left-border-radius {
+            border-top-left-radius: $borderRadius10;
+            border-bottom-left-radius: $borderRadius10;
+        }
+
         > div {
             flex: 50% 1 0;
             border-radius: 0;
 
             &:first-child {
-                border-top-right-radius: 10px;
-                border-bottom-right-radius: 10px;
+                border-top-right-radius: $borderRadius10;
+                border-bottom-right-radius: $borderRadius10;
             }
 
             &:last-child {
                 border-top-left-radius: 10px;
                 border-bottom-left-radius: 10px;
             }
+
+            
 
             & ~ div {
                 border-right: 0;
