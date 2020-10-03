@@ -170,7 +170,7 @@ export default {
             }
 
             .form-input {
-                background: #f9f9f9;
+                background: map-get($grays, '250');
             }
 
             .pair-icon {

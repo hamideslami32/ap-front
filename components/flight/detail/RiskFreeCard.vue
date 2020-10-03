@@ -89,7 +89,7 @@ export default {
         .icon {
             height: 60px;
             width: 60px;
-            background: linear-gradient(180deg, $blueColor 0%, #f9f9f9 55.21%);
+            background: linear-gradient(180deg, $blueColor 0%, map-get($grays, '250') 55.21%);
             box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.05);
             border-radius: $borderRadius10;
             & > div {

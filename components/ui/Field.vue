@@ -32,7 +32,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: #f9f9f9;
+        background: map-get($grays, '250');
         border: 1px solid map_get($grays, '600');
         border-radius: 10px;
         padding: 14px 20px;

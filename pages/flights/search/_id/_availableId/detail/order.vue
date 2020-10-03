@@ -197,7 +197,7 @@ export default {
                 nationality: p.nationality,
                 passportExpiration: this.$dayjs(p.passportExpiration).calendar('gregory').format(),
                 passportNumber: p.passportNumber,
-                birthdate: this.$dayjs(p.birthday).calendar('gregory').format()
+                birthdate: this.$dayjs(p.birthdate).calendar('gregory').format()
             }))).catch(err => {
                 throw new Error('از درست بودن اطلاعات مسافران اطمینان حاصل کنید.')
             })
@@ -219,8 +219,8 @@ export default {
         padding-bottom: 130px;
 
         .user {
-            background: $white;
-            border: 1px solid map_get($grays, '600');
+            background: map-get($grays, '250');
+            border: 1px solid map_get($grays, '400');
             border-radius: 10px;
             position: relative;
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
@@ -253,7 +253,7 @@ export default {
         }
 
         .buyer-border {
-            border: 1px solid $borderColor;
+            border: 1px solid map-get($grays, '400');
             border-radius: $borderRadius10;
             box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
         }
