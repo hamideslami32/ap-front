@@ -1,7 +1,7 @@
 .modal {
 
     .modal-dialog {
-        margin: 0;
+        margin: 0 auto;
         height: 100%;
 
         .modal-content {
@@ -67,6 +67,16 @@
     &.show {
         transition: all $animation-duration;
         animation: swipe-up $animation-duration linear;
+    }
+
+    @include media-breakpoint-up(md) {
+        .modal-dialog {
+            margin: 0 auto;
+            height: 80vh;
+            top: 50%;
+            transform: translateY(-50%) !important;
+            width: 450px;
+        }
     }
 }
 
