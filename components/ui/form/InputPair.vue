@@ -137,7 +137,7 @@ export default {
             .destination-input {
                 border: 1px solid #cccccc;
                 border-radius: 5px 10px 10px 5px;
-                background: #f9f9f9;
+                background: map-get($grays, '250');
             }
 
             &:last-child {

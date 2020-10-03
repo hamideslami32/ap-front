@@ -33,7 +33,7 @@ export default {
 <style lang="scss" scoped>
     .card-tag {
         min-height: 270px;
-        border: 1px solid $borderColor;
+        border: 1px solid map-get($grays, '400');
         border-radius: $borderRadius10;
         background: $white;
         position: relative;

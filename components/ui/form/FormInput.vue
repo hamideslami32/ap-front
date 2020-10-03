@@ -84,7 +84,7 @@ export default {
     position: relative;
     border: 1px solid $borderColor;
     border-radius: 5px;
-    background: #f9f9f9;
+    background: map-get($grays, '250');
     padding: 10px 20px 10px 20px;
 
     > svg {
@@ -136,7 +136,7 @@ export default {
     }
 
     &--value {
-        background-color: #f9f9f9;
+        background-color: map-get($grays, '250');
         label {
             font-size: 0.75rem;
             color: map_get($grays, '700');

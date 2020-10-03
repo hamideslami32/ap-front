@@ -43,7 +43,7 @@ export default {
         border-radius: 10px;
         position: relative;
         height: 50px;
-        background-color: $white;
+        background-color: map-get($grays, '250');
 
         &__icon-holder {
             position: absolute;

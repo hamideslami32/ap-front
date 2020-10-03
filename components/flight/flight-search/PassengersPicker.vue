@@ -171,7 +171,7 @@ export default {
         border-radius: 10px;
         position: relative;
         height: 50px;
-        background: #f9f9f9;
+        background: map-get($grays, '250');
 
         &__actions {
             position: absolute;

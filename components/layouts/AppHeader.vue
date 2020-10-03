@@ -42,6 +42,20 @@ export default {
             isNavOpen: false
         }
     },
+    computed: {
+        checkWidth() {
+            let width = 0
+            if (process.client) {
+                width = window.innerWidth
+            }
+            return width
+        }
+    },
+    mounted() {
+        if(this.checkWidth >= 1200) {
+            this.isNavOpen = true
+        }
+    },
     methods: {
         toggleNavSidebar() {
             this.isNavOpen = !this.isNavOpen
