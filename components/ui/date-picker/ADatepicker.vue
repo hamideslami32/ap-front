@@ -16,17 +16,16 @@
             no-fade
         >
             <template #modal-header>
-                <div>
-                    <div class="d-flex px-2 py-3">
-                        <div class="flex-grow-1" />
-                        <b class="text-center flex-grow-1">
-                            انتخاب تاریخ
-                        </b>
-                        <div class="d-flex justify-content-end flex-grow-1">
+                <div class="w-100">
+                    <div class="px-2 py-3 text-center">
+                        <div class="d-flex justify-content-end float-left">
                             <button type="button" class="btn-raw" @click="close()">
                                 <svgicon name="arrow-left" />
                             </button>
                         </div>
+                        <b>
+                            انتخاب تاریخ
+                        </b>
                     </div>
                     <div v-if="$slots.before || $scopedSlots.before">
                         <slot name="before" :open="open" :value="value" :focus="focus" />

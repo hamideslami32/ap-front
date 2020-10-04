@@ -91,19 +91,26 @@ class Auth {
     }
 
     async fetchUser(full) {
-        const user = await this.axios.$get('/auth/user', {
-            params: {
-                full: full ? 1 : 0
+        try {
+            const user = await this.axios.$get('/auth/user', {
+                params: {
+                    full: full ? 1 : 0
+                }
+            })
+            if (full) {
+                user.__full = true
             }
-        })
-        if (full) {
-            user.__full = true
+            if (process.server) {
+                this.ssr.user = user
+            }
+            this.user = user
+            return user
+        } catch (err) {
+            if (err.response.status === 401) {
+                await this.logout()
+            }
+            throw err
         }
-        if (process.server) {
-            this.ssr.user = user
-        }
-        this.user = user
-        return user
     }
 
     patchUser(data) {

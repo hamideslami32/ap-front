@@ -97,6 +97,7 @@ import FlightOrderCard from '~/components/flight/FlightOrderCard'
 import {flightApi} from '~/api/flightApi'
 import {profileApi} from '~/api/profile'
 import TicketPlaceholder from '~/components/flight/TicketPlaceholder'
+import {postRedirect} from '@/scripts/post-redirect'
 
 
 const passengerFactory = (type = 'adult') => ({
@@ -178,8 +179,12 @@ export default {
                 await this.$auth.authenticate()
                 const { orderId } = this.$route.query
                 await this.submitPassengers()
-                const {paymentUrl} = await flightApi.pay(orderId)
-                window.location = paymentUrl
+                const { url, data, method } = await flightApi.pay(orderId)
+                if (method && method.toLowerCase() !== 'GET') {
+                    return postRedirect(url, data, method)
+                } else {
+                    window.location = url
+                }
             } catch (e) {
                 this.$toast.alert(e.response ? e.response.data.message : e.message)
             } finally {

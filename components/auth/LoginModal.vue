@@ -154,8 +154,12 @@ export default {
         },
 
         resolve() {
-            const user = this.$auth.user;
-            (this.$auth[user ? '_resolve' : '_reject'] || (() => {}))()
+            const { user, _resolve, _reject } = this.$auth
+            if (user) {
+                _resolve && _resolve(user)
+            } else {
+                _reject && _reject(new Error('Close'))
+            }
             this.$auth._resolve = null
             this.$auth._reject = null
         }
