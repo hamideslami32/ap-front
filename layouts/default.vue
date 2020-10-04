@@ -1,10 +1,10 @@
 <template>
-    <div class="mobile-layout" :class="{ 'mobile-layout--hide-bottom-nav': hideBottomNav }">
+    <div class="mobile-layout" :class="{ 'mobile-layout--hide-bottom-nav': !showBottomNav }">
         <app-header />
         <main>
             <nuxt />
         </main>
-        <app-bottom-nav v-show="!hideBottomNav" />
+        <app-bottom-nav v-show="showBottomNav" />
         <toast-portal />
         <login-modal />
     </div>
@@ -26,8 +26,8 @@ export default {
     },
 
     computed: {
-        hideBottomNav() {
-            return this.$route.meta.hideBottomNav
+        showBottomNav() {
+            return this.$route.meta.showBottomNav
         }
     }
 }

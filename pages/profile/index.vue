@@ -69,7 +69,8 @@ export default {
 <router>
     {
       "meta": {
-        "fullUser": true
+        "fullUser": true,
+    "showBottomNav": true
       }
     }
 </router>

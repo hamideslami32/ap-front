@@ -7,7 +7,6 @@
             <!--            <small class="text-primary">(سفری ارزان با اپرو)</small>-->
             <p class="mt-4 text-grays-1000">
                 <span class="text-weight-600 text-gray-900 ml-2">شماره تماس:</span> <a dir="ltr" href="tel:021-72475">۰۲۱-۷۲۴۷۵</a>
-                - <a href="tel:09219601487">۰۹۲۱۹۶۰۱۴۸۷</a>
             </p>
             <!--            <p class="text-grays-1000">
                 <span class="text-weight-600 text-gray-900 ml-2">شماره فکس:</span> ۲۰۰۰۰۰۰۰۰

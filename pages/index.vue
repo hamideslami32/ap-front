@@ -17,3 +17,12 @@ export default {
     }
 }
 </script>
+
+
+<router>
+    {
+    "meta": {
+    "showBottomNav": true
+    }
+    }
+</router>

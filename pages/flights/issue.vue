@@ -125,6 +125,9 @@ export default {
 
 <router>
     {
-    "name": "issue"
+    "name": "issue",
+    "meta": {
+    "showBottomNav": true
+    }
     }
 </router>

@@ -1,5 +1,5 @@
 <template>
-    <section class="container">
+    <section class="container px-4">
         <h4 class="mt-4 mb-0 text-gray-1000 text-weight-500">
             درباره اپرو
         </h4>
@@ -73,6 +73,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+    p {
+        line-height: 1.7rem;
+    }
 </style>

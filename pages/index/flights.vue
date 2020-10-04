@@ -13,4 +13,15 @@ export default {
         FlightSearch
     }
 }
+
+
+
 </script>
+
+<router>
+    {
+    "meta": {
+    "showBottomNav": true
+    }
+    }
+</router>

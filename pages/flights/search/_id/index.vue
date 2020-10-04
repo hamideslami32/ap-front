@@ -359,11 +359,3 @@ export default {
         }
     }
 </style>
-
-<router>
-{
-"meta": {
-"hideBottomNav": true
-}
-}
-</router>
