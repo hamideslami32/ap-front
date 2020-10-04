@@ -31,5 +31,8 @@
         &.white > span {
             background-color: $white;
         }
+        @include media-breakpoint-up(xl) {
+            display: none;
+        }
     }
 </style>

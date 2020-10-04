@@ -39,7 +39,13 @@ export default {
     },
     data() {
         return {
-            isNavOpen: false
+            isNavOpen: false,
+            windowWidth: process.browser ? window.innerWidth : 0
+        }
+    },
+    beforeCreate() {
+        if (this.windowWidth >= 1200) {
+            this.isNavOpen = true
         }
     },
     methods: {
@@ -69,13 +75,7 @@ export default {
             position: absolute;
         }
 
-        a {
-            color: $white;
-            &:hover, &:focus, &:active {
-                color: $white;
-
-            }
-        }
+        // link color was white
     }
 
     .transparent-header .app-header {
