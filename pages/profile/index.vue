@@ -1,7 +1,7 @@
 <template>
     <div>
         <portal to="header-right">
-            <nuxt-link class="text-gray-white" to="/profile/account">
+            <nuxt-link class="text-white" to="/profile/account">
                 <svgicon width="30" height="30" name="userProfile-Hexagon" />
             </nuxt-link>
         </portal>

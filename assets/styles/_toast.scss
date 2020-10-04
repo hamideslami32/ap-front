@@ -11,8 +11,25 @@
     color: $white;
     font-size: 0.75rem !important;
 
+    @include media-breakpoint-up(md) {
+        max-width: 450px !important;
+        margin-right: auto;
+    }
 
     .confirm-btn {
         min-width: 60px;
     }
 }
+
+#b-toaster-bottom-full {
+    @include media-breakpoint-up(md) {
+        top: 0;
+        margin-right: auto;
+
+        .b-toaster-slot {
+            top: 0.5rem;
+            bottom: unset;
+        }
+    }
+}
+

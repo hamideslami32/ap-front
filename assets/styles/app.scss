@@ -29,6 +29,10 @@ html, body, #__nuxt, #__layout {
     }
 }
 
+a:hover {
+    text-decoration: none;
+}
+
 #__layout {
     display: flex;
     align-items: center;

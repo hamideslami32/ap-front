@@ -29,15 +29,17 @@
             <div class="py-4 text-gray-900 text-center">
                 <span class="text-weight-700">پشتیبانی</span><span class="text-weight-500 text-2 mr-2">(از ساعت ۹ صبح الی ۲۰)</span>
             </div>
-            <a-btn
-                icon="phone"
-                block
-                wrapper-class="side-nav__contact__btn mb-3"
-                class="bg-white"
-                variant="outline-primary"
-            >
-                021-72475
-            </a-btn>
+            <a href="tel:02172475">
+                <a-btn
+                    icon="phone"
+                    block
+                    wrapper-class="side-nav__contact__btn mb-3"
+                    class="bg-white"
+                    variant="outline-primary"
+                >
+                    021-72475
+                </a-btn>
+            </a>
         </div>
     </nav>
 </template>
@@ -130,7 +132,11 @@ export default {
 
                 /deep/ .btn:focus, .btn:active {
                     background-color: $primary !important;
+                    color: $white !important;
                     
+                }
+                /deep/ .btn:hover {
+                    color: $primary;
                 }
 
                 > button {
