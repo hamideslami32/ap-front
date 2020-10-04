@@ -11,27 +11,19 @@
             :visible="isOpen"
             hide-footer
             header-class="p-0"
-            body-class="p-0"
+            body-class="p-0 no-scroll"
             no-close-on-backdrop
             no-fade
         >
             <template #modal-header>
                 <div>
                     <div class="d-flex px-2 py-3">
-                        <div class="flex-grow-1">
-                            <b-btn
-                                v-if="!isMobile"
-                                class="btn-today d-inline-block float-left py-2"
-                                @click="goToday"
-                            >
-                                برو به امروز
-                            </b-btn>
-                        </div>
+                        <div class="flex-grow-1" />
                         <b class="text-center flex-grow-1">
                             انتخاب تاریخ
                         </b>
                         <div class="d-flex justify-content-end flex-grow-1">
-                            <button type="button" class="btn-raw" @click="close">
+                            <button type="button" class="btn-raw" @click="close()">
                                 <svgicon name="arrow-left" />
                             </button>
                         </div>
@@ -275,22 +267,6 @@ export default {
         }
     },
 
-    mounted() {
-        this._clickOutsideListener = ({target}) => {
-            if (
-                (target && this.$el.contains(target)) ||
-                target.hasAttribute('data-dropdown-prevent')
-            )
-                return
-            this.close()
-        }
-        window.addEventListener('click', this._clickOutsideListener)
-    },
-
-    beforeDestroy() {
-        window.removeEventListener('click', this._clickOutsideListener)
-    },
-
     methods: {
         open(i) {
             this.isOpen = true
@@ -480,20 +456,6 @@ export default {
     z-index: auto;
     user-select: none;
 
-    &--desktop {
-        position: relative;
-    }
-
-    &__backdrop {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        top: 0;
-        background-color: rgba($black, 0.3);
-    }
-
-
     .btn-wrapper {
         min-width: 120px;
         height: 40px;
@@ -520,9 +482,14 @@ export default {
 
     &__wrapper {
         color: $gray-700;
-        overflow: auto;
-        height: 100%;
-        padding-top: 20px;
+        overflow: scroll;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding-top: 10px;
+        -webkit-overflow-scrolling: touch;
 
         .a-datepicker--desktop & {
             position: absolute;
@@ -559,38 +526,9 @@ export default {
         outline: none !important;
         z-index: 0;
 
-        &.slide-left {
-            justify-content: flex-end;
-        }
-
-        .a-datepicker__wrapper[dir=ltr] &.slide-right {
-            justify-content: flex-end;
-        }
-
-        .a-datepicker__wrapper[dir=ltr] &.slide-left {
-            justify-content: flex-start;
-        }
-
         > div {
             flex: 100% 1 1;
             position: relative;
-        }
-
-        .a-datepicker__wrapper[dir=ltr] & > div::after {
-            left: auto;
-            right: 0;
-        }
-
-        .a-datepicker--desktop & {
-            position: static;
-            overflow: hidden;
-            flex-wrap: nowrap;
-            padding: 0;
-            margin: 0 -10px;
-
-            > div {
-                flex: 50% 0 0;
-            }
         }
     }
 
@@ -608,89 +546,12 @@ export default {
         }
     }
 
-    &__arrows {
-        position: absolute;
-        left: 0;
-        right: 0;
-        display: flex;
-        z-index: 8;
-        justify-content: space-between;
-        padding: 0 15px;
-
-        > button {
-            display: inline-block;
-            color: $gray-500;
-            background-color: $gray-100;
-            border: 0;
-            padding: 6px;
-            border-radius: 50%;
-            box-shadow: none;
-
-            &:hover,
-            &:active {
-                border-color: $primary;
-                background-color: $primary;
-                color: $white;
-            }
-
-            &:disabled {
-                background-color: $gray-100;
-                color: $gray-200;
-                cursor: not-allowed;
-            }
-        }
-    }
-
-    &__header {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 12;
-        font-size: 1rem;
-        border-bottom: 1px solid #e0e0e0;
-
-        > div {
-            display: flex;
-            position: relative;
-            z-index: 14;
-            align-items: center;
-
-            > div {
-                flex: 1;
-            }
-        }
-
-        .close {
-            font-size: 32px;
-            padding: 12px;
-            opacity: 1;
-            color: $black;
-            position: static;
-        }
-
-        .form-control.focus {
-            border-color: $primary;
-        }
-
-        .a-datepicker--desktop & {
-            position: static;
-            border-bottom: 1px solid rgba($black, 0.1);
-            margin-bottom: 15px;
-            font-size: 0.875rem;
-        }
-    }
-
     .btn {
         font-size: inherit;
     }
 
     hr {
         border-color: rgba($black, 0.1);
-    }
-
-    .min-width-0 {
-        min-width: 0;
     }
 }
 
@@ -705,5 +566,9 @@ export default {
 
 .a-datepicker .modal {
     animation: none !important;
+}
+
+.no-scroll {
+    overflow: hidden;
 }
 </style>
