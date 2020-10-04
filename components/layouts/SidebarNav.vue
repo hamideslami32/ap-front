@@ -71,11 +71,6 @@ export default {
                     link: '/about',
                     icon: 'warning-cube',
                     text: 'درباره اپرو'
-                },
-                {
-                    link: '#',
-                    icon: 'user',
-                    text: 'انتقادات و پیشنهادات'
                 }
 
 

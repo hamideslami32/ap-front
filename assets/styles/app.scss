@@ -19,8 +19,14 @@
 html, body, #__nuxt, #__layout {
     height: 100%;
     width: 100%;
-    background: $info;
     overflow: hidden;
+
+    @include media-breakpoint-up(md) {
+        background-image: url('../images/bg1.jpg');
+        background-repeat: no-repeat;
+        background-position: bottom left;
+        object-fit: cover;
+    }
 }
 
 #__layout {
