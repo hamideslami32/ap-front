@@ -17,9 +17,8 @@ export default {
             default: false
         },
         wrapperClass: {
-            type: [String, Array, Object],
+            type: [String, Object, Array],
             default: null
-
         }
     },
     render(h, ctx) {

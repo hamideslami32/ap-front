@@ -4,6 +4,7 @@
         type="button"
         class="btn a-datepicker-switch btn-raw"
         :class="{ 'a-datepicker-switch--gregory': !props.jalaali }"
+        shadow
         v-on="listeners"
     >
         <span>تاریخ {{ props.jalaali ? 'میلادی' : 'شمسی' }}</span>

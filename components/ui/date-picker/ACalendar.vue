@@ -8,12 +8,15 @@
             range ? 'calendar--range' : ''
         ]"
     >
-        <h4 class="calendar__month d-flex align-items-center">
-            <span v-if="jalaali">
-                {{ date.format('MMMM') }}
+        <h4 class="calendar__month d-flex align-items-center" :dir="jalaali ? 'rtl' : 'ltr'">
+            <span class="text-primary py-1 en font-weight-bold">
+                <template v-if="jalaali">
+                    {{ date.format('MMMM YY') | localizeNumber }}
+                </template>
+                <template v-else>
+                    {{ date.locale('en').calendar('gregory').format('MMMM YYYY') }}
+                </template>
             </span>
-            <span class="mx-auto" />
-            <small class="text-primary py-1 en font-weight-bold">{{ date.locale('en').calendar('gregory').format('MMMM YYYY') }}</small>
         </h4>
         <div>
             <div v-if="!isMobile" class="calendar__weekdays">
@@ -217,7 +220,6 @@ export default {
 
 <style lang="scss" scoped>
 .calendar {
-    max-width: 340px;
 
     @mixin append {
         content: ' ';
@@ -302,7 +304,7 @@ export default {
 
         .a-datepicker--mobile & {
             &:hover::after {
-                border-color: transparent;
+                border-color: $primary;
             }
         }
 

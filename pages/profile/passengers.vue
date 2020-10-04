@@ -46,11 +46,11 @@
             </template>
         </card>
 
-        <btn-wrapper class="d-flex align-items-center justify-content-center">
+        <sticky-bottom class="d-flex align-items-center justify-content-center">
             <a-btn wrapper-class="search-btn d-flex ml-2" shadow variant="primary" @click="searchModal = true">
                 جستجو
             </a-btn>
-        </btn-wrapper>
+        </sticky-bottom>
         <b-modal v-model="searchModal" body-class="p-0" hide-footer>
             <template v-slot:modal-title>
                 جستجو مسافر
@@ -111,7 +111,6 @@
         </b-modal>
 
         <b-modal
-            id="center-modal"
             v-model="removeModal"
             hide-footer
             hide-header
@@ -143,11 +142,11 @@
 import Card from '~/components/ui/Card'
 import AInput from '~/components/ui/form/AInput'
 import PassengerForm from '~/components/passenger/PassengerForm'
-import BtnWrapper from '~/components/ui/BtnWrapper'
+import StickyBottom from '@/components/ui/StickyBottom'
 
 export default {
     name: 'Passengers',
-    components: {BtnWrapper, PassengerForm, Card, AInput},
+    components: {StickyBottom, PassengerForm, Card, AInput},
     data() {
         return {
             searchModal: false,

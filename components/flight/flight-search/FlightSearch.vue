@@ -14,7 +14,7 @@
                     :range.sync="isDatepickerRange"
                 >
                     <template v-slot:before="{ open, value, focus }">
-                        <span class="date-input-pair" dir="rtl">
+                        <span class="date-input-pair px-2 mb-2" dir="rtl">
                             <form-input
                                 :class="[{ active: focus === 0 }, { 'left-border-radius': search.type === 'OW' }]"
                                 :class-name="search.type === 'OW' ? 'one-way' : ''"
@@ -46,7 +46,7 @@
                             />
                         </span>
                     </template>
-                    <template v-slot="{ open, value, on }">
+                    <template v-slot="{ open, value }">
                         <form-input
                             label="تاریخ رفت"
                             :class="{ 'left-border-radius': search.type === 'OW' }"
@@ -55,7 +55,7 @@
                             readonly
                             :dir="jalaaliDatepicker ? 'rtl' : 'ltr'"
                             :icon="search.type === 'OW' ? 'calendar-schedule': ''"
-                            v-on="on"
+                            @click.native="open(0)"
                         />
                         <svgicon
                             v-if="search.type !== 'OW'"
@@ -73,7 +73,7 @@
                             data-datepicker="1"
                             readonly
                             :dir="jalaaliDatepicker ? 'rtl' : 'ltr'"
-                            v-on="on"
+                            @click.native="open(1)"
                         />
                     </template>
 
@@ -246,7 +246,7 @@ export default {
                 border-bottom-left-radius: 10px;
             }
 
-            
+
 
             & ~ div {
                 border-right: 0;
