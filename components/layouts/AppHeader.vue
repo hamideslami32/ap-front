@@ -3,54 +3,45 @@
         <portal-target name="header-right">
             <hamburger-menu @click="toggleNavSidebar()" />
         </portal-target>
-        <portal-target name="header">
+        <portal-target class="text-center" name="header">
             <nuxt-link to="/">
                 <logo />
             </nuxt-link>
         </portal-target>
-        <button v-if="$route.fullPath.match(/^\/(flights)?$/)" class="btn-raw">
-            <svgicon name="notifications" width="30" class="header__icon" height="30" />
+        <button v-if="$route.fullPath.match(/^\/(flights)?$/)" class="btn-raw text-left">
+            <svgicon name="notifications" width="30" height="30" />
         </button>
-        <button v-else class="btn-raw">
+        <button v-else class="btn-raw text-left">
             <svgicon
                 name="arrow-left"
                 width="20"
-                class="header__icon"
                 height="20"
                 @click="$router.back()"
             />
         </button>
-        <sidebar-nav :opened="isNavOpen" @close="isNavOpen = false" />
     </header>
 </template>
 
 <script>
 import Logo from '~/components/logo/Logo'
 import HamburgerMenu from '~/components/layouts/HamburgerMenu'
-import SidebarNav from '~/components/layouts/SidebarNav'
 import {PortalTarget} from 'portal-vue'
 
 export default {
     components: {
         Logo,
         HamburgerMenu,
-        PortalTarget,
-        SidebarNav
+        PortalTarget
     },
-    data() {
-        return {
-            isNavOpen: false,
-            windowWidth: process.browser ? window.innerWidth : 0
-        }
-    },
-    beforeCreate() {
-        if (this.windowWidth >= 1200) {
-            this.isNavOpen = true
+    props: {
+        sidebarOpen: {
+            type: Boolean,
+            default: false
         }
     },
     methods: {
         toggleNavSidebar() {
-            this.isNavOpen = !this.isNavOpen
+            this.$emit('update:sidebarOpen', !this.sidebarOpen)
         }
     }
 }
@@ -75,6 +66,9 @@ export default {
             position: absolute;
         }
 
+        > * {
+            flex: 1 0 33%;
+        }
         // link color was white
     }
 

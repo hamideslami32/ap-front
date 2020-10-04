@@ -1,6 +1,7 @@
 <template>
     <div class="mobile-layout" :class="{ 'mobile-layout--hide-bottom-nav': !showBottomNav }">
-        <app-header />
+        <app-header :sidebar-open.sync="sidebarOpen" />
+        <sidebar-nav :open.sync="sidebarOpen" />
         <main>
             <nuxt />
         </main>
@@ -15,6 +16,8 @@ import AppHeader from '~/components/layouts/AppHeader'
 import AppBottomNav from '~/components/layouts/AppBottomNav'
 import LoginModal from '~/components/auth/LoginModal'
 import ToastPortal from '@/components/ui/ToastPortal'
+import SidebarNav from '~/components/layouts/SidebarNav'
+
 
 export default {
     name: 'Default',
@@ -22,7 +25,14 @@ export default {
         ToastPortal,
         AppHeader,
         AppBottomNav,
-        LoginModal
+        LoginModal,
+        SidebarNav
+    },
+
+    data() {
+        return {
+            sidebarOpen: this.$device.isDesktop
+        }
     },
 
     computed: {

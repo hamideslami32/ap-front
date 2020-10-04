@@ -41,7 +41,7 @@
             </div>
         </template>
         <template #footer>
-            <button class="btn-raw custom-card__actions__btn" @click="getPDF">
+            <button v-if="order.status === 'paid'" class="btn-raw custom-card__actions__btn" @click="getPDF">
                 <svgicon class="text-primary" name="bookmarks-accept" width="26" height="26" />
                 <span class="text-1 mt-2 text-gray-900">دریافت بلیط</span>
             </button>

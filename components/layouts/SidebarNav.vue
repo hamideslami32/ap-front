@@ -1,27 +1,35 @@
 <template>
-    <nav class="side-nav" :class="{ 'side-nav-open': opened }">
-        <div class="side-nav-open__close p-3" @click="$emit('close')">
+    <nav class="side-nav" :class="{ 'side-nav--open': open }">
+        <a href="javascript:void(0)" class="side-nav__close d-xl-none p-3" @click="close">
             <svgicon name="arrow-long-right" class="text-gray-700" width="20" height="20" />
-        </div>
-        <div class="side-nav__logo-wrapper py-4 text-center">
+        </a>
+        <div class="pt-4 text-center border-bottom pb-4">
             <logo />
         </div>
-        <div class="side-nav-open__menu mt-3 mb-5">
-            <ul class="pr-0">
-                <li v-for="(item, i) in menuData" :key="i" @click="$emit('close')">
+
+        <ul class="side-nav__menu mb-5 mt-3">
+            <li v-for="(item, i) in menuData" :key="i" @click="$emit('close')">
+                <n-link :to="item.link">
                     <svgicon
                         class="ml-2"
                         :name="item.icon"
                         width="30"
                         height="30"
                     />
-                    <n-link class="text-gray-900 text-weight-500" :to="item.link">
+                    <span class="align-middle">
                         {{ item.text }}
-                    </n-link>
-                </li>
-            </ul>
-        </div>
-        <a-btn variant="info" class="side-nav__btn text-white" block @click.prevent="login">
+                    </span>
+                </n-link>
+            </li>
+        </ul>
+
+        <a-btn
+            v-if="!$auth.user"
+            variant="info"
+            class="text-white"
+            block
+            @click.prevent="login"
+        >
             ورود / عضویت
         </a-btn>
 
@@ -33,7 +41,7 @@
                 <a-btn
                     icon="phone"
                     block
-                    wrapper-class="side-nav__contact__btn mb-3"
+                    wrapper-class="contact-btn mb-3"
                     class="bg-white"
                     variant="outline-primary"
                 >
@@ -51,7 +59,7 @@ export default {
     name: 'SidebarNav',
     components: {Logo},
     props: {
-        opened: {
+        open: {
             type: Boolean,
             default: false
         }
@@ -74,20 +82,22 @@ export default {
                     icon: 'warning-cube',
                     text: 'درباره اپرو'
                 }
-
-
             ]
         }
     },
-    methods : {
+    watch: {
+        '$route.path'() {
+            this.close()
+        }
+    },
+    methods: {
+        close() {
+            this.$emit('update:open', false)
+        },
         login() {
-            if(this.$auth.user) {
+            this.$auth.authenticate().then(() => {
                 this.$router.push('/profile')
-            } else {
-                this.$auth.authenticate().then(() => {
-                    this.$router.push('/profile')
-                }).catch(err => {})
-            }
+            }).catch(err => {})
         }
     }
 }
@@ -111,103 +121,61 @@ export default {
 
     .side-nav {
         height: 100%;
-        width: 0;
+        width: 100%;
         position: fixed;
-        z-index: 1;
+        z-index: 200;
         top: 0;
         right: 0;
         background-color: $white;
         overflow-x: hidden;
         transition: 0.3s;
+        transform: translateX(100%);
+        padding: 0 15px;
 
-
-        &__logo-wrapper {
-            border-bottom: 1px solid map_get($grays, '500');
-        }
-
-        &__btn {
-            border-radius: 5px;
-            max-width: 260px;
-            margin: 0 auto;
+        &__close {
+            position: absolute;
+            top: 0;
+            right: 0;
         }
 
         &__contact {
             background: map_get($grays, '200');
             border: 1px solid map_get($grays, '400');
             border-radius: 5px;
-            margin: 0 auto;
-            max-width: 260px;
-
-            &__btn {
-                position: relative;
-
-                /deep/ .btn:focus, .btn:active {
-                    background-color: $primary !important;
-                    color: $white !important;
-                    
-                }
-                /deep/ .btn:hover {
-                    color: $primary;
-                }
-
-                > button {
-                    border-radius: 5px;
-
-                    &:before {
-                        content: '';
-                        position: absolute;
-                        width: 8px;
-                        height: 8px;
-                        background: $primary;
-                        border-radius: 50%;
-                        right: 10px;
-                        top: 10px;
-                    }
-                }
-
-                .btn-icon {
-                    background-color: $primary;
-                    color: $white;
-                }
-            }
         }
 
         @include media-breakpoint-up(xl) {
             width: 300px !important;
-            .side-nav-open__close {
-                display: none;
-            }
         }
-    }
-
-    .side-nav-open {
-        height: 100%;
-        width: 100%;
-        position: fixed;
-        z-index: 5;
-        top: 0;
-        right: 0;
-        background-color: $white;
-        overflow-x: hidden;
-        transition: 0.3s;
 
         &__menu {
-            ul {
-                animation: showItems 1s ease;
+            padding: 0;
+            animation: showItems 1s ease;
+            list-style: none;
 
-                li {
-                    list-style: none;
-                    padding: 20px;
+            > li {
+                a {
+                    display: block;
+                    padding: 10px 0;
+                    color: map-get($grays, '900');
 
-                    svg {
-                        color: $borderColor;
+                    &.nuxt-link-exact-active {
+                        color: $primary;
+                        position: relative;
+
+                        &::after {
+                            content: ' ';
+                            position: absolute;
+                            left: 0;
+                            top: calc(50% - 2px);
+                            width: 5px;
+                            height: 5px;
+                            border-radius: 50%;
+                            background-color: $primary;
+                        }
                     }
                 }
             }
-        }
-
-        &__close {
-            text-align: right;
         }
 
         @include media-breakpoint-up(xl) {
@@ -220,6 +188,45 @@ export default {
         }
     }
 
+    .side-nav--open {
+        position: fixed;
+        transform: translateX(0);
+        background-color: $white;
+        overflow-x: hidden;
+    }
 
+
+    .contact-btn {
+        position: relative;
+
+        /deep/ .btn:focus, .btn:active {
+            background-color: $primary !important;
+            color: $white !important;
+
+        }
+        /deep/ .btn:hover {
+            color: $primary;
+        }
+
+        > button {
+            border-radius: 5px;
+
+            &:before {
+                content: '';
+                position: absolute;
+                width: 8px;
+                height: 8px;
+                background: $primary;
+                border-radius: 50%;
+                right: 10px;
+                top: 10px;
+            }
+        }
+
+        .btn-icon {
+            background-color: $primary;
+            color: $white;
+        }
+    }
 
 </style>
