@@ -40,6 +40,7 @@ export default {
         '~plugins/dayjs',
         '~plugins/portal',
         { src: '~plugins/toast.js', mode: 'client' },
+        { src: '~plugins/lottie.js', mode: 'client' },
         '~plugins/veeValidate/veeValidate'
     ],
     server: {
