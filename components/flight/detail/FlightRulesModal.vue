@@ -24,22 +24,37 @@
                     <span><img :src="$flight.airlineLogoUrl(flight.stops[0].airline)" alt="" width="40px"></span>
                 </span>
             </div>
-            <div class="rules-modal__action">
-                <b-btn v-if="!$flight.session.isDomestic" class="btn" variant="outline-secondary">
-                    قوانین ویزا
+            <sticky-bottom>
+                <b-btn
+                    v-if="!$flight.session.isDomestic"
+                    class="btn"
+                    variant="outline-secondary"
+                    @click="visaRules = !visaRules"
+                >
+                    {{ rulesText }}
                 </b-btn>
-            </div>
+            </sticky-bottom>
         </header>
         <div v-if="flight.rules" class="py-4 px-3">
-            <div v-html="flight.rules.html" />
+            <div v-if="!visaRules" v-html="flight.rules.html" />
+            <div v-else>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab amet atque culpa cum dignissimos
+                    doloremque eligendi expedita fugit inventore ipsa mollitia nisi non, officia praesentium provident
+                    reprehenderit vero. Ad aut excepturi illo impedit maiores nam officia placeat similique unde
+                    voluptates!
+                </p>
+            </div>
         </div>
     </b-modal>
 </template>
 
 <script>
 import {flightApi} from '@/api/flightApi'
+import StickyBottom from '~/components/ui/StickyBottom'
 
 export default {
+    components: {StickyBottom},
     model: {
         prop: 'show'
     },
@@ -53,6 +68,16 @@ export default {
             default: false
         }
     },
+    data() {
+        return {
+            visaRules: false
+        }
+    },
+    computed: {
+        rulesText() {
+            return this.visaRules ? 'قوانین استرداد' : 'قوانین ویزا'
+        }
+    },
     watch: {
         show: {
             immediate: true,
@@ -63,8 +88,8 @@ export default {
     },
     methods: {
         async fetchRules() {
-            const { session, available } = this.$flight
-            const rules = await flightApi.getFlightRules(session.id, available._id, [this.flight._id]).then(({ rules }) => rules[0])
+            const {session, available} = this.$flight
+            const rules = await flightApi.getFlightRules(session.id, available._id, [this.flight._id]).then(({rules}) => rules[0])
             this.$set(this.flight,
                 'rules',
                 rules)
@@ -74,7 +99,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.shadow {
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
-}
+    .shadow {
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    /deep/ .sticky-bottom {
+        position: fixed;
+    }
 </style>

@@ -21,7 +21,7 @@
 
         <div class="detail-card__tag" @click="showRulesModal = true">
             <curve-badge color="#49238c" :bottom="true" :width="180">
-                <span class="text-nowrap">{{ $flight.session.isDomestic ? 'قوانین استرداد' : 'قوانین استرداد / ویزا' }}</span>
+                <span class="text-nowrap pointer">{{ $flight.session.isDomestic ? 'قوانین استرداد' : 'قوانین استرداد / ویزا' }}</span>
             </curve-badge>
         </div>
 

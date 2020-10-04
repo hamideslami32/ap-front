@@ -106,6 +106,12 @@ html, body, #__nuxt, #__layout {
     color: $secondary;
 }
 
+.pointer {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
 
 @keyframes flash {
     50% {
