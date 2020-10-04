@@ -61,14 +61,14 @@
 
         <div class="py-4" />
 
-        <btn-wrapper>
+        <sticky-bottom>
             <a-btn wrapper-class="ml-2" variant="light" shadow @click="clear">
                 حذف فیلترها
             </a-btn>
             <a-btn variant="primary" shadow @click="apply">
                 تائید
             </a-btn>
-        </btn-wrapper>
+        </sticky-bottom>
     </div>
 </template>
 <script>
@@ -77,7 +77,7 @@ import ASlider from '~/components/ui/ASlider'
 import cloneDeep from 'lodash/cloneDeep'
 import FlightTimeFilter from '~/components/flight/available/filter/FlightTimeFilter'
 import FlightAirlineFilter from '~/components/flight/available/filter/FlightAirlineFilter'
-import BtnWrapper from '~/components/ui/BtnWrapper'
+import StickyBottom from '@/components/ui/StickyBottom'
 
 const initialFilters = () => ({
     sort: '',
@@ -90,7 +90,7 @@ const initialFilters = () => ({
 })
 
 export default {
-    components: {BtnWrapper, FlightAirlineFilter, FlightTimeFilter, ASlider, FlightSort},
+    components: {StickyBottom, FlightAirlineFilter, FlightTimeFilter, ASlider, FlightSort},
     props: {
         options: {
             type: Object,

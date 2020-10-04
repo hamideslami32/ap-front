@@ -39,7 +39,7 @@
         </div>
 
         <template v-if="availables && availables.filters">
-            <btn-wrapper>
+            <sticky-bottom>
                 <a-btn
 
                     wrapper-class="filter-btn"
@@ -50,7 +50,7 @@
                 >
                     {{ filterBtnText }}
                 </a-btn>
-            </btn-wrapper>
+            </sticky-bottom>
 
 
             <b-modal v-model="showFilter" modal-class="right-icon" body-class="px-0" hide-footer>
@@ -74,7 +74,7 @@ import {flightApi} from '~/api/flightApi'
 import FlightFilter from '~/components/flight/available/filter/FlightFilter'
 import isEqual from 'lodash/isEqual'
 import isEmpty from 'lodash/isEmpty'
-import BtnWrapper from '~/components/ui/BtnWrapper'
+import StickyBottom from '@/components/ui/StickyBottom'
 import FlightHeader from '@/components/flight/FlightHeader'
 
 const initialFilters = () => ({
@@ -93,7 +93,7 @@ const POLLING_INTERVAL = 3000
 export default {
     components: {
         FlightHeader,
-        BtnWrapper,
+        StickyBottom,
         FlightFilter,
         FlightCard,
         FlightPlaceholder

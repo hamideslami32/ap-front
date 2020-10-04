@@ -1,6 +1,5 @@
 <template>
     <b-modal
-        id="center-modal"
         visible
         hide-footer
         hide-header

@@ -15,12 +15,16 @@ export default {
         loading: {
             type: Boolean,
             default: false
+        },
+        wrapperClass: {
+            type: [String, Object, Array],
+            default: null
         }
     },
     render(h, ctx) {
-        const {wrapperClass, ...attrs} = ctx.data.attrs || {}
+        const {...attrs} = ctx.data.attrs || {}
         const {icon, variant, ...btnAttrs} = attrs
-        const {shadow, block, loading} = ctx.props
+        const {shadow, block, loading, wrapperClass} = ctx.props
 
         let $icon
         if (icon) {

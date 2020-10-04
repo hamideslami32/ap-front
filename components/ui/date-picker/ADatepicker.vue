@@ -1,134 +1,130 @@
 <template>
-    <a-dropdown ref="dropdown" class="a-datepicker" no-transition>
-        <template #button>
-            <slot
-                :on="on"
-                :open="open"
-                :focus="focus"
-                :value="value"
-                :clear="clear"
-            />
-        </template>
-        <span
-            v-if="isMobile"
-            class="a-datepicker__backdrop"
-            @click="close(false)"
+    <div class="a-datepicker">
+        <slot
+            :on="on"
+            :open="open"
+            :focus="focus"
+            :value="value"
+            :clear="clear"
         />
-        <div
-            class="a-datepicker__wrapper"
-            :dir="jalaali ? 'rtl' : 'ltr'"
-            :class="[alignment, isMobile ? 'a-datepicker--mobile' : 'a-datepicker--desktop']"
+        <b-modal-static
+            :visible="isOpen"
+            hide-footer
+            header-class="p-0"
+            body-class="p-0"
+            no-close-on-backdrop
+            no-fade
         >
-            <header class="a-datepicker__header" dir="rtl">
-                <div class="px-3 px-sm-0 py-md-2">
-                    <div>
-                        <b-btn
-                            v-if="!isMobile"
-                            class="btn-today d-inline-block float-left py-2"
-                            @click="goToday"
-                        >
-                            برو به امروز
-                        </b-btn>
+            <template #modal-header>
+                <div>
+                    <div class="d-flex px-2 py-3">
+                        <div class="flex-grow-1">
+                            <b-btn
+                                v-if="!isMobile"
+                                class="btn-today d-inline-block float-left py-2"
+                                @click="goToday"
+                            >
+                                برو به امروز
+                            </b-btn>
+                        </div>
+                        <b class="text-center flex-grow-1">
+                            انتخاب تاریخ
+                        </b>
+                        <div class="d-flex justify-content-end flex-grow-1">
+                            <button type="button" class="btn-raw" @click="close">
+                                <svgicon name="arrow-left" />
+                            </button>
+                        </div>
                     </div>
-                    <b class="text-center">
-                        انتخاب تاریخ
-                    </b>
-                    <div class="d-flex justify-content-end">
-                        <b-btn-close class="d-sm-none" @click="close">
-                            <svgicon name="arrow-left" />
-                        </b-btn-close>
+                    <div v-if="$slots.before || $scopedSlots.before">
+                        <slot name="before" :open="open" :value="value" :focus="focus" />
                     </div>
-                </div>
-            </header>
-
-            <div v-if="$slots.before || $scopedSlots.before" class="mb-2">
-                <slot name="before" :open="open" :value="value" :focus="focus" />
-            </div>
-
-            <div
-                v-if="isMobile"
-                class="a-datepicker__weekdays"
-            >
-                <span v-for="i in 7" :key="i" class="text-center">{{ weekday(i - 1) }}</span>
-            </div>
-
-            <div v-if="!isMobile" class="a-datepicker__arrows">
-                <b-btn
-                    :disabled="disablePreviousMonth"
-                    @click="next(-1)"
-                >
-                    <svgicon v-if="jalaali" size="18" name="arrow-right" class="d-block" />
-                    <svgicon v-else size="18" src="arrow-left" class="d-block" />
-                </b-btn>
-                <b-btn
-                    :disabled="disableNextMonth"
-                    @click="next(1)"
-                >
-                    <svgicon v-if="jalaali" size="18" src="arrow-left" class="d-block" />
-                    <svgicon v-else size="18" src="arrow-right" class="d-block" />
-                </b-btn>
-            </div>
-
-            <transition-group
-                :name="transition"
-                tag="div"
-                class="a-datepicker__container"
-                tabindex="0"
-                :class="transition"
-            >
-                <div
-                    v-for="month in months"
-                    :key="month.unix()"
-                    class="pb-0-md pb-4"
-                >
-                    <a-calendar
-                        ref="calendar"
-                        class="mx-auto"
-                        :date="month"
-                        :value="value"
-                        :jalaali="jalaali"
-                        :range="range"
-                        :min-date="minDate"
-                        :max-date="maxDate"
-                        :day-classes="dayClasses"
-                        @input="onDayClick"
+                    <div
+                        v-if="isMobile"
+                        class="a-datepicker__weekdays"
                     >
-                        <template v-if="$scopedSlots.day" slot-scope="props">
-                            <slot
-                                name="day"
-                                v-bind="props"
-                                :focus="focus"
-                                :open="isOpen"
-                            />
-                        </template>
-                    </a-calendar>
+                        <span v-for="i in 7" :key="i" class="text-center">{{ weekday(i - 1) }}</span>
+                    </div>
                 </div>
-            </transition-group>
+            </template>
+            <div
+                class="a-datepicker__wrapper"
+                :dir="jalaali ? 'rtl' : 'ltr'"
+                :class="[alignment, isMobile ? 'a-datepicker--mobile' : 'a-datepicker--desktop']"
+            >
+                <div v-if="!isMobile" class="a-datepicker__arrows">
+                    <b-btn
+                        :disabled="disablePreviousMonth"
+                        @click="next(-1)"
+                    >
+                        <svgicon v-if="jalaali" size="18" name="arrow-right" class="d-block" />
+                        <svgicon v-else size="18" src="arrow-left" class="d-block" />
+                    </b-btn>
+                    <b-btn
+                        :disabled="disableNextMonth"
+                        @click="next(1)"
+                    >
+                        <svgicon v-if="jalaali" size="18" src="arrow-left" class="d-block" />
+                        <svgicon v-else size="18" src="arrow-right" class="d-block" />
+                    </b-btn>
+                </div>
 
-            <slot v-if="!isMobile" name="after" />
-            <btn-wrapper class="text-2">
+                <div class="a-datepicker__container" tabindex="0">
+                    <div
+                        v-for="month in months"
+                        :key="month.unix()"
+                        class="pb-0-md pb-4"
+                    >
+                        <a-calendar
+                            ref="calendar"
+                            class="mx-auto"
+                            :date="month"
+                            :value="value"
+                            :jalaali="jalaali"
+                            :range="range"
+                            :min-date="minDate"
+                            :max-date="maxDate"
+                            :day-classes="dayClasses"
+                            @input="onDayClick"
+                        >
+                            <template v-if="$scopedSlots.day" slot-scope="props">
+                                <slot
+                                    name="day"
+                                    v-bind="props"
+                                    :focus="focus"
+                                    :open="isOpen"
+                                />
+                            </template>
+                        </a-calendar>
+                    </div>
+                </div>
+
+                <slot v-if="!isMobile" name="after" />
+            </div>
+
+            <sticky-bottom class="text-3">
                 <a-datepicker-switch :jalaali="jalaali" @click="setJalaali(!jalaali)" />
-                <a-btn wrapper-class="mr-1" variant="primary" @click="close(true)">
+                <a-btn wrapper-class="mr-2" variant="primary" shadow @click="close(true)">
                     تایید
                 </a-btn>
-            </btn-wrapper>
-        </div>
-    </a-dropdown>
+            </sticky-bottom>
+        </b-modal-static>
+    </div>
 </template>
 
 <script>
-import ADropdown from '../ADropdown'
 import ACalendar from './ACalendar'
 import calendarMixin from './calendarMixin'
 import ADatepickerSwitch from '~/components/ui/date-picker/ADatepickerSwitch'
-import BtnWrapper from '~/components/ui/BtnWrapper'
+import StickyBottom from '@/components/ui/StickyBottom'
+import BModalStatic from '~/components/ui/b-modal-static'
 
 export default {
     components: {
-        BtnWrapper,
+        StickyBottom,
         ADatepickerSwitch,
-        ADropdown,
-        ACalendar
+        ACalendar,
+        BModalStatic
     },
 
     mixins: [calendarMixin],
@@ -167,7 +163,6 @@ export default {
         return {
             currentDate: v || this.dayjs().startOf('month').startOf('day'),
             focus: null,
-            transition: 'slide-left',
             isOpen: false
         }
     },
@@ -270,7 +265,6 @@ export default {
             }, 200)
 
             // Scroll to month on mobile view;
-            this.isMobile && this.$store.commit('setOverflow', t)
             this.scrollIntoView()
         },
         range(t) {
@@ -299,23 +293,18 @@ export default {
 
     methods: {
         open(i) {
-            this.$refs.dropdown.open()
+            this.isOpen = true
             this.focus = typeof i === 'number' ? i : 0
             this.$emit('open')
         },
 
         close(done) {
-            this.$refs.dropdown.close()
+            this.isOpen = false
             this.focus = null
             done === true && this.$emit('done')
         },
 
         next(step = 1) {
-            if (this.jalaali) {
-                this.transition = step > 0 ? 'slide-left' : 'slide-right'
-            } else {
-                this.transition = step > 0 ? 'slide-right' : 'slide-left'
-            }
             this.currentDate = this.currentDate
                 .add(step, 'month')
                 .startOf('month')
@@ -381,11 +370,6 @@ export default {
             const today = this.dayjs().startOf('day')
             const diff = Math.ceil(this.currentDate.diff(today, 'month', true))
             if (diff !== 0 && diff !== -1) {
-                this.transition = (this.jalaali
-                    ? diff > 0
-                    : diff < 0)
-                    ? 'slide-right'
-                    : 'slide-left'
                 this.currentDate = today
                     .startOf('month')
             }
@@ -535,27 +519,10 @@ export default {
     }
 
     &__wrapper {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        max-width: 450px;
-        background-color: $white;
-        padding: 70px 10px 40px;
-        overflow: auto;
-        z-index: 5000;
-        box-shadow: 0 8px 16px rgba($black, 0.15);
         color: $gray-700;
-
-        @media (min-width: 370px) {
-            width: auto;
-            height: auto;
-            right: 0;
-            left: 0;
-            top: 0;
-            bottom: 0;
-        }
+        overflow: auto;
+        height: 100%;
+        padding-top: 20px;
 
         .a-datepicker--desktop & {
             position: absolute;
@@ -587,13 +554,8 @@ export default {
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
-        position: absolute;
-        top: 100px;
-        left: 0;
-        right: 0;
-        bottom: 0;
         overflow: auto;
-        padding: 20px 10px 40px;
+        padding: 0px 10px 40px;
         outline: none !important;
         z-index: 0;
 
@@ -612,8 +574,6 @@ export default {
         > div {
             flex: 100% 1 1;
             position: relative;
-
-            @include transition(transform 240ms ease);
         }
 
         .a-datepicker__wrapper[dir=ltr] & > div::after {
@@ -638,11 +598,9 @@ export default {
         background-color: #eee;
         display: flex;
         color: #888;
-        padding: 5px 0;
+        padding: 5px 2%;
         z-index: 10;
-        border-radius: 8px;
         font-size: 0.8em;
-        max-width: 340px;
         margin: 0 auto;
 
         > span {
@@ -745,25 +703,7 @@ export default {
     margin: 0 10px;
 }
 
-/* .a-datepicker--desktop {
-    .slide-left {
-        &-enter {
-            transform: translate3d(-100%, 0, 0);
-        }
-
-        &-leave-to {
-            transform: translate3d(100%, 0, 0);
-        }
-    }
-
-    .slide-right {
-        &-enter {
-            transform: translate3d(100%, 0, 0);
-        }
-
-        &-leave-to {
-            transform: translate3d(-100%, 0, 0);
-        }
-    }
-} */
+.a-datepicker .modal {
+    animation: none !important;
+}
 </style>
