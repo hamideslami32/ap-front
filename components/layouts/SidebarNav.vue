@@ -21,7 +21,7 @@
                 </li>
             </ul>
         </div>
-        <a-btn variant="info" class="side-nav__btn text-white" block>
+        <a-btn variant="info" class="side-nav__btn text-white" block @click.prevent="login">
             ورود / عضویت
         </a-btn>
 
@@ -77,6 +77,17 @@ export default {
 
 
             ]
+        }
+    },
+    methods : {
+        login() {
+            if(this.$auth.user) {
+                this.$router.push('/profile')
+            } else {
+                this.$auth.authenticate().then(() => {
+                    this.$router.push('/profile')
+                }).catch(err => {})
+            }
         }
     }
 }
