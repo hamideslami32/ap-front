@@ -52,6 +52,36 @@
                 تماس با پشتیبانی
             </a-btn>
         </div>
+
+        <div v-if="order.status === 'pending'">
+            <span class="circle-btn mx-auto mt-5 mb-4 circle-btn--failed">
+                <svgicon width="32" height="32" name="plane-delete" />
+            </span>
+            <p class="text-weight-600 mb-4 text-gray-50">
+                صدور بلیط شما درحال بررسی می‌باشد.
+            </p>
+            <div class="failed-code py-3">
+                <p class="mb-2 text-3 text-gray-700 text-weight-500">
+                    شماره سفارش:
+                </p>
+                <p class="mb-0 text-gray-50 text-weight-600 en text-5">
+                    {{ order._id }}
+                </p>
+            </div>
+            <p class="my-4 text-center text-3 text-gray-700">
+                لطفا با بخش پشتیبانی تماس بگیرید
+            </p>
+
+            <a-btn
+                shadow
+                wrapper-class="action-btn"
+                class="text-weight-600"
+                icon="phone"
+                block
+            >
+                تماس با پشتیبانی
+            </a-btn>
+        </div>
     </b-container>
 </template>
 
