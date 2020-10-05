@@ -4,7 +4,9 @@
             <svgicon name="arrow-long-right" class="text-gray-700" width="20" height="20" />
         </a>
         <div class="pt-4 text-center border-bottom pb-4">
-            <logo />
+            <nuxt-link to="/">
+                <logo />
+            </nuxt-link>
         </div>
 
         <ul class="side-nav__menu mb-5 mt-3">
