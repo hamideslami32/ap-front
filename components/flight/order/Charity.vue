@@ -19,9 +19,10 @@
                     <b-form-checkbox
                         :id="`checkbox${i+1}`"
                         v-model="item.value"
+                        class="pointer"
                         :name="`checkbox${i+1}`"
                     />
-                    <label class="mb-0 text-2 text-weight-500 en mr-2" :class="{ 'secondary-color': item.value }" :for="`checkbox${i+1}`">
+                    <label class="mb-0 text-2 text-weight-500 en mr-2 pointer" :class="{ 'secondary-color': item.value }" :for="`checkbox${i+1}`">
                         {{ item.title }}
                     </label>
                 </div>

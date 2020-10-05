@@ -143,11 +143,11 @@ export default {
 
             > span {
                 &:first-child {
-                    border-left: 1px solid map_get($grays, '600');
+                    border-left: 1px solid map_get($grays, '400');
                 }
 
                 &:last-child {
-                    border-right: 1px solid map_get($grays, '600');
+                    border-right: 1px solid map_get($grays, '400');
                 }
             }
 
@@ -159,7 +159,7 @@ export default {
                 align-items: center;
 
                 svg {
-                    border: 1px solid map_get($grays, '600');
+                    border: 1px solid map_get($grays, '400');
                     border-radius: 50%;
                     padding: 3px;
                     box-sizing: content-box;

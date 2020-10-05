@@ -50,7 +50,7 @@ export default {
 <style lang="scss" scoped>
     .flight-date-card {
         background: $white;
-        border: 1px solid map_get($grays, '600');
+        border: 1px solid map_get($grays, '400');
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
         padding: 5px 10px;
         border-radius: 10px;
@@ -63,7 +63,7 @@ export default {
         }
 
         &.active {
-            border-color: map_get($grays, '800');
+            border-color: map_get($grays, '700');
             .flight-date-card__header {
                 background-color: $pinkColor;
             }

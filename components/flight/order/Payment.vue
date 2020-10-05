@@ -41,7 +41,7 @@
                             :disabled="true"
                         />
                         <label class="mb-0 text-2 text-weight-500">
-                            اقساطی پرداخت کنید
+                            اقساطی پرداخت کنید (به زودی)
                         </label>
                     </div>
                     <span class="text-3 text-gray-900">{{ Math.floor(price * 0.2) | separateNumber }}<span class="text-1 text-gray-800 mr-1">تومان</span></span>

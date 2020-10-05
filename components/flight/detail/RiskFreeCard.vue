@@ -19,12 +19,13 @@
                     <b-form-checkbox
                         :id="`checkbox${i+1}`"
                         v-model="item.value"
+                        class="pointer"
                         :disabled="!localSwitchData"
                         :name="`checkbox${i+1}`"
                     />
                 </div>
                 <div cols="11" class="text-2 flex-grow-1 text-gray-900">
-                    <label class="text-weight-500 en pb-1 mb-0" :for="`checkbox${i+1}`">
+                    <label class="text-weight-500 en pb-1 mb-0 pointer" :for="`checkbox${i+1}`">
                         {{ item.title }}
                     </label>
                     <div class="text-gray-800 pb-1">
