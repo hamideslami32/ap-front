@@ -41,7 +41,7 @@
             <digit-input ref="digitInputs" v-model="digits" @done="verifyOtpRequest" />
             <a-btn
                 ref="submitBtn"
-                :disabled="digits.filter(el => el != null).length < 5"
+                :disabled="disableConfirmBtn"
                 :loading="loading"
                 shadow
                 block
@@ -108,6 +108,18 @@ export default {
             tryCount: 0
         }
     },
+    computed: {
+        disableConfirmBtn() {
+            return this.digits.filter(el => el !== null).length < 5
+        }
+    },
+    // watch: {
+    //     digits() {
+    //         if(this.digits.filter(el => !isNaN(el) && el).length === 5) {
+    //             this.verifyOtpRequest()
+    //         }
+    //     }
+    // },
     methods: {
         async requestOtp() {
             try {

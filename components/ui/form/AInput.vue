@@ -12,12 +12,13 @@
             ref="input"
             v-model="localValue"
             v-bind="$attrs"
-            v-on="$listeners"
+            v-on="omit($listeners, ['input'])"
         />
     </span>
 </template>
 
 <script>
+import omit from 'lodash/omit'
 export default {
     name: 'AInput',
     inheritAttrs: false,
@@ -46,6 +47,7 @@ export default {
         }
     },
     methods: {
+        omit,
         focus() {
             this.$refs.input.focus()
         }
