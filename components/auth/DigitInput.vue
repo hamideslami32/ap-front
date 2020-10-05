@@ -46,7 +46,9 @@ export default {
     methods: {
         onInput(i, value) {
             value = toLatin(value)
-            this.value[i] = isNaN(value) ? '' : value[0]
+            // this.value[i] = isNaN(value) ? '' : value[0]
+
+            this.$set(this.value, i, isNaN(value) ? '' : value[0])
             const nextElement = this.$refs.inputs[i + 1]
             if (value.trim() && nextElement) {
                 const el = nextElement.$el.querySelector('input')

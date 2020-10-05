@@ -25,7 +25,6 @@ export default (ctx, inject) => {
                 ])
             ], {
                 variant: 'danger',
-                noAutoHide: true,
                 toastClass: 'toast--no-header toast-alert'
             })
             return toast
