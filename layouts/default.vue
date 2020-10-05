@@ -31,13 +31,30 @@ export default {
 
     data() {
         return {
-            sidebarOpen: this.$device.isDesktop
+            sidebarOpen: false
         }
     },
 
     computed: {
         showBottomNav() {
             return this.$route.meta.showBottomNav
+        }
+    },
+    watch: {
+        '$route.path'() {
+            if(process.server) {
+                this.sidebarOpen = !this.$device.isDesktop
+            } else {
+                this.sidebarOpen = window.innerWidth >= 1200
+            }
+        }
+    },
+
+    mounted() {
+        if(process.server) {
+            this.sidebarOpen = this.$device.isDesktop
+        } else {
+            this.sidebarOpen = window.innerWidth >= 1200
         }
     }
 }

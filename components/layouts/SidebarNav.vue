@@ -34,8 +34,11 @@
         </a-btn>
 
         <div class="side-nav__contact px-3 mt-3">
-            <div class="py-4 text-gray-900 text-center">
-                <span class="text-weight-700">پشتیبانی</span><span class="text-weight-500 text-2 mr-2">(از ساعت ۹ صبح الی ۲۰)</span>
+            <div class="pt-3 pb-2 text-gray-900 text-center">
+                <span class="text-weight-700">پشتیبانی</span><span class="text-weight-500 text-2 mr-2">(۲۴ ساعته)</span>
+                <p class="text-weight-500 text-2 text-center mt-3">
+                    جهت دریافت مشاوره تخصصی برای سفرهای خارجی تماس بگیرید
+                </p>
             </div>
             <a href="tel:02172475">
                 <a-btn
@@ -83,11 +86,6 @@ export default {
                     text: 'درباره اپرو'
                 }
             ]
-        }
-    },
-    watch: {
-        '$route.path'() {
-            this.close()
         }
     },
     methods: {
