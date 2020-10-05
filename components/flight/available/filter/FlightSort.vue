@@ -50,8 +50,8 @@ export default {
         > button {
             width: 120px;
             height: 40px;
-            background-color: map_get($grays, '100');
-            border: 1px solid map_get($grays, '600');
+            background-color: map-get($grays, '250');
+            border: 1px solid map-get($grays, '400');
             border-radius: 10px;
             color: map_get($grays, '800');
             transition: all ease-out 250ms;
