@@ -1,28 +1,30 @@
 <template>
     <div class="filter text-3 text-gray-600">
-        <flight-sort v-model="localValue.sort" class="mb-4 px-2" />
-        <div class="px-2">
-            <p class="filter__title mt-2 mb-0">
-                بازه قیمت بلیط (تومان)
-            </p>
-            <a-slider
-                v-model="localValue.priceRange"
-                :min="options.priceRange[0]"
-                :max="options.priceRange[1]"
-                :step="priceRangeStep"
-                class="mx-2 mb-2"
-            >
-                <template #tooltip="{ value: tooltip }">
-                    {{ tooltip | separateNumber }}
-                </template>
-            </a-slider>
+        <div class="filter__holder">
+            <flight-sort v-model="localValue.sort" class="mb-4 px-2" />
+            <div class="px-2">
+                <p class="filter__title mt-2 mb-0">
+                    بازه قیمت بلیط (تومان)
+                </p>
+                <a-slider
+                    v-model="localValue.priceRange"
+                    :min="options.priceRange[0]"
+                    :max="options.priceRange[1]"
+                    :step="priceRangeStep"
+                    class="mx-2 mb-2"
+                >
+                    <template #tooltip="{ value: tooltip }">
+                        {{ tooltip | separateNumber }}
+                    </template>
+                </a-slider>
+            </div>
+
+            <flight-time-filter v-model="localValue.departureFlightTime" title="پرواز رفت" />
+
+            <flight-time-filter v-if="$flight.session.routes.length === 2" v-model="localValue.returningFlightTime" title="پرواز برگشت" />
+
+            <flight-airline-filter v-model="localValue.airlines" :airlines="options.airlines" />
         </div>
-
-        <flight-time-filter v-model="localValue.departureFlightTime" title="پرواز رفت" />
-
-        <flight-time-filter v-if="$flight.session.routes.length === 2" v-model="localValue.returningFlightTime" title="پرواز برگشت" />
-
-        <flight-airline-filter v-model="localValue.airlines" :airlines="options.airlines" />
 
         <!--<panel title="کلاس پروازی">
             <b-form-group class="en font-weight-medium">
@@ -153,3 +155,15 @@ export default {
     }
 }
 </script>
+
+
+<style lang="scss" scoped>
+    .filter__holder {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 15px;
+        overflow: auto;
+    }
+</style>
