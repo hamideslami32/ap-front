@@ -175,7 +175,7 @@
         <b-row />
 
         <footer class="ticket__footer">
-            <b>Support: 773242341</b>
+            <b>Support: 021-72475</b>
         </footer>
     </div>
 </template>
