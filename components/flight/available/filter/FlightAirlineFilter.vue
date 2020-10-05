@@ -1,6 +1,6 @@
 <template>
     <panel icon="plane" title="ایرلاین ها" body-class="px-3">
-        <group-checkbox :value="value" :options="mappedAirlines" @input="$emit('input', $event)">
+        <group-checkbox class="group" :value="value" :options="mappedAirlines" @input="$emit('input', $event)">
             <template v-slot="{ item }">
                 <span class="airline-item">
                     <img :src="$flight.airlineLogoUrl(item.value)" alt="" width="34">
@@ -50,7 +50,7 @@ export default {
     padding: 5px 12px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
     border-radius: 3px;
-    border: 1px solid map_get($grays, '600');
+    border: 1px solid map_get($grays, '400');
     background: $white;
 
     > img {
@@ -63,5 +63,12 @@ export default {
     .custom-control-input:checked ~ label & {
         border-color: $primary;
     }
+
+}
+.group /deep/ .custom-control-label::before,.group /deep/ .custom-control-label::after {
+    border-radius: 5px !important;
+    border-color: map-get($grays, '800');
+    width: 20px !important;
+    height: 20px !important;
 }
 </style>
