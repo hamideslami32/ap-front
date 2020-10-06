@@ -47,6 +47,7 @@
                         <th>Name</th>
                         <th>Passport Number / National Code</th>
                         <th>Passenger Type</th>
+                        <th>Ticket Number</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,6 +55,7 @@
                         <td><svgicon name="user" width="24" height="24" /> &nbsp;{{ p.name.en }} {{ p.surname.en }}</td>
                         <td>{{ p.nationalCode || p.passportNumber }}</td>
                         <td>{{ p.type }}</td>
+                        <td>{{ item.ticketNumbers[i] || '?' }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -67,7 +69,7 @@
                 <div :key="i" class="ticket__card">
                     <div class="ticket__card__center text-center">
                         <curve-badge width="220" class="text-nowrap mb-4">
-                            Flight Number: {{ stop.flightNumber }}
+                            PNR: {{ item.pnr[i] }}
                         </curve-badge>
                         <svgicon class="text-gray-700" name="plane-takeoff" width="40" height="40" />
                         <p class="mt-3 ticket__duration">
@@ -99,9 +101,14 @@
                     <div class="d-flex ticket__card__info align-items-center">
                         <img :src="$flight.airlineLogoUrl(stop.airline)" width="60" class="mr-3">
                         <span class=" text-left">
-                            <span class="text-gray-700">Flight Number: {{ stop.flightNumber }}</span>
+                            <span class="text-gray-700">Airline</span>
                             <br>
                             <span class="font-weight-medium">{{ stop.airlineName }}</span>
+                        </span>
+                        <span class=" text-left">
+                            <span class="text-gray-700">Flight Number</span>
+                            <br>
+                            <span class="font-weight-medium">{{ stop.flightNumber }}</span>
                         </span>
                         <span>
                             <span class="text-gray-700">Airplane</span>
@@ -171,8 +178,14 @@
         </b-row>
 
 
-        <h4>Terms and Conditions</h4>
-        <b-row />
+        <div class="no-break">
+            <h4>Terms and Conditions</h4>
+            <div class="ticket__card mt-3">
+                <div v-for="(term, i) in terms" :key="i">
+                    <div v-html="term.html" />
+                </div>
+            </div>
+        </div>
 
         <footer class="ticket__footer">
             <div>
@@ -221,8 +234,10 @@ export default {
         }
 
         if (req.method === 'POST') {
+            const body = await rawBody(req)
             return {
-                ticket: await rawBody(req)
+                ticket: body.order,
+                terms: body.terms
             }
         }
 
@@ -263,15 +278,16 @@ function rawBody(req) {
 html, body, #__nuxt, #__layout {
     height: unset;
     width: unset;
-    background: #f5f5f5;
     overflow: unset;
+    -webkit-print-color-adjust: exact;
+    background: #f5f5f5;
 }
 
 .ticket {
     width: 100%;
     position: relative;
     margin: 0 auto;
-    padding: 0 20px 100px;
+    padding: 0 20px 120px;
     min-height: 100vh;
     direction: ltr;
     text-align: left;
@@ -339,6 +355,7 @@ html, body, #__nuxt, #__layout {
 
             > tbody > tr > td {
                 padding: 15px;
+                background-color: $white;
             }
 
             > tbody > tr {
@@ -365,11 +382,12 @@ html, body, #__nuxt, #__layout {
     }
 
     &__card {
-        border: 1px solid map-get($grays, '500');
+        border: 1px solid #CCC;
         border-radius: 7px;
         padding: 20px;
         page-break-inside: avoid;
         position: relative;
+        background-color: $white;
         &__info {
             border: 1px solid map-get($grays, '500');
             border-radius: 5px;
@@ -384,7 +402,7 @@ html, body, #__nuxt, #__layout {
 
         &__center {
             position: absolute;
-            top: 0;
+            top: -1px;
             left: 50%;
             transform: translateX(-50%);
         }
@@ -405,6 +423,7 @@ html, body, #__nuxt, #__layout {
         margin: 30px auto 0;
         padding: 20px;
         border-top:  1px solid map-get($grays, '500');
+        page-break-inside: avoid;
 
         & > div {
             display: inline-block;
@@ -435,6 +454,28 @@ html, body, #__nuxt, #__layout {
         -webkit-print-color-adjust: exact;
         page-break-inside: avoid;
     }
+
+    .h-refund-list {
+        list-style: none;
+        padding: 0;
+        direction: rtl;
+        text-align: right;
+        max-width: 400px;
+
+         > li {
+             padding: 20px;
+             margin-bottom: 20px;
+             border-bottom: 1px solid map-get($grays, '300');
+             overflow: auto;
+             &:last-child {
+                 border-bottom: 0;
+             }
+        }
+    }
+}
+
+.no-break {
+    page-break-inside: avoid;
 }
 </style>
 
