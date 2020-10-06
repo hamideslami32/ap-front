@@ -29,14 +29,14 @@
                     v-if="!$flight.session.isDomestic"
                     class="btn"
                     variant="outline-secondary"
-                    @click="visaRules = !visaRules"
+                    @click="showVisaRules = !showVisaRules"
                 >
-                    {{ rulesText }}
+                    {{ showVisaRules ? 'قوانین استرداد' : 'قوانین ویزا' }}
                 </b-btn>
             </sticky-bottom>
         </header>
         <div v-if="flight.rules" class="py-4 px-3">
-            <div v-if="!visaRules" v-html="flight.rules.html" />
+            <div v-if="!showVisaRules" v-html="flight.rules.html" />
             <div v-else>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab amet atque culpa cum dignissimos
@@ -70,12 +70,7 @@ export default {
     },
     data() {
         return {
-            visaRules: false
-        }
-    },
-    computed: {
-        rulesText() {
-            return this.visaRules ? 'قوانین استرداد' : 'قوانین ویزا'
+            showVisaRules: false
         }
     },
     watch: {
@@ -98,12 +93,30 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-    .shadow {
-        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
-    }
+<style lang="scss">
+    .rules-modal {
+        .shadow {
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+        }
 
-    /deep/ .sticky-bottom {
-        position: fixed;
+        .h-refund-list {
+            list-style: none;
+            padding: 0;
+        }
+        .h-refund-list > li {
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 6px rgba(0,0,0, 0.05);
+            overflow: auto;
+            border-radius: 5px;
+            transition: all ease 300ms;
+        }
+        .h-refund-list > li:hover {
+            box-shadow: 0 6px 15px rgba(0,0,0, 0.1);
+        }
+
+        .sticky-bottom {
+            position: fixed;
+        }
     }
 </style>
