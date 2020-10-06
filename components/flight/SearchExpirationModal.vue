@@ -5,6 +5,7 @@
         hide-header
         centered
         no-close-on-backdrop
+        class="expire-time"
     >
         <div class="text-center">
             <svgicon name="clock" class="text-gray-700 " width="50" height="50" />
@@ -29,3 +30,14 @@ import Vue from 'vue'
 
 export default Vue.extend({})
 </script>
+
+
+<style lang="scss" scoped>
+    /deep/ .modal-dialog-centered {
+        /deep/.modal-content {
+            width: 90%;
+            margin: 0 auto;
+            height: unset;
+        }
+    }
+</style>
