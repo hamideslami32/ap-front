@@ -23,7 +23,7 @@
         </div>
         <panel icon="shoppingbag-Pack" title="خرید ها" disabled @click.native="$router.push('/profile/orders')" />
         <panel icon="atm" title="تراکنش ها" disabled @click.native="$router.push('/profile/transactions')" />
-        <panel icon="userProfile-Group" title="مسافران" disabled @click.native="$router.push('/profile/passengers')" />
+        <!--        <panel icon="userProfile-Group" title="مسافران" disabled @click.native="$router.push('/profile/passengers')" />-->
         <panel icon="exit" disabled @click.native="$auth.logout()">
             <template #title>
                 <span class="text-danger">خروج</span>

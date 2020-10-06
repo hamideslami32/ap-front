@@ -13,7 +13,7 @@
         >
             اضافه کردن مسافر
         </a-btn>
-        <card v-for="i in 4" :key="i" class="mb-3">
+        <!--<card v-for="i in 4" :key="i" class="mb-3">
             <template #header>
                 <div class="passengers-details__main text-2">
                     <div class="d-flex align-items-center justify-content-between px-2">
@@ -44,7 +44,7 @@
                     <span class="text-1 mt-2 text-gray-900">حذف مسافر</span>
                 </div>
             </template>
-        </card>
+        </card>-->
 
         <sticky-bottom class="d-flex align-items-center justify-content-center">
             <a-btn wrapper-class="search-btn d-flex ml-2" shadow variant="primary" @click="searchModal = true">
@@ -139,14 +139,19 @@
 </template>
 
 <script>
-import Card from '~/components/ui/Card'
+// import Card from '~/components/ui/Card'
 import AInput from '~/components/ui/form/AInput'
 import PassengerForm from '~/components/passenger/PassengerForm'
 import StickyBottom from '@/components/ui/StickyBottom'
 
 export default {
     name: 'Passengers',
-    components: {StickyBottom, PassengerForm, Card, AInput},
+    components: {
+        StickyBottom,
+        PassengerForm,
+        // Card,
+        AInput
+    },
     data() {
         return {
             searchModal: false,

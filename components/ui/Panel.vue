@@ -1,7 +1,7 @@
 <template>
     <div class="panel">
         <a class="link-inherit" :class="{ show }" href="javascript:void(0)" @click="toggle">
-            <svgicon class="text-gray-500 ml-2" width="26" height="26" :name="icon" />
+            <svgicon class="text-gray-600 ml-2" width="26" height="26" :name="icon" />
             <span class="align-middle">
                 <slot name="title">
                     {{ title }}
