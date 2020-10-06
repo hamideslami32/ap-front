@@ -42,15 +42,17 @@
                 لطفا با بخش پشتیبانی تماس بگیرید
             </p>
 
-            <a-btn
-                shadow
-                wrapper-class="action-btn"
-                class="text-weight-600"
-                icon="phone"
-                block
-            >
-                تماس با پشتیبانی
-            </a-btn>
+            <a href="tel:02172475">
+                <a-btn
+                    shadow
+                    wrapper-class="action-btn"
+                    class="text-weight-600"
+                    icon="phone"
+                    block
+                >
+                    تماس با پشتیبانی
+                </a-btn>
+            </a>
         </div>
 
         <div v-if="order.status === 'pending'">
