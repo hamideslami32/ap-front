@@ -63,6 +63,7 @@
                 <flight-filter v-model="filters" :options="availables.filters" @apply="applyFilters" />
             </b-modal>
         </template>
+        <lottie-loading v-if="loading" />
     </div>
 </template>
 
@@ -76,6 +77,7 @@ import isEqual from 'lodash/isEqual'
 import isEmpty from 'lodash/isEmpty'
 import StickyBottom from '@/components/ui/StickyBottom'
 import FlightHeader from '@/components/flight/FlightHeader'
+import LottieLoading from '~/components/ui/loadings/LottieLoading'
 
 const initialFilters = () => ({
     sort: '',
@@ -96,7 +98,8 @@ export default {
         StickyBottom,
         FlightFilter,
         FlightCard,
-        FlightPlaceholder
+        FlightPlaceholder,
+        LottieLoading
     },
     data() {
         return {
