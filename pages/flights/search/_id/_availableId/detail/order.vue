@@ -178,7 +178,7 @@ export default {
                 }
                 await this.$auth.authenticate()
                 const { orderId } = this.$route.query
-                await this.submitPassengers()
+                // await this.submitPassengers()
                 const { url, data, method } = await flightApi.pay(orderId)
                 if (method && method.toLowerCase() !== 'GET') {
                     return postRedirect(url, data, method)
@@ -193,19 +193,21 @@ export default {
         },
 
         submitPassengers() {
-            return flightApi.setPassengers(this.$flight.session.id, this.passengers.map(p => ({
-                type: p.type,
-                gender: p.gender,
-                name: { en: p.name },
-                surname: { en: p.surname },
-                nationalCode: p.nationalCode,
-                nationality: p.nationality,
-                passportExpiration: this.$dayjs(p.passportExpiration).calendar('gregory').format(),
-                passportNumber: p.passportNumber,
-                birthdate: this.$dayjs(p.birthdate).calendar('gregory').format()
-            }))).catch(err => {
-                throw new Error('از درست بودن اطلاعات مسافران اطمینان حاصل کنید.')
-            })
+            if(this.isValid) {
+                return flightApi.setPassengers(this.$flight.session.id, this.passengers.map(p => ({
+                    type: p.type,
+                    gender: p.gender,
+                    name: { en: p.name },
+                    surname: { en: p.surname },
+                    nationalCode: p.nationalCode,
+                    nationality: p.nationality,
+                    passportExpiration: this.$dayjs(p.passportExpiration).calendar('gregory').format(),
+                    passportNumber: p.passportNumber,
+                    birthdate: this.$dayjs(p.birthdate).calendar('gregory').format()
+                }))).catch(err => {
+                    throw new Error('از درست بودن اطلاعات مسافران اطمینان حاصل کنید.')
+                })
+            }
         }
     }
 }

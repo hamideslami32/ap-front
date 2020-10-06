@@ -3,14 +3,20 @@
         <div class="custom-card__info">
             <slot name="header" />
         </div>
-        <div class="custom-card__actions">
+        <div v-if="isPaid" class="custom-card__actions">
             <slot name="footer" />
         </div>
     </div>
 </template>
 <script>
 export default {
-    name: 'Card'
+    name: 'Card',
+    props: {
+        isPaid: {
+            type: Boolean,
+            default: false
+        }
+    }
 }
 </script>
 

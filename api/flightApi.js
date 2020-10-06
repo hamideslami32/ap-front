@@ -98,4 +98,10 @@ export const flightApi = new class FlightApi extends BaseApi {
     getNationalities() {
         return this.axios.$get('/countries.json', { baseURL: '/' })
     }
+
+    postRefund(orderItemIndex,orderId,passengers) {
+        return this.axios.$post(`/flight/refund/${orderId}/${orderItemIndex}`, {
+            passengers
+        })
+    }
 }
