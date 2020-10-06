@@ -329,6 +329,11 @@ export default {
     .flight-container {
         padding: 10px 10px 80px;
         -ms-overflow-style: none;
+        position: absolute;
+        top: 120px;
+        left: 0;
+        right: 0;
+        bottom: 0;
         overflow: auto;
 
         &::-webkit-scrollbar {
