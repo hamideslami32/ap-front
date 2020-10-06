@@ -150,8 +150,8 @@ export default {
 
         .flight-tag {
             position: absolute;
-            left: 20px;
-            top: 0px;
+            left: 25px;
+            top: 0;
             height: 24px;
             width: 80px;
             text-align: center;
