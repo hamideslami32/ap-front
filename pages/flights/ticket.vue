@@ -175,7 +175,20 @@
         <b-row />
 
         <footer class="ticket__footer">
-            <b>Support: 021-72475</b>
+            <div>
+                <div class="support-icon">
+                    <svgicon class="text-gray-700" name="phone" width="24" height="24" />
+                </div>
+                <span class="ml-3">Support</span>
+            </div>
+            <div class="whatsapp">
+                <span>Whatsapp</span>
+                <span>+98 21 72475</span>
+            </div>
+            <div class="email">
+                <span>Email</span>
+                <span>info@apro.ir</span>
+            </div>
         </footer>
     </div>
 </template>
@@ -250,12 +263,13 @@ function rawBody(req) {
 html, body, #__nuxt, #__layout {
     height: unset;
     width: unset;
-    background: unset;
+    background: #f5f5f5;
     overflow: unset;
 }
 
 .ticket {
     width: 100%;
+    position: relative;
     margin: 0 auto;
     padding: 0 20px 100px;
     min-height: 100vh;
@@ -382,14 +396,39 @@ html, body, #__nuxt, #__layout {
     }
 
     &__footer {
-        background-color: white;
-        position: fixed;
+        background-color: #f5f5f5;
+        position: absolute;
         bottom: 0;
         left:0;
         right: 0;
-        margin-top: 30px;
+        max-width: 1200px;
+        margin: 30px auto 0;
         padding: 20px;
         border-top:  1px solid map-get($grays, '500');
+
+        & > div {
+            display: inline-block;
+            width: 33%;
+        }
+
+        .support-icon {
+            background: #fff;
+            border-radius: 7px;
+            width: 40px;
+            height: 40px;
+            display: inline-block;
+            padding: 8px;
+        }
+
+        .whatsapp, .email {
+            padding: 10px 20px;
+            border:  1px solid map-get($grays, '500');
+            border-radius: 7px;
+
+            & > span:last-of-type {
+                float: right;
+            }
+        }
     }
 
     .alert {
