@@ -4,7 +4,7 @@
             <flight-header />
         </div>
         <div v-if="loading" class="flight-container">
-            <flight-placeholder v-for="i in 3" :key="i" class="mb-3" />
+            <flight-lottie-loading />
         </div>
         <div v-else-if="availables" class="flight-container">
             <template v-if="availables.results.length">
@@ -63,21 +63,19 @@
                 <flight-filter v-model="filters" :options="availables.filters" @apply="applyFilters" />
             </b-modal>
         </template>
-        <lottie-loading v-if="loading" />
     </div>
 </template>
 
 <script>
 import Axios from 'axios'
 import FlightCard from '~/components/flight/available/FlightCard'
-import FlightPlaceholder from '~/components/flight/available/FlightPlaceholder'
 import {flightApi} from '~/api/flightApi'
 import FlightFilter from '~/components/flight/available/filter/FlightFilter'
 import isEqual from 'lodash/isEqual'
 import isEmpty from 'lodash/isEmpty'
 import StickyBottom from '@/components/ui/StickyBottom'
 import FlightHeader from '@/components/flight/FlightHeader'
-import LottieLoading from '~/components/ui/loadings/LottieLoading'
+import FlightLottieLoading from '@/components/flight/available/FlightLottieLoading'
 
 const initialFilters = () => ({
     sort: '',
@@ -98,8 +96,7 @@ export default {
         StickyBottom,
         FlightFilter,
         FlightCard,
-        FlightPlaceholder,
-        LottieLoading
+        FlightLottieLoading
     },
     data() {
         return {
