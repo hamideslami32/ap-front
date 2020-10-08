@@ -56,6 +56,8 @@ export default {
         } else {
             this.sidebarOpen = window.innerWidth >= 1200
         }
+
+        this.$root.$on('sidebar', (v) => this.sidebarOpen = v)
     }
 }
 </script>

@@ -1,11 +1,11 @@
 <template>
     <b-container tag="header" class="flight-header" fluid>
         <div class="flight-header__top mb-4">
-            <hamburger-menu class="white my-1" @click="toggleNavSidebar()" />
+            <hamburger-menu class="white my-1" @click="$root.$emit('sidebar', true)" />
             <div class="flight-header__destinations">
                 <input-pair @switch="switchDestinations">
-                    <input type="text" :value="search.origin ? $translate(search.origin.city) : null">
-                    <input type="text" :value="search.destination ? $translate(search.destination.city) : null">
+                    <span class="ml-4 pl-2">{{ search.origin ? $translate(search.origin.city) : null }}</span>
+                    <span class="mr-4 pr-2">{{ search.destination ? $translate(search.destination.city) : null }}</span>
                 </input-pair>
             </div>
             <button class="btn-raw btn-back" @click="$router.push('/flights')">
@@ -19,7 +19,7 @@
                 :is-international="isInternational"
                 @input="updateSearch"
             >
-                <input type="text" class="passenger-input" :value="classTypeText">
+                <span class="flight-header__input">{{ classTypeText }}</span>
             </passengers-picker>
             <a-datepicker
                 v-model="date"
@@ -30,20 +30,16 @@
                 @input="updateSearch"
             >
                 <template v-slot="{ open, value }">
-                    <input
-                        type="text"
-                        :value="value[0] ? value[0].format('DD MMMM') : null"
-                        readonly
+                    <span
+                        class="flight-header__input"
                         @click="open(0)"
-                    >
-                    <input
+                    >{{ value[0] ? value[0].format('DD MMMM') : null }}</span>
+                    <span
                         v-if="search.type === 'RT'"
-                        type="text"
-                        :value="value[1] ? value[1].format('DD MMMM') : null"
+                        class="flight-header__input"
                         data-datepicker="1"
-                        readonly
                         @click="open(1)"
-                    >
+                    >{{ value[1] ? value[1].format('DD MMMM') : null }}</span>
                 </template>
             </a-datepicker>
             <passengers-picker
@@ -52,7 +48,7 @@
                 :is-international="isInternational"
                 @input="updateSearch"
             >
-                <input type="text" class="passenger-input" :value="passengersCount + ' مسافر'">
+                <span class="flight-header__input">{{ passengersCount + ' مسافر' }}</span>
             </passengers-picker>
         </div>
     </b-container>
@@ -113,7 +109,7 @@ export default {
             position: absolute;
         }
 
-        /deep/ input {
+        /deep/ .flight-header__input {
             background-clip: border-box !important;
             appearance: none;
             outline: none;
@@ -132,14 +128,18 @@ export default {
             display: flex;
             justify-content: center;
 
+            > div {
+                flex-grow: 1;
+            }
+
             > div:first-child {
-                /deep/ input {
+                /deep/ .flight-header__input {
                     border-radius: 5px 10px 10px 5px;
                 }
             }
 
             > div:last-child {
-                /deep/ input {
+                /deep/ .flight-header__input {
                     border-radius: 10px 5px 5px 10px;
                 }
             }
@@ -154,7 +154,7 @@ export default {
                 border-radius: 5px;
                 overflow: hidden;
 
-                input {
+                > span {
                     height: 100%;
                     border: 0;
                     border-radius: 0;
@@ -177,19 +177,6 @@ export default {
 
 
         &__destinations {
-            input {
-                background: transparent;
-                border: none;
-                height: 30px;
-                color: $white;
-                font-size: 17px;
-                text-align: left;
-                padding: 10px 30px;
-
-                &:last-child {
-                    text-align: right;
-                }
-            }
 
             /deep/ .input-pair__switch {
                 z-index: 4;

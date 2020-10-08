@@ -75,7 +75,7 @@ export default {
         position: relative;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
 
         $size: 40px;
         $boder-color: #ddd;
