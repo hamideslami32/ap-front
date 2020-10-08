@@ -52,7 +52,7 @@ export default {
    */
     buildModules: [
         '@nuxtjs/style-resources',
-        ['@nuxtjs/pwa', { icon: false }],
+        '@nuxtjs/pwa',
         '@nuxtjs/router-extras'
         /*     '@nuxtjs/eslint-module',
         '@nuxtjs/stylelint-module' */
@@ -124,5 +124,17 @@ export default {
     pageTransition: {
         name: 'page-transition',
         mode: ''
+    },
+    pwa: {
+        icon: {
+            source: 'assets/images/logo.png'
+        },
+        meta: {
+            mobileAppIOS: true
+        },
+        manifest: {
+            name: 'Apro',
+            short_name: 'Apro'
+        }
     }
 }
