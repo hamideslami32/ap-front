@@ -191,6 +191,7 @@ extend('min', {
 
 export default {
     name: 'Account',
+    auth: true,
     components: {Field, AInput, CheckedTick},
     data() {
         const user = this.$auth.user
