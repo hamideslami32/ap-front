@@ -1,5 +1,5 @@
 <template functional>
     <lottie-animation
-        path="loading1.json"
+        path="flight-loading.json"
     />
 </template>

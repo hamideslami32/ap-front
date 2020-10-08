@@ -80,6 +80,17 @@ class Auth {
         return user
     }
 
+    async loginPassword(username, password) {
+        const { token, user, expiration } = await this.axios.$post('/auth/login', { username, password })
+        this.setToken(token)
+        this.user = user
+        this.storage.setCookie(COOKIE_TOKEN, token, {
+            expires: new Date(expiration)
+        })
+        this.showModal = false
+        return user
+    }
+
     async logout(redirect = '/') {
         if (routeOption(this.router.currentRoute, 'auth')) {
             await this.router.push(redirect)

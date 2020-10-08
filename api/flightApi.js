@@ -33,7 +33,8 @@ export const flightApi = new class FlightApi extends BaseApi {
     getResults(searchId, filters, cancelToken) {
         return this.axios.$get('/flight/results/' + searchId, {
             params: filters,
-            cancelToken
+            cancelToken,
+            progress: false
         }).then(result => {
             result.results.forEach(available => {
                 available.routes.forEach(route => {

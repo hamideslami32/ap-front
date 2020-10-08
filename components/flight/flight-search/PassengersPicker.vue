@@ -6,31 +6,31 @@
                 <svgicon name="arrow-left" width="20" height="20" />
             </template>
             <div class="passenger-modal">
-                <p class="passenger-modal__title mb-4">
+                <h5 class="text-3 text-gray-700 mb-4">
                     انتخاب مسافر
-                </p>
-                <div class="d-flex passenger-section-holder align-items-center mb-3">
-                    <div class="passenger-section d-flex">
+                </h5>
+                <div class="d-flex align-items-center mb-3">
+                    <div class="d-flex">
                         <div class="d-flex align-items-center">
-                            <span class="ml-2 passenger-section__name">بزرگسال</span>
-                            <small class="passenger-section__tip text-muted">(12 سال به بالا)</small>
+                            <span class="ml-2">بزرگسال</span>
+                            <small class="text-muted">(12 سال به بالا)</small>
                         </div>
                     </div>
                     <number-spinner :value="localValue.adult" class="mr-auto" @input="setValue('adult', $event)" />
                 </div>
                 <div class="d-flex align-items-center mb-3">
-                    <div class="passenger-section d-flex">
+                    <div class="d-flex">
                         <div class="d-flex align-items-center">
-                            <span class="ml-2 passenger-section__name">کودک</span>
+                            <span class="ml-2">کودک</span>
                             <small class="text-muted">(2 سال تا 12 سال)</small>
                         </div>
                     </div>
                     <number-spinner :value="localValue.child" class="mr-auto" @input="setValue('child', $event)" />
                 </div>
                 <div class="d-flex align-items-center mb-3">
-                    <div class="passenger-section d-flex">
+                    <div class="d-flex">
                         <div class="d-flex align-items-center">
-                            <span class="ml-2 passenger-section__name">نوزاد</span>
+                            <span class="ml-2">نوزاد</span>
                             <small class="text-muted">(10 روز تا 2 سال)</small>
                         </div>
                     </div>
@@ -40,9 +40,9 @@
 
             <div v-if="isInternational" class="passenger-class">
                 <hr class="my-4">
-                <p class="passenger-class__title mb-4">
+                <h5 class="text-3 mb-4 text-gray-700">
                     کلاس پروازی
-                </p>
+                </h5>
                 <b-form-group class="en font-weight-medium">
                     <b-form-radio
                         v-for="x in classTypes"

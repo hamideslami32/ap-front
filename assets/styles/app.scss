@@ -8,6 +8,7 @@
 @import 'modal';
 @import 'buttons';
 @import 'toast';
+@import 'tabs';
 @import 'vue-transitions';
 @import 'page-transitions';
 @import 'utilities/index';
@@ -65,37 +66,6 @@ a:hover {
             margin-left: 0 !important;
             margin-bottom: 0 !important;
             margin-right: auto;
-        }
-    }
-}
-
-.tabs {
-    .nav {
-        padding: 10px 10px 0 10px;
-        border: none;
-        background: #f5f5f5;
-        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
-
-        .nav-item {
-            flex: 1;
-            text-align: center;
-            border: none;
-
-            .nav-link {
-                font-size: 0.875em;
-                font-weight: 500;
-                color: map_get($grays, '800');
-                border: none;
-
-                &:focus, &:active, &:hover, &.active {
-                    border-left: none;
-                    border-top: none;
-                    border-right: 0;
-                    border-bottom: 2px solid $primary;
-                    font-weight: 600;
-                    color: $primary;
-                }
-            }
         }
     }
 }

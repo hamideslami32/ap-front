@@ -6,73 +6,122 @@
         <template v-slot:modal-header-close>
             <svgicon name="arrow-left" width="20" height="20" />
         </template>
-        <v-observer v-slot="{ handleSubmit }" ref="loginForm" slim>
-            <form v-if="step === 'otp'" class="auth-form" @submit.prevent="handleSubmit(requestOtp)">
-                <p>لطفا شماره همراه خود را وارد نمایید</p>
-                <v-provider v-slot="{ errors }" name="شماره همراه" vid="phone" rules="required|min:11|mobileNumber">
-                    <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
-                        <a-input
-                            v-model="mobile"
-                            v-localize-number
-                            dir="ltr"
-                            class="auth-form__input mb-2"
-                            type="tel"
-                            wrapper-class="mb-1 text-center"
-                            inputmode="numeric"
-                            maxlength="11"
-                            placeholder="شماره همراه"
-                        />
-                    </b-form-group>
-                </v-provider>
-                <a-btn
-                    wrapper-class="mt-3"
-                    type="submit"
-                    :loading="loading"
-                    shadow
-                    block
-                    variant="primary"
-                >
-                    ورود
-                </a-btn>
-            </form>
-        </v-observer>
-        <form v-if="step === 'verification'" class="auth-form">
-            <p>کد پیامک شده را وارد نمایید</p>
-            <digit-input ref="digitInputs" v-model="digits" @done="verifyOtpRequest" />
-            <a-btn
-                ref="submitBtn"
-                :disabled="disableConfirmBtn"
-                :loading="loading"
-                shadow
-                block
-                variant="primary"
-                @click.prevent="verifyOtpRequest"
-            >
-                تأیید
-            </a-btn>
-            <div class="mt-5 d-flex justify-content-between align-items-center">
-                <div class="d-flex flex-column align-items-start">
-                    <span class="auth-form__tip">
-                        {{ !resend ? 'زمان اعتبار کد ارسالی به شماره' : 'کد ارسال نشد! مجدد تلاش کنید' }}
-                    </span>
-                    <span class="auth-form__number">
-                        {{ mobile }}
-                    </span>
-                </div>
-                <span v-if="!resend" class="auth-form__timer-holder">
-                    <timer :duration="duration" @finish="finishCounter" />
-                </span>
-                <b-button
-                    v-else
-                    :disabled="!resend"
-                    class="float-left d-inline-block auth-form__resend-otp"
-                    variant="outline-secondary"
-                    @click.prevent="resendRequest"
-                >
-                    ارسال مجدد
-                </b-button>
-            </div>
-        </form>
+        <b-tabs>
+            <b-tab class="pt-4" title="ورود با رمز موقت">
+                <v-observer v-slot="{ handleSubmit }" ref="loginForm" slim>
+                    <form v-if="step === 'otp'" class="auth-form" @submit.prevent="handleSubmit(requestOtp)">
+                        <p>لطفا شماره همراه خود را وارد نمایید</p>
+                        <v-provider v-slot="{ errors }" name="شماره همراه" vid="phone" rules="required|min:11|mobileNumber">
+                            <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
+                                <a-input
+                                    v-model="mobile"
+                                    v-localize-number
+                                    dir="ltr"
+                                    class="auth-form__input mb-2"
+                                    type="tel"
+                                    wrapper-class="mb-1 text-center"
+                                    inputmode="numeric"
+                                    maxlength="11"
+                                    placeholder="شماره همراه"
+                                />
+                            </b-form-group>
+                        </v-provider>
+                        <a-btn
+                            wrapper-class="mt-3"
+                            type="submit"
+                            :loading="loading"
+                            shadow
+                            block
+                            variant="primary"
+                        >
+                            ورود
+                        </a-btn>
+                    </form>
+                </v-observer>
+                <form v-if="step === 'verification'" class="auth-form">
+                    <p>کد پیامک شده را وارد نمایید</p>
+                    <digit-input ref="digitInputs" v-model="digits" @done="verifyOtpRequest" />
+                    <a-btn
+                        ref="submitBtn"
+                        :disabled="disableConfirmBtn"
+                        :loading="loading"
+                        shadow
+                        block
+                        variant="primary"
+                        @click.prevent="verifyOtpRequest"
+                    >
+                        تأیید
+                    </a-btn>
+                    <div class="mt-5 d-flex justify-content-between align-items-center">
+                        <div class="d-flex flex-column align-items-start">
+                            <span class="auth-form__tip">
+                                {{ !resend ? 'زمان اعتبار کد ارسالی به شماره' : 'کد ارسال نشد! مجدد تلاش کنید' }}
+                            </span>
+                            <span class="auth-form__number">
+                                {{ mobile }}
+                            </span>
+                        </div>
+                        <span v-if="!resend" class="auth-form__timer-holder">
+                            <timer :duration="duration" @finish="finishCounter" />
+                        </span>
+                        <b-button
+                            v-else
+                            :disabled="!resend"
+                            class="float-left d-inline-block auth-form__resend-otp"
+                            variant="outline-secondary"
+                            @click.prevent="resendRequest"
+                        >
+                            ارسال مجدد
+                        </b-button>
+                    </div>
+                </form>
+            </b-tab>
+            <b-tab class="pt-4" title="ورود با رمز عبور">
+                <v-observer v-slot="{ handleSubmit }" ref="loginForm" slim>
+                    <form class="auth-form" @submit.prevent="handleSubmit(loginPassword)">
+                        <p>لطفا شماره همراه خود را وارد نمایید</p>
+                        <v-provider v-slot="{ errors }" name="شماره همراه" vid="phone" rules="required|min:11|mobileNumber">
+                            <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
+                                <a-input
+                                    v-model="mobile"
+                                    v-localize-number
+                                    dir="ltr"
+                                    class="auth-form__input mb-2"
+                                    type="tel"
+                                    wrapper-class="mb-1 text-center"
+                                    inputmode="numeric"
+                                    maxlength="11"
+                                    placeholder="شماره همراه"
+                                />
+                            </b-form-group>
+                        </v-provider>
+                        <v-provider v-slot="{ errors }" name="رمز عبور" vid="password" rules="required|min:6">
+                            <b-form-group class="mb-2" :state="errors.length ? false : null" :invalid-feedback="errors[0]">
+                                <a-input
+                                    v-model="password"
+                                    v-localize-number
+                                    dir="ltr"
+                                    class="auth-form__input mb-2"
+                                    type="password"
+                                    wrapper-class="mb-1 text-center"
+                                    placeholder="رمز عبور"
+                                />
+                            </b-form-group>
+                        </v-provider>
+                        <a-btn
+                            wrapper-class="mt-3"
+                            type="submit"
+                            :loading="loading"
+                            shadow
+                            block
+                            variant="primary"
+                        >
+                            ورود
+                        </a-btn>
+                    </form>
+                </v-observer>
+            </b-tab>
+        </b-tabs>
     </b-modal>
 </template>
 
@@ -101,6 +150,7 @@ export default {
         return {
             step: 'otp',
             mobile: '',
+            password: '',
             digits: new Array(5).fill(null),
             resend: false,
             loading: false,
@@ -113,13 +163,6 @@ export default {
             return this.digits.filter(el => el !== null).length < 5
         }
     },
-    // watch: {
-    //     digits() {
-    //         if(this.digits.filter(el => !isNaN(el) && el).length === 5) {
-    //             this.verifyOtpRequest()
-    //         }
-    //     }
-    // },
     methods: {
         async requestOtp() {
             try {
@@ -129,11 +172,7 @@ export default {
                 this.duration = Number(data.duration)
                 this.step = 'verification'
             } catch (e) {
-                if (e.response.status === 429) {
-                    this.$refs.loginForm.setErrors({
-                        phone: 'شما چند لحظه پیش درخواست داده‌اید، لطفا کمی صبر کنید.'
-                    })
-                }
+                this.step = 'verification'
             } finally {
                 this.loading = false
             }
@@ -163,6 +202,10 @@ export default {
             })
             this.digits = new Array(5).fill(null)
             this.step = 'otp'
+        },
+
+        async loginPassword() {
+            await this.$auth.loginPassword(this.mobile, this.password)
         },
 
         resolve() {
