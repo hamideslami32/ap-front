@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div class="mb-3 py-4">
+        <portal to="header">
             <flight-header />
-        </div>
+        </portal>
         <div v-if="loading" class="flight-container">
             <flight-lottie-loading />
         </div>

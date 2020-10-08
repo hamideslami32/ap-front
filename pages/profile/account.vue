@@ -1,6 +1,6 @@
 <template>
     <div class="account">
-        <portal to="header">
+        <portal to="title">
             حساب کاربری
         </portal>
         <b-tabs content-class="mt-5 px-2 mb-3">

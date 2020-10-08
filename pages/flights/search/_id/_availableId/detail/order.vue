@@ -1,6 +1,6 @@
 <template>
     <div class="order">
-        <portal to="header">
+        <portal to="title">
             <span>مسافرین و خریدار</span>
         </portal>
         <div class="mt-3 px-2">

@@ -1,6 +1,6 @@
 <template>
     <div class="flight-detail mt-3 mx-2">
-        <portal to="header">
+        <portal to="title">
             <span>جزئیات پرواز</span>
         </portal>
         <portal to="right-header">

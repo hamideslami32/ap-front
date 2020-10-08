@@ -94,7 +94,7 @@ export default {
     },
     methods: {
         async fetchResult(query) {
-            this.destinations = await flightApi.suggest(query)
+            this.destinations = await flightApi.suggest(query).catch(err => [])
         },
         select(value, close = false) {
             this.$emit('input', value)

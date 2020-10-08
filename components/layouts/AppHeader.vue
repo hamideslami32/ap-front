@@ -3,7 +3,7 @@
         <portal-target name="header-right">
             <hamburger-menu @click="toggleNavSidebar()" />
         </portal-target>
-        <portal-target class="text-center" name="header">
+        <portal-target class="text-center" name="title">
             <nuxt-link to="/">
                 <logo />
             </nuxt-link>

@@ -3,7 +3,7 @@
         <portal to="right-header">
             <span />
         </portal>
-        <portal to="header">
+        <portal to="title">
             خرید ها و استرداد ها
         </portal>
         <template v-if="!orders">

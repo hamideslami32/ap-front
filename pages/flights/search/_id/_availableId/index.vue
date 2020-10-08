@@ -1,6 +1,6 @@
 <template>
     <div v-if="available" class="flight-time">
-        <portal to="header">
+        <portal to="title">
             <span>انتخاب ساعت پرواز</span>
         </portal>
         <portal to="right-header">

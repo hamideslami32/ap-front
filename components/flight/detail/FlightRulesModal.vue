@@ -110,6 +110,7 @@ export default {
             overflow: auto;
             border-radius: 5px;
             transition: all ease 300ms;
+            font-size: 0.9em;
         }
         .h-refund-list > li:hover {
             box-shadow: 0 6px 15px rgba(0,0,0, 0.1);

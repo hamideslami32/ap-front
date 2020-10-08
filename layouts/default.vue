@@ -1,6 +1,8 @@
 <template>
     <div class="mobile-layout" :class="{ 'mobile-layout--hide-bottom-nav': !showBottomNav }">
-        <app-header :sidebar-open.sync="sidebarOpen" />
+        <portal-target name="header">
+            <app-header :sidebar-open.sync="sidebarOpen" />
+        </portal-target>
         <sidebar-nav :open.sync="sidebarOpen" />
         <main>
             <nuxt />

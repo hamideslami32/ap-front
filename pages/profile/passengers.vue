@@ -1,6 +1,6 @@
 <template>
     <div class="passengers px-2 mt-3">
-        <portal to="header">
+        <portal to="title">
             مسافران
         </portal>
         <a-btn

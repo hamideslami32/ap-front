@@ -1,6 +1,6 @@
 <template>
     <div class="transactions px-2 mt-3">
-        <portal to="header">
+        <portal to="title">
             تراکنش ها
         </portal>
         <card v-for="payment in payments" :key="payment._id" class="mb-3">

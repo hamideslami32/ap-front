@@ -5,7 +5,7 @@
                 <svgicon width="30" height="30" name="userProfile-Hexagon" />
             </nuxt-link>
         </portal>
-        <portal to="header">
+        <portal to="title">
             پروفایل
         </portal>
         <div class="profile-header pb-3 pt-5">
