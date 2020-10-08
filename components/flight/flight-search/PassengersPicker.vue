@@ -72,6 +72,7 @@
 <script>
 import NumberSpinner from '~/components/ui/form/NumberSpinner'
 import cloneDeep from 'lodash/cloneDeep'
+import isEqual from 'lodash/isEqual'
 
 export default {
     components: {
@@ -138,7 +139,7 @@ export default {
             }
         },
         updateValue() {
-            this.$emit('input', this.localValue)
+            !isEqual(this.localValue, this.value) && this.$emit('input', this.localValue)
         },
         validate({adult, child, infant}) {
             const MAX_PASSENGERS = 9

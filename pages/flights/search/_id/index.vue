@@ -1,12 +1,12 @@
 <template>
-    <div>
+    <div class="h-100">
         <portal to="header">
             <flight-header />
         </portal>
-        <div v-if="loading" class="flight-container">
+        <div v-if="loading" class="flight-container h-100">
             <flight-lottie-loading />
         </div>
-        <div v-else-if="availables" class="flight-container">
+        <div v-else-if="availables" class="flight-container h-100">
             <template v-if="availables.results.length">
                 <flight-card
                     v-for="(x, i) in availables.results"
@@ -324,13 +324,8 @@ export default {
 
 <style lang="scss" scoped>
     .flight-container {
-        padding: 10px 10px 80px;
+        padding: 60px 10px 80px;
         -ms-overflow-style: none;
-        position: absolute;
-        top: 120px;
-        left: 0;
-        right: 0;
-        bottom: 0;
         overflow: auto;
 
         &::-webkit-scrollbar {
