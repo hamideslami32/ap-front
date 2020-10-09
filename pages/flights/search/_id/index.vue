@@ -189,7 +189,7 @@ export default {
                     sid: res.id
                 }
             })
-            return res.id
+            return res
         },
         startPolling(sid, retry = 1) {
             return this.getRequest(sid, new Axios.CancelToken(canceler => {
@@ -242,11 +242,18 @@ export default {
             this.availables = null
             delete this._loadMoreComplete
             try {
-                const searchId = newSearch ? await this.search() : this.searchId
+                const search = newSearch ? await this.search() : this.searchId
                 if (newSearch) {
                     await new Promise(resolve => this._pollingTimeout = setTimeout(resolve, POLLING_INTERVAL / 2))
                 }
-                this.availables = await this.startPolling(searchId)
+                if (search.progress >= 100) {
+                    this.availables = {
+                        results: search.results,
+                        filters: search.filters
+                    }
+                } else {
+                    this.availables = await this.startPolling(search.id)
+                }
             } catch (err) {
                 // eslint-disable-next-line no-console
                 console.error(err)

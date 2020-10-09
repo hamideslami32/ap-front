@@ -105,15 +105,14 @@ export default {
         transition: all 250ms ease;
         position: absolute;
         border-radius: 100px;
-        top: 0;
-        bottom: 0;
+        top: 5px;
+        bottom: 5px;
         width: 118px;
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
         color: $white;
         z-index: 1;
-        transform: translateY(5px);
-        height: 75%;
         margin: 0 5px;
+        will-change: width;
     }
 }
 </style>
