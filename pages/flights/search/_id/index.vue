@@ -243,17 +243,17 @@ export default {
             delete this._loadMoreComplete
             try {
                 const search = newSearch ? await this.search() : this.searchId
-                if (newSearch) {
-                    await new Promise(resolve => this._pollingTimeout = setTimeout(resolve, POLLING_INTERVAL / 2))
-                }
                 if (search.progress >= 100) {
                     this.availables = {
                         results: search.results,
                         filters: search.filters
                     }
-                } else {
-                    this.availables = await this.startPolling(search.id)
+                    return
                 }
+                if (newSearch) {
+                    await new Promise(resolve => this._pollingTimeout = setTimeout(resolve, POLLING_INTERVAL / 2))
+                }
+                this.availables = await this.startPolling(search.id)
             } catch (err) {
                 // eslint-disable-next-line no-console
                 console.error(err)
