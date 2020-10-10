@@ -15,7 +15,7 @@
                 <div class="d-flex align-items-center text-weight-500">
                     <span class="text-2 py-1 px-2">{{ $dayjs(firstStop.departureTime).format('HH:mm') }}</span>
                     <span class="text-3 mx-2">{{ firstStop.departureCityName }}</span>
-                    <span class="text-2 text-weight-400 ml-2 pt-1" :dir="isDomestic ? 'rtl' : 'ltr'">{{ departureDate }}</span>
+                    <span class="text-2 text-weight-400 ml-2 pt-1" :dir="isDomestic ? 'rtl' : 'ltr'">{{ !isDomestic ? departureDate : departureDate | localizeNumber }}</span>
                 </div>
 
                 <p class="flight-type my-2 text-secondary text-weight-500 text-1">
@@ -25,7 +25,7 @@
                 <div class="d-flex align-items-center text-weight-500">
                     <span class="text-2 py-1 px-2">{{ $dayjs(lastStop.arrivalTime).format('HH:mm') }}</span>
                     <span class="text-3 mx-2">{{ lastStop.arrivalCityName }}</span>
-                    <span class="text-2 text-weight-400 ml-2 pt-1" :dir="isDomestic ? 'rtl' : 'ltr'">{{ arrivalDate }}</span>
+                    <span class="text-2 text-weight-400 ml-2 pt-1" :dir="isDomestic ? 'rtl' : 'ltr'">{{ !isDomestic ? arrivalDate : arrivalDate | localizeNumber }}</span>
                 </div>
             </div>
         </b-col>
