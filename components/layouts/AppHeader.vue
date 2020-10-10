@@ -62,14 +62,15 @@ export default {
         align-items: center;
         border-bottom: 1px solid #e6e6e6;
 
+        .btn-raw {
+            margin-left: -15px;
+            padding: 20px;
+            
+        }
+
         @include media-breakpoint-up(md) {
             position: absolute;
         }
-
-        > * {
-            flex: 1 0 33%;
-        }
-        // link color was white
     }
 
     .transparent-header .app-header {
