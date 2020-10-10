@@ -92,8 +92,6 @@ export default {
     }
     .charity-card__info {
         border: 1px solid #e5e5e5;
-        height: 70px;
-        line-height: 52px;
         border-radius: $borderRadius10;
     }
     .charity-card__options {
