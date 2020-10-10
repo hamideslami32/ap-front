@@ -4,7 +4,7 @@
             <app-header :sidebar-open.sync="sidebarOpen" />
         </portal-target>
         <sidebar-nav :open.sync="sidebarOpen" />
-        <main>
+        <main ref="main">
             <nuxt />
         </main>
         <app-bottom-nav v-show="showBottomNav" />
@@ -44,21 +44,24 @@ export default {
     },
     watch: {
         '$route.path'() {
-            if(process.server) {
-                this.sidebarOpen = !this.$device.isDesktop
-            } else {
-                this.sidebarOpen = window.innerWidth >= 1200
+            if (window.innerWidth < 1200) {
+                this.sidebarOpen = false
             }
+
+            this.$refs.main.scrollTo(0, 0)
+
         }
     },
 
-    mounted() {
+    created() {
         if(process.server) {
             this.sidebarOpen = this.$device.isDesktop
         } else {
             this.sidebarOpen = window.innerWidth >= 1200
         }
+    },
 
+    mounted() {
         this.$root.$on('sidebar', (v) => this.sidebarOpen = v)
     }
 }
