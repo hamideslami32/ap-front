@@ -53,9 +53,12 @@ export default {
     buildModules: [
         '@nuxtjs/style-resources',
         '@nuxtjs/pwa',
-        '@nuxtjs/router-extras'
+        '@nuxtjs/router-extras',
         /*     '@nuxtjs/eslint-module',
         '@nuxtjs/stylelint-module' */
+        ['@nuxtjs/google-analytics', {
+            id: 'G-VQ656BKCLZ'
+        }]      
         // Doc: https://github.com/nuxt-community/eslint-module
         // Doc: https://github.com/nuxt-community/stylelint-module
     ],

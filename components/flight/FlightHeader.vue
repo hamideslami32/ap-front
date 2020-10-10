@@ -4,8 +4,8 @@
             <hamburger-menu class="white my-1" @click="$root.$emit('sidebar', true)" />
             <div class="flight-header__destinations">
                 <input-pair @switch="switchDestinations">
-                    <span class="ml-4 pl-2">{{ search.origin ? $translate(search.origin.city) : null }}</span>
-                    <span class="mr-4 pr-2">{{ search.destination ? $translate(search.destination.city) : null }}</span>
+                    <span class="ml-4 pl-2">&nbsp;{{ search.origin ? $translate(search.origin.city) : '' }}</span>
+                    <span class="mr-4 pr-2">&nbsp;{{ search.destination ? $translate(search.destination.city) : '' }}</span>
                 </input-pair>
             </div>
             <button class="btn-raw btn-back" @click="$router.push('/flights')">
@@ -19,7 +19,7 @@
                 :is-international="isInternational"
                 @input="updateSearch"
             >
-                <span class="flight-header__input">{{ classTypeText }}</span>
+                <span class="flight-header__input">&nbsp;{{ classTypeText ? classTypeText : '' }}</span>
             </passengers-picker>
             <a-datepicker
                 v-model="date"
@@ -33,13 +33,13 @@
                     <span
                         class="flight-header__input"
                         @click="open(0)"
-                    >{{ value[0] ? value[0].format('DD MMMM') : null }}</span>
+                    >{{ value[0] ? value[0].format('DD MMMM') : ' ' }}</span>
                     <span
                         v-if="search.type === 'RT'"
                         class="flight-header__input"
                         data-datepicker="1"
                         @click="open(1)"
-                    >{{ value[1] ? value[1].format('DD MMMM') : null }}</span>
+                    >{{ value[1] ? value[1].format('DD MMMM') : ' ' }}</span>
                 </template>
             </a-datepicker>
             <passengers-picker
