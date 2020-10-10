@@ -51,6 +51,7 @@ export default {
 <style lang="scss" scoped>
 .destination-item {
     font-size: 0.875rem;
+    cursor: pointer;
 }
 .item {
     display: flex;
