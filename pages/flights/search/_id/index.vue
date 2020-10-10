@@ -242,7 +242,7 @@ export default {
             this.availables = null
             delete this._loadMoreComplete
             try {
-                const search = newSearch ? await this.search() : this.searchId
+                const search = newSearch ? await this.search() : { id: this.searchId }
                 if (search.progress >= 100) {
                     this.availables = {
                         results: search.results,
