@@ -54,6 +54,12 @@
                 </a-btn>
             </a>
         </div>
+
+        <img
+            class="enamad"
+            src="https://Trustseal.eNamad.ir/logo.aspx?id=120834&amp;Code=4fRG3qhXX5uF7JaAPVOk"
+            @click="onEnamadClick"
+        >
     </nav>
 </template>
 
@@ -88,6 +94,7 @@ export default {
                     text: 'درباره اپرو'
                 }
             ]
+
         }
     },
     methods: {
@@ -98,6 +105,12 @@ export default {
             this.$auth.authenticate().then(() => {
                 this.$router.push('/profile')
             }).catch(err => {})
+        },
+        onEnamadClick() {
+            // 'https://trustseal.enamad.ir/Verify.aspx?id=120834&p=Z2oNXDs0ZkPRTdcV',
+            window.open('https://trustseal.enamad.ir/?id=120834&amp;code=4fRG3qhXX5uF7JaAPVOk',
+                'Popup',
+                'toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=600, top=30')
         }
     }
 }
@@ -229,4 +242,12 @@ export default {
         }
     }
 
+    .enamad {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        cursor: pointer;
+        width: 100px;
+        height: 100px;
+    }
 </style>
