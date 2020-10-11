@@ -57,7 +57,7 @@ export default {
         /*     '@nuxtjs/eslint-module',
         '@nuxtjs/stylelint-module' */
         ['@nuxtjs/google-analytics', {
-            id: 'G-VQ656BKCLZ'
+            id: 'UA-180268035-1'
         }]      
         // Doc: https://github.com/nuxt-community/eslint-module
         // Doc: https://github.com/nuxt-community/stylelint-module
