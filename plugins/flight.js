@@ -8,6 +8,7 @@ class Flight {
         this.session = null
         this.available = null
         this.flights = null
+        this.staticUrl = ctx.$staticUrl
         if (process.server) {
             this.ssr = ctx.ssrContext.nuxt
         }
@@ -81,7 +82,7 @@ class Flight {
     }
 
     airlineLogoUrl(iata) {
-        return Vue.prototype.$staticUrl(`/ad/airlines/logo/${iata}.png`)
+        return this.staticUrl(`/ad/airlines/logo/${iata}.png`)
     }
 
     expireSession(onRetry) {
