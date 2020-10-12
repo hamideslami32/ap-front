@@ -89,6 +89,9 @@ export default {
         DOMAIN_URL: process.env.DOMAIN_URL,
         API_URL: process.env.API_URL
     },
+    privateRuntimeConfig: {
+        API_URL: 'http://andromeda:3000/api'
+    },
     /*
    ** Content module configuration
    ** See https://content.nuxtjs.org/configuration
