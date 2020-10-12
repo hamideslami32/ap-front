@@ -168,7 +168,6 @@ export default {
             try {
                 this.loading = true
                 const data = await this.$auth.requestOtp(this.mobile)
-                data.otp && alert(data.otp)
                 this.duration = Number(data.duration)
                 this.step = 'verification'
             } catch (e) {
@@ -205,7 +204,17 @@ export default {
         },
 
         async loginPassword() {
-            await this.$auth.loginPassword(this.mobile, this.password)
+            try {
+                this.loading = true
+                await this.$auth.loginPassword(this.mobile, this.password)
+            }catch (error) {
+                if(error.response.status === 401) {
+                    this.$toast.alert('رمز عبور وارد شده صحیح نمیباشد.')
+                }
+            }
+            finally {
+                this.loading = false
+            }
         },
 
         resolve() {
