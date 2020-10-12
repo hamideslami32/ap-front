@@ -11,13 +11,13 @@ build:
   script:
     - >
       docker build
-      -t $IMAGE:latest
+      -t $IMAGE:$TAG
       --build-arg "PUBLIC_PATH=https://apro.ir/static/fr" .
 
 sync-cdn:
   stage: sync-cdn
   script:
-    - docker pull $IMAGE
+    - docker pull $IMAGE:$TAG
     - docker container create --name apro $IMAGE
     - docker container cp apro:/app/.nuxt/dist/client/. /var/www/static/fr
     - docker container rm -f apro
@@ -33,7 +33,7 @@ build-stg:
   script:
     - >
       docker build
-      -t $IMAGE:latest
+      -t $IMAGE:$TAG_STG
       --build-arg "PUBLIC_PATH=https://apro-dev.ir/static/fr" .
   only:
     - staging
@@ -41,7 +41,7 @@ build-stg:
 sync-cdn-stg:
   stage: sync-cdn
   script:
-    - docker pull $IMAGE
+    - docker pull $IMAGE:$TAG_STG
     - docker container create --name apro $IMAGE
     - docker container cp apro:/app/.nuxt/dist/client/. /var/www/static/fr
     - docker container rm -f apro
