@@ -12,9 +12,6 @@ build:
     - >
       docker build
       -t $IMAGE:latest
-      --build-arg "API_URL=https://apro.ir/api"
-      --build-arg "STATIC_URL=https://apro.ir/static"
-      --build-arg "DOMAIN_URL=https://apro.ir"
       --build-arg "PUBLIC_PATH=https://apro.ir/static/fr" .
 
 sync-cdn:
@@ -28,3 +25,25 @@ sync-cdn:
     - asia-tech
   only:
     - master
+
+
+### STAGING
+build-stg:
+  stage: build
+  script:
+    - >
+      docker build
+      -t $IMAGE:latest
+      --build-arg "PUBLIC_PATH=https://apro-dev.ir/static/fr" .
+  only:
+    - staging
+
+sync-cdn-stg:
+  stage: sync-cdn
+  script:
+    - docker pull $IMAGE
+    - docker container create --name apro $IMAGE
+    - docker container cp apro:/app/.nuxt/dist/client/. /var/www/static/fr
+    - docker container rm -f apro
+  only:
+    - staging
