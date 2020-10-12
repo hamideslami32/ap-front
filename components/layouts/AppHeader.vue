@@ -63,7 +63,7 @@ export default {
         border-bottom: 1px solid #e6e6e6;
 
         .btn-raw {
-            margin-left: -15px;
+            margin-left: -10px;
             padding: 20px;
             
         }

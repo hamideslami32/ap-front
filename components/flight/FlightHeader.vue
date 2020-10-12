@@ -193,7 +193,7 @@ export default {
             position: absolute;
             right: 0;
             top: 0;
-            padding: 18px 15px;
+            padding: 15px;
         }
         .btn-back {
             left: 0;

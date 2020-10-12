@@ -32,7 +32,10 @@
             background-color: $white;
         }
         @include media-breakpoint-up(xl) {
-            display: none;
+            span {
+                opacity: 0;
+                pointer-events: none;
+            }
         }
     }
 </style>
