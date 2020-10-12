@@ -111,7 +111,7 @@ export default {
             return this.order.orderItems.find(item => item.type === 'flight')
         },
         downloadUrl() {
-            return process.env.API_URL + '/flight/ticket/' + this.order._id
+            return this.$config.API_URL + '/flight/ticket/' + this.order._id
         }
     }
 }

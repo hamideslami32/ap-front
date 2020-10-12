@@ -18,7 +18,7 @@ if (process.browser) {
 }
 
 Vue.prototype.$staticUrl = function(url) {
-    const baseURL = process.env.STATIC_URL.replace(/\/+$/, '')
+    const baseURL = this.$config.STATIC_URL.replace(/\/+$/, '')
     return (baseURL + '/' + url.replace(/^\/+/, '')).trim()
 }
 

@@ -20,7 +20,10 @@ export default {
                 content: process.env.npm_package_description || ''
             }
         ],
-        link: [{rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}]
+        link: [
+            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+            { rel:'apple-touch-icon', sizes: '100x100', href: '/logo-pwa.svg' }
+        ]
     },
     /*
    ** Global CSS
@@ -58,7 +61,7 @@ export default {
         '@nuxtjs/stylelint-module' */
         ['@nuxtjs/google-analytics', {
             id: 'UA-180268035-1'
-        }]      
+        }]
         // Doc: https://github.com/nuxt-community/eslint-module
         // Doc: https://github.com/nuxt-community/stylelint-module
     ],
@@ -79,9 +82,9 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
     axios: {
-        baseURL: process.env.API_URL || 'https://apro-dev.ir/api'
+        baseURL: process.env.API_URL
     },
-    env: {
+    publicRuntimeConfig: {
         STATIC_URL: process.env.STATIC_URL,
         DOMAIN_URL: process.env.DOMAIN_URL,
         API_URL: process.env.API_URL

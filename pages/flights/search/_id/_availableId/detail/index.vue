@@ -144,7 +144,7 @@ export default {
                     sessionId: this.$flight.session.id,
                     availableId: this.available._id,
                     flightIds: this.flights.map(fl => fl._id),
-                    callbackURL: process.env.DOMAIN_URL + this.$router.resolve({name: 'issue'}).href
+                    callbackURL: this.$config.DOMAIN_URL + this.$router.resolve({name: 'issue'}).href
                 })
                 await this.$router.push({
                     path: this.$route.path + '/order',
