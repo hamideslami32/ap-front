@@ -82,15 +82,19 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
     axios: {
-        baseURL: process.env.API_URL
+        baseURL: 'https://apro.ir/api'
     },
     publicRuntimeConfig: {
         STATIC_URL: process.env.STATIC_URL,
         DOMAIN_URL: process.env.DOMAIN_URL,
-        API_URL: process.env.API_URL
+        axios: {
+            browserBaseURL: process.env.API_URL
+        }
     },
     privateRuntimeConfig: {
-        API_URL: 'http://andromeda:3000/api'
+        axios: {
+            baseURL: process.env.SERVER_API_URL || process.env.API_URL
+        }
     },
     /*
    ** Content module configuration
