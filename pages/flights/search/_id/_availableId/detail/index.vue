@@ -111,17 +111,16 @@ export default {
         RiskFreeCard,
         PriceDetail
     },
-
+    fetchOnServer: false,
     async fetch() {
         try {
             this.flights = await flightApi.getFlights(this.$flight.session.id, this.available._id, this.$route.query.flights.split(','))
         } catch (err) {
-            if (process.server) {
-                throw err
+            if (err.response?.status === 440) {
+                this.$flight.expireSession(() => {
+                    this.$router.push('/flights')
+                }, 'پرواز مورد نظر دیگر موجود نمی‌باشد.')
             }
-            this.$flight.expireSession(() => {
-                this.$router.push('/flights')
-            })
         }
     },
     data() {

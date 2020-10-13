@@ -1,6 +1,6 @@
 <template functional>
-    <span 
-        class="hamburger-menu" 
+    <button
+        class="btn-raw hamburger-menu"
         :class="[data.class, data.staticClass]"
         v-bind="data.attrs"
         v-on="listeners"
@@ -8,7 +8,7 @@
         <span />
         <span />
         <span />
-    </span>
+    </button>
 </template>
 
 <style lang="scss">

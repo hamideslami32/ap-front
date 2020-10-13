@@ -1,6 +1,6 @@
 <template>
     <b-container v-if="!$fetchState.pending && order" class="text-center">
-        <div v-if="order.status === 'paid'">
+        <div v-if="['paid', 'success'].includes(status)">
             <span class="circle-btn mx-auto mt-5 mb-4">
                 <svgicon width="32" height="32" name="plane-takeoff" />
             </span>
@@ -10,8 +10,12 @@
 
             <flight-order-card class="mb-4" :order="flightOrderItem" />
 
+            <div v-if="status === 'paid'">
+                در حال صدور بلیط...
+            </div>
             <a-btn
-                wrapper-class="action-btn"
+                v-if="status === 'success'"
+                wrapper-class="action-btn mb-4"
                 class="text-weight-600"
                 icon="arrow-left"
                 variant="outline-secondary"
@@ -23,7 +27,7 @@
             </a-btn>
         </div>
 
-        <div v-if="order.status === 'failed'">
+        <div v-if="status === 'failed'">
             <span class="circle-btn mx-auto mt-5 mb-4 circle-btn--failed">
                 <svgicon width="32" height="32" name="plane-delete" />
             </span>
@@ -55,7 +59,7 @@
             </a>
         </div>
 
-        <div v-if="order.status === 'pending'">
+        <div v-if="status === 'pending'">
             <span class="circle-btn mx-auto mt-5 mb-4 circle-btn--failed">
                 <svgicon width="32" height="32" name="plane-delete" />
             </span>
@@ -76,7 +80,7 @@
 
             <a-btn
                 shadow
-                wrapper-class="action-btn"
+                wrapper-class="action-btn mb-4"
                 class="text-weight-600"
                 icon="phone"
                 block
@@ -90,6 +94,7 @@
 <script>
 import FlightOrderCard from '~/components/flight/FlightOrderCard'
 import {profileApi} from '~/api/profile'
+import {axiosPolling} from '@/scripts/axios-polling'
 
 export default {
     components: {
@@ -98,11 +103,13 @@ export default {
 
     async fetch() {
         this.order = await profileApi.getOrder(this.$route.query.orderId)
+        this.status = this.order.status
     },
 
     data() {
         return {
-            order: null
+            order: null,
+            status: null
         }
     },
 
@@ -111,8 +118,15 @@ export default {
             return this.order.orderItems.find(item => item.type === 'flight')
         },
         downloadUrl() {
-            return this.$config.API_URL + '/flight/ticket/' + this.order._id
+            return (this.$config.axios.browserBaseURL || '').replace(/\/\s*$/, '') + '/flight/ticket/' + this.order._id
         }
+    },
+
+    async mounted() {
+        this.status = (await axiosPolling(() => profileApi.getOrderStatus(this.order._id), {
+            delay: 1000,
+            retryWhile: res => res.status === 'paid'
+        })).status
     }
 }
 </script>

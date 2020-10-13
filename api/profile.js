@@ -10,6 +10,10 @@ export const profileApi = new class ProfileApi extends BaseApi {
         return this.axios.$get(`/order/${orderId}`)
     }
 
+    getOrderStatus(orderId) {
+        return this.axios.$get(`/order/${orderId}/status`)
+    }
+
     getOrders() {
         return this.axios.$get('/order/')
             .then(result => {

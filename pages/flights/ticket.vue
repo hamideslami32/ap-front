@@ -60,16 +60,16 @@
                 </tbody>
             </table>
         </div>
-        <div v-for="(flight, i) in item.flights" :key="i" class="mb-5">
+        <div v-for="(flight, flightIndex) in item.flights" :key="flightIndex" class="mb-5">
             <h4 class="mb-4">
-                Flight {{ i + 1 }} &nbsp;<small>(پرواز {{ i === 0 ? 'رفت' : 'برگشت' }})</small>
+                Flight {{ flightIndex + 1 }} &nbsp;<small>(پرواز {{ flightIndex === 0 ? 'رفت' : 'برگشت' }})</small>
             </h4>
 
             <template v-for="(stop, i) in flight.stops">
                 <div :key="i" class="ticket__card">
                     <div class="ticket__card__center text-center">
                         <curve-badge width="220" class="text-nowrap mb-4">
-                            PNR: {{ item.pnr[i] }}
+                            PNR: {{ item.pnr[flightIndex] }}
                         </curve-badge>
                         <svgicon class="text-gray-700" name="plane-takeoff" width="40" height="40" />
                         <p class="mt-3 ticket__duration">

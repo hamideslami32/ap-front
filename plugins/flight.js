@@ -85,11 +85,12 @@ class Flight {
         return this.staticUrl(`/ad/airlines/logo/${iata}.png`)
     }
 
-    expireSession(onRetry) {
+    expireSession(onRetry, msg = null) {
         if (this._expireVm) return
         const vm = this._expireVm = new SearchExpirationModal({
             el: document.createElement('div')
         })
+        vm.msg = msg
         vm.$once('retry', () => {
             onRetry()
             vm.$destroy()

@@ -48,7 +48,7 @@
                         @click="selectFlight(0, i)"
                     >
                         <template v-if="!available.routes[1]" #airlineName>
-                            <span class="text-2 text-gray-3 en airline-name">{{ flight.stops[0].airlineName }}</span>
+                            <span class="text-2 text-gray-3 en airline-name">{{ getAirlines(flight).join(' ') }}</span>
                         </template>
                     </flight-date-card>
                 </div>
@@ -116,6 +116,9 @@ export default {
     methods: {
         selectFlight(i, flightIndex) {
             this.$set(this.flightTimes, i, flightIndex)
+        },
+        getAirlines(flight) {
+            return [...new Set(flight.stops.map(s => s.airlineName))]
         },
         submit() {
             if (this.flightTimes.filter(el => el != null).length < this.available.routes.length) {

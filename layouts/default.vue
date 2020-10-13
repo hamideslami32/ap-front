@@ -33,7 +33,7 @@ export default {
 
     data() {
         return {
-            sidebarOpen: false
+            sidebarOpen: this.$device.isDesktop
         }
     },
 
@@ -49,19 +49,11 @@ export default {
             }
 
             this.$refs.main.scrollTo(0, 0)
-
-        }
-    },
-
-    created() {
-        if(process.server) {
-            this.sidebarOpen = this.$device.isDesktop
-        } else {
-            this.sidebarOpen = window.innerWidth >= 1200
         }
     },
 
     mounted() {
+        this.sidebarOpen = window.innerWidth >= 1200
         this.$root.$on('sidebar', (v) => this.sidebarOpen = v)
     }
 }

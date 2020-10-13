@@ -35,7 +35,10 @@
                 </b-btn>
             </sticky-bottom>
         </header>
-        <div v-if="flight.rules" class="py-4 px-3">
+        <div v-if="loading">
+            <lottie-animation path="lottie/loading2.json" />
+        </div>
+        <div v-else-if="flight.rules" class="py-4 px-3">
             <div v-if="!showVisaRules" v-html="flight.rules.html" />
             <div v-else>
                 <p>
@@ -70,7 +73,8 @@ export default {
     },
     data() {
         return {
-            showVisaRules: false
+            showVisaRules: false,
+            loading: false
         }
     },
     watch: {
@@ -84,7 +88,12 @@ export default {
     methods: {
         async fetchRules() {
             const {session, available} = this.$flight
-            const rules = await flightApi.getFlightRules(session.id, available._id, [this.flight._id]).then(({rules}) => rules[0])
+            this.loading = true
+            const rules = await flightApi.getFlightRules(session.id, available._id, [this.flight._id])
+                .then(({rules}) => rules[0])
+                .finally(() => {
+                    this.loading = false
+                })
             this.$set(this.flight,
                 'rules',
                 rules)
