@@ -11,12 +11,15 @@
         </div>
         <div class="flight-card__items">
             <flight-item
-                v-for="(route, i) in available.routes"
-                :key="i"
                 :available="available"
-                :class="{ 'flight-item--toWay': available.routes[1] }"
-                :flight="route.flights[0]"
-                :title="i === 0 ? 'رفت' : 'برگشت'"
+                :flight="selectedFlights[0]"
+                title="رفت"
+            />
+            <flight-item
+                v-if="available.routes[1]"
+                :available="available"
+                :flight="selectedFlights[1]"
+                title="برگشت"
             />
         </div>
         <div class="clearfix">
@@ -39,7 +42,7 @@
 <script>
 import FlightItem from '~/components/flight/available/FlightItem'
 import CurveBadge from '~/components/ui/CurveBadge'
-
+import intersection from 'lodash/intersection'
 
 export default {
     components: {
@@ -50,6 +53,20 @@ export default {
         available: {
             type: Object,
             required: true
+        }
+    },
+    computed: {
+        selectedFlights() {
+            const { routes } = this.available
+            const flights = [routes[0].flights[0]]
+            if (routes[1]) {
+                if (flights[0].reserveKeys.length) {
+                    flights.push(routes[1].flights.find(f => intersection(flights[0].reserveKeys, f.reserveKeys).length === 1))
+                } else {
+                    flights.push(routes[1].flights.find(f => f.reserveKeys.length === 0))
+                }
+            }
+            return flights
         }
     }
 }

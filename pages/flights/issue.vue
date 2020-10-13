@@ -124,8 +124,8 @@ export default {
 
     async mounted() {
         this.status = (await axiosPolling(() => profileApi.getOrderStatus(this.order._id), {
-            delay: 1000,
-            retryWhile: res => res.status === 'paid'
+            delay: 3000,
+            retryWhile: (res, i) => res.status === 'paid' && i < 30
         })).status
     }
 }

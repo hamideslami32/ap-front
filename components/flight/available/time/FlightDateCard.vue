@@ -1,5 +1,5 @@
 <template>
-    <div class="flight-date-card" :class="{ active }" @click="$emit('click')">
+    <div class="flight-date-card" :class="{ active, disabled }" @click="!disabled && $emit('click')">
         <div class="flight-date-card__header">
             <span class="text-1 text-gray-700">
                 {{ flight.stops.length > 1 ? `${flight.stops.length - 1} توقف` : 'بدون توقف' }}
@@ -21,7 +21,7 @@
                 {{ flight.providerKey }}
             </span>
             <span class="text-weight-500 text-3 text-gray-900">{{ $dayjs(firstStop.departureTime).format('HH:mm') }}</span>
-            <span class="text-weight-500 text-3 text-gray-900">{{ $dayjs(firstStop.arrivalTime).format('HH:mm') }}</span>
+            <span class="text-weight-500 text-3 text-gray-900">{{ $dayjs(lastStop.arrivalTime).format('HH:mm') }}</span>
         </div>
         <div class="flight-date-card__line my-2" />
         <p class="text-center text-1 text-weight-500 text-gray-700 mb-1">
@@ -40,6 +40,10 @@ export default {
 
     props: {
         active: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
             type: Boolean,
             default: false
         }
@@ -67,6 +71,11 @@ export default {
             .flight-date-card__header {
                 background-color: $pinkColor;
             }
+        }
+
+        &.disabled {
+            opacity: 0.3;
+            pointer-events: none;
         }
 
         &__time {
@@ -125,11 +134,6 @@ export default {
 
         p {
             font-family: 'Baloo Thambi 2', Dana, Tahoma, serif;
-        }
-
-        &.disable {
-            opacity: 0.6;
-            pointer-events: none;
         }
     }
 </style>

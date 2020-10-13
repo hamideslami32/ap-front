@@ -45,6 +45,7 @@
                         :flight="flight"
                         :available="available"
                         :active="flightTimes[0] === i"
+                        :disabled="isDisabled(0, i)"
                         @click="selectFlight(0, i)"
                     >
                         <template v-if="!available.routes[1]" #airlineName>
@@ -73,6 +74,7 @@
                         :flight="flight"
                         :available="available"
                         :active="flightTimes[1] === i"
+                        :disabled="isDisabled(1, i)"
                         @click="selectFlight(1, i)"
                     />
                 </div>
@@ -92,6 +94,7 @@
 import FlightDateCard from '~/components/flight/available/time/FlightDateCard'
 import flightSearchMixin from '~/components/flight/flight-search/flightSearchMixin'
 import FlightDetailsToast from '~/components/flight/FlightDetailsToast'
+import intersection from 'lodash/intersection'
 
 export default {
     components: {FlightDetailsToast, FlightDateCard},
@@ -115,7 +118,22 @@ export default {
     },
     methods: {
         selectFlight(i, flightIndex) {
-            this.$set(this.flightTimes, i, flightIndex)
+            if (this.flightTimes[i] === flightIndex) {
+                this.$set(this.flightTimes, i, null)
+            } else {
+                this.$set(this.flightTimes, i, flightIndex)
+            }
+        },
+        isDisabled(routeIndex, flightIndex) {
+            const oRouteIndex = routeIndex === 0 ? 1 : 0
+            const oFlightIndex = this.flightTimes[oRouteIndex]
+            if (oFlightIndex == null) return false
+            const { routes } = this.available
+            const flight = routes[routeIndex].flights[flightIndex]
+            const oFlight = routes[oRouteIndex].flights[oFlightIndex]
+            if (flight.reserveKeys.length === 0 && oFlight.reserveKeys.length === 0) return false
+
+            return intersection(oFlight.reserveKeys, flight.reserveKeys).length !== 1
         },
         getAirlines(flight) {
             return [...new Set(flight.stops.map(s => s.airlineName))]

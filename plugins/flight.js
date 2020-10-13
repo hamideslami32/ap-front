@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import {flightApi} from '~/api/flightApi'
 import SearchExpirationModal from '~/components/flight/SearchExpirationModal'
+import intersection from 'lodash/intersection'
 
 class Flight {
 
@@ -73,7 +74,9 @@ class Flight {
             let count = 0
             routes[0].flights.forEach(f1 => {
                 routes[1].flights.forEach(f2 => {
-                    count += this.flightPrice(f1) + this.flightPrice(f2) === totalFare ? 1 : 0
+                    const isSamePrice = this.flightPrice(f1) + this.flightPrice(f2) === totalFare
+                    const isAssignable = (f1.reserveKeys.length + f2.reserveKeys.length === 0) || intersection(f1.reserveKeys, f2.reserveKeys).length === 1
+                    count += isSamePrice && isAssignable ? 1 : 0
                 })
             })
             return count - 1

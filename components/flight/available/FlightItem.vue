@@ -115,10 +115,8 @@ export default {
         position: relative;
 
 
-        &.flight-item--toWay {
-            &:last-child {
-                border-top: 1px dashed map_get($grays, '400');
-            }
+        &:not(:first-child) {
+            border-top: 1px dashed map_get($grays, '400');
         }
 
 
