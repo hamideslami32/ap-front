@@ -1,6 +1,7 @@
 <template>
     <div>
-        <card :is-paid="order.status === 'paid'" class="mb-3">
+        <!--        order.status === 'paid'-->
+        <card :is-paid="true" class="mb-3">
             <template #header>
                 <div class="orders-details__header d-flex align-items-center justify-content-between px-2 mb-3">
                     <div>
@@ -52,41 +53,59 @@
                 </button>
             </template>
         </card>
-        <b-modal v-model="refund" body-class="py-1 px-0 rules-modal" hide-footer>
-            <template v-slot:modal-title>
-                استرداد بلیط
-            </template>
-            <template v-slot:modal-header-close>
-                <svgicon name="delete-disabled" width="30" height="30" />
-            </template>
-            <div class="mt-4 px-3">
-                <refund v-model="departing" title="بلیط رفت" :data="order.orderItems[0].passengers" />
-                <refund
-                    v-if="order.orderItems[0].flights[1]"
-                    v-model="order.orderItems[0].passengers"
-                    :selected.sync="returning"
-                    title="برگشت"
-                />
+        <b-modal
+            v-model="refund"
+            visible
+            hide-footer
+            hide-header
+            centered
+            body-class="py-1 px-0 bg-white"
+        >
+            <div class="refund my-4 px-3">
+                <div class="mb-4 text-center">
+                    <span class="refund__icon d-inline-block ">
+                        <svgicon class="text-white" name="bookmarks-denny" width="32" height="32" />
+                    </span>
+                </div>
+                <p class="mb-3 text-gray-900 text-weight-bold px-4 text-center">
+                    به چه دلیلی مایل به استرداد بلیط خود هستید؟
+                </p>
             </div>
+            <b-form-group>
+                <div v-for="(item, i) in options" :key="i" class="d-flex align-items-center item py-3 px-2">
+                    <b-form-radio
+                        :id="item.value"
+                        v-model="problems"
+                        :value="item.value"
+                        class="ml-2"
+                        name="type1"
+                    />
+                    <label :for="item.value" class="mb-0 text-2 text-weight-500">
+                        <span class="text-gray-800 text-weight-500 text-3">{{ item.label }}</span>
+                        <span v-if="item.text" class="d-block text-gray-700 text-2 mt-2">{{ item.text }}</span>
+                    </label>
+                </div>
+            </b-form-group>
 
-            <sticky-bottom>
-                <a-btn variant="primary" :disabled="!isRefundable" shadow @click="refundRequest">
-                    درخواست استرداد
+            <div class="d-flex align-items-center justify-content-center mb-2">
+                <a-btn class="action-btn py-2 text-2 text-weight-500 ml-2" variant="primary" @click="refund = false">
+                    بازگشت
                 </a-btn>
-            </sticky-bottom>
+                <a-btn class="action-btn py-2 text-2 text-weight-500 bg-white" variant="outline-secondary">
+                    مرحله بعد
+                </a-btn>
+            </div>
         </b-modal>
     </div>
 </template>
 <script>
 import Card from '~/components/ui/Card'
-import Refund from '~/components/profile/refund'
-import StickyBottom from '~/components/ui/StickyBottom'
 import {flightApi} from '~/api/flightApi'
 
 
 export default {
     name: 'OrderCard',
-    components: {StickyBottom, Refund, Card},
+    components: {Card},
     props: {
         order: {
             type: Object,
@@ -96,8 +115,12 @@ export default {
     data() {
         return {
             refund: false,
-            departing: [],
-            returning: []
+            problems: '',
+            options: [
+                {label:'دلایل شخصی', text: '(استرداد بر اساس قوانین شرکتهای هواپیمایی)', value: 'type1'},
+                {label:'لغو پرواز توسط ایرلاین', text: '(انصراف مسافر از پرواز به دلیل شرایط بد جوی)', value: 'type2'},
+                {label:'تاخیر یا تعجیل پرواز بیش از دو ساعت', text: null, value: 'type3'}
+            ]
         }
     },
     computed: {
@@ -137,5 +160,59 @@ export default {
     /deep/ .btn.disabled {
         opacity: 1;
         background: #6c757d;
+    }
+
+    /deep/ .modal-dialog-centered {
+        /deep/.modal-content {
+            width: 90%;
+            margin: 0 auto;
+            height: unset;
+            border-radius: 5px;
+        }
+
+        /deep/.modal-body {
+            border-radius: 5px;
+        }
+    }
+
+    .refund {
+
+        &__icon {
+            margin: 0 auto;
+            background-color: $secondary;
+            padding: 24px;
+            border-radius: 50%;
+        }
+    }
+
+    .item {
+        &:not(:last-child) {
+            border-bottom: 1px solid map_get($grays, '500');
+        }
+    }
+
+    .action-btn {
+        min-width: 155px;
+        border-radius: 5px;
+    }
+
+    .custom-radio {
+        display: inline-flex;
+        width: 20px;
+        padding: 0;
+        height: unset;
+        max-width: unset;
+        align-items: flex-start;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+
+        label {
+            width: 100%;
+
+            &:before, &:after {
+                left: 0;
+            }
+        }
     }
 </style>

@@ -14,6 +14,7 @@
 <style lang="scss">
     .hamburger-menu {
         z-index: 2;
+        cursor: pointer;
         > span {
             width: 24px;
             height: 2px;
