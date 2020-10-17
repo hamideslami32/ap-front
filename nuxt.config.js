@@ -75,6 +75,7 @@ export default {
         // '@nuxt/content',
         '@nuxtjs/device',
         '@nuxtjs/universal-storage',
+        // '@nuxtjs/strapi',
         'bootstrap-vue/nuxt'
     ],
     /*
@@ -150,4 +151,8 @@ export default {
             short_name: 'Apro'
         }
     }
+    // strapi: {
+    //     entities: ['blog-posts'],
+    //     url: process.env.STRAPI_URL
+    // }
 }
