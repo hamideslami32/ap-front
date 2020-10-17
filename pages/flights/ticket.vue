@@ -55,7 +55,7 @@
                         <td><svgicon name="user" width="24" height="24" /> &nbsp;{{ p.name.en }} {{ p.surname.en }}</td>
                         <td>{{ p.nationalCode || p.passportNumber }}</td>
                         <td>{{ p.type }}</td>
-                        <td>{{ item.ticketNumbers[i] || '?' }}</td>
+                        <td>{{ item.reserves.map(r => r.ticketNumbers[i]).filter(Boolean).join(', ') || '?' }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -69,7 +69,7 @@
                 <div :key="i" class="ticket__card">
                     <div class="ticket__card__center text-center">
                         <curve-badge width="220" class="text-nowrap mb-4">
-                            PNR: {{ item.pnr[flightIndex] }}
+                            PNR: {{ (item.reserves.find(r => r.flightIndex === flightIndex) || { pnr: '?' }).pnr }}
                         </curve-badge>
                         <svgicon class="text-gray-700" name="plane-takeoff" width="40" height="40" />
                         <p class="mt-3 ticket__duration">
