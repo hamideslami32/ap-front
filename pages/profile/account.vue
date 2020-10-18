@@ -266,7 +266,6 @@ export default {
 
 <style lang="scss" scoped>
     .account {
-
         &__show, &__edit-section {
             color: map_get($grays, '700');
         }

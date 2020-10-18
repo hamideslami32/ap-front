@@ -93,7 +93,7 @@
                 <a-btn class="action-btn py-2 text-2 text-weight-500 ml-2" variant="primary" @click="refund = false">
                     بازگشت
                 </a-btn>
-                <a-btn class="action-btn py-2 text-2 text-weight-500" variant="outline-secondary">
+                <a-btn :disabled="!isSelectType" class="action-btn py-2 text-2 text-weight-500" variant="outline-secondary" @click="pushRefund(order._id)">
                     مرحله بعد
                 </a-btn>
             </div>
@@ -128,6 +128,9 @@ export default {
     computed: {
         isRefundable() {
             return this.returning.length || this.departing.length
+        },
+        isSelectType() {
+            return this.problems.length
         }
     },
     methods: {
@@ -153,6 +156,14 @@ export default {
 
             } catch (err) {
             }
+        },
+        pushRefund(orderId) {
+            this.$router.push({
+                path: '/flights/refund/' + orderId,
+                query: {
+                    type: this.problems
+                }
+            })
         }
     }
 }
