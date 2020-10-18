@@ -1,25 +1,22 @@
 <template>
     <div>
         <!--        order.status === 'paid'-->
-        <card :is-paid="true" class="mb-3">
+        <card class="mb-3">
             <template #header>
-                <div class="orders-details__header d-flex align-items-center justify-content-between px-2 mb-3">
+                <div class="orders-details__header d-flex align-items-center justify-content-between px-2 pb-3 text-weight-500">
                     <div>
-                        <p class="mb-2l">
-                            شماره سفارش
-                        </p>
-                        <p class="text-2 mb-0">
+                        <p class="mb-0 text-gray-800">
                             پرواز داخلی
                         </p>
                     </div>
                     <div class="d-flex align-items-center">
-                        <span class="ml-2">{{ order._id }}</span>
-                        <span>
+                        <span class="ml-2 text-gray-900">{{ order._id }}</span>
+                        <span class="orders-details__icon p-2">
                             <svgicon name="airplane-travel" width="30" height="30" />
                         </span>
                     </div>
                 </div>
-                <div class="orders-details__main text-2">
+                <div class="orders-details__main text-2 mt-3">
                     <div class="d-flex align-items-center justify-content-between px-2">
                         <span>مسیر</span>
                         <span class="text-gray-800">{{ order.orderItems[0].flights[0].departureCity }} به {{ order.orderItems[0].flights[0].arrivalCity }}</span>
@@ -40,17 +37,22 @@
                             {{ order.orderItems[0].price | separateNumber }} <small class="text-gray-700">تومان</small>
                         </span>
                     </div>
+                    <template v-if="['paid', 'success', 'failed'].includes(order.status)">
+                        <div class="d-flex align-items-center px-2 mt-3">
+                            <!--                        v-if="['success'].includes(order.status)"-->
+                            <a-btn class="text-2 w-100" wrapper-class="d-flex flex-grow-1 ml-2" variant="outline-primary" @click="getPDF">
+                                دریافت بلیط
+                            </a-btn>
+                            <!--                v-if="['success', 'paid'].includes(order.status)"-->
+                            <a-btn class="text-2 w-100" wrapper-class="d-flex flex-grow-1 mr-2" variant="outline-secondary" @click="refund = true">
+                                استرداد بلیط
+                            </a-btn>
+                        </div>
+                        <!--                        <a-btn v-if="order.status === 'failed'">
+                            تماس با پشتیبانی
+                        </a-btn>-->
+                    </template>
                 </div>
-            </template>
-            <template #footer>
-                <button class="btn-raw custom-card__actions__btn" @click="getPDF">
-                    <svgicon class="text-primary" name="bookmarks-accept" width="26" height="26" />
-                    <span class="text-1 mt-2 text-gray-900">دریافت بلیط</span>
-                </button>
-                <button class="btn-raw custom-card__actions__btn" @click="refund = true">
-                    <svgicon class="text-secondary" name="bookmarks-denny" width="26" height="26" />
-                    <span class="text-1 mt-2 text-gray-900">استرداد بلیط</span>
-                </button>
             </template>
         </card>
         <b-modal
@@ -80,7 +82,7 @@
                         class="ml-2"
                         name="type1"
                     />
-                    <label :for="item.value" class="mb-0 text-2 text-weight-500">
+                    <label :for="item.value" class="mb-0 text-2 text-weight-500 w-100">
                         <span class="text-gray-800 text-weight-500 text-3">{{ item.label }}</span>
                         <span v-if="item.text" class="d-block text-gray-700 text-2 mt-2">{{ item.text }}</span>
                     </label>
@@ -91,7 +93,7 @@
                 <a-btn class="action-btn py-2 text-2 text-weight-500 ml-2" variant="primary" @click="refund = false">
                     بازگشت
                 </a-btn>
-                <a-btn class="action-btn py-2 text-2 text-weight-500 bg-white" variant="outline-secondary">
+                <a-btn class="action-btn py-2 text-2 text-weight-500" variant="outline-secondary">
                     مرحله بعد
                 </a-btn>
             </div>
@@ -172,6 +174,17 @@ export default {
 
         /deep/.modal-body {
             border-radius: 5px;
+        }
+    }
+
+    .orders-details {
+        &__header {
+            border-bottom: 1px solid map_get($grays, '400');
+        }
+        &__icon {
+            background: map_get($grays, '250');
+            border-radius: 5px;
+            border: 1px solid map_get($grays, '500');
         }
     }
 

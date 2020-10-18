@@ -33,7 +33,7 @@ export default {
         align-items: center;
         justify-content: space-between;
         background: map-get($grays, '250');
-        border: 1px solid map_get($grays, '600');
+        border: 1px solid map_get($grays, '400');
         border-radius: 10px;
         padding: 14px 20px;
 

@@ -28,6 +28,7 @@
     "@nuxtjs/axios": "^5.11.0",
     "@nuxtjs/device": "^1.2.7",
     "@nuxtjs/router-extras": "^1.1.0",
+    "@nuxtjs/strapi": "^0.1.7",
     "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/universal-storage": "^0.5.5",
     "axios": "^0.19.2",

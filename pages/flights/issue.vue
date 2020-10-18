@@ -118,15 +118,20 @@ export default {
             return this.order.orderItems.find(item => item.type === 'flight')
         },
         downloadUrl() {
-            return (this.$config.axios.browserBaseURL || '').replace(/\/\s*$/, '') + '/flight/ticket/' + this.order._id
+            return (this.$config.axios.browserBaseURL || '').replace(/\/\s*$/, '') + '/flight/ticket/' + this.$route.query.orderId
         }
     },
 
     async mounted() {
-        this.status = (await axiosPolling(() => profileApi.getOrderStatus(this.order._id), {
-            delay: 3000,
-            retryWhile: (res, i) => res.status === 'paid' && i < 30
-        })).status
+        try {
+            this.status = (await axiosPolling(() => profileApi.getOrderStatus(this.$route.query.orderId), {
+                delay: 3000,
+                retryWhile: (res, i) => res.status === 'paid' && i < 10,
+                retryOnError: true
+            })).status
+        } catch (err) {
+            this.status = 'failed'
+        }
     }
 }
 </script>

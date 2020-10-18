@@ -192,4 +192,9 @@ export default {
             }
         }
     }
+
+    /deep/ .custom-card {
+        background: $white;
+        border: none;
+    }
 </style>

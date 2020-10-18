@@ -4,7 +4,7 @@
             <div class="text-center d-flex align-items-center justify-content-center">
                 <svgicon name="money" width="20" height="20" />
                 <span class="mr-2 text-2">
-                    قیمت برای هر نفر {{ pricePerPassenger | separateNumber }} تومان
+                    میانگین قیمت برای هر نفر {{ pricePerPassenger | separateNumber }} تومان
                 </span>
             </div>
         </toast-card>

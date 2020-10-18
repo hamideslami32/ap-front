@@ -23,7 +23,7 @@ Vue.prototype.$translate = function(x) {
 }
 
 Vue.prototype.$statusChecker = function(x) {
-    return status.find(item => item.name === x)
+    return status.find(item => item.name === x) || {}
 }
 
 Vue.filter('translate', Vue.prototype.$translate)

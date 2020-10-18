@@ -1,7 +1,7 @@
 <template>
     <div>
         <portal to="header-right">
-            <nuxt-link class="text-white" to="/profile/account">
+            <nuxt-link class="text-white profile-btn" to="/profile/account">
                 <svgicon width="30" height="30" name="userProfile-Hexagon" />
             </nuxt-link>
         </portal>
@@ -114,5 +114,12 @@ export default {
                 color: $white;
             }
         }
+    }
+
+    .profile-btn {
+        position: absolute;
+        padding: 15px;
+        top: 0;
+        margin-right: -10px;
     }
 </style>
