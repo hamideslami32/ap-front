@@ -209,7 +209,7 @@ export default {
                 overflow-y: scroll;
                 height: 100%;
 
-                padding: 0 10px 80px;
+                padding: 0 10px 130px;
             }
 
             &__info {
@@ -225,10 +225,6 @@ export default {
 
         /deep/ .flight-date-card {
             margin-bottom: 15px;
-
-            &:last-child {
-                margin-bottom: 60px;
-            }
         }
     }
 
