@@ -1,8 +1,8 @@
 <template>
     <div class="container">
         <app-navs />
-        <!-- <nuxt-child /> -->
-        <flight-search />
+        <nuxt-child />
+        <flight-search v-if="$route.path === '/'" />
     </div>
 </template>
 

@@ -22,9 +22,9 @@ export default {
     data() {
         return {
             links: [
-                { name: 'جستجوی پرواز', icon: 'flight', url: '/', disable: false },
-                { name: 'جستجوی هتل', icon: 'hotel', url: '/hotels', disable: true },
-                { name: 'جستجوی تور', icon: 'tour', url: '/tours', disable: true }
+                { name: 'جستجوی پرواز', icon: 'flight', url: '/flights', disable: false },
+                { name: 'جستجوی هتل', icon: 'hotel', url: '/hotels', disable: false },
+                { name: 'جستجوی تور', icon: 'tour', url: '/tours', disable: false }
             ]
         }
     }
