@@ -57,12 +57,13 @@
         <div v-else class="mx-2 mb-3">
             <div
                 class="refund__select-all checkbox bg-gray-250 d-flex align-items-center"
-                :class="{ 'bg-light-primary': allPassenger }"
+                :class="{ 'bg-light-primary': isAllPassengersSelected }"
             >
                 <b-form-checkbox
                     id="checkbox"
-                    v-model="selectAllPassenger"
+                    :checked="isAllPassengersSelected"
                     name="checkbox"
+                    @change="isAllPassengersSelected = $event"
                 />
                 <label class="mr-2 mb-0 p-2 d-flex flex-grow-1 text-3 text-gray-800" for="checkbox">
                     همه مسافرین
@@ -77,12 +78,12 @@
             >
                 <div class="d-flex align-items-center mb-3">
                     <b-form-checkbox
-                        :id="`checkbox${i}`"
+                        :id="`passenger_checkbox_${i}`"
+                        v-model="selectedPassengers"
                         name="checkbox"
-                        :checked="selectedPassengers.includes(i)"
-                        @change="selectPassenger($event,i)"
+                        :value="i"
                     />
-                    <label class="mr-2 mb-0 p-2 d-flex flex-grow-1 text-3 text-gray-800" :for="`checkbox${i}`">
+                    <label class="mr-2 mb-0 p-2 d-flex flex-grow-1 text-3 text-gray-800" :for="`passenger_checkbox_${i}`">
                         {{ passenger.surName + ' ' + passenger.lastName }}
                     </label>
                 </div>
@@ -158,7 +159,6 @@ export default {
                 { value: 'departing', title: 'رفت' }
             ],
             selectedRoute: '',
-            allPassenger: false,
             acceptRules: false,
             loading: false,
             // mockData for Passenger TODO: must use api to show passengers
@@ -190,20 +190,12 @@ export default {
                 { value: 'returning', title: 'برگشت' }
             ]
         },
-        selectAllPassenger: {
+        isAllPassengersSelected: {
             get() {
-                return this.allPassenger
-
-                // if (this.selectedPassengers.length) {
-                //     return this.allPassengers
-                // } else {
-                //     return
-                // }
-                // return this.selectedPassengers.length === this.passengers.length
+                return this.selectedPassengers.length === this.passengers.length
             },
             set(value) {
-                this.allPassenger = value
-                if(value) {
+                if (value) {
                     this.selectedPassengers = this.passengers.map((item , i) => i)
                 } else {
                     this.selectedPassengers = []
@@ -260,24 +252,6 @@ export default {
                     step: 2
                 }
             })
-        },
-        selectPassenger(event, index) {
-            if(event) {
-                this.selectedPassengers.push(index)
-                if(this.selectedPassengers.length === this.passengers.length) {
-                    this.allPassenger = true
-                }
-            } else {
-                const itemIndex = this.selectedPassengers.indexOf(index)
-                this.selectedPassengers.splice(itemIndex, 1)
-                if (this.selectedPassengers.length === 0) {
-                    this.allPassenger = false
-                }
-
-                //     if(this.selectedPassengers.length === this.passengers.length) {
-                // }
-                // this.allPassenger = false
-            }
         },
         refund() {
             if(!this.selectedPassengers.length > 0) {

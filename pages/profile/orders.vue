@@ -9,11 +9,11 @@
         <template v-if="!orders">
             <flight-place-holder v-for="i in 3" :key="i" />
         </template>
-        <b-alert v-else-if="!orders.length > 0" class="text-center" show variant="primary">
+        <b-alert v-else-if="!orders.items.length > 0" class="text-center" show variant="primary">
             نتیجه ای یافت نشد!
         </b-alert>
         <template v-else>
-            <order-card v-for="order in orders" :key="order._id" :order="order" />
+            <order-card v-for="order in orders.items" :key="order._id" :order="order" />
         </template>
 
         <!--        <btn-wrapper>
