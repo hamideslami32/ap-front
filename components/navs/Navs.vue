@@ -3,7 +3,7 @@
         <nuxt-link
             v-for="link in links"
             :key="link.url"
-            active-class="active"
+            exact-active-class="active"
             class="nav-item"
             :to="link.url"
             :class="{ 'disable': link.disable }"
@@ -22,7 +22,7 @@ export default {
     data() {
         return {
             links: [
-                { name: 'جستجوی پرواز', icon: 'flight', url: '/flights', disable: false },
+                { name: 'جستجوی پرواز', icon: 'flight', url: '/', disable: false },
                 { name: 'جستجوی هتل', icon: 'hotel', url: '/hotels', disable: false },
                 { name: 'جستجوی تور', icon: 'tour', url: '/tours', disable: false }
             ]
