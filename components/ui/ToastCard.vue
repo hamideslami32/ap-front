@@ -23,10 +23,10 @@ export default {
     .toast-card {
         padding: 5px;
         border-radius: 5px;
-        background: map_get($grays, '1000');
+        background: map_get($grays, '900');
 
         &.light {
-            background: map_get($grays, '900');
+            background: map_get($grays, '800');
         }
     }
 </style>

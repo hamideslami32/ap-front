@@ -303,7 +303,6 @@ export default {
                 })
             }
         },
-
         research() {
             this.refresh()
         },
