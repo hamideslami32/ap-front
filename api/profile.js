@@ -17,7 +17,7 @@ export const profileApi = new class ProfileApi extends BaseApi {
     getOrders() {
         return this.axios.$get('/order/')
             .then(result => {
-                result.forEach(item => {
+                result.items.forEach(item => {
                     item.orderItems.forEach(order => {
                         order.flights = order.flights.map(flight =>  new Flight(flight))
                     })
