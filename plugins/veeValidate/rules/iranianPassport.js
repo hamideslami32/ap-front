@@ -1,9 +1,9 @@
 import {extend} from 'vee-validate'
 
 
-extend('alpha_spaces', {
+extend('iranianPassport', {
     validate(value) {
-        return /^[A-Za-z ]+$/.test(value)
+        return /[a-zA-Z]{1}[0-9]{7,8}+$/.test(value)
     },
     message: '{_field_} را صحیح وارد نمایید'
 })
